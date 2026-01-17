@@ -398,24 +398,6 @@
             background: #364168;
         }
 
-        .btn-quick-view {
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-quick-view:hover {
-            border-color: #667eea;
-            color: #667eea;
-        }
-
         /* URGENCY ELEMENTS */
         .urgency-bar {
             background: #fff3cd;
@@ -680,7 +662,6 @@
                     </div>
                     <div class="product-actions">
                         <button class="btn-add-cart" onclick="addToCart('${product.name.replace(/'/g, "&#39;")}', ${price})">Add to Cart</button>
-                        <button class="btn-quick-view" onclick="window.location.href='/product?sku=${skuParam}'">👁️</button>
                     </div>
                 </div>
             `;
@@ -697,7 +678,7 @@
                     window.location.href = `/product?sku=${skuParam}`;
                 });
             }
-            card.querySelectorAll('.btn-add-cart, .btn-quick-view').forEach((btn) => {
+            card.querySelectorAll('.btn-add-cart').forEach((btn) => {
                 btn.addEventListener('click', stopClick);
             });
             return card;
