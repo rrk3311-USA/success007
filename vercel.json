@@ -1,4 +1,5 @@
 {
+  "installCommand": "echo 'Skipping install - static site only'",
   "buildCommand": "echo 'No build required - static site'",
   "outputDirectory": "deploy-site",
   "cleanUrls": true,
