@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loyalty Rewards - Success Chemistry</title>
+    <meta name="description" content="View your loyalty points, rewards history, and redeem points for discounts.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            color: #0a234e;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .points-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .points-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .points-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .points-card.primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .points-card.primary::before {
+            background: linear-gradient(90deg, #ffd34d, #d4af37);
+        }
+
+        .points-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .points-value {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .points-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 600;
+        }
+
+        .points-sublabel {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+
+        .redemption-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .redemption-section h2 {
+            color: #0a234e;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .redemption-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .redemption-option {
+            border: 2px solid #e9ecef;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .redemption-option:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .redemption-option.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .redemption-option.disabled:hover {
+            transform: none;
+            border-color: #e9ecef;
+        }
+
+        .redemption-points {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .redemption-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0a234e;
+            margin-bottom: 15px;
+        }
+
+        .redeem-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 999px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .redeem-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .redeem-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .history-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .history-section h2 {
+            color: #0a234e;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #e9ecef;
+            transition: all 0.3s;
+        }
+
+        .history-item:hover {
+            background: #f8f9fa;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-info {
+            flex: 1;
+        }
+
+        .history-type {
+            font-weight: 700;
+            color: #0a234e;
+            margin-bottom: 5px;
+        }
+
+        .history-type.earned {
+            color: #27ae60;
+        }
+
+        .history-type.redeemed {
+            color: #e74c3c;
+        }
+
+        .history-description {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .history-date {
+            font-size: 0.85rem;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .history-points {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-align: right;
+        }
+
+        .history-points.earned {
+            color: #27ae60;
+        }
+
+        .history-points.redeemed {
+            color: #e74c3c;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .points-value {
+                font-size: 2.5rem;
+            }
+
+            .history-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .history-points {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">← Back to Shop</a>
+
+        <div class="header">
+            <h1>⭐ Loyalty Rewards</h1>
+            <p>Earn 5 points for every $1 spent. Redeem points for discounts!</p>
+        </div>
+
+        <!-- Points Overview -->
+        <div class="points-overview">
+            <div class="points-card primary">
+                <div class="points-icon">⭐</div>
+                <div class="points-value" id="currentPoints">0</div>
+                <div class="points-label">Available Points</div>
+                <div class="points-sublabel" id="pointsValue">Worth $0.00</div>
+            </div>
+
+            <div class="points-card">
+                <div class="points-icon">🎉</div>
+                <div class="points-value" id="totalEarned">0</div>
+                <div class="points-label">Total Earned</div>
+            </div>
+
+            <div class="points-card">
+                <div class="points-icon">🎁</div>
+                <div class="points-value" id="totalRedeemed">0</div>
+                <div class="points-label">Total Redeemed</div>
+            </div>
+        </div>
+
+        <!-- Redemption Options -->
+        <div class="redemption-section">
+            <h2>Redeem Your Points</h2>
+            <div class="redemption-options" id="redemptionOptions"></div>
+        </div>
+
+        <!-- Points History -->
+        <div class="history-section">
+            <h2>Points History</h2>
+            <div id="historyContainer"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/config.js"></script>
+    <script src="/loyalty-points.js"></script>
+
+    <script>
+        // Load and display loyalty data
+        function loadLoyaltyData() {
+            const data = window.LoyaltyPoints.getData();
+            
+            if (!data) {
+                console.error('No loyalty data found');
+                return;
+            }
+
+            // Update overview cards
+            document.getElementById('currentPoints').textContent = data.points.toLocaleString();
+            document.getElementById('totalEarned').textContent = data.totalEarned.toLocaleString();
+            document.getElementById('totalRedeemed').textContent = data.totalRedeemed.toLocaleString();
+            
+            const dollarValue = window.LoyaltyPoints.pointsToDollars(data.points);
+            document.getElementById('pointsValue').textContent = `Worth $${dollarValue}`;
+
+            // Load redemption options
+            loadRedemptionOptions(data.points);
+
+            // Load history
+            loadHistory(data.history);
+        }
+
+        // Create redemption options
+        function loadRedemptionOptions(currentPoints) {
+            const options = [
+                { points: 500, value: 5 },
+                { points: 1000, value: 10 },
+                { points: 2000, value: 20 },
+                { points: 5000, value: 50 }
+            ];
+
+            const container = document.getElementById('redemptionOptions');
+            container.innerHTML = options.map(option => {
+                const canRedeem = currentPoints >= option.points;
+                return `
+                    <div class="redemption-option ${canRedeem ? '' : 'disabled'}" 
+                         onclick="${canRedeem ? `redeemPoints(${option.points})` : ''}">
+                        <div class="redemption-points">${option.points.toLocaleString()} pts</div>
+                        <div class="redemption-value">= $${option.value} OFF</div>
+                        <button class="redeem-btn" ${canRedeem ? '' : 'disabled'}>
+                            ${canRedeem ? 'Redeem Now' : 'Not Enough Points'}
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Redeem points
+        function redeemPoints(points) {
+            if (confirm(`Redeem ${points} points for a discount coupon?`)) {
+                const discountValue = window.LoyaltyPoints.redeemPoints(points);
+                
+                if (discountValue) {
+                    const couponCode = window.LoyaltyPoints.generateCouponCode(points);
+                    alert(`✅ Success! Your coupon code is: ${couponCode}\n\nThis gives you $${discountValue} off your next order!\n\nCoupon expires in 30 days.`);
+                    loadLoyaltyData(); // Refresh display
+                }
+            }
+        }
+
+        // Load history
+        function loadHistory(history) {
+            const container = document.getElementById('historyContainer');
+            
+            if (!history || history.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📋</div>
+                        <p>No points history yet. Make a purchase to start earning!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = history.map(item => {
+                const date = new Date(item.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+                const sign = item.type === 'earned' ? '+' : '-';
+                const typeClass = item.type === 'earned' ? 'earned' : 'redeemed';
+
+                return `
+                    <div class="history-item">
+                        <div class="history-info">
+                            <div class="history-type ${typeClass}">
+                                ${item.type === 'earned' ? '🎉 Points Earned' : '🎁 Points Redeemed'}
+                            </div>
+                            <div class="history-description">${item.description}</div>
+                            ${item.orderNumber ? `<div class="history-date">Order: ${item.orderNumber}</div>` : ''}
+                            <div class="history-date">${date}</div>
+                        </div>
+                        <div class="history-points ${typeClass}">
+                            ${sign}${item.points.toLocaleString()}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadLoyaltyData();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Products Data</title>
+</head>
+<body>
+    <h1>Testing Products Data</h1>
+    <div id="output"></div>
+    
+    <script src="/products-data.js"></script>
+    <script>
+        const output = document.getElementById('output');
+        
+        // Test 1: Check if functions exist
+        output.innerHTML += '<h2>Test 1: Functions Exist?</h2>';
+        output.innerHTML += '<p>window.getProductBySKU: ' + (typeof window.getProductBySKU) + '</p>';
+        output.innerHTML += '<p>window.getAllProducts: ' + (typeof window.getAllProducts) + '</p>';
+        output.innerHTML += '<p>window.PRODUCTS_DATA: ' + (typeof window.PRODUCTS_DATA) + '</p>';
+        
+        // Test 2: Get all products
+        output.innerHTML += '<h2>Test 2: Get All Products</h2>';
+        if (typeof window.getAllProducts === 'function') {
+            const products = window.getAllProducts();
+            output.innerHTML += '<p>Total products: ' + products.length + '</p>';
+            output.innerHTML += '<p>First product: ' + (products[0] ? products[0].name : 'none') + '</p>';
+        } else {
+            output.innerHTML += '<p style="color:red">getAllProducts is not a function!</p>';
+        }
+        
+        // Test 3: Get specific product
+        output.innerHTML += '<h2>Test 3: Get Product by SKU</h2>';
+        if (typeof window.getProductBySKU === 'function') {
+            const product1 = window.getProductBySKU('52274-401');
+            output.innerHTML += '<p>52274-401: ' + (product1 ? product1.name : 'NOT FOUND') + '</p>';
+            
+            const product2 = window.getProductBySKU('20647-507');
+            output.innerHTML += '<p>20647-507: ' + (product2 ? product2.name : 'NOT FOUND') + '</p>';
+        } else {
+            output.innerHTML += '<p style="color:red">getProductBySKU is not a function!</p>';
+        }
+        
+        // Test 4: Direct access to PRODUCTS_DATA
+        output.innerHTML += '<h2>Test 4: Direct PRODUCTS_DATA Access</h2>';
+        if (window.PRODUCTS_DATA) {
+            output.innerHTML += '<p>PRODUCTS_DATA["52274-401"]: ' + (window.PRODUCTS_DATA["52274-401"] ? window.PRODUCTS_DATA["52274-401"].name : 'NOT FOUND') + '</p>';
+            output.innerHTML += '<p>PRODUCTS_DATA["20647-507"]: ' + (window.PRODUCTS_DATA["20647-507"] ? window.PRODUCTS_DATA["20647-507"].name : 'NOT FOUND') + '</p>';
+            output.innerHTML += '<p>Total keys in PRODUCTS_DATA: ' + Object.keys(window.PRODUCTS_DATA).length + '</p>';
+        } else {
+            output.innerHTML += '<p style="color:red">PRODUCTS_DATA not found!</p>';
+        }
+    </script>
+</body>
+</html>

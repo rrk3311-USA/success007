@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success Chemistry - Dashboard Home</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: rgba(255,255,255,0.9);
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 50px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .card-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .card-button:hover {
+            opacity: 0.9;
+        }
+
+        .quick-stats {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+    
+
+.footer {
+            background: #2854a6;
+            color: white;
+            padding: 80px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand p {
+            margin-top: 20px;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .footer-logo img {
+            height: 50px;
+        }
+
+        .footer-links h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .footer-links a {
+            display: block;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-legal a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .product-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .price {
+                font-size: 2rem;
+            }
+            
+            .description-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ Success Chemistry</h1>
+        <p class="subtitle">Your Complete E-Commerce Command Center</p>
+
+        <!-- Quick Stats -->
+        <div class="quick-stats">
+            <h2 style="color: #333; margin-bottom: 10px;">Quick Overview</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value" id="totalCustomers">58</div>
+                    <div class="stat-label">Customers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="totalProducts">58</div>
+                    <div class="stat-label">Products</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="totalOrders">100</div>
+                    <div class="stat-label">Orders</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">$0</div>
+                    <div class="stat-label">Revenue</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Cards -->
+        <div class="dashboard-grid">
+            <!-- CRM -->
+            <div class="dashboard-card" onclick="window.open('crm-dashboard.html', '_blank')">
+                <div class="card-icon">👥</div>
+                <div class="card-title">Customer CRM</div>
+                <div class="card-description">
+                    View all 58 paying customers with names, emails, phone numbers, addresses, and order history.
+                </div>
+                <a href="crm-dashboard.html" class="card-button" onclick="event.stopPropagation()">Open CRM →</a>
+            </div>
+
+            <!-- Products -->
+            <div class="dashboard-card" onclick="window.open('products-dashboard.html', '_blank')">
+                <div class="card-icon">📦</div>
+                <div class="card-title">Products</div>
+                <div class="card-description">
+                    Manage your 58 products from WooCommerce. View prices, inventory, categories, and images.
+                </div>
+                <a href="products-dashboard.html" class="card-button" onclick="event.stopPropagation()">View Products →</a>
+            </div>
+
+            <!-- Orders -->
+            <div class="dashboard-card" onclick="window.open('customers-orders-dashboard.html', '_blank')">
+                <div class="card-icon">📋</div>
+                <div class="card-title">Orders & Subscriptions</div>
+                <div class="card-description">
+                    View all orders, track subscriptions, and monitor customer purchase history.
+                </div>
+                <a href="customers-orders-dashboard.html" class="card-button" onclick="event.stopPropagation()">View Orders →</a>
+            </div>
+
+            <!-- Analytics -->
+            <div class="dashboard-card" onclick="window.open('analytics-dashboard.html', '_blank')">
+                <div class="card-icon">📊</div>
+                <div class="card-title">Analytics</div>
+                <div class="card-description">
+                    Revenue charts, customer analytics, product performance, and business insights.
+                </div>
+                <a href="analytics-dashboard.html" class="card-button" onclick="event.stopPropagation()">View Analytics →</a>
+            </div>
+
+            <!-- Fleet Manager AI -->
+            <div class="dashboard-card" onclick="window.open('test-fleet-manager.html', '_blank')">
+                <div class="card-icon">🤖</div>
+                <div class="card-title">Fleet Manager AI</div>
+                <div class="card-description">
+                    8 AI agents to optimize sales, content, ads, subscriptions, and customer retention.
+                </div>
+                <a href="test-fleet-manager.html" class="card-button" onclick="event.stopPropagation()">Launch AI →</a>
+            </div>
+
+            <!-- WooCommerce Sync -->
+            <div class="dashboard-card" onclick="window.open('woocommerce-sync.html', '_blank')">
+                <div class="card-icon">🔄</div>
+                <div class="card-title">WooCommerce Sync</div>
+                <div class="card-description">
+                    Sync all products, customers, and orders from your WooCommerce store.
+                </div>
+                <a href="woocommerce-sync.html" class="card-button" onclick="event.stopPropagation()">Sync Data →</a>
+            </div>
+
+            <!-- Checkout Page -->
+            <div class="dashboard-card" onclick="window.open('checkout-upsell.html', '_blank')">
+                <div class="card-icon">💰</div>
+                <div class="card-title">Upsell Checkout</div>
+                <div class="card-description">
+                    Optimized checkout page with upsells, cross-sells, and lead magnet email capture.
+                </div>
+                <a href="checkout-upsell.html" class="card-button" onclick="event.stopPropagation()">View Checkout →</a>
+            </div>
+
+            <!-- Heatmaps -->
+            <div class="dashboard-card" onclick="window.open('heatmap-viewer.html', '_blank')">
+                <div class="card-icon">🔥</div>
+                <div class="card-title">Heatmaps & Tracking</div>
+                <div class="card-description">
+                    See where users click, scroll depth, page flow, and conversion funnel analytics.
+                </div>
+                <a href="heatmap-viewer.html" class="card-button" onclick="event.stopPropagation()">View Heatmaps →</a>
+            </div>
+
+            <!-- Product Images -->
+            <div class="dashboard-card" onclick="window.open('product-image-manager.html', '_blank')">
+                <div class="card-icon">📸</div>
+                <div class="card-title">Product Images</div>
+                <div class="card-description">
+                    Manage product images, automatic downloads from WooCommerce, and image mapping.
+                </div>
+                <a href="product-image-manager.html" class="card-button" onclick="event.stopPropagation()">Manage Images →</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load quick stats
+        async function loadStats() {
+            try {
+                const customersRes = await fetch('http://localhost:3001/api/customers');
+                const customers = await customersRes.json();
+                document.getElementById('totalCustomers').textContent = customers.length;
+
+                const productsRes = await fetch('http://localhost:3001/api/products');
+                const products = await productsRes.json();
+                document.getElementById('totalProducts').textContent = products.length;
+
+                const ordersRes = await fetch('http://localhost:3001/api/orders');
+                const orders = await ordersRes.json();
+                document.getElementById('totalOrders').textContent = orders.length;
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        loadStats();
+    </script>
+
+
+<!-- Footer -->
+    <footer class="footer">
+        <div style="background: #2854a6; padding: 20px; text-align: center;">
+            <a href="/cart" style="display: inline-block; margin-bottom: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><img src="/public/images/view-cart-button.png" alt="View Cart" style="max-width: 150px; height: auto; cursor: pointer;"></a>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 10px;"><img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;"></div>
+        </div>
+        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
+        <div style="background: #2854a6; padding: 15px 20px; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; font-size: 0.85rem;">
+            <a href="/terms-of-service.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Terms of Service</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/shipping-returns.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Shipping & Returns</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/payment-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Payment Policy</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/privacy-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Privacy Policy</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/contact" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Contact</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/shop" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">🧪 SHOP</a>
+        </div>
+        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
+        <div style="text-align: center; padding: 12px; background: #2854a6;"><p style="color: white; font-size: 0.85rem; margin: 0;">🗽 Copyright 2026 - Success Chemistry® | Powered by 🏄 WindSurf</p></div>
+    </footer>
+
+</body>
+</html>

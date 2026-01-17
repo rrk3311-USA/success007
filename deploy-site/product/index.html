@@ -9,51 +9,110 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: #ffffff;
             color: #2c3e50;
             line-height: 1.6;
             min-height: 100vh;
         }
 
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
         /* Header */
-        .header {
+        .topbar {
             background: white;
-            color: #2c3e50;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            position: relative;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: none;
+            padding: 22px 0;
+            margin-top: 8px;
         }
-        
-        .header-nav {
-            background: #2c3e50;
-            padding: 12px 20px;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-        
-        .header-nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            padding: 8px 16px;
-            border-radius: 6px;
-            transition: all 0.3s;
+
+        .topbar-inner {
             display: flex;
             align-items: center;
-            gap: 6px;
+            justify-content: center;
+            gap: 16px;
+            padding: 0;
         }
-        
-        .header-nav a:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
         }
-        
-        .header-content {
-            padding: 40px 20px;
-            text-align: center;
+
+        .brand img {
+            height: 58px;
+        }
+
+        .header-divider {
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #667eea 100%);
+            background-size: 200% 100%;
+            animation: gradientMove 3s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 200% 50%;
+            }
+        }
+
+        .blue-nav {
+            background: #2854a6;
+            padding: 18px 0;
+        }
+
+        .blue-nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .blue-nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.56rem;
+            letter-spacing: 0.2px;
+            transition: opacity 0.3s;
+        }
+
+        .blue-nav a:hover {
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .topbar-inner {
+                padding: 12px 0;
+            }
+
+            .brand img {
+                height: 44px;
+            }
+
+            .blue-nav {
+                padding: 10px 0;
+            }
+
+            .blue-nav .container {
+                gap: 22px;
+            }
+
+            .blue-nav a {
+                font-size: 1.2rem;
+            }
         }
         
         .view-cart-btn {
@@ -513,159 +572,146 @@
         }
         
         .bundle-selector {
-            margin-bottom: 24px;
+            margin-bottom: 30px;
         }
         
         .bundle-option {
-            border: 2px solid #e9ecef;
-            border-radius: 12px;
-            padding: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px 20px;
             margin-bottom: 12px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s;
             position: relative;
             background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         
         .bundle-option:hover {
-            border-color: #3877b9;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(56, 119, 185, 0.15);
+            border-color: #3b82f6;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         
         .bundle-option.selected {
-            border-color: #3877b9;
-            background: linear-gradient(135deg, #3877b915 0%, #3877b905 100%);
-            box-shadow: 0 4px 12px rgba(56, 119, 185, 0.2);
+            border-color: #3b82f6;
+            background: #eff6ff;
         }
         
         .bundle-option.selected::before {
             content: '✓';
             position: absolute;
-            top: 12px;
-            right: 12px;
-            background: #3877b9;
-            color: white;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.9rem;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #3b82f6;
+            font-size: 1.2rem;
+            font-weight: 700;
         }
         
         .bundle-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
+            gap: 12px;
+            flex: 1;
         }
         
         .bundle-label {
-            font-weight: 700;
-            font-size: 1.05rem;
-            color: #2c3e50;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: #111827;
         }
         
         .bundle-badge {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            background: #3b82f6;
             color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         
         .bundle-pricing {
             display: flex;
-            align-items: baseline;
-            gap: 10px;
-            margin-bottom: 6px;
+            align-items: center;
+            gap: 8px;
+            margin-right: 30px;
         }
         
         .bundle-price {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: #3877b9;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #111827;
         }
         
         .bundle-original-price {
-            font-size: 1.1rem;
-            color: #999;
+            font-size: 0.85rem;
+            color: #9ca3af;
             text-decoration: line-through;
         }
         
         .bundle-savings {
-            background: #27ae60;
+            background: #10b981;
             color: white;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
         }
         
         .bundle-details {
-            display: flex;
-            gap: 20px;
-            font-size: 0.9rem;
-            color: #666;
-            margin-top: 8px;
+            display: none;
         }
         
         .bundle-detail {
-            display: flex;
-            align-items: center;
-            gap: 4px;
+            display: none;
         }
         
         /* Compact Bundle Selector */
         .bundle-selector-compact {
             background: white;
-            padding: 30px;
-            border-radius: 16px;
+            padding: 24px;
+            border-radius: 12px;
             margin: 30px 0;
-            border: 2px solid #3877b9;
-            box-shadow: 0 6px 24px rgba(56, 119, 185, 0.15);
+            border: 2px solid #e5e7eb;
         }
         
         .bundle-selector-compact h3 {
             text-align: center;
             margin-bottom: 20px;
-            font-size: 1.5rem;
-            color: #2c3e50;
+            font-size: 1.1rem;
+            color: #111827;
+            font-weight: 600;
         }
         
         .bundle-options-compact {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 12px;
         }
         
         .bundle-option-compact {
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
             padding: 16px 12px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s;
             text-align: center;
             background: white;
             position: relative;
         }
         
         .bundle-option-compact:hover {
-            border-color: #3877b9;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(56, 119, 185, 0.2);
+            border-color: #3b82f6;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         
         .bundle-option-compact.selected {
-            border-color: #3877b9;
-            background: linear-gradient(135deg, #3877b915 0%, #3877b905 100%);
-            box-shadow: 0 4px 12px rgba(56, 119, 185, 0.25);
+            border-color: #3b82f6;
+            background: #eff6ff;
         }
         
         .bundle-option-compact.selected::after {
@@ -673,45 +719,38 @@
             position: absolute;
             top: 8px;
             right: 8px;
-            background: #3877b9;
-            color: white;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.75rem;
+            color: #3b82f6;
+            font-size: 0.9rem;
+            font-weight: 700;
         }
         
         .bundle-qty-compact {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: #3877b9;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #111827;
             margin-bottom: 4px;
         }
         
         .bundle-name-compact {
-            font-size: 0.75rem;
-            color: #666;
-            font-weight: 600;
+            font-size: 0.7rem;
+            color: #6b7280;
+            font-weight: 500;
             text-transform: uppercase;
             margin-bottom: 8px;
             letter-spacing: 0.5px;
         }
         
         .bundle-price-compact {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: #2c3e50;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #111827;
             margin-bottom: 4px;
         }
         
         .bundle-save-compact {
-            font-size: 0.8rem;
-            color: #27ae60;
-            font-weight: 700;
+            font-size: 0.7rem;
+            color: #10b981;
+            font-weight: 600;
         }
         
         .bundle-badge-compact {
@@ -719,12 +758,12 @@
             top: -8px;
             left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            background: #3b82f6;
             color: white;
-            padding: 3px 10px;
-            border-radius: 12px;
+            padding: 3px 8px;
+            border-radius: 4px;
             font-size: 0.65rem;
-            font-weight: 700;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             white-space: nowrap;
@@ -844,142 +883,39 @@
             }
         }
         
-        @keyframes buttonPulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-        }
-
         .btn-primary {
-            background: #3877b9;
-            color: #ffd700;
+            background: #3b82f6;
+            color: white;
             width: 100%;
-            padding: 18px 40px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            border-radius: 50px;
-            border: 3px solid #2a5a8a;
-            box-shadow: 0 6px 20px rgba(56, 119, 185, 0.4);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            position: relative;
+            padding: 16px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
             cursor: pointer;
-            overflow: hidden;
-        }
-        
-        .btn-primary::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 215, 0, 0.1);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
+            transition: all 0.2s;
+            letter-spacing: 0.5px;
         }
         
         .btn-primary:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 12px 30px rgba(56, 119, 185, 0.6);
-            background: #4a8fd4;
-            border-color: #3877b9;
-        }
-        
-        .btn-primary:hover::after {
-            width: 300px;
-            height: 300px;
+            background: #2563eb;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         }
         
         .btn-primary:active {
-            transform: translateY(-1px) scale(0.98);
-        }
-        
-        .btn-primary::before {
-            content: "✨";
-            font-size: 1.3rem;
-            animation: sparkle 2s ease-in-out infinite;
-            position: relative;
-            z-index: 1;
-        }
-        
-        @keyframes sparkle {
-            0%, 100% {
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
-            }
-            50% {
-                opacity: 0.7;
-                transform: scale(1.2) rotate(180deg);
-            }
-        }
-        
-        @keyframes shimmer {
-            0% {
-                background-position: -1000px 0;
-            }
-            100% {
-                background-position: 1000px 0;
-            }
-        }
-        
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.7;
-                transform: scale(1.2);
-            }
+            transform: scale(0.98);
         }
         
         .btn-primary .btn-text {
-            position: relative;
-            z-index: 1;
-            background: linear-gradient(90deg, #ffd700 0%, #fff 50%, #ffd700 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 3s linear infinite;
+            color: white;
         }
         
         .btn-primary.success {
-            background-image: 
-                linear-gradient(#27ae60, #27ae60),
-                linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-            animation: successPulse 0.6s ease-out;
+            background: #10b981;
         }
         
         .btn-primary.success .btn-text {
-            background: white;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: none;
-        }
-        
-        @keyframes successPulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-            }
+            color: white;
         }
         
         /* Floating particles on hover */
@@ -1115,23 +1051,29 @@
 </head>
 <body>
     <!-- Header -->
-    <div class="header">
-        <!-- Header Content -->
-        <div class="header-content">
-            <a href="/shop" style="display: inline-block; margin-bottom: 15px;">
-                <img src="/public/images/SC_logo_withR.png" alt="Success Chemistry" style="max-height: 80px; height: auto;">
-            </a>
-            <p style="color: #2c3e50;">Nature's Nutrients, Scientifically Formulated for Your Success</p>
-        </div>
-        
-        <!-- Navigation Menu -->
-        <div class="header-nav">
-            <a href="/shop">🧪 Shop</a>
-            <a href="/cart">🛒 Cart <span class="cart-badge" id="navCartCount" style="margin-left: 4px;">0</span></a>
-            <a href="/my-account">👤 My Account</a>
+    <div class="topbar">
+        <div class="container">
+            <div class="topbar-inner">
+                <a class="brand" href="/">
+                    <img src="/public/images/SC_logo_withR.png" alt="Success Chemistry">
+                </a>
+            </div>
         </div>
     </div>
-    
+    <div class="header-divider"></div>
+
+    <div class="blue-nav">
+        <div class="container">
+            <a href="/">Home</a>
+            <a href="/shop">Shop</a>
+            <a href="/blog">Articles</a>
+            <a href="/contact">Contact</a>
+            <a href="/cart">Cart <span id="navCartCount">0</span></a>
+        </div>
+    </div>
+
+    <div class="header-divider"></div>
+
     <!-- Sticky Cart Banner -->
     <div class="sticky-cart-banner" id="stickyCartBanner" style="display: none;" onclick="window.location.href='/cart'">
         <div class="cart-icon">🛒</div>
@@ -1187,11 +1129,34 @@
         <div style="text-align: center; padding: 12px; background: #2854a6;"><p style="color: white; font-size: 0.85rem; margin: 0;">🗽 Copyright 2026 - Success Chemistry® | Powered by 🏄 WindSurf</p></div>
     </footer>
 
+    <!-- Configuration -->
+    <script src="/config.js"></script>
+    
+    <!-- Google Analytics & Tracking -->
+    <script src="/tracking.js"></script>
+    
+    <!-- Loyalty Points System -->
+    <script src="/loyalty-points.js"></script>
+    
     <!-- Local Products Data -->
     <script src="/products-data.js?v=3"></script>
     
-    <!-- PayPal SDK -->
-    <script src="https://www.paypal.com/sdk/js?client-id=EBAQIbUDDVgB06yvEWREs2cMox8AKElkxFJAqKF71iUj007dv0YzxlKbepduwV7xGEI5FrjK3vakzm0b&currency=USD"></script>
+    <!-- PayPal SDK - Dynamic based on config -->
+    <script>
+        // Load PayPal SDK with correct client ID based on sandbox mode
+        (function() {
+            const clientId = typeof CONFIG !== 'undefined' && CONFIG.SANDBOX_MODE 
+                ? CONFIG.PAYPAL.SANDBOX_CLIENT_ID 
+                : CONFIG.PAYPAL.PRODUCTION_CLIENT_ID;
+            
+            const script = document.createElement('script');
+            script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=USD&components=buttons,funding-eligibility&enable-funding=venmo,paylater&disable-funding=credit`;
+            script.async = true;
+            document.head.appendChild(script);
+            
+            console.log(CONFIG.SANDBOX_MODE ? '🧪 PayPal SANDBOX mode enabled' : '💳 PayPal PRODUCTION mode enabled');
+        })();
+    </script>
 
     <script>
         let currentProduct = null;
@@ -1245,6 +1210,11 @@
                 }
                 
                 renderProduct();
+                
+                // Track product view
+                if (window.SuccessChemistryTracking) {
+                    window.SuccessChemistryTracking.trackProductView(currentProduct);
+                }
             } catch (error) {
                 console.error('Error loading product:', error);
                 document.getElementById('productContent').innerHTML = `
@@ -1606,10 +1576,9 @@
                 paypal.Buttons({
                 style: {
                     layout: 'vertical',
-                    color: 'gold',
                     shape: 'rect',
-                    label: 'paypal',
-                    height: 50
+                    height: 55,
+                    tagline: false
                 },
                 createOrder: function(data, actions) {
                     const quantity = parseInt(document.getElementById('quantity').value) || 1;
@@ -1642,6 +1611,60 @@
                 },
                 onApprove: async function(data, actions) {
                     const order = await actions.order.capture();
+                    
+                    // Track purchase with Google Analytics Enhanced Conversions
+                    if (window.SuccessChemistryTracking) {
+                        const quantity = parseInt(document.getElementById('quantity').value) || 1;
+                        const unitPrice = parseFloat(currentProduct.price || 0);
+                        const total = unitPrice * quantity;
+                        
+                        const orderData = {
+                            orderNumber: order.id,
+                            items: [{
+                                sku: currentProduct.sku,
+                                name: currentProduct.name,
+                                price: unitPrice,
+                                quantity: quantity
+                            }],
+                            subtotal: total,
+                            shipping: 0,
+                            tax: 0,
+                            total: total
+                        };
+                        
+                        const customerData = {
+                            email: order.payer?.email_address,
+                            firstName: order.payer?.name?.given_name,
+                            lastName: order.payer?.name?.surname
+                        };
+                        
+                        window.SuccessChemistryTracking.trackPurchase(orderData, customerData);
+                        
+                        // Track Google Ads conversion if configured
+                        if (typeof CONFIG !== 'undefined' && CONFIG.GOOGLE_ADS.ENABLED) {
+                            window.SuccessChemistryTracking.trackGoogleAdsConversion(
+                                CONFIG.GOOGLE_ADS.CONVERSION_ID,
+                                CONFIG.GOOGLE_ADS.CONVERSION_LABEL,
+                                total,
+                                order.id
+                            );
+                        }
+                    }
+                    
+                    // Award loyalty points (5 points per $1 spent)
+                    if (window.LoyaltyPoints) {
+                        const quantity = parseInt(document.getElementById('quantity').value) || 1;
+                        const unitPrice = parseFloat(currentProduct.price || 0);
+                        const total = unitPrice * quantity;
+                        
+                        const pointsEarned = window.LoyaltyPoints.addPoints(
+                            total,
+                            order.id,
+                            `Purchase: ${currentProduct.name}`
+                        );
+                        
+                        console.log(`🎉 Earned ${pointsEarned} loyalty points!`);
+                    }
                     
                     // Send order to your server
                     try {

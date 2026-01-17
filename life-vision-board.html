@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life Vision Board - Command Center</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+      color: #1e293b;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container { max-width: 1600px; margin: 0 auto; }
+    .header {
+      background: white;
+      border: 2px solid #00d4ff;
+      border-radius: 16px;
+      padding: 20px 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(0, 212, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .title-section { display: flex; align-items: center; gap: 12px; }
+    .title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .mantra-box {
+      background: #f0f9ff;
+      border: 2px solid #00d4ff;
+      border-radius: 10px;
+      padding: 12px 20px;
+      flex: 1;
+      min-width: 300px;
+    }
+    .mantra-code {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #0099cc;
+      margin-bottom: 4px;
+    }
+    .mantra-text {
+      font-size: 0.85rem;
+      color: #64748b;
+      font-style: italic;
+    }
+    .stats-bar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .stat-badge {
+      background: #f0f9ff;
+      border: 2px solid #00d4ff;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #0099cc;
+    }
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      background: white;
+      padding: 12px;
+      border-radius: 12px;
+      border: 2px solid #e2e8f0;
+    }
+    .tab {
+      padding: 10px 18px;
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #64748b;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tab:hover { background: #f0f9ff; border-color: #00d4ff; }
+    .tab.active {
+      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+      color: white;
+      border-color: #00d4ff;
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .grid { display: grid; gap: 20px; }
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+    .card {
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 24px;
+      transition: all 0.2s;
+    }
+    .card:hover { border-color: #00d4ff; box-shadow: 0 4px 20px rgba(0, 212, 255, 0.1); }
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .vision-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .vision-photo {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      border: 2px solid #e2e8f0;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .vision-photo:hover {
+      border-color: #00d4ff;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 212, 255, 0.2);
+    }
+    .vision-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+    }
+    .vision-modal.active {
+      display: flex;
+    }
+    .vision-modal-content {
+      background: white;
+      border-radius: 16px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    .vision-modal-image {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 16px 16px 0 0;
+    }
+    .vision-modal-body {
+      padding: 24px;
+    }
+    .vision-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .vision-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      padding: 16px 12px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #00d4ff;
+      letter-spacing: 1px;
+    }
+    .todo-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: #f8fafc;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      border: 2px solid #e2e8f0;
+      transition: all 0.2s;
+    }
+    .todo-item:hover { background: #f0f9ff; border-color: #00d4ff; }
+    .checkbox {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #00d4ff;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .checkbox.checked { background: #00d4ff; color: white; }
+    .todo-text { flex: 1; font-size: 0.9rem; color: #334155; }
+    .todo-text.completed { text-decoration: line-through; opacity: 0.5; }
+    .priority-badge {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .priority-high { background: #fee2e2; color: #dc2626; }
+    .priority-medium { background: #fef3c7; color: #d97706; }
+    .priority-low { background: #d1fae5; color: #059669; }
+    .input {
+      width: 100%;
+      padding: 10px 14px;
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      color: #334155;
+      font-family: 'Inter', sans-serif;
+      margin-top: 12px;
+    }
+    .input:focus { outline: none; border-color: #00d4ff; background: white; }
+    .btn {
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 12px;
+    }
+    .btn:hover { opacity: 0.9; }
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 8px 0;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #00d4ff 0%, #0099cc 100%);
+      transition: width 0.3s;
+    }
+    .project-card {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .project-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 10px;
+    }
+    .romance-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .romance-card {
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      cursor: move;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .romance-card:hover {
+      border-color: #00d4ff;
+      box-shadow: 0 4px 16px rgba(0, 212, 255, 0.2);
+      transform: translateY(-2px);
+    }
+    .romance-card.dragging {
+      opacity: 0.5;
+      transform: scale(0.95);
+    }
+    .romance-card-image {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      background: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      font-size: 3rem;
+    }
+    .romance-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .romance-card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+    .romance-card-memo {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+    .romance-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #e2e8f0;
+    }
+    .romance-priority {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .romance-priority-high { background: #fee2e2; color: #dc2626; }
+    .romance-priority-medium { background: #fef3c7; color: #d97706; }
+    .romance-priority-low { background: #d1fae5; color: #059669; }
+    .delete-card-btn {
+      padding: 6px 12px;
+      background: #fee2e2;
+      border: 2px solid #fca5a5;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #dc2626;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .delete-card-btn:hover {
+      background: #fca5a5;
+      color: white;
+    }
+    .add-romance-form {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .textarea {
+      width: 100%;
+      padding: 10px 14px;
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      color: #334155;
+      font-family: 'Inter', sans-serif;
+      resize: vertical;
+      min-height: 80px;
+    }
+    .textarea:focus { outline: none; border-color: #00d4ff; }
+    .select {
+      width: 100%;
+      padding: 10px 14px;
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      color: #334155;
+      font-family: 'Inter', sans-serif;
+    }
+    .select:focus { outline: none; border-color: #00d4ff; }
+    .color-picker {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      background: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 2px solid #e2e8f0;
+    }
+    .color-swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid white;
+      transition: all 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .color-swatch:hover {
+      transform: scale(1.3);
+      border-color: #1e293b;
+    }
+    .color-swatch.active {
+      border-color: #1e293b;
+      box-shadow: 0 0 0 2px #00d4ff;
+      transform: scale(1.2);
+    }
+  
+
+.footer {
+            background: #2854a6;
+            color: white;
+            padding: 80px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand p {
+            margin-top: 20px;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .footer-logo img {
+            height: 50px;
+        }
+
+        .footer-links h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .footer-links a {
+            display: block;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-legal a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .product-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .price {
+                font-size: 2rem;
+            }
+            
+            .description-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title-section">
+        <div class="title">⚡ LIFE VISION BOARD</div>
+      </div>
+      <div class="mantra-box">
+        <div class="mantra-code">🔒 OPERATION PHOENIX</div>
+        <div class="mantra-text">"Build the empire. Execute with precision. Leave no opportunity unexplored."</div>
+      </div>
+      <div class="stats-bar">
+        <a href="/home.html" class="stat-badge" style="text-decoration: none; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,212,255,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">🏠 Home</a>
+        <a href="/shop.html" class="stat-badge" style="text-decoration: none; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,212,255,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">🧪 Shop</a>
+        <div class="stat-badge">🕐 <span id="clock">--:--</span></div>
+        <div class="stat-badge">🌡️ 72°F</div>
+        <div class="stat-badge">🔋 B+</div>
+        <div class="color-picker">
+          <div class="color-swatch active" style="background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);" onclick="changeBackground('linear-gradient(135deg, #00d4ff 0%, #0099cc 100%)', this)" title="Blue Gradient"></div>
+          <div class="color-swatch" style="background: #0b1224;" onclick="changeBackground('#0b1224', this)" title="Dark Navy"></div>
+          <div class="color-swatch" style="background: linear-gradient(135deg, #7c7fb8 0%, #9b9ec9 100%);" onclick="changeBackground('linear-gradient(135deg, #7c7fb8 0%, #9b9ec9 100%)', this)" title="Purple"></div>
+          <div class="color-swatch" style="background: linear-gradient(135deg, #e8eaf0 0%, #f5f6fa 100%);" onclick="changeBackground('linear-gradient(135deg, #e8eaf0 0%, #f5f6fa 100%)', this)" title="Light Grey"></div>
+          <div class="color-swatch" style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%);" onclick="changeBackground('linear-gradient(135deg, #1e293b 0%, #334155 100%)', this)" title="Slate"></div>
+          <div class="color-swatch" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);" onclick="changeBackground('linear-gradient(135deg, #059669 0%, #10b981 100%)', this)" title="Green"></div>
+          <div class="color-swatch" style="background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);" onclick="changeBackground('linear-gradient(135deg, #dc2626 0%, #ef4444 100%)', this)" title="Red"></div>
+          <div class="color-swatch" style="background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);" onclick="changeBackground('linear-gradient(135deg, #d97706 0%, #f59e0b 100%)', this)" title="Orange"></div>
+          <div class="color-swatch" style="background: linear-gradient(135deg, #c026d3 0%, #d946ef 100%);" onclick="changeBackground('linear-gradient(135deg, #c026d3 0%, #d946ef 100%)', this)" title="Magenta"></div>
+          <div class="color-swatch" style="background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);" onclick="changeBackground('linear-gradient(135deg, #0891b2 0%, #06b6d4 100%)', this)" title="Cyan"></div>
+          <div class="color-swatch" style="background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);" onclick="changeBackground('linear-gradient(135deg, #4f46e5 0%, #6366f1 100%)', this)" title="Indigo"></div>
+          <div class="color-swatch" style="background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%);" onclick="changeBackground('linear-gradient(135deg, #ec4899 0%, #f472b6 100%)', this)" title="Pink"></div>
+          <div class="color-swatch" style="background: #ffffff;" onclick="changeBackground('#ffffff', this)" title="White"></div>
+          <div class="color-swatch" style="background: #f8fafc;" onclick="changeBackground('#f8fafc', this)" title="Light"></div>
+          <div class="color-swatch" style="background: #475569;" onclick="changeBackground('#475569', this)" title="Grey"></div>
+          <div class="color-swatch" style="background: #1e1e1e;" onclick="changeBackground('#1e1e1e', this)" title="Dark"></div>
+          <div class="color-swatch" style="background: linear-gradient(135deg, #fbbf24 0%, #fcd34d 100%);" onclick="changeBackground('linear-gradient(135deg, #fbbf24 0%, #fcd34d 100%)', this)" title="Gold"></div>
+          <div class="color-swatch" style="background: linear-gradient(135deg, #14b8a6 0%, #2dd4bf 100%);" onclick="changeBackground('linear-gradient(135deg, #14b8a6 0%, #2dd4bf 100%)', this)" title="Teal"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('command')">🎯 Command</div>
+      <div class="tab" onclick="switchTab('health')">💪 Health</div>
+      <div class="tab" onclick="switchTab('income')">💰 Income</div>
+      <div class="tab" onclick="switchTab('achievements')">🏆 Achievements</div>
+      <div class="tab" onclick="switchTab('skills')">⚡ Skills</div>
+      <div class="tab" onclick="switchTab('romance')">❤️ Romance</div>
+      <div class="tab" onclick="loadDataBrowser()">📊 Data Browser</div>
+      <div class="tab" onclick="switchTab('infographics')">📄 Infographics</div>
+      <div class="tab" onclick="switchTab('loyalty')">📧 Loyalty</div>
+      <div class="tab" onclick="switchTab('walmart')">🏪 Walmart</div>
+    </div>
+
+    <div id="command" class="tab-content active">
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-title">🎯 VISION MATRIX</div>
+        <div class="vision-grid" id="vision-photos"></div>
+        <input type="text" class="input" id="photo-url" placeholder="Image URL...">
+        <input type="text" class="input" id="photo-caption" placeholder="Caption...">
+        <textarea class="textarea" id="photo-memo" placeholder="Memo / Notes (optional)..." style="margin-top: 12px;"></textarea>
+        <button class="btn" onclick="addPhoto()">+ ADD TARGET</button>
+      </div>
+      
+      <div id="vision-modal" class="vision-modal" onclick="closeVisionModal(event)">
+        <div class="vision-modal-content" onclick="event.stopPropagation()">
+          <img id="modal-image" class="vision-modal-image" src="" alt="">
+          <div class="vision-modal-body">
+            <button onclick="closeVisionModal()" style="position: absolute; top: 16px; right: 16px; background: white; border: none; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; font-size: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">✕</button>
+            <h2 id="modal-caption" style="font-size: 1.5rem; font-weight: 800; color: #1e293b; margin-bottom: 16px;"></h2>
+            <div id="modal-memo" style="color: #64748b; line-height: 1.6; white-space: pre-wrap;"></div>
+            <button class="btn" onclick="deletePhotoFromModal()" style="margin-top: 20px; background: #fee2e2; color: #dc2626; border: 2px solid #fca5a5;">🗑️ Delete Photo</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="grid grid-2">
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <div class="card-title" style="margin-bottom: 0;">✅ DAILY OPS <span style="margin-left: 12px; font-size: 0.9rem;" id="progress-count">0/0</span></div>
+            <div style="display: flex; gap: 12px; font-size: 0.85rem; color: #64748b;">
+              <div style="background: #f0f9ff; padding: 6px 12px; border-radius: 6px; border: 1px solid #00d4ff;">
+                <span style="font-weight: 600; color: #0099cc;" id="daily-ops-day">Monday</span>
+              </div>
+              <div style="background: #f0f9ff; padding: 6px 12px; border-radius: 6px; border: 1px solid #00d4ff;">
+                <span style="font-weight: 600; color: #0099cc;" id="daily-ops-date">Jan 14</span>
+              </div>
+              <div style="background: #f0f9ff; padding: 6px 12px; border-radius: 6px; border: 1px solid #00d4ff;">
+                <span style="font-weight: 600; color: #0099cc;">📍 Los Angeles</span>
+              </div>
+              <div style="background: #f0f9ff; padding: 6px 12px; border-radius: 6px; border: 1px solid #00d4ff;">
+                <span style="font-weight: 600; color: #0099cc;">🌡️ 72°F</span>
+              </div>
+            </div>
+          </div>
+          <div id="todos-list"></div>
+          <input type="text" class="input" id="new-todo" placeholder="New objective..." onkeypress="if(event.key==='Enter') addTodo()">
+          <button class="btn" onclick="addTodo()">+ ADD</button>
+          <div style="margin-top: 16px;">
+            <div style="font-size: 0.9rem; margin-bottom: 6px; font-weight: 600;">Mission Progress</div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-bar" style="width: 0%"></div>
+            </div>
+            <div id="progress-text" style="font-size: 0.85rem; margin-top: 4px; color: #00d4ff; font-weight: 700;">0% Complete</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">📊 ACTIVE OPERATIONS</div>
+          
+          <div class="add-romance-form" style="margin-bottom: 20px;">
+            <h3 style="margin-bottom: 16px; color: #1e293b; font-size: 1.1rem;">✨ Add New Operation</h3>
+            <input type="text" class="input" id="project-name" placeholder="Operation name (e.g., OPERATION: TIKTOK AFFILIATE)">
+            <button class="btn" onclick="addProject()">+ ADD OPERATION</button>
+          </div>
+          
+          <div id="projects-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="health" class="tab-content">
+      <div class="card">
+        <div class="card-title">💪 FITNESS GOALS</div>
+        <div id="fitness-list"></div>
+      </div>
+    </div>
+
+    <div id="income" class="tab-content">
+      <div class="card">
+        <div class="card-title">💰 INCOME STREAMS</div>
+        <div style="font-size: 2.5rem; font-weight: 900; text-align: center; margin: 20px 0; background: linear-gradient(135deg, #059669 0%, #10b981 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" id="total-income">$37,500/mo</div>
+        <div id="income-list"></div>
+      </div>
+    </div>
+
+    <div id="achievements" class="tab-content">
+      <div class="card">
+        <div class="card-title">🏆 ACHIEVEMENTS</div>
+        
+        <div class="add-romance-form" style="margin-bottom: 24px;">
+          <h3 style="margin-bottom: 16px; color: #1e293b; font-size: 1.1rem;">✨ Add New Achievement</h3>
+          <div class="form-row">
+            <input type="text" class="input" id="achievement-name" placeholder="Achievement name...">
+            <input type="text" class="input" id="achievement-desc" placeholder="Description...">
+          </div>
+          <button class="btn" onclick="addAchievement()">+ ADD ACHIEVEMENT</button>
+        </div>
+
+        <h3 style="margin-bottom: 16px; color: #059669; font-size: 1.2rem; font-weight: 700;">🏆 ACHIEVEMENT VAULT <span style="font-size: 0.9rem; color: #64748b; margin-left: 12px;" id="achievement-count">3/8 UNLOCKED</span></h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin-bottom: 24px;">
+          <div id="achievements-completed"></div>
+          <div id="achievements-targeting"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="skills" class="tab-content">
+      <div class="card">
+        <div class="card-title">⚡ SKILL MATRIX</div>
+        
+        <div class="grid grid-2" style="gap: 24px;">
+          <div>
+            <h3 style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; color: #d97706; font-size: 1.1rem; font-weight: 700;">
+              <span style="background: #fef3c7; padding: 8px; border-radius: 8px; display: flex;">💼</span> BUSINESS
+            </h3>
+            <div id="skills-business"></div>
+          </div>
+          
+          <div>
+            <h3 style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; color: #0099cc; font-size: 1.1rem; font-weight: 700;">
+              <span style="background: #f0f9ff; padding: 8px; border-radius: 8px; display: flex;">💻</span> TECH
+            </h3>
+            <div id="skills-tech"></div>
+          </div>
+          
+          <div>
+            <h3 style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; color: #c026d3; font-size: 1.1rem; font-weight: 700;">
+              <span style="background: #fae8ff; padding: 8px; border-radius: 8px; display: flex;">🎨</span> CREATIVE
+            </h3>
+            <div id="skills-creative"></div>
+          </div>
+          
+          <div>
+            <h3 style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; color: #059669; font-size: 1.1rem; font-weight: 700;">
+              <span style="background: #d1fae5; padding: 8px; border-radius: 8px; display: flex;">👥</span> SOCIAL
+            </h3>
+            <div id="skills-social"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="romance" class="tab-content">
+      <div class="card">
+        <div class="card-title">❤️ ROMANCE & RELATIONSHIPS</div>
+        
+        <div class="add-romance-form">
+          <h3 style="margin-bottom: 16px; color: #1e293b; font-size: 1.1rem;">✨ Add New Card</h3>
+          <div class="form-row">
+            <input type="text" class="input" id="romance-title" placeholder="Title (e.g., Date Night, Anniversary)">
+            <select class="select" id="romance-priority">
+              <option value="high">High Priority</option>
+              <option value="medium" selected>Medium Priority</option>
+              <option value="low">Low Priority</option>
+            </select>
+          </div>
+          <input type="text" class="input" id="romance-image" placeholder="Image URL (optional)" style="margin-bottom: 12px;">
+          <textarea class="textarea" id="romance-memo" placeholder="Memo / Notes..."></textarea>
+          <button class="btn" onclick="addRomanceCard()">+ ADD CARD</button>
+        </div>
+
+        <div class="romance-cards" id="romance-cards"></div>
+      </div>
+    </div>
+
+    <div id="customers" class="tab-content">
+      <div class="card">
+        <div class="card-title">👥 CUSTOMER ANALYTICS</div>
+        <div class="grid grid-3">
+          <div style="background: #f0f9ff; padding: 20px; border-radius: 10px; border: 2px solid #00d4ff; text-align: center;">
+            <div style="font-size: 2rem; font-weight: 800; color: #00d4ff;">1.15M</div>
+            <div style="color: #64748b; font-size: 0.9rem; margin-top: 4px;">Total Customers</div>
+          </div>
+          <div style="background: #f0f9ff; padding: 20px; border-radius: 10px; border: 2px solid #00d4ff; text-align: center;">
+            <div style="font-size: 2rem; font-weight: 800; color: #00d4ff;">35.6K</div>
+            <div style="color: #64748b; font-size: 0.9rem; margin-top: 4px;">Reviews</div>
+          </div>
+          <div style="background: #f0f9ff; padding: 20px; border-radius: 10px; border: 2px solid #00d4ff; text-align: center;">
+            <div style="font-size: 2rem; font-weight: 800; color: #00d4ff;">9.2K</div>
+            <div style="color: #64748b; font-size: 0.9rem; margin-top: 4px;">Orders</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="infographics" class="tab-content">
+      <div class="card">
+        <div class="card-title">📄 LEAD GENERATION</div>
+        <div class="grid grid-3">
+          <div class="project-card">
+            <div style="font-weight: 700; margin-bottom: 8px;">Eye Health Guide</div>
+            <div style="font-size: 0.85rem; color: #64748b;">1,247 downloads</div>
+          </div>
+          <div class="project-card">
+            <div style="font-weight: 700; margin-bottom: 8px;">Supplement Timing Chart</div>
+            <div style="font-size: 0.85rem; color: #64748b;">892 downloads</div>
+          </div>
+          <div class="project-card">
+            <div style="font-weight: 700; margin-bottom: 8px;">Nutrition Checklist</div>
+            <div style="font-size: 0.85rem; color: #64748b;">634 downloads</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="loyalty" class="tab-content">
+      <div class="card">
+        <div class="card-title">📧 CUSTOMER LOYALTY CAMPAIGNS</div>
+        <div class="project-card">
+          <div style="font-weight: 700; margin-bottom: 8px;">✉️ Welcome Email Sequence</div>
+          <div style="font-size: 0.85rem; color: #64748b; margin-bottom: 8px;">5-email series for new customers</div>
+          <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        </div>
+        <div class="project-card">
+          <div style="font-weight: 700; margin-bottom: 8px;">🔄 Reorder Reminder Flow</div>
+          <div style="font-size: 0.85rem; color: #64748b; margin-bottom: 8px;">30/60/90 day automated reminders</div>
+          <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        </div>
+        <div class="project-card">
+          <div style="font-weight: 700; margin-bottom: 8px;">⭐ Review Request Automation</div>
+          <div style="font-size: 0.85rem; color: #64748b; margin-bottom: 8px;">Ask for reviews 7 days after delivery</div>
+          <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="walmart" class="tab-content">
+      <div class="card">
+        <div class="card-title">🏪 WALMART PRODUCT OPTIMIZATION</div>
+        <div class="project-card">
+          <div style="font-weight: 700; margin-bottom: 8px;">Product Audit & Optimization</div>
+          <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        </div>
+        <div class="project-card">
+          <div style="font-weight: 700; margin-bottom: 8px;">Enhanced Content & A+ Pages</div>
+          <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        </div>
+        <div class="project-card">
+          <div style="font-weight: 700; margin-bottom: 8px;">SEO & Keyword Targeting</div>
+          <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const data = {
+      todos: [
+        { id: "1", text: "Morning meditation - 20 min", completed: true, priority: "high" },
+        { id: "2", text: "Review weekly goals", completed: false, priority: "high" },
+        { id: "3", text: "Gym session - strength training", completed: false, priority: "medium" },
+        { id: "4", text: "Read 30 pages", completed: false, priority: "low" },
+        { id: "5", text: "Call family", completed: false, priority: "medium" }
+      ],
+      romanceCards: [
+        { id: "1", title: "Date Night", priority: "high", image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop", memo: "Plan romantic dinner at favorite restaurant" },
+        { id: "2", title: "Weekend Getaway", priority: "medium", image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=300&fit=crop", memo: "Book cabin in the mountains for next month" }
+      ],
+      projects: [
+        {
+          id: "1",
+          name: "OPERATION: TIKTOK AFFILIATE",
+          progress: 25,
+          milestones: [
+            { id: "1a", text: "Account setup & verification", completed: true },
+            { id: "1b", text: "Product catalog integration", completed: false },
+            { id: "1c", text: "Content strategy deployment", completed: false },
+            { id: "1d", text: "Affiliate revenue scaling", completed: false }
+          ]
+        },
+        {
+          id: "2",
+          name: "PROJECT: SHOPPABLE MERCHANT VIDEOS",
+          progress: 0,
+          milestones: [
+            { id: "2a", text: "CEO account establishment", completed: false },
+            { id: "2b", text: "Video commerce setup", completed: false },
+            { id: "2c", text: "Product tagging system", completed: false },
+            { id: "2d", text: "Launch & monetization", completed: false }
+          ]
+        },
+        {
+          id: "3",
+          name: "INITIATIVE: AI CONSULTING",
+          progress: 0,
+          milestones: [
+            { id: "3a", text: "AI SaaS package design", completed: false },
+            { id: "3b", text: "Served dashboard build", completed: false },
+            { id: "3c", text: "Compute & cost packaging", completed: false },
+            { id: "3d", text: "Client management system", completed: false }
+          ]
+        }
+      ],
+      visionPhotos: [
+        { id: "1", url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop", caption: "DESTINATION: SUMMIT", memo: "Reach the peak of success. Build empire from the top." },
+        { id: "2", url: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400&h=300&fit=crop", caption: "ASSET: ACQUIRED", memo: "Dream car - symbol of achievement and hard work paying off." },
+        { id: "3", url: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=300&fit=crop", caption: "BASE: ESTABLISHED", memo: "Home base - secure foundation for family and business operations." },
+        { id: "4", url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop", caption: "MINDSET: FOCUSED", memo: "Mental clarity and focus - the foundation of all success." },
+        { id: "5", url: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=400&h=300&fit=crop", caption: "OBJECTIVE: FREEDOM", memo: "Financial and time freedom - work from anywhere, live everywhere." },
+        { id: "6", url: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&h=300&fit=crop", caption: "MISSION: STRENGTH", memo: "Physical and mental strength - discipline creates champions." }
+      ],
+      incomeStreams: [
+        { id: "1", name: "Success Chemistry E-commerce", amount: 15000, status: "growing" },
+        { id: "2", name: "TikTok Affiliate Revenue", amount: 2500, status: "building" },
+        { id: "3", name: "AI Consulting Packages", amount: 0, status: "building" },
+        { id: "4", name: "Walmart Marketplace", amount: 8000, status: "stable" },
+        { id: "5", name: "Amazon Sales", amount: 12000, status: "growing" }
+      ],
+      achievements: [
+        { id: "1", name: "First Blood", description: "Launched first product successfully", unlocked: true, date: "2024-01" },
+        { id: "2", name: "Empire Builder", description: "Reached $10K monthly revenue", unlocked: true, date: "2024-06" },
+        { id: "3", name: "Multi-Platform", description: "Active on 3+ marketplaces", unlocked: true, date: "2024-09" },
+        { id: "4", name: "AI Pioneer", description: "Launch AI consulting service", unlocked: false },
+        { id: "5", name: "Fight Club", description: "Host first Fight League event", unlocked: false },
+        { id: "6", name: "Content King", description: "100K TikTok followers", unlocked: false },
+        { id: "7", name: "Six Figures", description: "Reach $100K annual revenue", unlocked: false }
+      ],
+      skills: [
+        { id: "1", name: "E-commerce", level: 85, category: "business" },
+        { id: "2", name: "Marketing", level: 75, category: "business" },
+        { id: "3", name: "Negotiation", level: 70, category: "business" },
+        { id: "4", name: "AI/Automation", level: 60, category: "tech" },
+        { id: "5", name: "Web Development", level: 45, category: "tech" },
+        { id: "6", name: "Data Analysis", level: 55, category: "tech" },
+        { id: "7", name: "Content Creation", level: 65, category: "creative" },
+        { id: "8", name: "Video Production", level: 50, category: "creative" },
+        { id: "9", name: "Leadership", level: 70, category: "social" },
+        { id: "10", name: "Networking", level: 75, category: "social" }
+      ],
+      fitnessGoals: [
+        { id: "1", name: "Weekly Workouts", current: 4, target: 5, unit: "sessions" },
+        { id: "2", name: "Daily Steps", current: 8500, target: 10000, unit: "steps" },
+        { id: "3", name: "Water Intake", current: 6, target: 8, unit: "glasses" },
+        { id: "4", name: "Sleep Hours", current: 7, target: 8, unit: "hours" }
+      ]
+    };
+
+    function loadData() {
+      const saved = localStorage.getItem('visionBoardData');
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          Object.assign(data, parsed);
+        } catch (e) {}
+      }
+    }
+
+    function saveData() {
+      localStorage.setItem('visionBoardData', JSON.stringify(data));
+    }
+
+    function changeBackground(color, element) {
+      document.body.style.background = color;
+      localStorage.setItem('bgColor', color);
+      
+      document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+      element.classList.add('active');
+      
+      if (color.includes('#0b1224') || color.includes('#1e293b')) {
+        document.body.style.color = '#e7ecff';
+      } else {
+        document.body.style.color = '#1e293b';
+      }
+    }
+
+    function loadBackgroundColor() {
+      const savedColor = localStorage.getItem('bgColor');
+      if (savedColor) {
+        document.body.style.background = savedColor;
+        if (savedColor.includes('#0b1224') || savedColor.includes('#1e293b')) {
+          document.body.style.color = '#e7ecff';
+        }
+        
+        document.querySelectorAll('.color-swatch').forEach(swatch => {
+          const swatchBg = swatch.style.background;
+          if (swatchBg === savedColor) {
+            swatch.classList.add('active');
+          } else {
+            swatch.classList.remove('active');
+          }
+        });
+      }
+    }
+
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById(tabName).classList.add('active');
+    }
+
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('clock').textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function updateDailyOpsInfo() {
+      const now = new Date();
+      const dayElement = document.getElementById('daily-ops-day');
+      const dateElement = document.getElementById('daily-ops-date');
+      
+      if (dayElement) {
+        dayElement.textContent = now.toLocaleDateString('en-US', { weekday: 'long' });
+      }
+      if (dateElement) {
+        dateElement.textContent = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      }
+    }
+
+    function renderVisionPhotos() {
+      const grid = document.getElementById('vision-photos');
+      grid.innerHTML = data.visionPhotos.map(photo => `
+        <div class="vision-photo" draggable="true" data-id="${photo.id}" ondragstart="dragStartVision(event)" ondragover="dragOverVision(event)" ondrop="dropVision(event)" ondragend="dragEndVision(event)" onclick="openVisionModal('${photo.id}')">
+          <img src="${photo.url}" alt="${photo.caption}">
+          <div class="vision-caption">${photo.caption}</div>
+        </div>
+      `).join('');
+    }
+
+    function addPhoto() {
+      const url = document.getElementById('photo-url').value.trim();
+      const caption = document.getElementById('photo-caption').value.trim();
+      const memo = document.getElementById('photo-memo').value.trim();
+      if (!url) return;
+      data.visionPhotos.push({ 
+        id: Date.now().toString(), 
+        url, 
+        caption: caption || "NEW TARGET",
+        memo: memo || ""
+      });
+      document.getElementById('photo-url').value = '';
+      document.getElementById('photo-caption').value = '';
+      document.getElementById('photo-memo').value = '';
+      saveData();
+      renderVisionPhotos();
+    }
+
+    let currentPhotoId = null;
+
+    function openVisionModal(photoId) {
+      const photo = data.visionPhotos.find(p => p.id === photoId);
+      if (!photo) return;
+      
+      currentPhotoId = photoId;
+      document.getElementById('modal-image').src = photo.url;
+      document.getElementById('modal-caption').textContent = photo.caption;
+      document.getElementById('modal-memo').textContent = photo.memo || 'No notes added yet.';
+      document.getElementById('vision-modal').classList.add('active');
+    }
+
+    function closeVisionModal(event) {
+      if (event && event.target !== event.currentTarget) return;
+      document.getElementById('vision-modal').classList.remove('active');
+      currentPhotoId = null;
+    }
+
+    function deletePhotoFromModal() {
+      if (!currentPhotoId) return;
+      if (confirm('Delete this vision photo?')) {
+        data.visionPhotos = data.visionPhotos.filter(p => p.id !== currentPhotoId);
+        saveData();
+        renderVisionPhotos();
+        closeVisionModal();
+      }
+    }
+
+    function renderTodos() {
+      const list = document.getElementById('todos-list');
+      list.innerHTML = data.todos.map(todo => `
+        <div class="todo-item">
+          <div class="checkbox ${todo.completed ? 'checked' : ''}" onclick="toggleTodo('${todo.id}')">
+            ${todo.completed ? '✓' : ''}
+          </div>
+          <div class="todo-text ${todo.completed ? 'completed' : ''}">${todo.text}</div>
+          <div class="priority-badge priority-${todo.priority}">${todo.priority.toUpperCase()}</div>
+        </div>
+      `).join('');
+      
+      const completed = data.todos.filter(t => t.completed).length;
+      const total = data.todos.length;
+      const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
+      document.getElementById('progress-bar').style.width = progress + '%';
+      document.getElementById('progress-text').textContent = `${progress}% Complete`;
+      document.getElementById('progress-count').textContent = `${completed}/${total}`;
+    }
+
+    function toggleTodo(id) {
+      const todo = data.todos.find(t => t.id === id);
+      if (todo) {
+        todo.completed = !todo.completed;
+        saveData();
+        renderTodos();
+      }
+    }
+
+    function addTodo() {
+      const input = document.getElementById('new-todo');
+      const text = input.value.trim();
+      if (!text) return;
+      data.todos.push({ id: Date.now().toString(), text, completed: false, priority: "medium" });
+      input.value = '';
+      saveData();
+      renderTodos();
+    }
+
+    function renderProjects() {
+      const list = document.getElementById('projects-list');
+      list.innerHTML = data.projects.map(project => `
+        <div class="project-card" draggable="true" data-project-id="${project.id}" ondragstart="dragStartProject(event)" ondragover="dragOverProject(event)" ondrop="dropProject(event)" ondragend="dragEndProject(event)" style="cursor: move; border: 2px solid #e2e8f0; transition: all 0.2s;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <div style="display: flex; align-items: center; gap: 8px; flex: 1;">
+              <div style="cursor: grab; color: #94a3b8;">⋮⋮</div>
+              <div class="project-name" style="margin-bottom: 0; flex: 1; cursor: text;" ondblclick="editProjectName('${project.id}')">${project.name}</div>
+            </div>
+            <button class="delete-card-btn" onclick="deleteProject('${project.id}')" style="padding: 4px 8px; font-size: 0.75rem;">🗑️</button>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: ${project.progress}%"></div>
+          </div>
+          <div style="font-size: 0.85rem; margin: 8px 0; color: #00d4ff; font-weight: 700;">${project.progress}% Complete</div>
+          <div id="milestones-${project.id}">
+            ${project.milestones.map(m => `
+              <div style="display: flex; align-items: center; gap: 10px; padding: 8px; font-size: 0.85rem; background: #f8fafc; border-radius: 6px; margin-bottom: 4px;">
+                <div class="checkbox ${m.completed ? 'checked' : ''}" onclick="toggleMilestone('${project.id}', '${m.id}')">
+                  ${m.completed ? '✓' : ''}
+                </div>
+                <div class="todo-text ${m.completed ? 'completed' : ''}" ondblclick="editMilestone('${project.id}', '${m.id}')" style="flex: 1; cursor: text;">${m.text}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function addProject() {
+      const input = document.getElementById('project-name');
+      const name = input.value.trim();
+      if (!name) return;
+      
+      data.projects.push({
+        id: Date.now().toString(),
+        name,
+        progress: 0,
+        milestones: [
+          { id: Date.now() + 'a', text: "Phase 1: Setup & Planning", completed: false },
+          { id: Date.now() + 'b', text: "Phase 2: Implementation", completed: false },
+          { id: Date.now() + 'c', text: "Phase 3: Testing & Launch", completed: false },
+          { id: Date.now() + 'd', text: "Phase 4: Optimization", completed: false }
+        ]
+      });
+      
+      input.value = '';
+      saveData();
+      renderProjects();
+    }
+
+    function deleteProject(id) {
+      data.projects = data.projects.filter(p => p.id !== id);
+      saveData();
+      renderProjects();
+    }
+
+    function toggleMilestone(projectId, milestoneId) {
+      const project = data.projects.find(p => p.id === projectId);
+      if (!project) return;
+      const milestone = project.milestones.find(m => m.id === milestoneId);
+      if (!milestone) return;
+      milestone.completed = !milestone.completed;
+      const completed = project.milestones.filter(m => m.completed).length;
+      project.progress = Math.round((completed / project.milestones.length) * 100);
+      saveData();
+      renderProjects();
+    }
+
+    function editMilestone(projectId, milestoneId) {
+      const project = data.projects.find(p => p.id === projectId);
+      if (!project) return;
+      const milestone = project.milestones.find(m => m.id === milestoneId);
+      if (!milestone) return;
+      
+      const newText = prompt('Edit milestone:', milestone.text);
+      if (newText && newText.trim()) {
+        milestone.text = newText.trim();
+        saveData();
+        renderProjects();
+      }
+    }
+
+    function editProjectName(projectId) {
+      const project = data.projects.find(p => p.id === projectId);
+      if (!project) return;
+      
+      const newName = prompt('Edit project name:', project.name);
+      if (newName && newName.trim()) {
+        project.name = newName.trim();
+        saveData();
+        renderProjects();
+      }
+    }
+
+    let draggedProject = null;
+
+    function dragStartProject(e) {
+      draggedProject = e.target.closest('.project-card');
+      draggedProject.style.opacity = '0.5';
+      e.dataTransfer.effectAllowed = 'move';
+    }
+
+    function dragOverProject(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      const target = e.target.closest('.project-card');
+      if (target && target !== draggedProject) {
+        target.style.borderColor = '#00d4ff';
+      }
+    }
+
+    function dropProject(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      
+      const target = e.target.closest('.project-card');
+      if (!target || target === draggedProject) return;
+      
+      const draggedId = draggedProject.dataset.projectId;
+      const targetId = target.dataset.projectId;
+      
+      const draggedIndex = data.projects.findIndex(p => p.id === draggedId);
+      const targetIndex = data.projects.findIndex(p => p.id === targetId);
+      
+      const [removed] = data.projects.splice(draggedIndex, 1);
+      data.projects.splice(targetIndex, 0, removed);
+      
+      saveData();
+      renderProjects();
+    }
+
+    function dragEndProject(e) {
+      if (draggedProject) {
+        draggedProject.style.opacity = '1';
+        draggedProject = null;
+      }
+      document.querySelectorAll('.project-card').forEach(card => {
+        card.style.borderColor = '#e2e8f0';
+      });
+    }
+
+    function renderIncome() {
+      const list = document.getElementById('income-list');
+      const total = data.incomeStreams.reduce((sum, s) => sum + s.amount, 0);
+      document.getElementById('total-income').textContent = `$${total.toLocaleString()}/mo`;
+      list.innerHTML = data.incomeStreams.map(stream => `
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px; background: #f8fafc; border-radius: 8px; margin-bottom: 10px; border: 2px solid #e2e8f0;">
+          <div>
+            <div style="font-weight: 700; color: #1e293b;">${stream.name}</div>
+            <div style="font-size: 0.8rem; color: #64748b; margin-top: 2px;">${stream.status}</div>
+          </div>
+          <div style="font-size: 1.2rem; font-weight: 800; color: #059669;">$${stream.amount.toLocaleString()}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderAchievements() {
+      const completed = data.achievements.filter(a => a.unlocked);
+      const targeting = data.achievements.filter(a => !a.unlocked);
+      
+      const countElement = document.getElementById('achievement-count');
+      if (countElement) {
+        countElement.textContent = `${completed.length}/${data.achievements.length} UNLOCKED`;
+      }
+      
+      const completedList = document.getElementById('achievements-completed');
+      completedList.innerHTML = completed.map(achievement => `
+        <div style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border: 2px solid #059669; border-radius: 12px; padding: 20px; position: relative; min-height: 120px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div style="position: absolute; top: 12px; right: 12px; background: #059669; color: white; padding: 4px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700;">✓</div>
+          <div style="font-size: 2.5rem; margin-bottom: 8px;">🏆</div>
+          <div>
+            <div style="font-weight: 700; font-size: 1.1rem; color: #1e293b; margin-bottom: 4px;">${achievement.name}</div>
+            <div style="font-size: 0.85rem; color: #64748b;">${achievement.description}</div>
+            ${achievement.date ? `<div style="font-size: 0.75rem; color: #059669; margin-top: 6px; font-weight: 600;">Unlocked: ${achievement.date}</div>` : ''}
+          </div>
+        </div>
+      `).join('') || '<div style="color: #94a3b8; text-align: center; padding: 40px; grid-column: 1/-1;">No completed achievements yet</div>';
+      
+      const targetingList = document.getElementById('achievements-targeting');
+      targetingList.innerHTML = targeting.map(achievement => `
+        <div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border: 2px solid #cbd5e1; border-radius: 12px; padding: 20px; position: relative; min-height: 120px; display: flex; flex-direction: column; justify-content: space-between; opacity: 0.7;">
+          <div style="position: absolute; top: 12px; right: 12px; background: #64748b; color: white; padding: 4px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700;">LOCKED</div>
+          <div style="font-size: 2.5rem; margin-bottom: 8px; filter: grayscale(100%);">🔒</div>
+          <div>
+            <div style="font-weight: 700; font-size: 1.1rem; color: #1e293b; margin-bottom: 4px;">${achievement.name}</div>
+            <div style="font-size: 0.85rem; color: #64748b;">${achievement.description}</div>
+            <button class="btn" onclick="unlockAchievement('${achievement.id}')" style="padding: 6px 12px; margin-top: 8px; font-size: 0.8rem;">✅ Unlock</button>
+          </div>
+        </div>
+      `).join('') || '<div style="color: #94a3b8; text-align: center; padding: 40px; grid-column: 1/-1;">No target achievements</div>';
+    }
+
+    function addAchievement() {
+      const name = document.getElementById('achievement-name').value.trim();
+      const description = document.getElementById('achievement-desc').value.trim();
+      if (!name) return;
+      
+      data.achievements.push({
+        id: Date.now().toString(),
+        name,
+        description: description || 'New achievement',
+        unlocked: false
+      });
+      
+      document.getElementById('achievement-name').value = '';
+      document.getElementById('achievement-desc').value = '';
+      saveData();
+      renderAchievements();
+    }
+
+    function unlockAchievement(id) {
+      const achievement = data.achievements.find(a => a.id === id);
+      if (achievement) {
+        achievement.unlocked = true;
+        achievement.date = new Date().toISOString().split('T')[0];
+        saveData();
+        renderAchievements();
+      }
+    }
+
+    function deleteAchievement(id) {
+      data.achievements = data.achievements.filter(a => a.id !== id);
+      saveData();
+      renderAchievements();
+    }
+
+    function renderSkills() {
+      const categories = {
+        business: { color: '#d97706', bg: '#fef3c7' },
+        tech: { color: '#0099cc', bg: '#e0f2fe' },
+        creative: { color: '#c026d3', bg: '#fae8ff' },
+        social: { color: '#059669', bg: '#d1fae5' }
+      };
+      
+      ['business', 'tech', 'creative', 'social'].forEach(category => {
+        const container = document.getElementById(`skills-${category}`);
+        const categorySkills = data.skills.filter(s => s.category === category);
+        const colors = categories[category];
+        
+        container.innerHTML = categorySkills.map(skill => `
+          <div style="margin-bottom: 14px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+              <span style="color: #1e293b; font-weight: 600; font-size: 0.95rem;">${skill.name}</span>
+              <span style="color: ${colors.color}; font-weight: 700; font-size: 0.95rem;">LVL ${skill.level}</span>
+            </div>
+            <div style="width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden;">
+              <div style="height: 100%; width: ${skill.level}%; background: linear-gradient(90deg, ${colors.color}, ${colors.color}dd); transition: width 0.3s;"></div>
+            </div>
+          </div>
+        `).join('');
+      });
+    }
+
+    function renderFitness() {
+      const list = document.getElementById('fitness-list');
+      list.innerHTML = data.fitnessGoals.map(goal => `
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px; background: #f8fafc; border-radius: 8px; margin-bottom: 10px; border: 2px solid #e2e8f0;">
+          <div>
+            <div style="font-weight: 700; color: #1e293b;">${goal.name}</div>
+            <div style="font-size: 0.85rem; color: #64748b; margin-top: 2px;">${goal.current}/${goal.target} ${goal.unit}</div>
+          </div>
+          <div style="width: 150px;">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: ${(goal.current / goal.target) * 100}%"></div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderRomanceCards() {
+      const container = document.getElementById('romance-cards');
+      container.innerHTML = data.romanceCards.map((card, index) => `
+        <div class="romance-card" draggable="true" data-id="${card.id}" ondragstart="dragStart(event)" ondragover="dragOver(event)" ondrop="drop(event)" ondragend="dragEnd(event)">
+          <div class="romance-card-image">
+            ${card.image ? `<img src="${card.image}" alt="${card.title}">` : '❤️'}
+          </div>
+          <div class="romance-card-title">${card.title}</div>
+          ${card.memo ? `<div class="romance-card-memo">${card.memo}</div>` : ''}
+          <div class="romance-card-footer">
+            <div class="romance-priority romance-priority-${card.priority}">${card.priority.toUpperCase()}</div>
+            <div class="delete-card-btn" onclick="deleteRomanceCard('${card.id}')">🗑️ Delete</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function addRomanceCard() {
+      const title = document.getElementById('romance-title').value.trim();
+      const priority = document.getElementById('romance-priority').value;
+      const image = document.getElementById('romance-image').value.trim();
+      const memo = document.getElementById('romance-memo').value.trim();
+      
+      if (!title) return;
+      
+      data.romanceCards.push({
+        id: Date.now().toString(),
+        title,
+        priority,
+        image,
+        memo
+      });
+      
+      document.getElementById('romance-title').value = '';
+      document.getElementById('romance-priority').value = 'medium';
+      document.getElementById('romance-image').value = '';
+      document.getElementById('romance-memo').value = '';
+      
+      saveData();
+      renderRomanceCards();
+    }
+
+    function deleteRomanceCard(id) {
+      data.romanceCards = data.romanceCards.filter(c => c.id !== id);
+      saveData();
+      renderRomanceCards();
+    }
+
+    let draggedElement = null;
+
+    function dragStartVision(e) {
+      draggedElement = e.target.closest('.vision-photo');
+      draggedElement.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/html', draggedElement.innerHTML);
+    }
+
+    function dragOverVision(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      const target = e.target.closest('.vision-photo');
+      if (target && target !== draggedElement) {
+        const container = document.getElementById('vision-photos');
+        const photos = [...container.querySelectorAll('.vision-photo')];
+        const draggedIndex = photos.indexOf(draggedElement);
+        const targetIndex = photos.indexOf(target);
+        
+        if (draggedIndex < targetIndex) {
+          target.parentNode.insertBefore(draggedElement, target.nextSibling);
+        } else {
+          target.parentNode.insertBefore(draggedElement, target);
+        }
+      }
+    }
+
+    function dropVision(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      
+      const container = document.getElementById('vision-photos');
+      const photos = [...container.querySelectorAll('.vision-photo')];
+      const newOrder = photos.map(photo => photo.dataset.id);
+      
+      data.visionPhotos.sort((a, b) => {
+        return newOrder.indexOf(a.id) - newOrder.indexOf(b.id);
+      });
+      
+      saveData();
+      return false;
+    }
+
+    function dragEndVision(e) {
+      e.target.closest('.vision-photo').classList.remove('dragging');
+      draggedElement = null;
+    }
+
+    function dragStart(e) {
+      draggedElement = e.target;
+      e.target.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/html', e.target.innerHTML);
+    }
+
+    function dragOver(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      const target = e.target.closest('.romance-card');
+      if (target && target !== draggedElement) {
+        const container = document.getElementById('romance-cards');
+        const cards = [...container.querySelectorAll('.romance-card')];
+        const draggedIndex = cards.indexOf(draggedElement);
+        const targetIndex = cards.indexOf(target);
+        
+        if (draggedIndex < targetIndex) {
+          target.parentNode.insertBefore(draggedElement, target.nextSibling);
+        } else {
+          target.parentNode.insertBefore(draggedElement, target);
+        }
+      }
+    }
+
+    function drop(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      
+      const container = document.getElementById('romance-cards');
+      const cards = [...container.querySelectorAll('.romance-card')];
+      const newOrder = cards.map(card => card.dataset.id);
+      
+      data.romanceCards.sort((a, b) => {
+        return newOrder.indexOf(a.id) - newOrder.indexOf(b.id);
+      });
+      
+      saveData();
+      return false;
+    }
+
+    function dragEnd(e) {
+      e.target.classList.remove('dragging');
+      draggedElement = null;
+    }
+
+    function loadDataBrowser() {
+      const existingIframe = document.getElementById('data-browser-iframe');
+      if (existingIframe) {
+        existingIframe.remove();
+        return;
+      }
+
+      const iframe = document.createElement('iframe');
+      iframe.id = 'data-browser-iframe';
+      iframe.src = '/data-browser';
+      iframe.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; border: none; z-index: 9999; background: white;';
+      
+      const closeBtn = document.createElement('button');
+      closeBtn.textContent = '✕ Close Data Browser';
+      closeBtn.className = 'btn';
+      closeBtn.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 10000; padding: 12px 20px;';
+      closeBtn.onclick = () => {
+        iframe.remove();
+        closeBtn.remove();
+      };
+      
+      document.body.appendChild(iframe);
+      document.body.appendChild(closeBtn);
+    }
+
+    function init() {
+      loadData();
+      loadBackgroundColor();
+      renderVisionPhotos();
+      renderTodos();
+      renderProjects();
+      renderIncome();
+      renderAchievements();
+      renderSkills();
+      renderFitness();
+      renderRomanceCards();
+      updateDailyOpsInfo();
+      setInterval(updateClock, 1000);
+      updateClock();
+    }
+
+    init();
+  </script>
+
+
+<!-- Footer -->
+    <footer class="footer">
+        <div style="background: #2854a6; padding: 20px; text-align: center;">
+            <a href="/cart" style="display: inline-block; margin-bottom: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><img src="/public/images/view-cart-button.png" alt="View Cart" style="max-width: 150px; height: auto; cursor: pointer;"></a>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 10px;"><img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;"></div>
+        </div>
+        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
+        <div style="background: #2854a6; padding: 15px 20px; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; font-size: 0.85rem;">
+            <a href="/terms-of-service.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Terms of Service</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/shipping-returns.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Shipping & Returns</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/payment-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Payment Policy</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/privacy-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Privacy Policy</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/contact" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Contact</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/shop" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">🧪 SHOP</a>
+        </div>
+        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
+        <div style="text-align: center; padding: 12px; background: #2854a6;"><p style="color: white; font-size: 0.85rem; margin: 0;">🗽 Copyright 2026 - Success Chemistry® | Powered by 🏄 WindSurf</p></div>
+    </footer>
+
+</body>
+</html>

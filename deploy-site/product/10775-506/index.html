@@ -1190,7 +1190,7 @@
     <script src="/products-data.js?v=3"></script>
     
     <!-- PayPal SDK -->
-    <script src="https://www.paypal.com/sdk/js?client-id=EBAQIbUDDVgB06yvEWREs2cMox8AKElkxFJAqKF71iUj007dv0YzxlKbepduwV7xGEI5FrjK3vakzm0b&currency=USD"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=EBAQIbUDDVgB06yvEWREs2cMox8AKElkxFJAqKF71iUj007dv0YzxlKbepduwV7xGEI5FrjK3vakzm0b&currency=USD&components=buttons,funding-eligibility&enable-funding=venmo,paylater&disable-funding=credit"></script>
 
     <script>
         let currentProduct = null;
@@ -1598,10 +1598,9 @@
                 paypal.Buttons({
                 style: {
                     layout: 'vertical',
-                    color: 'gold',
                     shape: 'rect',
-                    label: 'paypal',
-                    height: 50
+                    height: 55,
+                    tagline: false
                 },
                 createOrder: function(data, actions) {
                     const quantity = parseInt(document.getElementById('quantity').value) || 1;

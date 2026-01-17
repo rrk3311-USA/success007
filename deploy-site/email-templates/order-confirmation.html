@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - Success Chemistry</title>
+    <style>
+        /* Email-safe CSS */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #f4f4f4;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0a234e 0%, #1a3a6e 100%);
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .logo {
+            max-width: 200px;
+            height: auto;
+        }
+        
+        .header-text {
+            color: #ffffff;
+            font-size: 28px;
+            font-weight: 700;
+            margin: 20px 0 10px;
+        }
+        
+        .header-subtext {
+            color: rgba(255,255,255,0.9);
+            font-size: 16px;
+            margin: 0;
+        }
+        
+        .divider {
+            height: 4px;
+            background: linear-gradient(90deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
+        }
+        
+        .content {
+            padding: 40px 30px;
+        }
+        
+        .greeting {
+            font-size: 20px;
+            color: #0a234e;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .message {
+            font-size: 16px;
+            color: #333333;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .order-box {
+            background: #f8f9fa;
+            border: 2px solid #0a234e;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #d4af37;
+        }
+        
+        .order-number {
+            font-size: 14px;
+            color: #666;
+            font-weight: 600;
+        }
+        
+        .order-number span {
+            color: #0a234e;
+            font-weight: 700;
+            font-size: 16px;
+        }
+        
+        .order-date {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .order-items {
+            margin: 20px 0;
+        }
+        
+        .order-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        
+        .item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 8px;
+            margin-right: 15px;
+        }
+        
+        .item-details {
+            flex: 1;
+        }
+        
+        .item-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #0a234e;
+            margin-bottom: 5px;
+        }
+        
+        .item-qty {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .item-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0a234e;
+            text-align: right;
+        }
+        
+        .order-summary {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 15px;
+            color: #333;
+        }
+        
+        .summary-row.total {
+            border-top: 2px solid #d4af37;
+            margin-top: 10px;
+            padding-top: 15px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #0a234e;
+        }
+        
+        .shipping-box {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        
+        .shipping-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0a234e;
+            margin-bottom: 15px;
+        }
+        
+        .shipping-address {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #0a234e, #1a3a6e);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .benefits {
+            background: linear-gradient(135deg, #0a234e05, #1a3a6e05);
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .benefit-icon {
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        
+        .benefit-text {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.5;
+        }
+        
+        .footer {
+            background: #0a234e;
+            color: #ffffff;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .footer-links {
+            margin: 20px 0;
+        }
+        
+        .footer-link {
+            color: #d4af37;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 14px;
+        }
+        
+        .social-icons {
+            margin: 20px 0;
+        }
+        
+        .social-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            margin: 0 8px;
+            line-height: 40px;
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 18px;
+        }
+        
+        .footer-text {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            margin: 10px 0;
+        }
+        
+        .coupon-banner {
+            background: linear-gradient(135deg, #d4af37, #f4d03f);
+            padding: 25px;
+            text-align: center;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+        
+        .coupon-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0a234e;
+            margin-bottom: 10px;
+        }
+        
+        .coupon-code {
+            font-size: 32px;
+            font-weight: 800;
+            color: #0a234e;
+            letter-spacing: 3px;
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        
+        .coupon-text {
+            font-size: 14px;
+            color: #0a234e;
+            font-weight: 600;
+        }
+        
+        /* Mobile responsive */
+        @media only screen and (max-width: 600px) {
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .order-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .order-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .item-image {
+                margin: 0 auto 10px;
+            }
+            
+            .item-price {
+                text-align: center;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="header">
+            <img src="https://successchemistry.com/public/images/SC_logo_withR.png" alt="Success Chemistry" class="logo">
+            <h1 class="header-text">🎉 Order Confirmed!</h1>
+            <p class="header-subtext">Thank you for choosing Success Chemistry</p>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <!-- Main Content -->
+        <div class="content">
+            <div class="greeting">Hi [Customer Name],</div>
+            
+            <div class="message">
+                <p>Great news! Your order has been confirmed and is being prepared for shipment. We're excited to be part of your wellness journey!</p>
+            </div>
+            
+            <!-- Order Details Box -->
+            <div class="order-box">
+                <div class="order-header">
+                    <div class="order-number">
+                        Order #<span>[ORDER_NUMBER]</span>
+                    </div>
+                    <div class="order-date">[ORDER_DATE]</div>
+                </div>
+                
+                <!-- Order Items -->
+                <div class="order-items">
+                    <!-- Item 1 -->
+                    <div class="order-item">
+                        <img src="[PRODUCT_IMAGE_URL]" alt="[Product Name]" class="item-image">
+                        <div class="item-details">
+                            <div class="item-name">[Product Name]</div>
+                            <div class="item-qty">Quantity: [QTY]</div>
+                        </div>
+                        <div class="item-price">$[PRICE]</div>
+                    </div>
+                    
+                    <!-- Add more items as needed -->
+                </div>
+                
+                <!-- Order Summary -->
+                <div class="order-summary">
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span>$[SUBTOTAL]</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping</span>
+                        <span>$[SHIPPING]</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Tax</span>
+                        <span>$[TAX]</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span>$[TOTAL]</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Shipping Address -->
+            <div class="shipping-box">
+                <div class="shipping-title">📦 Shipping To:</div>
+                <div class="shipping-address">
+                    [Customer Name]<br>
+                    [Address Line 1]<br>
+                    [Address Line 2]<br>
+                    [City, State ZIP]<br>
+                    [Country]
+                </div>
+            </div>
+            
+            <!-- Track Order Button -->
+            <center>
+                <a href="[TRACKING_URL]" class="cta-button">Track Your Order</a>
+            </center>
+            
+            <!-- What to Expect -->
+            <div class="benefits">
+                <div class="benefit-item">
+                    <div class="benefit-icon">✅</div>
+                    <div class="benefit-text">
+                        <strong>Order Processing:</strong> Your order is being carefully prepared by our team
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">📦</div>
+                    <div class="benefit-text">
+                        <strong>Fast Shipping:</strong> Most orders ship within 1-2 business days
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">🚚</div>
+                    <div class="benefit-text">
+                        <strong>Delivery Updates:</strong> You'll receive tracking information once shipped
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">💯</div>
+                    <div class="benefit-text">
+                        <strong>Satisfaction Guaranteed:</strong> 100% money-back guarantee on all products
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Exclusive Coupon -->
+            <div class="coupon-banner">
+                <div class="coupon-title">🎁 Thank You Gift!</div>
+                <div class="coupon-code">SAVE25</div>
+                <div class="coupon-text">Use code above for 25% OFF your next order</div>
+            </div>
+            
+            <div class="message">
+                <p>Have questions? Our customer support team is here to help!</p>
+                <p>Email us at <a href="mailto:support@successchemistry.com" style="color: #0a234e; font-weight: 600;">support@successchemistry.com</a></p>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-links">
+                <a href="https://successchemistry.com/shop" class="footer-link">Shop</a>
+                <a href="https://successchemistry.com/my-account" class="footer-link">My Account</a>
+                <a href="https://successchemistry.com/contact" class="footer-link">Contact Us</a>
+            </div>
+            
+            <div class="social-icons">
+                <a href="#" class="social-icon">f</a>
+                <a href="#" class="social-icon">𝕏</a>
+                <a href="#" class="social-icon">in</a>
+                <a href="#" class="social-icon">📷</a>
+            </div>
+            
+            <div class="footer-text">
+                Success Chemistry® - Premium Wellness Supplements<br>
+                © 2026 Success Chemistry. All rights reserved.
+            </div>
+            
+            <div class="footer-text" style="margin-top: 20px;">
+                <a href="[UNSUBSCRIBE_URL]" style="color: rgba(255,255,255,0.7); text-decoration: underline;">Unsubscribe</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
