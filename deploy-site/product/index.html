@@ -952,64 +952,112 @@
 }
 
 .supplement-facts {
-    background: #f9fafb;
-    border: 2px solid #2854a6;
-    border-radius: 8px;
-    padding: 15px;
+    text-align: left;
+}
+
+.supplement-facts-label {
+    background: #ffffff;
+    border: 2px solid #000;
+    border-radius: 4px;
+    padding: 0;
     max-width: 600px;
-    font-family: Arial, sans-serif;
-    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-.supplement-facts h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-    border-bottom: 6px solid #000;
-    padding-bottom: 3px;
+.facts-header {
+    font-size: 1.75rem;
+    font-weight: 900;
+    padding: 12px 15px 8px;
+    border-bottom: 12px solid #000;
     text-align: left;
+    line-height: 1.2;
 }
 
-.supplement-facts .serving-info {
-    font-size: 0.85rem;
-    margin: 8px 0;
-    border-bottom: 3px solid #000;
-    padding-bottom: 3px;
-    text-align: left;
+.serving-section {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    line-height: 1.6;
 }
 
-.supplement-facts table {
+.serving-line {
+    margin: 2px 0;
+}
+
+.thick-line {
+    height: 8px;
+    background: #000;
+}
+
+.ingredients-section {
+    padding: 10px 15px;
+}
+
+.ingredients-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 8px;
 }
 
-.supplement-facts td {
-    padding: 5px 0;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
-    font-size: 0.9rem;
-}
-
-.supplement-facts .ingredient-name {
-    font-weight: 600;
-    text-align: left;
-}
-
-.supplement-facts .amount {
-    text-align: right;
-    font-weight: 600;
-}
-
-.supplement-facts .daily-value {
-    text-align: right;
-    width: 80px;
-}
-
-.supplement-facts p {
-    text-align: left;
+.ingredients-table thead th {
     font-size: 0.75rem;
-    margin-top: 10px;
+    font-weight: 700;
+    text-align: left;
+    padding: 8px 0 6px;
+    border-bottom: 1px solid #000;
+}
+
+.ingredients-table thead .amount-col {
+    text-align: right;
+}
+
+.ingredients-table thead .dv-col {
+    text-align: right;
+    width: 60px;
+}
+
+.ingredients-table tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+.ingredients-table tbody td {
+    padding: 8px 0;
+    font-size: 0.9rem;
+    vertical-align: top;
+}
+
+.ingredient-name {
+    font-weight: 600;
+    text-align: left;
+}
+
+.ingredient-amount {
+    text-align: right;
+    font-weight: 600;
+    padding-right: 10px;
+}
+
+.ingredient-dv {
+    text-align: right;
+    font-weight: 600;
+}
+
+.ingredient-subtext {
+    font-size: 0.85rem;
+    color: #555;
+    padding-left: 15px !important;
+    font-weight: 400;
+}
+
+.facts-footer {
+    padding: 12px 15px;
+    border-top: 1px solid #ddd;
+    background: #f9f9f9;
+}
+
+.facts-footer p {
+    font-size: 0.75rem;
+    line-height: 1.6;
+    margin: 4px 0;
+    color: #555;
 }
             border-radius: 16px;
             margin: 24px 0;
@@ -2010,50 +2058,79 @@
 
         // Format supplement facts text into structured HTML
         function formatSupplementFacts(factsText) {
-            const lines = factsText.split('\n').filter(line => line.trim());
-            let html = '<h3>Supplement Facts</h3>';
+            const lines = factsText.split('\n').map(line => line.trim()).filter(line => line);
             
-            let inTable = false;
-            let tableRows = [];
+            let html = '<div class="supplement-facts-label">';
+            html += '<div class="facts-header">Supplement Facts</div>';
             
+            let servingInfo = [];
+            let ingredients = [];
+            let footer = [];
+            let inIngredients = false;
+            
+            // Parse the text into sections
             for (let line of lines) {
-                line = line.trim();
-                
-                if (line.startsWith('Serving Size:') || line.startsWith('Servings Per Container:')) {
-                    if (!inTable) {
-                        html += '<div class="serving-info">';
-                    }
-                    html += `<div>${line}</div>`;
-                } else if (line === 'Amount Per Serving / %DV' || line.includes('Amount Per Serving')) {
-                    if (html.includes('serving-info')) {
-                        html += '</div>';
-                    }
-                    html += '<table><tbody>';
-                    inTable = true;
+                if (line.startsWith('Supplement Facts')) {
+                    continue; // Skip the title line
+                } else if (line.startsWith('Serving Size:') || line.startsWith('Servings Per Container:')) {
+                    servingInfo.push(line);
+                } else if (line.includes('Amount Per Serving') || line.includes('%DV') || line.includes('% Daily Value')) {
+                    inIngredients = true;
                 } else if (line.startsWith('**') || line.startsWith('Other Ingredients:') || line.startsWith('Distributed by:')) {
-                    if (inTable) {
-                        html += '</tbody></table>';
-                        inTable = false;
-                    }
-                    html += `<p style="font-size: 0.8rem; margin-top: 15px; color: #666;">${line}</p>`;
-                } else if (inTable && line) {
-                    // Parse ingredient lines
-                    const parts = line.split(/\s+(?=\d+\s*mg|[*]+)/);
-                    if (parts.length >= 2) {
-                        const ingredient = parts[0];
-                        const amount = parts[1] || '';
-                        const dv = parts[2] || '**';
-                        html += `<tr><td class="ingredient-name">${ingredient}</td><td class="amount">${amount}</td><td class="daily-value">${dv}</td></tr>`;
-                    } else {
-                        html += `<tr><td colspan="3" class="ingredient-name">${line}</td></tr>`;
-                    }
+                    inIngredients = false;
+                    footer.push(line);
+                } else if (inIngredients && line) {
+                    ingredients.push(line);
                 }
             }
             
-            if (inTable) {
-                html += '</tbody></table>';
+            // Build serving info section
+            if (servingInfo.length > 0) {
+                html += '<div class="serving-section">';
+                servingInfo.forEach(info => {
+                    html += `<div class="serving-line">${info}</div>`;
+                });
+                html += '</div>';
+                html += '<div class="thick-line"></div>';
             }
             
+            // Build ingredients table
+            if (ingredients.length > 0) {
+                html += '<div class="ingredients-section">';
+                html += '<table class="ingredients-table">';
+                html += '<thead><tr><th class="ingredient-col">Amount Per Serving</th><th class="amount-col"></th><th class="dv-col">% DV</th></tr></thead>';
+                html += '<tbody>';
+                
+                ingredients.forEach(line => {
+                    // Try to parse ingredient line: "Name Amount DV"
+                    // Match patterns like "Vitamin C 500mg 100%" or "Proprietary Blend 1000mg **"
+                    const match = line.match(/^(.+?)\s+(\d+\s*(?:mg|mcg|g|IU))\s*(.*)$/i);
+                    
+                    if (match) {
+                        const name = match[1].trim();
+                        const amount = match[2].trim();
+                        const dv = match[3].trim() || '**';
+                        html += `<tr><td class="ingredient-name">${name}</td><td class="ingredient-amount">${amount}</td><td class="ingredient-dv">${dv}</td></tr>`;
+                    } else {
+                        // If it doesn't match the pattern, it might be a sub-ingredient or blend description
+                        html += `<tr><td colspan="3" class="ingredient-subtext">${line}</td></tr>`;
+                    }
+                });
+                
+                html += '</tbody></table>';
+                html += '</div>';
+            }
+            
+            // Build footer section
+            if (footer.length > 0) {
+                html += '<div class="facts-footer">';
+                footer.forEach(line => {
+                    html += `<p>${line}</p>`;
+                });
+                html += '</div>';
+            }
+            
+            html += '</div>';
             return html;
         }
 
