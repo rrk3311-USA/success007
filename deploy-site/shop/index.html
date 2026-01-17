@@ -585,12 +585,14 @@
         <div class="container">
             <div class="filter-container">
                 <div class="filter-buttons">
-                    <button class="filter-btn active" onclick="filterProducts('all')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="10" rx="1"/><path d="M2 6h12"/></svg> All Products</button>
-                    <button class="filter-btn" onclick="filterProducts('bestsellers')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2l1.5 4.5h4.5l-3.5 2.5 1.5 4.5L8 11l-3.5 2.5 1.5-4.5-3.5-2.5h4.5z"/></svg> Bestsellers</button>
-                    <button class="filter-btn" onclick="filterProducts('new')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg> New Arrivals</button>
-                    <button class="filter-btn" onclick="filterProducts('sale')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l10 10M10 3l-7 7"/><circle cx="4" cy="4" r="1" fill="currentColor"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg> On Sale</button>
-                    <button class="filter-btn" onclick="window.location.href='/bundles'"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="12" height="9" rx="1"/><path d="M2 7h12M6 4V2M10 4V2"/></svg> Top Bundles</button>
-                    <button class="filter-btn" onclick="window.location.href='/subscribe.html'"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M8 5v6M5 8h6"/></svg> Subscription Offer</button>
+                    <button class="filter-btn active" onclick="filterByCategory('all')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="10" rx="1"/><path d="M2 6h12"/></svg> All Products</button>
+                    <button class="filter-btn" onclick="filterByCategory('bestsellers')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2l1.5 4.5h4.5l-3.5 2.5 1.5 4.5L8 11l-3.5 2.5 1.5-4.5-3.5-2.5h4.5z"/></svg> Bestsellers</button>
+                    <button class="filter-btn" onclick="filterByCategory('mens')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="5" r="3"/><path d="M3 14v-1a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v1"/></svg> Men's Health</button>
+                    <button class="filter-btn" onclick="filterByCategory('womens')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="5" r="3"/><path d="M3 14v-1a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v1"/></svg> Women's Health</button>
+                    <button class="filter-btn" onclick="filterByCategory('bundles')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="12" height="9" rx="1"/><path d="M2 7h12M6 4V2M10 4V2"/></svg> Bundle Deals</button>
+                    <button class="filter-btn" onclick="filterByCategory('eye')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5z"/><circle cx="8" cy="8" r="2"/></svg> Eye Health</button>
+                    <button class="filter-btn" onclick="filterByCategory('weight')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v12M4 6l4-4 4 4M4 10l4 4 4-4"/></svg> Weight Loss</button>
+                    <button class="filter-btn" onclick="window.location.href='/subscribe.html'"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M8 5v6M5 8h6"/></svg> Subscribe & Save</button>
                 </div>
                 
                 <div class="search-bar">
@@ -664,6 +666,56 @@
             sorted.forEach(product => {
                 const card = createProductCard(product);
                 grid.appendChild(card);
+            });
+        }
+
+        function filterByCategory(categoryFilter) {
+            const grid = document.getElementById('productsGrid');
+            if (!grid || allProductsCache.length === 0) return;
+
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            let filtered = [...allProductsCache];
+
+            // Filter by category
+            if (categoryFilter !== 'all') {
+                filtered = filtered.filter(product => {
+                    const category = (product.category || '').toLowerCase();
+                    const name = (product.name || '').toLowerCase();
+
+                    switch(categoryFilter) {
+                        case 'bestsellers':
+                            return category.includes('best') || name.includes('best');
+                        case 'mens':
+                            return category.includes('men') || name.includes('men');
+                        case 'womens':
+                            return category.includes('women') || category.includes('female');
+                        case 'bundles':
+                            return category.includes('bundle') || name.includes('bundle') || name.includes('pack');
+                        case 'eye':
+                            return category.includes('eye') || name.includes('eye') || name.includes('vision') || name.includes('lutein');
+                        case 'weight':
+                            return category.includes('weight') || name.includes('weight') || name.includes('slim');
+                        default:
+                            return true;
+                    }
+                });
+            }
+
+            // Sort by sales
+            filtered.sort((a, b) => getSalesRank(b) - getSalesRank(a));
+
+            // Render filtered products
+            grid.innerHTML = '';
+            filtered.forEach(product => {
+                const card = buildProductCard(product);
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                grid.appendChild(card);
+                observer.observe(card);
             });
         }
 
