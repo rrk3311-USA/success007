@@ -257,7 +257,8 @@
         .product-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            padding: 20px;
         }
 
         .product-info {
@@ -667,7 +668,7 @@
                     </div>
                     <div class="product-actions">
                         <button class="btn-add-cart" onclick="addToCart('${product.name.replace(/'/g, "&#39;")}', ${price})">Add to Cart</button>
-                        <button class="btn-quick-view" onclick="window.location.href='/product/?sku=${skuParam}'">👁️</button>
+                        <button class="btn-quick-view" onclick="window.location.href='/product?sku=${skuParam}'">👁️</button>
                     </div>
                 </div>
             `;
@@ -676,12 +677,12 @@
             if (imageWrap) {
                 imageWrap.style.cursor = 'pointer';
                 imageWrap.addEventListener('click', () => {
-                    window.location.href = `/product/?sku=${skuParam}`;
+                    window.location.href = `/product?sku=${skuParam}`;
                 });
             }
             if (img) {
                 img.addEventListener('click', () => {
-                    window.location.href = `/product/?sku=${skuParam}`;
+                    window.location.href = `/product?sku=${skuParam}`;
                 });
             }
             card.querySelectorAll('.btn-add-cart, .btn-quick-view').forEach((btn) => {
