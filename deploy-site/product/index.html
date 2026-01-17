@@ -1903,30 +1903,8 @@
                         
                         <div id="supplement-facts-tab" class="tab-content">
                             <div class="info-card">
-                                <div class="supplement-facts">
-                                    <h3>Supplement Facts</h3>
-                                    <div class="serving-info">
-                                        <div>Serving Size: 2 Capsules</div>
-                                        <div>Servings Per Container: 30</div>
-                                    </div>
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td class="ingredient-name">Amount Per Serving</td>
-                                                <td class="amount"></td>
-                                                <td class="daily-value">% Daily Value</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="ingredient-name">Proprietary Blend</td>
-                                                <td class="amount">1000mg</td>
-                                                <td class="daily-value">**</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <p style="font-size: 0.8rem; margin-top: 15px; color: #666;">
-                                        ** Daily Value not established.<br>
-                                        Other Ingredients: Gelatin (capsule), Rice Flour, Magnesium Stearate.
-                                    </p>
+                                <div class="supplement-facts" id="supplement-facts-content">
+                                    <p>Loading supplement facts...</p>
                                 </div>
                             </div>
                         </div>
@@ -1988,8 +1966,82 @@
             // Display recently viewed products
             displayRecentlyViewed();
             
+            // Load supplement facts
+            loadSupplementFacts(productId);
+            
             // Initialize PayPal button
             initPayPalButton();
+        }
+
+        // Load supplement facts from product-references JSON
+        async function loadSupplementFacts(sku) {
+            try {
+                const response = await fetch(`/public/data/product-references/${sku}.json`);
+                if (!response.ok) {
+                    throw new Error('Supplement facts not found');
+                }
+                const data = await response.json();
+                
+                if (data.supplementFacts) {
+                    // Format the supplement facts text into HTML
+                    const factsHtml = formatSupplementFacts(data.supplementFacts);
+                    document.getElementById('supplement-facts-content').innerHTML = factsHtml;
+                } else {
+                    document.getElementById('supplement-facts-content').innerHTML = '<p>Supplement facts information coming soon.</p>';
+                }
+            } catch (error) {
+                console.log('Could not load supplement facts:', error);
+                document.getElementById('supplement-facts-content').innerHTML = '<p>Supplement facts information coming soon.</p>';
+            }
+        }
+
+        // Format supplement facts text into structured HTML
+        function formatSupplementFacts(factsText) {
+            const lines = factsText.split('\n').filter(line => line.trim());
+            let html = '<h3>Supplement Facts</h3>';
+            
+            let inTable = false;
+            let tableRows = [];
+            
+            for (let line of lines) {
+                line = line.trim();
+                
+                if (line.startsWith('Serving Size:') || line.startsWith('Servings Per Container:')) {
+                    if (!inTable) {
+                        html += '<div class="serving-info">';
+                    }
+                    html += `<div>${line}</div>`;
+                } else if (line === 'Amount Per Serving / %DV' || line.includes('Amount Per Serving')) {
+                    if (html.includes('serving-info')) {
+                        html += '</div>';
+                    }
+                    html += '<table><tbody>';
+                    inTable = true;
+                } else if (line.startsWith('**') || line.startsWith('Other Ingredients:') || line.startsWith('Distributed by:')) {
+                    if (inTable) {
+                        html += '</tbody></table>';
+                        inTable = false;
+                    }
+                    html += `<p style="font-size: 0.8rem; margin-top: 15px; color: #666;">${line}</p>`;
+                } else if (inTable && line) {
+                    // Parse ingredient lines
+                    const parts = line.split(/\s+(?=\d+\s*mg|[*]+)/);
+                    if (parts.length >= 2) {
+                        const ingredient = parts[0];
+                        const amount = parts[1] || '';
+                        const dv = parts[2] || '**';
+                        html += `<tr><td class="ingredient-name">${ingredient}</td><td class="amount">${amount}</td><td class="daily-value">${dv}</td></tr>`;
+                    } else {
+                        html += `<tr><td colspan="3" class="ingredient-name">${line}</td></tr>`;
+                    }
+                }
+            }
+            
+            if (inTable) {
+                html += '</tbody></table>';
+            }
+            
+            return html;
         }
 
         // Tab switching function
