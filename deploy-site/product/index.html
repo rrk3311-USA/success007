@@ -955,109 +955,44 @@
     text-align: left;
 }
 
-.supplement-facts-label {
-    background: #ffffff;
-    border: 2px solid #000;
-    border-radius: 4px;
-    padding: 0;
-    max-width: 600px;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.facts-header {
-    font-size: 1.75rem;
-    font-weight: 900;
-    padding: 12px 15px 8px;
-    border-bottom: 12px solid #000;
+.supplement-facts-compact {
     text-align: left;
-    line-height: 1.2;
+    max-width: 800px;
 }
 
-.serving-section {
-    padding: 8px 15px;
-    font-size: 0.9rem;
-    line-height: 1.6;
-}
-
-.serving-line {
-    margin: 2px 0;
-}
-
-.thick-line {
-    height: 8px;
-    background: #000;
-}
-
-.ingredients-section {
-    padding: 10px 15px;
-}
-
-.ingredients-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.ingredients-table thead th {
-    font-size: 0.75rem;
+.supplement-facts-compact h4 {
+    font-size: 1.2rem;
     font-weight: 700;
-    text-align: left;
-    padding: 8px 0 6px;
-    border-bottom: 1px solid #000;
+    margin-bottom: 10px;
+    color: #2854a6;
 }
 
-.ingredients-table thead .amount-col {
-    text-align: right;
+.supplement-facts-compact p {
+    margin: 8px 0;
+    line-height: 1.7;
+    color: #444;
+    font-size: 0.95rem;
 }
 
-.ingredients-table thead .dv-col {
-    text-align: right;
-    width: 60px;
-}
-
-.ingredients-table tbody tr {
-    border-bottom: 1px solid #ddd;
-}
-
-.ingredients-table tbody td {
-    padding: 8px 0;
+.serving-compact {
     font-size: 0.9rem;
-    vertical-align: top;
+    color: #555;
+    font-style: italic;
 }
 
-.ingredient-name {
-    font-weight: 600;
+.ingredients-compact {
     text-align: left;
 }
 
-.ingredient-amount {
-    text-align: right;
-    font-weight: 600;
-    padding-right: 10px;
+.ingredients-compact strong {
+    color: #2854a6;
 }
 
-.ingredient-dv {
-    text-align: right;
-    font-weight: 600;
-}
-
-.ingredient-subtext {
+.facts-footer-compact {
     font-size: 0.85rem;
-    color: #555;
-    padding-left: 15px !important;
-    font-weight: 400;
-}
-
-.facts-footer {
-    padding: 12px 15px;
-    border-top: 1px solid #ddd;
-    background: #f9f9f9;
-}
-
-.facts-footer p {
-    font-size: 0.75rem;
-    line-height: 1.6;
-    margin: 4px 0;
-    color: #555;
+    color: #666;
+    margin-top: 12px;
+    font-style: italic;
 }
             border-radius: 16px;
             margin: 24px 0;
@@ -2056,12 +1991,12 @@
             }
         }
 
-        // Format supplement facts text into structured HTML
+        // Format supplement facts text into compact, left-aligned format
         function formatSupplementFacts(factsText) {
             const lines = factsText.split('\n').map(line => line.trim()).filter(line => line);
             
-            let html = '<div class="supplement-facts-label">';
-            html += '<div class="facts-header">Supplement Facts</div>';
+            let html = '<div class="supplement-facts-compact">';
+            html += '<h4>Supplement Facts</h4>';
             
             let servingInfo = [];
             let ingredients = [];
@@ -2071,7 +2006,7 @@
             // Parse the text into sections
             for (let line of lines) {
                 if (line.startsWith('Supplement Facts')) {
-                    continue; // Skip the title line
+                    continue;
                 } else if (line.startsWith('Serving Size:') || line.startsWith('Servings Per Container:')) {
                     servingInfo.push(line);
                 } else if (line.includes('Amount Per Serving') || line.includes('%DV') || line.includes('% Daily Value')) {
@@ -2084,50 +2019,38 @@
                 }
             }
             
-            // Build serving info section
+            // Build compact serving info
             if (servingInfo.length > 0) {
-                html += '<div class="serving-section">';
-                servingInfo.forEach(info => {
-                    html += `<div class="serving-line">${info}</div>`;
-                });
-                html += '</div>';
-                html += '<div class="thick-line"></div>';
+                html += '<p class="serving-compact">' + servingInfo.join(', ') + '</p>';
             }
             
-            // Build ingredients table
+            // Build compact ingredients list
             if (ingredients.length > 0) {
-                html += '<div class="ingredients-section">';
-                html += '<table class="ingredients-table">';
-                html += '<thead><tr><th class="ingredient-col">Amount Per Serving</th><th class="amount-col"></th><th class="dv-col">% DV</th></tr></thead>';
-                html += '<tbody>';
+                html += '<p class="ingredients-compact"><strong>Amount Per Serving:</strong> ';
+                const ingredientTexts = [];
                 
                 ingredients.forEach(line => {
-                    // Try to parse ingredient line: "Name Amount DV"
-                    // Match patterns like "Vitamin C 500mg 100%" or "Proprietary Blend 1000mg **"
                     const match = line.match(/^(.+?)\s+(\d+\s*(?:mg|mcg|g|IU))\s*(.*)$/i);
-                    
                     if (match) {
                         const name = match[1].trim();
                         const amount = match[2].trim();
-                        const dv = match[3].trim() || '**';
-                        html += `<tr><td class="ingredient-name">${name}</td><td class="ingredient-amount">${amount}</td><td class="ingredient-dv">${dv}</td></tr>`;
+                        const dv = match[3].trim();
+                        if (dv && dv !== '**') {
+                            ingredientTexts.push(`${name} ${amount} (${dv})`);
+                        } else {
+                            ingredientTexts.push(`${name} ${amount}`);
+                        }
                     } else {
-                        // If it doesn't match the pattern, it might be a sub-ingredient or blend description
-                        html += `<tr><td colspan="3" class="ingredient-subtext">${line}</td></tr>`;
+                        ingredientTexts.push(line);
                     }
                 });
                 
-                html += '</tbody></table>';
-                html += '</div>';
+                html += ingredientTexts.join(', ') + '.</p>';
             }
             
-            // Build footer section
+            // Build footer
             if (footer.length > 0) {
-                html += '<div class="facts-footer">';
-                footer.forEach(line => {
-                    html += `<p>${line}</p>`;
-                });
-                html += '</div>';
+                html += '<p class="facts-footer-compact">' + footer.join(' ') + '</p>';
             }
             
             html += '</div>';
