@@ -31,8 +31,8 @@
 
         body {
             font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            color: var(--text);
-            background: white;
+            color: #1a1a2e;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f5f9ff 50%, #e8f4f8 100%);
             overflow-x: hidden;
         }
 
@@ -152,54 +152,63 @@
 
         .hero {
             position: relative;
-            padding: 68px 0 34px;
+            padding: 80px 0;
+            background: transparent;
         }
 
         .hero-bg {
-            position: absolute;
-            inset: 0;
-            background: none;
-            opacity: 0;
-            filter: saturate(1.05) contrast(1.05);
-            pointer-events: none;
+            display: none;
         }
 
         .hero-inner {
             position: relative;
             display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 28px;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
             align-items: center;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 60px rgba(66, 153, 225, 0.15);
         }
 
         .kicker {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 8px 12px;
+            padding: 10px 20px;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.10);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: linear-gradient(135deg, #4299e1 0%, #667eea 100%);
+            border: none;
             width: fit-content;
-            font-weight: 500;
-            letter-spacing: 0.4px;
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1.17rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: white;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3);
         }
 
         .hero h1 {
-            font-size: clamp(2.86rem, 5.2vw, 4.49rem);
-            line-height: 1.06;
-            margin: 16px 0 14px;
-            text-shadow: 0 18px 60px rgba(0,0,0,0.45);
-            font-weight: 600;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            line-height: 1.2;
+            margin: 20px 0;
+            color: #1a1a2e;
+            font-weight: 800;
+            background: linear-gradient(135deg, #2d3748 0%, #4299e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero p {
-            font-size: 1.5rem;
-            color: var(--muted);
+            font-size: 1.1rem;
+            color: #4a5568;
             font-weight: 400;
-            line-height: 1.6;
+            line-height: 1.8;
         }
 
         .hero-actions {
@@ -223,17 +232,19 @@
 
         .button:hover {
             transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.13);
+            background: rgba(66, 153, 225, 0.1);
         }
 
         .button.primary {
             border: none;
-            background: linear-gradient(135deg, var(--accent), var(--accent2));
-            box-shadow: 0 18px 60px rgba(102, 126, 234, 0.25);
+            background: linear-gradient(135deg, #4299e1 0%, #667eea 100%);
+            box-shadow: 0 10px 30px rgba(66, 153, 225, 0.3);
+            color: white;
         }
 
         .button.primary:hover {
-            box-shadow: 0 22px 70px rgba(102, 126, 234, 0.32);
+            box-shadow: 0 15px 40px rgba(66, 153, 225, 0.4);
+            transform: translateY(-3px);
         }
 
         .hero-media {
@@ -402,7 +413,7 @@
         }
 
         .section {
-            padding: 64px 0;
+            padding: 80px 0;
         }
 
         .section-head {
@@ -410,28 +421,31 @@
             align-items: end;
             justify-content: space-between;
             gap: 16px;
-            margin-bottom: 18px;
+            margin-bottom: 40px;
         }
 
         .section-title {
-            font-size: clamp(2.08rem, 3.9vw, 2.86rem);
-            font-weight: 600;
-            line-height: 1.1;
-            margin-bottom: 8px;
+            font-size: clamp(2rem, 3.5vw, 2.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            color: #1a1a2e;
         }
 
         .section-subtitle {
-            font-size: 1.5rem;
-            color: var(--muted);
+            font-size: 1.1rem;
+            color: #4a5568;
             font-weight: 400;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         .card {
-            background: var(--card);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(66, 153, 225, 0.1);
         }
 
         .grid-3 {
@@ -442,23 +456,29 @@
         }
 
         .feature {
-            padding: 18px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.11), rgba(255,255,255,0.06));
-            transition: transform 0.25s;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transition: all 0.3s;
         }
 
         .feature:hover {
-            transform: translateY(-4px);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(66, 153, 225, 0.2);
         }
 
         .feature strong {
             display: block;
-            font-size: 1.05rem;
-            margin-bottom: 6px;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #2d3748;
         }
 
         .feature span {
-            color: var(--muted);
+            color: #4a5568;
+            line-height: 1.6;
         }
 
         .carousel {
@@ -507,19 +527,22 @@
         }
 
         .product-card {
-            min-width: 260px;
-            max-width: 260px;
-            padding: 14px;
-            border-radius: var(--radius);
-            background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
-            border: 1px solid rgba(255,255,255,0.14);
-            box-shadow: var(--shadow);
+            min-width: 280px;
+            max-width: 280px;
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 30px rgba(66, 153, 225, 0.1);
             cursor: pointer;
-            transition: transform 0.22s;
+            transition: all 0.3s;
         }
 
         .product-card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(66, 153, 225, 0.2);
         }
 
         .product-image {
@@ -536,11 +559,12 @@
         }
 
         .product-name {
-            margin-top: 10px;
+            margin-top: 15px;
             font-weight: 700;
-            line-height: 1.25;
-            min-height: 46px;
-            font-size: 1.37rem;
+            line-height: 1.3;
+            min-height: 50px;
+            font-size: 1.1rem;
+            color: #2d3748;
         }
 
         .product-meta {
@@ -552,22 +576,30 @@
         }
 
         .price {
-            font-weight: 900;
+            font-weight: 800;
             font-size: 1.5rem;
-            background: linear-gradient(90deg, rgba(255,255,255,0.92), rgba(0,210,255,0.85));
+            background: linear-gradient(135deg, #4299e1 0%, #667eea 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .pill {
-            font-size: 1.07rem;
-            font-weight: 800;
-            padding: 8px 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 12px 24px;
             border-radius: 999px;
-            background: rgba(255,255,255,0.10);
-            border: 1px solid rgba(255,255,255,0.16);
+            background: rgba(66, 153, 225, 0.1);
+            border: 2px solid rgba(66, 153, 225, 0.3);
             text-decoration: none;
+            color: #4299e1;
+            transition: all 0.3s;
+        }
+
+        .pill:hover {
+            background: rgba(66, 153, 225, 0.2);
+            border-color: #4299e1;
+            transform: translateY(-2px);
         }
 
         .about {
@@ -707,7 +739,7 @@
                     <p>High-impact blends with clean ingredients. Crafted for daily consistency, verified with quality-focused standards, and built to fit real life.</p>
                     <div class="hero-actions">
                         <a href="/shop" class="button primary">Shop Best Sellers</a>
-                        <a href="/product/?sku=52274-401" class="button">Women’s Balance Spotlight</a>
+                        <a href="/product?sku=52274-401" class="button">Women’s Balance Spotlight</a>
                     </div>
                 </div>
                 <div class="hero-media" aria-hidden="true">
