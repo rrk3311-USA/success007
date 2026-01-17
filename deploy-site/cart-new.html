@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Test - PayPal Buttons</title>
+    <script src="https://www.paypal.com/sdk/js?client-id=ATM3Eoawal0vHl1xqCcuP5TvlPBP-96AHV0xP0tiQ-KlAd_tuSLLQjKMsby8lgbgE7jN5zXPF3HjMUNk&currency=USD"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2854a6;
+            text-align: center;
+        }
+        #paypal-button-container {
+            margin: 40px 0;
+            min-height: 200px;
+            border: 2px dashed #ccc;
+            padding: 20px;
+        }
+        .status {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 PayPal Button Test Page</h1>
+    
+    <div class="status">
+        <strong>Test Amount:</strong> $100.00<br>
+        <strong>Status:</strong> <span id="status">Initializing...</span>
+    </div>
+
+    <div id="paypal-button-container"></div>
+
+    <script>
+        document.getElementById('status').textContent = 'Loading PayPal SDK...';
+        
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '100.00'
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('✅ Test payment completed! Transaction ID: ' + details.id);
+                });
+            }
+        }).render('#paypal-button-container').then(function() {
+            document.getElementById('status').textContent = '✅ PayPal buttons loaded successfully!';
+            document.getElementById('status').style.color = 'green';
+        }).catch(function(err) {
+            document.getElementById('status').textContent = '❌ Error: ' + err;
+            document.getElementById('status').style.color = 'red';
+        });
+    </script>
+</body>
+</html>
