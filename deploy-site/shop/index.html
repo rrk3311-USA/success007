@@ -352,19 +352,36 @@
 
         .btn-add-cart {
             flex: 1;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #4299e1 0%, #667eea 100%);
             color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 25px;
+            border: 2px solid transparent;
+            padding: 12px 24px;
+            border-radius: 999px;
             font-weight: 600;
             cursor: pointer;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3), inset 0 -2px 8px rgba(0, 0, 0, 0.1);
             transition: all 0.3s;
+            background-clip: padding-box;
+        }
+
+        .btn-add-cart::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 999px;
+            padding: 2px;
+            background: linear-gradient(135deg, #4299e1, #667eea, #764ba2);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            z-index: -1;
         }
 
         .btn-add-cart:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 6px 20px rgba(66, 153, 225, 0.4), inset 0 -2px 8px rgba(0, 0, 0, 0.15);
         }
 
         .btn-quick-view {
