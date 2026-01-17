@@ -1,0 +1,12 @@
+# Local-only dump folders (do not deploy)
+review-repo/**
+home-page-media/**
+
+# Local/dev files
+.env
+.env.*
+*.log
+.DS_Store
+
+# Build/dev artifacts
+node_modules/**
