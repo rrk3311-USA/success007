@@ -322,6 +322,14 @@
                 <div class="paypal-note">Secure checkout powered by PayPal. Supports cards, Pay Later, and Venmo.</div>
             </div>
         </div>
+
+        <!-- Recommended Products / Upsells -->
+        <div id="recommendations" style="margin: 60px 0; display: none;">
+            <h2 style="font-size: 2rem; font-weight: 600; color: #2854a6; margin-bottom: 30px; text-align: center;">You May Also Like</h2>
+            <div id="recommended-products" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px;">
+                <!-- Recommended products will be inserted here -->
+            </div>
+        </div>
     </div>
 
     <script>
@@ -398,6 +406,54 @@
 
             document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
             document.getElementById('total').textContent = `$${subtotal.toFixed(2)}`;
+
+            // Load product recommendations
+            loadRecommendations();
+        }
+
+        function loadRecommendations() {
+            // Show 4 random recommended products
+            const recommendedProducts = [
+                { sku: '10781-105', name: 'Dragon FIRE E-Sports Supplement', price: '20.36', image: '/public/images/products/10781-105/01.jpg' },
+                { sku: '10781-105k', name: 'Success Chemistry® Prostate Renew', price: '37.99', image: '/public/images/products/10781-105k/01.jpg' },
+                { sku: '5531-502', name: 'Testosterone Booster for Men', price: '24.99', image: '/public/images/products/5531-502/01.jpg' },
+                { sku: 'B071JK6HM2', name: 'Turmeric Curcumin with BioPerine', price: '19.99', image: '/public/images/products/B071JK6HM2/01.png' }
+            ];
+
+            const container = document.getElementById('recommended-products');
+            const recommendationsSection = document.getElementById('recommendations');
+            
+            container.innerHTML = recommendedProducts.map(product => `
+                <div style="border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; transition: transform 0.2s;" 
+                     onclick="window.location.href='/product?sku=${product.sku}'"
+                     onmouseover="this.style.transform='translateY(-4px)'"
+                     onmouseout="this.style.transform='translateY(0)'">
+                    <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 200px; object-fit: contain; margin-bottom: 15px;">
+                    <h3 style="font-size: 1rem; margin-bottom: 10px; color: #1f2937; min-height: 48px;">${product.name}</h3>
+                    <div style="font-size: 1.2rem; font-weight: 600; color: #2854a6; margin-bottom: 15px;">$${product.price}</div>
+                    <button style="width: 100%; padding: 10px; background: #2854a6; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;"
+                            onclick="event.stopPropagation(); addToCartFromRecommendation('${product.sku}', '${product.name}', '${product.price}', '${product.image}')">
+                        Add to Cart
+                    </button>
+                </div>
+            `).join('');
+
+            recommendationsSection.style.display = 'block';
+        }
+
+        function addToCartFromRecommendation(sku, name, price, image) {
+            const cart = getCart();
+            const existingItem = cart.find(item => item.sku === sku);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ sku, name, price, image, quantity: 1 });
+            }
+            
+            saveCart(cart);
+            renderCart();
+            alert(`✅ ${name} added to cart!`);
         }
 
         // Initialize PayPal Buttons
