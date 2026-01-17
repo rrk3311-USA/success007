@@ -1884,7 +1884,6 @@
                         <div class="tab-buttons">
                             <button class="tab-button active" onclick="switchTab('description')">Description</button>
                             <button class="tab-button" onclick="switchTab('supplement-facts')">Supplement Facts</button>
-                            <button class="tab-button" onclick="switchTab('ingredients')">Ingredients</button>
                         </div>
                         
                         <div id="description-tab" class="tab-content active">
@@ -1930,14 +1929,6 @@
                                     </p>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <div id="ingredients-tab" class="tab-content">
-                            ${currentProduct.ingredients ? `
-                            <div class="info-card">
-                                <div class="product-description">${currentProduct.ingredients}</div>
-                            </div>
-                            ` : '<div class="info-card"><p>Ingredient information coming soon.</p></div>'}
                         </div>
                     </div>
                     
