@@ -1,5 +1,5 @@
 [build]
-  publish = "."
+  publish = "deploy-site"
   command = "echo 'No build required - static site'"
 
 [[redirects]]
@@ -20,7 +20,7 @@
 
 [[redirects]]
   from = "/cart"
-  to = "/cart.html"
+  to = "/cart/index.html"
   status = 200
 
 [[redirects]]
