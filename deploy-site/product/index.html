@@ -958,6 +958,7 @@
     padding: 20px;
     max-width: 600px;
     font-family: Arial, sans-serif;
+    text-align: left;
 }
 
 .supplement-facts h3 {
@@ -966,6 +967,7 @@
     margin-bottom: 5px;
     border-bottom: 8px solid #000;
     padding-bottom: 5px;
+    text-align: left;
 }
 
 .supplement-facts .serving-info {
@@ -973,6 +975,7 @@
     margin: 10px 0;
     border-bottom: 4px solid #000;
     padding-bottom: 5px;
+    text-align: left;
 }
 
 .supplement-facts table {
@@ -984,10 +987,12 @@
 .supplement-facts td {
     padding: 8px 0;
     border-bottom: 1px solid #ddd;
+    text-align: left;
 }
 
 .supplement-facts .ingredient-name {
     font-weight: 600;
+    text-align: left;
 }
 
 .supplement-facts .amount {
@@ -998,6 +1003,10 @@
 .supplement-facts .daily-value {
     text-align: right;
     width: 80px;
+}
+
+.supplement-facts p {
+    text-align: left;
 }
             border-radius: 16px;
             margin: 24px 0;
@@ -1879,35 +1888,25 @@
                     </div>
                 </div>
                 
-                <!-- Full-width Description Section with Tabs -->
+                <!-- Full-width Description Section -->
                 <div class="product-details-section">
-                    <div class="product-tabs">
-                        <div class="tab-buttons">
-                            <button class="tab-button active" onclick="switchTab('description')">Description</button>
-                            <button class="tab-button" onclick="switchTab('supplement-facts')">Supplement Facts</button>
-                        </div>
-                        
-                        <div id="description-tab" class="tab-content active">
-                            ${description ? `
-                            <div class="info-card">
-                                <div class="product-description">${formatDescription(description)}</div>
-                            </div>
-                            ` : '<p>No description available.</p>'}
-                            
-                            ${currentProduct.key_features ? `
-                            <div class="info-card">
-                                <h3>Key Features</h3>
-                                <div class="product-description">${currentProduct.key_features}</div>
-                            </div>
-                            ` : ''}
-                        </div>
-                        
-                        <div id="supplement-facts-tab" class="tab-content">
-                            <div class="info-card">
-                                <div class="supplement-facts" id="supplement-facts-content">
-                                    <p>Loading supplement facts...</p>
-                                </div>
-                            </div>
+                    ${description ? `
+                    <div class="info-card">
+                        <div class="product-description">${formatDescription(description)}</div>
+                    </div>
+                    ` : ''}
+                    
+                    ${currentProduct.key_features ? `
+                    <div class="info-card">
+                        <h3>Key Features</h3>
+                        <div class="product-description">${currentProduct.key_features}</div>
+                    </div>
+                    ` : ''}
+                    
+                    <div class="info-card">
+                        <h3>Supplement Facts</h3>
+                        <div class="supplement-facts" id="supplement-facts-content">
+                            <p>Loading supplement facts...</p>
                         </div>
                     </div>
                     
