@@ -1,0 +1,11 @@
+node_modules
+dist
+*.db
+.env
+.DS_Store
+
+# Local Netlify folder
+.netlify
+
+# Large files - review repo with PSD files
+review-repo/

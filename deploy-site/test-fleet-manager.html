@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fleet Manager AI - Test Page</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .metric-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .metric-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .task-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        h2 {
+            margin-bottom: 15px;
+        }
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        input {
+            flex: 1;
+            padding: 15px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        button {
+            padding: 15px 30px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: #4CAF50;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: #2196F3;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background: #0b7dda;
+        }
+        .btn-example {
+            background: #FF9800;
+            color: white;
+        }
+        .btn-example:hover {
+            background: #e68900;
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .example-btn {
+            padding: 12px;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .example-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+        .report {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2rem;
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .alert {
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid rgba(255, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .next-step {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #4CAF50;
+        }
+        .priority {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .priority-critical { background: #f44336; }
+        .priority-high { background: #ff9800; }
+        .priority-medium { background: #ffc107; color: #333; }
+        .priority-low { background: #2196F3; }
+    
+
+.footer {
+            background: #2854a6;
+            color: white;
+            padding: 80px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand p {
+            margin-top: 20px;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .footer-logo img {
+            height: 50px;
+        }
+
+        .footer-links h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .footer-links a {
+            display: block;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-legal a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .product-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .price {
+                font-size: 2rem;
+            }
+            
+            .description-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Fleet Manager AI</h1>
+        <p class="subtitle">Orchestrating 8 specialized agents for Success Chemistry</p>
+
+        <!-- Metrics Dashboard -->
+        <div id="metrics" class="metrics">
+            <div class="metric-card">
+                <div class="metric-label">Loading...</div>
+                <div class="metric-value">...</div>
+            </div>
+        </div>
+
+        <!-- Task Execution -->
+        <div class="task-section">
+            <h2>Execute Task</h2>
+            
+            <div class="input-group">
+                <input 
+                    type="text" 
+                    id="taskInput" 
+                    placeholder="Enter your task (e.g., 'Optimize creatine product page + create energy stack bundle')"
+                />
+                <button class="btn-primary" onclick="executeTask()" id="executeBtn">
+                    Execute
+                </button>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <button class="btn-secondary" onclick="runDailyCycle()">
+                    Run Daily Cycle
+                </button>
+                <button class="btn-example" onclick="loadExample()">
+                    Load Example Task
+                </button>
+            </div>
+
+            <h3 style="margin-bottom: 10px;">Quick Examples:</h3>
+            <div class="examples">
+                <button class="example-btn" onclick="setTask('Optimize current product page for creatine + upsell stack for energy. Generate compliant description, suggest bundle, and run ad test ideas.')">
+                    🎯 Product Page Optimization
+                </button>
+                <button class="example-btn" onclick="setTask('Identify high-risk customers and launch win-back campaign with personalized offers')">
+                    🔄 Churn Prevention
+                </button>
+                <button class="example-btn" onclick="setTask('Analyze pricing strategy across all products and maximize revenue with dynamic pricing')">
+                    💰 Revenue Optimization
+                </button>
+                <button class="example-btn" onclick="setTask('Create 3 science-backed supplement stacks: Performance, Wellness, and Cognitive')">
+                    📦 Bundle Creation
+                </button>
+                <button class="example-btn" onclick="setTask('Generate blog post about creatine benefits, social media posts, and email campaign')">
+                    ✍️ Content Generation
+                </button>
+                <button class="example-btn" onclick="setTask('Audit all product descriptions and marketing materials for FDA/FTC compliance')">
+                    ✅ Compliance Audit
+                </button>
+            </div>
+
+            <!-- Report Output -->
+            <div id="reportContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3001';
+
+        // Load metrics on page load
+        async function loadMetrics() {
+            try {
+                const response = await fetch(`${API_BASE}/api/fleet-manager/metrics`);
+                const data = await response.json();
+                displayMetrics(data);
+            } catch (error) {
+                console.error('Error loading metrics:', error);
+            }
+        }
+
+        function displayMetrics(data) {
+            const metricsDiv = document.getElementById('metrics');
+            metricsDiv.innerHTML = `
+                <div class="metric-card">
+                    <div class="metric-label">MRR</div>
+                    <div class="metric-value">$${data.mrr}</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">AOV</div>
+                    <div class="metric-value">$${data.aov}</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">LTV</div>
+                    <div class="metric-value">$${data.ltv}</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Churn Rate</div>
+                    <div class="metric-value">${data.churnRate}%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">ROAS</div>
+                    <div class="metric-value">${data.roas}</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Conversion</div>
+                    <div class="metric-value">${data.conversionRate}%</div>
+                </div>
+            `;
+        }
+
+        function setTask(task) {
+            document.getElementById('taskInput').value = task;
+        }
+
+        function loadExample() {
+            setTask('Optimize current product page for creatine + upsell stack for energy. Generate compliant description, suggest bundle, and run ad test ideas.');
+        }
+
+        async function executeTask() {
+            const taskInput = document.getElementById('taskInput').value;
+            if (!taskInput.trim()) {
+                alert('Please enter a task');
+                return;
+            }
+
+            const executeBtn = document.getElementById('executeBtn');
+            executeBtn.disabled = true;
+            executeBtn.textContent = 'Executing...';
+
+            const reportContainer = document.getElementById('reportContainer');
+            reportContainer.innerHTML = '<div class="loading"><div class="spinner"></div>Executing task...</div>';
+
+            try {
+                const response = await fetch(`${API_BASE}/api/fleet-manager/execute`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ task: taskInput })
+                });
+
+                const report = await response.json();
+                displayReport(report);
+                loadMetrics(); // Refresh metrics
+            } catch (error) {
+                reportContainer.innerHTML = `<div class="alert">Error: ${error.message}</div>`;
+            } finally {
+                executeBtn.disabled = false;
+                executeBtn.textContent = 'Execute';
+            }
+        }
+
+        async function runDailyCycle() {
+            const executeBtn = document.getElementById('executeBtn');
+            executeBtn.disabled = true;
+
+            const reportContainer = document.getElementById('reportContainer');
+            reportContainer.innerHTML = '<div class="loading"><div class="spinner"></div>Running daily cycle...</div>';
+
+            try {
+                const response = await fetch(`${API_BASE}/api/fleet-manager/daily-cycle`, {
+                    method: 'POST'
+                });
+
+                const report = await response.json();
+                displayReport(report);
+                loadMetrics();
+            } catch (error) {
+                reportContainer.innerHTML = `<div class="alert">Error: ${error.message}</div>`;
+            } finally {
+                executeBtn.disabled = false;
+            }
+        }
+
+        function displayReport(report) {
+            const reportContainer = document.getElementById('reportContainer');
+            
+            let html = '<div class="report">';
+            html += `<h3>📊 Execution Report</h3>`;
+            html += `<p style="opacity: 0.8; margin-bottom: 20px;">Task: ${report.task}</p>`;
+
+            // Alerts
+            if (report.alerts && report.alerts.length > 0) {
+                html += '<h4 style="margin-top: 20px;">🚨 Alerts</h4>';
+                report.alerts.forEach(alert => {
+                    html += `<div class="alert"><strong>${alert.metric || 'Alert'}:</strong> ${alert.message}</div>`;
+                });
+            }
+
+            // Metrics
+            if (report.metrics) {
+                html += '<h4 style="margin-top: 20px;">📈 Current Metrics</h4>';
+                html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 10px;">';
+                html += `<div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px;">
+                    <div style="opacity: 0.8; font-size: 0.9rem;">MRR</div>
+                    <div style="font-size: 1.5rem; font-weight: bold;">$${report.metrics.mrr}</div>
+                </div>`;
+                html += `<div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px;">
+                    <div style="opacity: 0.8; font-size: 0.9rem;">AOV</div>
+                    <div style="font-size: 1.5rem; font-weight: bold;">$${report.metrics.aov}</div>
+                </div>`;
+                html += `<div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px;">
+                    <div style="opacity: 0.8; font-size: 0.9rem;">ROAS</div>
+                    <div style="font-size: 1.5rem; font-weight: bold;">${report.metrics.roas}</div>
+                </div>`;
+                html += '</div>';
+
+                if (report.metrics.projections) {
+                    html += '<div style="margin-top: 15px; padding: 15px; background: rgba(76, 175, 80, 0.2); border-radius: 8px;">';
+                    html += '<strong>📊 Projected Impact:</strong><br>';
+                    html += `MRR Lift: ${report.metrics.projections.mrrLift} | `;
+                    html += `AOV Lift: ${report.metrics.projections.aovLift} | `;
+                    html += `LTV Increase: ${report.metrics.projections.ltvIncrease}`;
+                    html += '</div>';
+                }
+            }
+
+            // Next Steps
+            if (report.nextSteps && report.nextSteps.length > 0) {
+                html += '<h4 style="margin-top: 20px;">📋 Next Steps</h4>';
+                report.nextSteps.forEach(step => {
+                    html += `<div class="next-step">
+                        <strong>${step.action}</strong>
+                        <span class="priority priority-${step.priority}">${step.priority}</span>
+                        <div style="opacity: 0.8; margin-top: 5px; font-size: 0.9rem;">Impact: ${step.estimatedImpact}</div>
+                    </div>`;
+                });
+            }
+
+            html += `<div style="margin-top: 20px; opacity: 0.6; font-size: 0.9rem;">Execution time: ${report.executionTime}</div>`;
+            html += '</div>';
+
+            reportContainer.innerHTML = html;
+        }
+
+        // Load metrics on page load
+        loadMetrics();
+
+        // Allow Enter key to execute
+        document.getElementById('taskInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') executeTask();
+        });
+    </script>
+
+
+<!-- Footer -->
+    <footer class="footer">
+        <div style="background: #2854a6; padding: 20px; text-align: center;">
+            <a href="/cart" style="display: inline-block; margin-bottom: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><img src="/public/images/view-cart-button.png" alt="View Cart" style="max-width: 150px; height: auto; cursor: pointer;"></a>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 10px;"><img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;"></div>
+        </div>
+        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
+        <div style="background: #2854a6; padding: 15px 20px; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; font-size: 0.85rem;">
+            <a href="/terms-of-service.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Terms of Service</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/shipping-returns.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Shipping & Returns</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/payment-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Payment Policy</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/privacy-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Privacy Policy</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/contact" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Contact</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/shop" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">🧪 SHOP</a>
+        </div>
+        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
+        <div style="text-align: center; padding: 12px; background: #2854a6;"><p style="color: white; font-size: 0.85rem; margin: 0;">🗽 Copyright 2026 - Success Chemistry® | Powered by 🏄 WindSurf</p></div>
+    </footer>
+
+</body>
+</html>

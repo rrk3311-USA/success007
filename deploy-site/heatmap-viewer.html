@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heatmap Viewer - Success Chemistry</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0e27;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .controls {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        select, button {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .heatmap-container {
+            position: relative;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .heatmap-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .heat-point {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,0,0,0.6) 0%, rgba(255,0,0,0) 70%);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            height: 800px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .legend {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .legend-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .legend-scale {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legend-gradient {
+            flex: 1;
+            height: 20px;
+            background: linear-gradient(to right, 
+                rgba(0,0,255,0.3), 
+                rgba(0,255,0,0.5), 
+                rgba(255,255,0,0.7), 
+                rgba(255,0,0,0.9));
+            border-radius: 4px;
+        }
+
+        .click-list {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .click-item {
+            padding: 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .click-item strong {
+            color: #667eea;
+        }
+    
+
+.footer {
+            background: #2854a6;
+            color: white;
+            padding: 80px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand p {
+            margin-top: 20px;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .footer-logo img {
+            height: 50px;
+        }
+
+        .footer-links h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .footer-links a {
+            display: block;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-legal a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .product-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .price {
+                font-size: 2rem;
+            }
+            
+            .description-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔥 Heatmap Viewer</h1>
+        <p style="opacity: 0.7; margin-bottom: 20px;">Visualize where users click on your pages</p>
+
+        <div class="controls">
+            <label>Page:</label>
+            <select id="pageSelect" onchange="loadHeatmap()">
+                <option value="/checkout-upsell.html">Checkout Page</option>
+                <option value="/index.html">Home Page</option>
+                <option value="/product.html">Product Page</option>
+            </select>
+            
+            <label>Time Range:</label>
+            <select id="timeRange" onchange="loadHeatmap()">
+                <option value="1">Last 24 hours</option>
+                <option value="7" selected>Last 7 days</option>
+                <option value="30">Last 30 days</option>
+                <option value="90">Last 90 days</option>
+            </select>
+
+            <button onclick="loadHeatmap()">🔄 Refresh</button>
+            <button onclick="clearHeatmap()">🗑️ Clear Data</button>
+        </div>
+
+        <div class="stats" id="stats">
+            <div class="stat-card">
+                <div class="stat-value" id="totalClicks">0</div>
+                <div class="stat-label">Total Clicks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="uniqueElements">0</div>
+                <div class="stat-label">Unique Elements</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avgClicksPerSession">0</div>
+                <div class="stat-label">Avg Clicks/Session</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="hotspotElement">-</div>
+                <div class="stat-label">Top Hotspot</div>
+            </div>
+        </div>
+
+        <div class="iframe-container">
+            <iframe id="pageFrame" src="/checkout-upsell.html"></iframe>
+            <div class="heatmap-overlay" id="heatmapOverlay"></div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-title">Heat Intensity</div>
+            <div class="legend-scale">
+                <span>Low</span>
+                <div class="legend-gradient"></div>
+                <span>High</span>
+            </div>
+        </div>
+
+        <div class="click-list">
+            <h3 style="margin-bottom: 15px;">Click Details</h3>
+            <div id="clickList"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3001';
+
+        async function loadHeatmap() {
+            const page = document.getElementById('pageSelect').value;
+            const days = document.getElementById('timeRange').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/api/analytics/heatmap${page}?days=${days}`);
+                const data = await response.json();
+
+                displayHeatmap(data);
+                updateStats(data);
+            } catch (error) {
+                console.error('Error loading heatmap:', error);
+            }
+        }
+
+        function displayHeatmap(data) {
+            const overlay = document.getElementById('heatmapOverlay');
+            overlay.innerHTML = '';
+
+            if (!data.clicks || data.clicks.length === 0) {
+                overlay.innerHTML = '<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); padding: 20px; border-radius: 12px;">No click data available for this page</div>';
+                return;
+            }
+
+            // Find max count for scaling
+            const maxCount = Math.max(...data.clicks.map(c => c.count));
+
+            // Create heat points
+            data.clicks.forEach(click => {
+                const point = document.createElement('div');
+                point.className = 'heat-point';
+                point.style.left = click.x + 'px';
+                point.style.top = click.y + 'px';
+                
+                // Scale opacity and size based on click count
+                const intensity = click.count / maxCount;
+                point.style.opacity = 0.3 + (intensity * 0.7);
+                point.style.width = (20 + (intensity * 40)) + 'px';
+                point.style.height = (20 + (intensity * 40)) + 'px';
+                
+                // Color gradient from blue (low) to red (high)
+                const hue = 240 - (intensity * 240); // 240 (blue) to 0 (red)
+                point.style.background = `radial-gradient(circle, hsla(${hue}, 100%, 50%, 0.6) 0%, hsla(${hue}, 100%, 50%, 0) 70%)`;
+                
+                overlay.appendChild(point);
+            });
+
+            // Display click list
+            displayClickList(data.clicks);
+        }
+
+        function updateStats(data) {
+            const totalClicks = data.clicks.reduce((sum, c) => sum + c.count, 0);
+            const uniqueElements = new Set(data.clicks.map(c => c.element)).size;
+            
+            document.getElementById('totalClicks').textContent = totalClicks;
+            document.getElementById('uniqueElements').textContent = uniqueElements;
+            document.getElementById('avgClicksPerSession').textContent = (totalClicks / Math.max(uniqueElements, 1)).toFixed(1);
+            
+            // Find hotspot
+            if (data.clicks.length > 0) {
+                const hotspot = data.clicks.reduce((max, c) => c.count > max.count ? c : max);
+                const elementName = hotspot.element.split(' > ').pop() || 'Unknown';
+                document.getElementById('hotspotElement').textContent = elementName;
+            }
+        }
+
+        function displayClickList(clicks) {
+            const clickList = document.getElementById('clickList');
+            
+            // Sort by count descending
+            const sorted = [...clicks].sort((a, b) => b.count - a.count);
+            
+            clickList.innerHTML = sorted.slice(0, 20).map(click => `
+                <div class="click-item">
+                    <strong>${click.count} clicks</strong> at (${click.x}, ${click.y})<br>
+                    <span style="opacity: 0.7; font-size: 0.9rem;">${click.element || 'Unknown element'}</span>
+                </div>
+            `).join('');
+        }
+
+        function clearHeatmap() {
+            if (confirm('Clear all heatmap data? This cannot be undone.')) {
+                // In production, this would call an API to clear data
+                alert('Heatmap data cleared (demo)');
+                loadHeatmap();
+            }
+        }
+
+        // Load initial heatmap
+        loadHeatmap();
+
+        // Auto-refresh every 30 seconds
+        setInterval(loadHeatmap, 30000);
+    </script>
+
+
+<!-- Footer -->
+    <footer class="footer">
+        <div style="background: #2854a6; padding: 20px; text-align: center;">
+            <a href="/cart" style="display: inline-block; margin-bottom: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><img src="/public/images/view-cart-button.png" alt="View Cart" style="max-width: 150px; height: auto; cursor: pointer;"></a>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 10px;"><img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;"></div>
+        </div>
+        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
+        <div style="background: #2854a6; padding: 15px 20px; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; font-size: 0.85rem;">
+            <a href="/terms-of-service.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Terms of Service</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/shipping-returns.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Shipping & Returns</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/payment-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Payment Policy</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/privacy-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Privacy Policy</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/contact" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Contact</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/shop" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">🧪 SHOP</a>
+        </div>
+        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
+        <div style="text-align: center; padding: 12px; background: #2854a6;"><p style="color: white; font-size: 0.85rem; margin: 0;">🗽 Copyright 2026 - Success Chemistry® | Powered by 🏄 WindSurf</p></div>
+    </footer>
+
+</body>
+</html>

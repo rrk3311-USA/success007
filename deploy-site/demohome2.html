@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Success Chemistry — Demo Home 2</title>
+  <meta name="description" content="Demo home page inspired by a modern healthcare UI kit.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0b1f3a;
+      --blue: #2d5bff;
+      --teal: #2fd3c8;
+      --sky: #eef5ff;
+      --mint: #f3fbfa;
+      --ink: #0b1f3a;
+      --muted: #5d6b86;
+      --card: #ffffff;
+      --shadow: 0 18px 45px rgba(11, 31, 58, 0.12);
+      --radius: 22px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #f7f9ff 0%, #ffffff 40%, #f6fbff 100%);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1200px, 92vw);
+      margin: 0 auto;
+    }
+
+    .topbar {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(45, 91, 255, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--blue), var(--teal));
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 700;
+      font-family: "Fraunces", serif;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      padding: 8px 12px;
+      border-radius: 999px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      background: var(--sky);
+      color: var(--blue);
+    }
+
+    .nav-cta {
+      background: var(--blue);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-weight: 600;
+      box-shadow: 0 12px 30px rgba(45, 91, 255, 0.3);
+    }
+
+    .hero {
+      padding: 70px 0 90px;
+      background: radial-gradient(circle at top left, rgba(45, 91, 255, 0.16), transparent 55%),
+        radial-gradient(circle at 30% 40%, rgba(47, 211, 200, 0.18), transparent 60%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 40px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: rgba(45, 91, 255, 0.12);
+      color: var(--blue);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .hero h1 {
+      font-family: "Fraunces", serif;
+      font-size: clamp(2.8rem, 4.8vw, 4.4rem);
+      line-height: 1.05;
+      margin: 18px 0 16px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.15rem;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      padding: 14px 24px;
+      border-radius: 999px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      transition: all 0.25s ease;
+    }
+
+    .button.primary {
+      background: var(--blue);
+      color: white;
+      box-shadow: 0 18px 40px rgba(45, 91, 255, 0.28);
+    }
+
+    .button.secondary {
+      border-color: rgba(45, 91, 255, 0.2);
+      color: var(--blue);
+      background: white;
+    }
+
+    .button.secondary:hover {
+      border-color: var(--blue);
+      transform: translateY(-2px);
+    }
+
+    .hero-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(45, 91, 255, 0.08), rgba(47, 211, 200, 0.08));
+      pointer-events: none;
+    }
+
+    .hero-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+    }
+
+    .hero-card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .stat {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 16px;
+      padding: 14px;
+      border: 1px solid rgba(45, 91, 255, 0.12);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.3rem;
+      color: var(--blue);
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .section {
+      padding: 80px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    .section-title {
+      font-family: "Fraunces", serif;
+      font-size: clamp(2rem, 3.4vw, 2.8rem);
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      max-width: 520px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(45, 91, 255, 0.12);
+      transition: transform 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+    }
+
+    .card h4 {
+      margin: 16px 0 10px;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--mint);
+      color: var(--blue);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 36px;
+      align-items: center;
+      background: var(--sky);
+      border-radius: 28px;
+      padding: 40px;
+    }
+
+    .split ul {
+      list-style: none;
+      margin-top: 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .split li {
+      background: white;
+      padding: 12px 16px;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(11, 31, 58, 0.08);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .split li span {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(47, 211, 200, 0.2);
+      display: grid;
+      place-items: center;
+      color: var(--teal);
+      font-weight: 700;
+    }
+
+    .footer {
+      background: var(--navy);
+      color: white;
+      padding: 50px 0 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 30px;
+    }
+
+    .footer h5 {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+    }
+
+    .footer a {
+      color: rgba(255, 255, 255, 0.75);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      margin-top: 24px;
+      padding-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .cards,
+      .split,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .topbar-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">SC</div>
+        <div>
+          <div>Success Chemistry</div>
+          <small style="color: var(--muted);">Clinical wellness lab</small>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="#care">Care</a>
+        <a href="#programs">Programs</a>
+        <a href="#insights">Insights</a>
+        <a href="#locations">Locations</a>
+      </nav>
+      <a class="nav-cta" href="#appointments">AI Consultation</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">✨ Personalized wellness blueprint</span>
+        <h1>Support every chapter of your health story with evidence-led care.</h1>
+        <p>Experience a fresh, clinical-first experience that blends advanced nutrition protocols, smart product bundles, and a care team that actually listens.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#appointments">Start Your Plan</a>
+          <a class="button secondary" href="#programs">Browse Programs</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h3>Today’s Snapshot</h3>
+        <div class="hero-card-grid">
+          <div class="stat">
+            <strong>94%</strong>
+            <span>Adherence rate</span>
+          </div>
+          <div class="stat">
+            <strong>48 hrs</strong>
+            <span>Protocol kickoff</span>
+          </div>
+          <div class="stat">
+            <strong>16+</strong>
+            <span>Clinical checks</span>
+          </div>
+          <div class="stat">
+            <strong>2.4x</strong>
+            <span>Energy reported</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="care">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Care pathways built around your pace.</div>
+          <p class="section-subtitle">A modern experience that blends supplement strategy, lab reviews, and lifestyle coaching with a luxe, minimal interface.</p>
+        </div>
+        <span class="pill">Designed for clarity</span>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="pill">🧪 Lab-Driven</div>
+          <h4>Guided testing & review</h4>
+          <p>Understand your baseline, then unlock personalized blends that evolve as you do.</p>
+        </div>
+        <div class="card">
+          <div class="pill">🌿 Formulation</div>
+          <h4>Protocol-based bundles</h4>
+          <p>High-quality stacks built for hormone balance, focus, and recovery.</p>
+        </div>
+        <div class="card">
+          <div class="pill">💬 Concierge</div>
+          <h4>Daily support</h4>
+          <p>Ask questions, adjust intake, and keep momentum with quick check-ins.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="programs">
+    <div class="container split">
+      <div>
+        <div class="section-title">Programs that feel like a partnership.</div>
+        <p class="section-subtitle">Each plan blends science-backed supplements with a guided weekly rhythm so clients stay confident and supported.</p>
+        <ul>
+          <li><span>1</span> Precision blend selection</li>
+          <li><span>2</span> Weekly progress tracking</li>
+          <li><span>3</span> Care-team messaging</li>
+          <li><span>4</span> Adjustments every 30 days</li>
+        </ul>
+      </div>
+      <div class="hero-card" style="background: white;">
+        <h3>Upcoming Consultations</h3>
+        <p style="color: var(--muted); margin-bottom: 18px;">January 2026 lineup</p>
+        <div class="stat" style="margin-bottom: 14px;">
+          <strong>Jan 21</strong>
+          <span>Metabolic reset review</span>
+        </div>
+        <div class="stat" style="margin-bottom: 14px;">
+          <strong>Jan 25</strong>
+          <span>Hormonal support tune-up</span>
+        </div>
+        <div class="stat">
+          <strong>Jan 29</strong>
+          <span>Performance recovery sync</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="insights">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Latest clinical insights</div>
+          <p class="section-subtitle">Bite-sized reads from our practitioners—built for fast comprehension.</p>
+        </div>
+        <a class="button secondary" href="#">View all</a>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <h4>Balancing cortisol in modern schedules</h4>
+          <p>Short rituals that calm stress while keeping your day in motion.</p>
+        </div>
+        <div class="card">
+          <h4>How to stack adaptogens safely</h4>
+          <p>Practical guidance for dosing, timing, and sustainable results.</p>
+        </div>
+        <div class="card">
+          <h4>Recovery days that actually reset you</h4>
+          <p>From hydration to sleep wind-downs, here’s the blueprint.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="locations">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Designed for in-person & online care.</div>
+          <p class="section-subtitle">Meet with a specialist in Manhattan or get fully remote support nationwide.</p>
+        </div>
+        <span class="pill">NYC + Remote</span>
+      </div>
+      <div class="split" style="background: var(--mint);">
+        <div>
+          <h4 style="margin-bottom: 10px;">New York Studio</h4>
+          <p style="color: var(--muted);">245 Fifth Avenue, 14th Floor<br>Mon - Fri · 9am - 7pm</p>
+        </div>
+        <div>
+          <h4 style="margin-bottom: 10px;">Remote Concierge</h4>
+          <p style="color: var(--muted);">Video consults available worldwide.<br>Care plans within 48 hours.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" id="appointments">
+    <div class="container footer-grid">
+      <div>
+        <div class="brand" style="color: white; margin-bottom: 14px;">
+          <div class="brand-mark">SC</div>
+          <div>Success Chemistry</div>
+        </div>
+        <p style="color: rgba(255,255,255,0.72);">Precision wellness plans crafted with clinical care and modern supplements.</p>
+      </div>
+      <div>
+        <h5>Programs</h5>
+        <a href="#">Balance & Focus</a>
+        <a href="#">Energy Reset</a>
+        <a href="#">Recovery Lab</a>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <a href="mailto:care@successchemistry.com">care@successchemistry.com</a>
+        <a href="#">(212) 555-0187</a>
+        <a href="#">Book consultation</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© 2026 Success Chemistry. All rights reserved.</span>
+      <span>Designed for demo inspiration only.</span>
+    </div>
+  </footer>
+</body>
+</html>

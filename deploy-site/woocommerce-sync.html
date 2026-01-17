@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WooCommerce Sync - Success Chemistry</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .status-box {
+            background: #f5f5f5;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .status-item:last-child {
+            border-bottom: none;
+        }
+
+        .status-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .status-value {
+            color: #666;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-success { background: #4caf50; color: white; }
+        .badge-warning { background: #ff9800; color: white; }
+        .badge-error { background: #f44336; color: white; }
+        .badge-info { background: #2196f3; color: white; }
+
+        .sync-buttons {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .progress {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .progress.active {
+            display: block;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .log {
+            background: #f5f5f5;
+            border-radius: 12px;
+            padding: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .log.active {
+            display: block;
+        }
+
+        .log-entry {
+            padding: 5px 0;
+            color: #333;
+        }
+
+        .log-success { color: #4caf50; }
+        .log-error { color: #f44336; }
+        .log-info { color: #2196f3; }
+
+        .results {
+            background: #f5f5f5;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .results.active {
+            display: block;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+    
+
+.footer {
+            background: #2854a6;
+            color: white;
+            padding: 80px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand p {
+            margin-top: 20px;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .footer-logo img {
+            height: 50px;
+        }
+
+        .footer-links h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .footer-links a {
+            display: block;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-legal a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .product-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .price {
+                font-size: 2rem;
+            }
+            
+            .description-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 WooCommerce Sync</h1>
+        <p class="subtitle">Sync ALL products, customers, and orders from your WooCommerce store</p>
+
+        <div class="status-box">
+            <div class="status-item">
+                <span class="status-label">Connection Status</span>
+                <span class="status-badge badge-info" id="connectionStatus">Checking...</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">WooCommerce URL</span>
+                <span class="status-value" id="wooUrl">Not configured</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Last Sync</span>
+                <span class="status-value" id="lastSync">Never</span>
+            </div>
+        </div>
+
+        <div class="sync-buttons">
+            <button class="btn-primary" onclick="testConnection()" id="testBtn">
+                🔌 Test Connection
+            </button>
+            <button class="btn-primary" onclick="syncAll()" id="syncAllBtn">
+                🚀 Sync Everything (ALL Products + ALL Customers + ALL Orders)
+            </button>
+            <button class="btn-secondary" onclick="syncProducts()" id="syncProductsBtn">
+                📦 Sync Products Only
+            </button>
+            <button class="btn-secondary" onclick="syncCustomers()" id="syncCustomersBtn">
+                👥 Sync Customers Only
+            </button>
+            <button class="btn-secondary" onclick="syncOrders()" id="syncOrdersBtn">
+                📋 Sync Orders Only
+            </button>
+        </div>
+
+        <div class="progress" id="progress">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">Syncing...</div>
+        </div>
+
+        <div class="log" id="log"></div>
+
+        <div class="results" id="results">
+            <h3 style="margin-bottom: 15px; color: #333;">Sync Results</h3>
+            <div class="result-item">
+                <span>Products Synced</span>
+                <span class="result-number" id="productCount">0</span>
+            </div>
+            <div class="result-item">
+                <span>Customers Synced</span>
+                <span class="result-number" id="customerCount">0</span>
+            </div>
+            <div class="result-item">
+                <span>Orders Synced</span>
+                <span class="result-number" id="orderCount">0</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3001';
+
+        async function testConnection() {
+            addLog('Testing WooCommerce connection...', 'info');
+            disableButtons(true);
+
+            try {
+                const response = await fetch(`${API_BASE}/api/woocommerce/test`);
+                const data = await response.json();
+
+                if (data.success) {
+                    document.getElementById('connectionStatus').textContent = 'Connected';
+                    document.getElementById('connectionStatus').className = 'status-badge badge-success';
+                    addLog('✓ Connection successful!', 'success');
+                } else {
+                    document.getElementById('connectionStatus').textContent = 'Failed';
+                    document.getElementById('connectionStatus').className = 'status-badge badge-error';
+                    addLog('✗ Connection failed: ' + data.message, 'error');
+                }
+            } catch (error) {
+                document.getElementById('connectionStatus').textContent = 'Error';
+                document.getElementById('connectionStatus').className = 'status-badge badge-error';
+                addLog('✗ Error: ' + error.message, 'error');
+            } finally {
+                disableButtons(false);
+            }
+        }
+
+        async function syncAll() {
+            addLog('Starting full sync...', 'info');
+            showProgress(true);
+            disableButtons(true);
+            clearResults();
+
+            try {
+                // Sync products
+                updateProgress(10, 'Syncing products...');
+                await syncProducts(true);
+
+                // Sync customers
+                updateProgress(40, 'Syncing customers...');
+                await syncCustomers(true);
+
+                // Sync orders
+                updateProgress(70, 'Syncing orders...');
+                await syncOrders(true);
+
+                updateProgress(100, 'Sync complete!');
+                addLog('✓ Full sync completed successfully!', 'success');
+                
+                document.getElementById('lastSync').textContent = new Date().toLocaleString();
+                showResults(true);
+            } catch (error) {
+                addLog('✗ Sync failed: ' + error.message, 'error');
+            } finally {
+                setTimeout(() => {
+                    showProgress(false);
+                    disableButtons(false);
+                }, 1000);
+            }
+        }
+
+        async function syncProducts(silent = false) {
+            if (!silent) {
+                addLog('Syncing products...', 'info');
+                disableButtons(true);
+                showProgress(true);
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/api/woocommerce/sync-products`, {
+                    method: 'POST'
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    const count = data.synced || 0;
+                    document.getElementById('productCount').textContent = count;
+                    addLog(`✓ Synced ${count} products`, 'success');
+                    return count;
+                } else {
+                    addLog('✗ Product sync failed', 'error');
+                    return 0;
+                }
+            } catch (error) {
+                addLog('✗ Error syncing products: ' + error.message, 'error');
+                return 0;
+            } finally {
+                if (!silent) {
+                    showProgress(false);
+                    disableButtons(false);
+                    showResults(true);
+                }
+            }
+        }
+
+        async function syncCustomers(silent = false) {
+            if (!silent) {
+                addLog('Syncing customers...', 'info');
+                disableButtons(true);
+                showProgress(true);
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/api/woocommerce/sync-customers`, {
+                    method: 'POST'
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    const count = data.synced || 0;
+                    document.getElementById('customerCount').textContent = count;
+                    addLog(`✓ Synced ${count} customers`, 'success');
+                    return count;
+                } else {
+                    addLog('✗ Customer sync failed', 'error');
+                    return 0;
+                }
+            } catch (error) {
+                addLog('✗ Error syncing customers: ' + error.message, 'error');
+                return 0;
+            } finally {
+                if (!silent) {
+                    showProgress(false);
+                    disableButtons(false);
+                    showResults(true);
+                }
+            }
+        }
+
+        async function syncOrders(silent = false) {
+            if (!silent) {
+                addLog('Syncing orders...', 'info');
+                disableButtons(true);
+                showProgress(true);
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/api/woocommerce/sync-orders`, {
+                    method: 'POST'
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    const count = data.synced || 0;
+                    document.getElementById('orderCount').textContent = count;
+                    addLog(`✓ Synced ${count} orders`, 'success');
+                    return count;
+                } else {
+                    addLog('✗ Order sync failed', 'error');
+                    return 0;
+                }
+            } catch (error) {
+                addLog('✗ Error syncing orders: ' + error.message, 'error');
+                return 0;
+            } finally {
+                if (!silent) {
+                    showProgress(false);
+                    disableButtons(false);
+                    showResults(true);
+                }
+            }
+        }
+
+        function addLog(message, type = 'info') {
+            const log = document.getElementById('log');
+            log.classList.add('active');
+            
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        function updateProgress(percent, text) {
+            document.getElementById('progressFill').style.width = percent + '%';
+            document.getElementById('progressText').textContent = text;
+        }
+
+        function showProgress(show) {
+            document.getElementById('progress').classList.toggle('active', show);
+        }
+
+        function showResults(show) {
+            document.getElementById('results').classList.toggle('active', show);
+        }
+
+        function clearResults() {
+            document.getElementById('productCount').textContent = '0';
+            document.getElementById('customerCount').textContent = '0';
+            document.getElementById('orderCount').textContent = '0';
+        }
+
+        function disableButtons(disabled) {
+            document.querySelectorAll('button').forEach(btn => {
+                btn.disabled = disabled;
+            });
+        }
+
+        // Check connection on load
+        window.addEventListener('load', () => {
+            testConnection();
+        });
+    </script>
+
+
+<!-- Footer -->
+    <footer class="footer">
+        <div style="background: #2854a6; padding: 20px; text-align: center;">
+            <a href="/cart" style="display: inline-block; margin-bottom: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><img src="/public/images/view-cart-button.png" alt="View Cart" style="max-width: 150px; height: auto; cursor: pointer;"></a>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 10px;"><img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;"></div>
+        </div>
+        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
+        <div style="background: #2854a6; padding: 15px 20px; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; font-size: 0.85rem;">
+            <a href="/terms-of-service.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Terms of Service</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/shipping-returns.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Shipping & Returns</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/payment-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Payment Policy</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/privacy-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Privacy Policy</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/contact" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Contact</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/shop" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">🧪 SHOP</a>
+        </div>
+        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
+        <div style="text-align: center; padding: 12px; background: #2854a6;"><p style="color: white; font-size: 0.85rem; margin: 0;">🗽 Copyright 2026 - Success Chemistry® | Powered by 🏄 WindSurf</p></div>
+    </footer>
+
+</body>
+</html>

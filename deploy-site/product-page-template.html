@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Women's Balance - Success Chemistry</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            color: #2c3e50;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav a:hover {
+            opacity: 0.8;
+        }
+
+        /* Product Section */
+        .product-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .product-images {
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .main-image {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .thumbnail-images {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .thumbnail {
+            width: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .thumbnail:hover {
+            border-color: #667eea;
+        }
+
+        .product-info h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #1a1a1a;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stars {
+            color: #ffc107;
+            font-size: 1.2rem;
+        }
+
+        .review-count {
+            color: #666;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1.5rem;
+            margin-left: 10px;
+        }
+
+        .product-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .benefits {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .benefits h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .benefits ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .benefits li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .benefits li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4caf50;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .quantity-selector label {
+            font-weight: 600;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .quantity-controls button {
+            background: #f8f9fa;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background 0.3s;
+        }
+
+        .quantity-controls button:hover {
+            background: #e9ecef;
+        }
+
+        .quantity-controls input {
+            border: none;
+            width: 60px;
+            text-align: center;
+            font-size: 1.1rem;
+            padding: 10px;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+        }
+
+        .add-to-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .buy-now {
+            width: 100%;
+            padding: 18px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .buy-now:hover {
+            background: #45a049;
+        }
+
+        .trust-badges {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #ddd;
+        }
+
+        .trust-badge {
+            text-align: center;
+        }
+
+        .trust-badge-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .trust-badge-text {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .breadcrumb-container {
+            background: #f8f9fa;
+            padding: 15px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .breadcrumb {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb-separator {
+            margin: 0 8px;
+            color: #adb5bd;
+            font-weight: bold;
+        }
+
+        .breadcrumb-current {
+            color: #495057;
+            font-weight: 500;
+        }
+
+        /* Tabs Section */
+        .tabs-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 30px;
+        }
+
+        .tab {
+            padding: 15px 30px;
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 30px 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .ingredients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .ingredient-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .ingredient-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        /* Reviews */
+        .review {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+        }
+
+        .review-date {
+            color: #999;
+        }
+
+        /* Footer */
+        .footer {
+            background: #f8f9fa;
+            color: #333;
+            padding: 0;
+            margin-top: 80px;
+        }
+
+        @media (max-width: 768px) {
+            .product-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <img src="/public/images/success-chemistry-logo.png" alt="Success Chemistry Logo" style="max-width: 450px; height: auto; margin-bottom: 15px;">
+        <p style="color: #2c3e50;">Nature's Nutrients, Scientifically Formulated for Your Success</p>
+        <div class="tagline" style="color: #555;">Premium Quality • 3rd Party Tested • Made in USA • 100% Satisfaction Guaranteed</div>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb-container">
+        <div class="breadcrumb">
+            <a href="/" style="color: #3498db; text-decoration: none;">🏠 Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <a href="/shop" style="color: #3498db; text-decoration: none;">🧪 Shop</a>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-current">Product Details</span>
+        </div>
+    </div>
+
+    <!-- Product Section -->
+    <div class="product-container">
+        <!-- Product Images -->
+        <div class="product-images">
+            <img src="/images/products/womens-balance/01.jpg" alt="Women's Balance" class="main-image" id="mainImage">
+            <div class="thumbnail-images">
+                <img src="/images/products/womens-balance/01.jpg" alt="Thumbnail 1" class="thumbnail" onclick="changeImage(this.src)">
+                <img src="/images/products/womens-balance/02.jpg" alt="Thumbnail 2" class="thumbnail" onclick="changeImage(this.src)">
+                <img src="/images/products/womens-balance/03.jpg" alt="Thumbnail 3" class="thumbnail" onclick="changeImage(this.src)">
+                <img src="/images/products/womens-balance/04.jpg" alt="Thumbnail 4" class="thumbnail" onclick="changeImage(this.src)">
+            </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="product-info">
+            <h1>Women's Balance</h1>
+            
+            <div class="product-rating">
+                <div class="stars">★★★★★</div>
+                <span class="review-count">(127 reviews)</span>
+            </div>
+
+            <div class="price">
+                $39.99
+                <span class="original-price">$59.99</span>
+            </div>
+
+            <p class="product-description">
+                Experience optimal hormonal balance and wellness with Women's Balance, a comprehensive supplement designed specifically for women's health. Our scientifically-formulated blend supports hormonal harmony, energy levels, and overall well-being throughout every stage of life.
+            </p>
+
+            <div class="benefits">
+                <h3>Key Benefits</h3>
+                <ul>
+                    <li>Supports healthy hormone balance</li>
+                    <li>Promotes energy and vitality</li>
+                    <li>Reduces PMS symptoms</li>
+                    <li>Supports mood and emotional wellness</li>
+                    <li>Enhances reproductive health</li>
+                    <li>100% natural ingredients</li>
+                </ul>
+            </div>
+
+            <div class="quantity-selector">
+                <label>Quantity:</label>
+                <div class="quantity-controls">
+                    <button onclick="decreaseQuantity()">-</button>
+                    <input type="number" id="quantity" value="1" min="1" max="10">
+                    <button onclick="increaseQuantity()">+</button>
+                </div>
+            </div>
+
+            <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
+            <button class="buy-now" onclick="buyNow()">Buy Now</button>
+
+            <div class="trust-badges">
+                <div class="trust-badge">
+                    <div class="trust-badge-icon">🚚</div>
+                    <div class="trust-badge-text">Free Shipping<br>Orders $50+</div>
+                </div>
+                <div class="trust-badge">
+                    <div class="trust-badge-icon">💯</div>
+                    <div class="trust-badge-text">Money Back<br>Guarantee</div>
+                </div>
+                <div class="trust-badge">
+                    <div class="trust-badge-icon">🔒</div>
+                    <div class="trust-badge-text">Secure<br>Checkout</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs Section -->
+    <div class="tabs-section">
+        <div class="tabs">
+            <button class="tab active" onclick="openTab('description')">Description</button>
+            <button class="tab" onclick="openTab('ingredients')">Ingredients</button>
+            <button class="tab" onclick="openTab('reviews')">Reviews</button>
+            <button class="tab" onclick="openTab('faq')">FAQ</button>
+        </div>
+
+        <div id="description" class="tab-content active">
+            <h2>Product Description</h2>
+            <p style="font-size: 1.1rem; line-height: 1.8; color: #555;">
+                Women's Balance is a premium dietary supplement formulated to support women's hormonal health and overall wellness. Our unique blend combines traditional herbs with modern nutritional science to provide comprehensive support for hormonal balance, energy, mood, and reproductive health.
+            </p>
+            <br>
+            <p style="font-size: 1.1rem; line-height: 1.8; color: #555;">
+                Each capsule contains carefully selected ingredients that work synergistically to promote optimal hormonal function, reduce PMS symptoms, and support your body's natural rhythms. Whether you're managing monthly cycles, transitioning through life stages, or simply seeking better balance, Women's Balance is your trusted companion for holistic wellness.
+            </p>
+        </div>
+
+        <div id="ingredients" class="tab-content">
+            <h2>Premium Ingredients</h2>
+            <div class="ingredients-grid">
+                <div class="ingredient-card">
+                    <h4>Chasteberry Extract</h4>
+                    <p>Supports hormonal balance and reduces PMS symptoms naturally.</p>
+                </div>
+                <div class="ingredient-card">
+                    <h4>Dong Quai</h4>
+                    <p>Traditional herb known for supporting women's reproductive health.</p>
+                </div>
+                <div class="ingredient-card">
+                    <h4>Black Cohosh</h4>
+                    <p>Helps manage hormonal fluctuations and supports comfort.</p>
+                </div>
+                <div class="ingredient-card">
+                    <h4>Vitamin B6</h4>
+                    <p>Essential for hormone regulation and energy metabolism.</p>
+                </div>
+                <div class="ingredient-card">
+                    <h4>Magnesium</h4>
+                    <p>Supports muscle relaxation and reduces cramping.</p>
+                </div>
+                <div class="ingredient-card">
+                    <h4>Evening Primrose Oil</h4>
+                    <p>Rich in GLA to support hormonal balance and skin health.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="reviews" class="tab-content">
+            <h2>Customer Reviews</h2>
+            
+            <div class="review">
+                <div class="review-header">
+                    <div>
+                        <div class="reviewer-name">Sarah M.</div>
+                        <div class="stars">★★★★★</div>
+                    </div>
+                    <div class="review-date">2 weeks ago</div>
+                </div>
+                <p>"This product has been a game-changer for me! I've noticed significant improvements in my energy levels and mood. Highly recommend!"</p>
+            </div>
+
+            <div class="review">
+                <div class="review-header">
+                    <div>
+                        <div class="reviewer-name">Jennifer L.</div>
+                        <div class="stars">★★★★★</div>
+                    </div>
+                    <div class="review-date">1 month ago</div>
+                </div>
+                <p>"Finally found a supplement that actually works! My PMS symptoms have reduced dramatically. Thank you Success Chemistry!"</p>
+            </div>
+
+            <div class="review">
+                <div class="review-header">
+                    <div>
+                        <div class="reviewer-name">Amanda K.</div>
+                        <div class="stars">★★★★★</div>
+                    </div>
+                    <div class="review-date">1 month ago</div>
+                </div>
+                <p>"Love this product! I feel more balanced and energized throughout the day. Will definitely be ordering again."</p>
+            </div>
+        </div>
+
+        <div id="faq" class="tab-content">
+            <h2>Frequently Asked Questions</h2>
+            
+            <div style="margin-bottom: 30px;">
+                <h3 style="color: #667eea; margin-bottom: 10px;">How long does it take to see results?</h3>
+                <p style="font-size: 1.1rem; color: #555;">Most customers report noticing improvements within 2-4 weeks of consistent use. For optimal results, we recommend taking Women's Balance daily for at least 3 months.</p>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <h3 style="color: #667eea; margin-bottom: 10px;">Is this product safe?</h3>
+                <p style="font-size: 1.1rem; color: #555;">Yes! Women's Balance is made with natural, high-quality ingredients and manufactured in FDA-registered facilities. However, we always recommend consulting with your healthcare provider before starting any new supplement.</p>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <h3 style="color: #667eea; margin-bottom: 10px;">What's the recommended dosage?</h3>
+                <p style="font-size: 1.1rem; color: #555;">Take 2 capsules daily with meals, or as directed by your healthcare professional.</p>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <h3 style="color: #667eea; margin-bottom: 10px;">Do you offer a money-back guarantee?</h3>
+                <p style="font-size: 1.1rem; color: #555;">Absolutely! We offer a 60-day money-back guarantee. If you're not completely satisfied, contact us for a full refund.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div style="background: #2854a6; padding: 20px; text-align: center;">
+            <a href="/cart" style="display: inline-block; margin-bottom: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><img src="/public/images/view-cart-button.png" alt="View Cart" style="max-width: 150px; height: auto; cursor: pointer;"></a>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 10px;"><img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;"></div>
+        </div>
+        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
+        <div style="background: #2854a6; padding: 15px 20px; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; font-size: 0.85rem;">
+            <a href="/terms-of-service.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Terms of Service</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/shipping-returns.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Shipping & Returns</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/payment-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Payment Policy</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/privacy-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Privacy Policy</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/contact" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Contact</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/shop" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">🧪 SHOP</a>
+        </div>
+        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
+        <div style="text-align: center; padding: 12px; background: #2854a6;"><p style="color: white; font-size: 0.85rem; margin: 0;">🗽 Copyright 2026 - Success Chemistry® | Powered by 🏄 WindSurf</p></div>
+    </footer>
+
+    <script>
+        function changeImage(src) {
+            document.getElementById('mainImage').src = src;
+        }
+
+        function increaseQuantity() {
+            const input = document.getElementById('quantity');
+            input.value = parseInt(input.value) + 1;
+        }
+
+        function decreaseQuantity() {
+            const input = document.getElementById('quantity');
+            if (parseInt(input.value) > 1) {
+                input.value = parseInt(input.value) - 1;
+            }
+        }
+
+        function addToCart() {
+            const quantity = document.getElementById('quantity').value;
+            alert(`Added ${quantity} item(s) to cart!`);
+            // Add actual cart functionality here
+        }
+
+        function buyNow() {
+            const quantity = document.getElementById('quantity').value;
+            window.location.href = `/checkout?product=womens-balance&qty=${quantity}`;
+        }
+
+        function openTab(tabName) {
+            // Hide all tab contents
+            const contents = document.getElementsByClassName('tab-content');
+            for (let content of contents) {
+                content.classList.remove('active');
+            }
+
+            // Remove active class from all tabs
+            const tabs = document.getElementsByClassName('tab');
+            for (let tab of tabs) {
+                tab.classList.remove('active');
+            }
+
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
