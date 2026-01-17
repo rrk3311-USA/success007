@@ -1128,20 +1128,25 @@ const PRODUCTS_DATA = {
     }
 };
 
-// Get product by SKU - GLOBAL FUNCTION
-window.getProductBySKU = function(sku) {
+// Helper functions for accessing product data
+const getProductBySKU = function(sku) {
     return PRODUCTS_DATA[sku] || null;
 };
 
-// Get all products as array - GLOBAL FUNCTION
-window.getAllProducts = function() {
+const getAllProducts = function() {
     return Object.values(PRODUCTS_DATA);
 };
 
-// Also make PRODUCTS_DATA globally accessible
-window.PRODUCTS_DATA = PRODUCTS_DATA;
+// Make available in browser environment
+if (typeof window !== 'undefined') {
+    window.getProductBySKU = getProductBySKU;
+    window.getAllProducts = getAllProducts;
+    window.PRODUCTS_DATA = PRODUCTS_DATA;
+}
 
 // Export for Node.js if needed
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { PRODUCTS_DATA, getProductBySKU: window.getProductBySKU, getAllProducts: window.getAllProducts };
+    module.exports = { PRODUCTS_DATA, getProductBySKU, getAllProducts };
 }
+// ES Module export for Node.js scripts
+export { PRODUCTS_DATA };
