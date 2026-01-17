@@ -4,25 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart - Success Chemistry</title>
-    <meta name="description" content="View your shopping cart and checkout with premium supplements from Success Chemistry.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- PayPal SDK with Sandbox Client ID -->
+    <script src="https://www.paypal.com/sdk/js?client-id=ATM3Eoawal0vHl1xqCcuP5TvlPBP-96AHV0xP0tiQ-KlAd_tuSLLQjKMsby8lgbgE7jN5zXPF3HjMUNk&currency=USD&components=buttons,funding-eligibility&enable-funding=venmo,paylater&disable-funding=credit"></script>
+    
     <style>
-        :root {
-            --bg: white;
-            --card: rgba(255, 255, 255, 0.08);
-            --card-strong: rgba(255, 255, 255, 0.12);
-            --text: rgba(255, 255, 255, 0.92);
-            --muted: rgba(255, 255, 255, 0.72);
-            --ink: #0a234e;
-            --accent: #667eea;
-            --accent2: #764ba2;
-            --accent3: #00d2ff;
-            --radius: 18px;
-            --shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -30,10 +19,9 @@
         }
 
         body {
-            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             color: #333;
             background: white;
-            overflow-x: hidden;
         }
 
         .container {
@@ -42,22 +30,12 @@
             padding: 0 20px;
         }
 
-        .brand {
-            display: inline-flex;
-            align-items: center;
-            text-decoration: none;
-        }
-
-        .brand img {
-            height: 58px;
-        }
-
+        /* Header */
         .topbar {
             background: white;
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: none;
             padding: 22px 0;
             margin-top: 8px;
         }
@@ -66,23 +44,28 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 16px;
-            padding: 0;
+        }
+
+        .brand img {
+            height: 58px;
         }
 
         .header-divider {
             height: 4px;
             background: linear-gradient(90deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #667eea 100%);
             background-size: 200% 100%;
-            animation: gradientMove 8s linear infinite;
+            animation: gradientMove 3s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
         }
 
         .blue-nav {
             background: #2854a6;
             padding: 18px 0;
         }
-
-
 
         .blue-nav .container {
             display: flex;
@@ -97,7 +80,6 @@
             text-decoration: none;
             font-weight: 500;
             font-size: 1.56rem;
-            letter-spacing: 0.2px;
             transition: opacity 0.3s;
         }
 
@@ -105,515 +87,182 @@
             opacity: 0.8;
         }
 
-        .cart-content {
-            padding: 40px 20px;
-            min-height: 60vh;
+        /* Cart */
+        .cart-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #2854a6;
+            margin: 40px 0 20px;
+            text-align: center;
         }
 
-        .cart-grid {
+        .cart-layout {
             display: grid;
-            grid-template-columns: 1.6fr 0.9fr;
-            gap: 24px;
-            align-items: start;
-        }
-
-        .cart-panel {
-            background: #ffffff;
-            border-radius: 18px;
-            border: 1px solid #e9ecef;
-            box-shadow: 0 20px 55px rgba(10, 35, 78, 0.08);
-            padding: 22px;
+            grid-template-columns: 1fr 400px;
+            gap: 40px;
+            margin: 40px 0;
         }
 
         .cart-items {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
         }
 
         .cart-item {
             display: grid;
-            grid-template-columns: 90px 1fr auto;
-            gap: 16px;
-            align-items: center;
-            border-bottom: 1px solid #edf0f5;
-            padding-bottom: 16px;
-        }
-
-        .cart-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
+            grid-template-columns: 100px 1fr auto;
+            gap: 20px;
+            padding: 20px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
         }
 
         .cart-item img {
-            width: 90px;
-            height: 90px;
-            object-fit: contain;
-            border-radius: 14px;
-            background: #f8f9fb;
-            border: 1px solid #eef1f6;
-            padding: 10px;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
         }
 
-        .cart-item h4 {
+        .item-details h3 {
             font-size: 1.1rem;
-            margin-bottom: 6px;
-            color: #0a234e;
+            margin-bottom: 8px;
+            color: #1f2937;
         }
 
-        .cart-item .meta {
-            font-size: 0.95rem;
-            color: #6b7280;
+        .item-price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2854a6;
+            margin-top: 8px;
         }
 
-        .qty-controls {
-            display: inline-flex;
+        .quantity-controls {
+            display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             margin-top: 10px;
         }
 
-        .qty-controls button {
+        .quantity-controls button {
             width: 32px;
             height: 32px;
-            border-radius: 8px;
-            border: 1px solid #d9e0ea;
-            background: #f8f9fa;
+            border: 1px solid #d1d5db;
+            background: white;
+            border-radius: 6px;
             cursor: pointer;
-            font-weight: 600;
-            color: #0a234e;
+            font-size: 1.2rem;
         }
 
-        .qty-controls span {
-            min-width: 24px;
+        .quantity-controls button:hover {
+            background: #f3f4f6;
+        }
+
+        .quantity-controls input {
+            width: 60px;
             text-align: center;
-            font-weight: 600;
-            color: #0a234e;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 6px;
         }
 
-        .remove-item {
-            background: none;
-            border: none;
-            color: #d64545;
+        .remove-btn {
+            color: #ef4444;
             cursor: pointer;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            margin-top: 10px;
         }
 
-        .cart-summary h3 {
-            color: #0a234e;
-            font-size: 1.4rem;
-            margin-bottom: 16px;
+        .remove-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* Order Summary */
+        .order-summary {
+            background: #f9fafb;
+            padding: 30px;
+            border-radius: 12px;
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+        }
+
+        .order-summary h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #1f2937;
         }
 
         .summary-row {
             display: flex;
             justify-content: space-between;
-            color: #4b5563;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-size: 1rem;
         }
 
         .summary-total {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #0a234e;
-            margin-top: 16px;
             display: flex;
             justify-content: space-between;
-        }
-
-        .cart-empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            border: 1px dashed #d9e0ea;
-            border-radius: 16px;
-            background: #f9fbff;
-        }
-
-        .cart-empty-state h2 {
-            color: #0a234e;
-            margin-bottom: 10px;
-        }
-
-        .continue-shopping-btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 14px 24px;
-            border-radius: 999px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: opacity 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 16px;
-        }
-
-        .continue-shopping-btn:hover {
-            opacity: 0.9;
+            margin: 20px 0;
+            padding-top: 20px;
+            border-top: 2px solid #d1d5db;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1f2937;
         }
 
         #paypal-button-container {
             margin: 20px 0;
             min-height: 150px;
-            width: 100%;
         }
 
         .paypal-note {
             font-size: 0.9rem;
             color: #6b7280;
+            text-align: center;
             margin-top: 10px;
-            text-align: center;
-            opacity: 0.9;
         }
 
-        .cart-title {
-            font-size: 2.5rem;
-            font-weight: 600;
-            color: #2854a6;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .cart-empty {
+        .empty-cart {
             text-align: center;
             padding: 60px 20px;
         }
 
-        .cart-empty-icon {
-            font-size: 4rem;
+        .empty-cart h2 {
+            font-size: 2rem;
+            color: #6b7280;
             margin-bottom: 20px;
         }
 
-        .cart-empty-title {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: #2854a6;
-            margin-bottom: 15px;
-        }
-
-        .cart-empty-description {
-            font-size: 1.1rem;
-            color: #666;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-
-        .continue-shopping-btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+        .continue-shopping {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #2854a6;
             color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 1.1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: opacity 0.3s;
             text-decoration: none;
-            display: inline-block;
-        }
-
-        .continue-shopping-btn:hover {
-            opacity: 0.9;
-        }
-
-        @media (max-width: 768px) {
-            .topbar-inner {
-                padding: 12px 0;
-            }
-
-            .brand img {
-                height: 44px;
-            }
-
-            .blue-nav {
-                padding: 10px 0;
-            }
-
-            .blue-nav .container {
-                gap: 22px;
-            }
-
-            .blue-nav a {
-                font-size: 1.2rem;
-            }
-
-            .cart-title {
-                font-size: 2rem;
-            }
-
-            .cart-content {
-                padding: 30px 20px;
-            }
-        }
-
-        @media (max-width: 520px) {
-            .blue-nav .container {
-                gap: 16px;
-            }
-
-            .blue-nav a {
-                font-size: 1.15rem;
-            }
-
-            .cart-title {
-                font-size: 1.8rem;
-            }
-        }
-
-        @keyframes gradientMove {
-            0% { background-position: 200% 50%; }
-            100% { background-position: -200% 50%; }
-        }
-
-        @keyframes dividerFlow {
-            0% { background-position: 200% 50%; }
-            100% { background-position: -200% 50%; }
-        }
-
-        /* Upsell Section */
-        .upsell-section {
-            margin-top: 40px;
-            padding: 30px;
-            background: linear-gradient(135deg, #667eea15, #764ba215);
-            border-radius: 18px;
-            border: 2px solid #667eea;
-        }
-
-        .upsell-header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .upsell-header h2 {
-            color: #2854a6;
-            font-size: 2rem;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-
-        .upsell-header .promo-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 999px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            margin-top: 10px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .upsell-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            border-radius: 8px;
             margin-top: 20px;
         }
 
-        .upsell-card {
-            background: white;
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            border: 2px solid #e9ecef;
-            transition: all 0.3s;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .upsell-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-            border-color: #667eea;
-        }
-
-        .upsell-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #ff6b6b;
-            color: white;
-            padding: 5px 12px;
-            border-radius: 999px;
-            font-size: 0.75rem;
-            font-weight: 700;
-        }
-
-        .upsell-card img {
-            width: 100%;
-            max-width: 180px;
-            height: 180px;
-            object-fit: contain;
-            margin-bottom: 15px;
-        }
-
-        .upsell-card h3 {
-            color: #0a234e;
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .upsell-card .price {
-            color: #667eea;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .upsell-card .old-price {
-            text-decoration: line-through;
-            color: #999;
-            font-size: 1.1rem;
-            margin-right: 8px;
-        }
-
-        .upsell-card .add-btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 999px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 100%;
-            font-size: 1rem;
-        }
-
-        .upsell-card .add-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .bundle-deal {
-            background: linear-gradient(135deg, #ffd34d20, #ff6b6b20);
-            border: 3px dashed #ff6b6b;
-            padding: 25px;
-            border-radius: 18px;
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        .bundle-deal h3 {
-            color: #ff6b6b;
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .bundle-deal p {
-            font-size: 1.1rem;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .bundle-deal .bundle-btn {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
-            color: white;
-            border: none;
-            padding: 16px 40px;
-            border-radius: 999px;
-            font-weight: 700;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .bundle-btn:hover {
-            transform: scale(1.08);
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
-        }
-        
-        .footer {
-            margin-top: 60px;
-            background: #2854a6;
-        }
-
-        .footer-links h4 {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .footer-links a {
-            display: block;
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            margin-bottom: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: white;
-            text-decoration: underline;
-        }
-
-        .footer-bottom {
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .footer-legal {
-            display: flex;
-            gap: 20px;
-        }
-
-        .footer-legal a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-legal a:hover {
-            color: white;
-            text-decoration: underline;
-        }
-
         @media (max-width: 768px) {
-            .product-header h1 {
-                font-size: 2.2rem;
-            }
-            
-            .price {
-                font-size: 2rem;
-            }
-            
-            .description-grid {
+            .cart-layout {
                 grid-template-columns: 1fr;
             }
             
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
+            .cart-item {
+                grid-template-columns: 80px 1fr;
             }
             
-            .footer-bottom {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
+            .order-summary {
+                position: static;
             }
         }
-
-</style>
+    </style>
 </head>
 <body>
-    <!-- HEADER -->
+    <!-- Header -->
     <div class="topbar">
         <div class="container">
             <div class="topbar-inner">
@@ -623,7 +272,6 @@
             </div>
         </div>
     </div>
-
     <div class="header-divider"></div>
 
     <div class="blue-nav">
@@ -632,80 +280,51 @@
             <a href="/shop">Shop</a>
             <a href="/blog">Articles</a>
             <a href="/contact">Contact</a>
-            <a href="/cart">Cart 0</a>
+            <a href="/cart">Cart <span id="cart-count">0</span></a>
         </div>
     </div>
 
     <div class="header-divider"></div>
 
-    <!-- CART CONTENT -->
-    <div class="cart-content">
-        <div class="container">
-            <h1 class="cart-title">Shopping Cart</h1>
-            <div class="cart-grid">
-                <div class="cart-panel">
-                    <div id="cartItems" class="cart-items"></div>
-                    <div id="cartEmpty" class="cart-empty-state" style="display: none;">
-                        <h2>Your cart is empty</h2>
-                        <p>Browse the shop and add your favorite supplements.</p>
-                        <a href="/shop" class="continue-shopping-btn">Continue Shopping</a>
-                    </div>
-                </div>
-                <div class="cart-panel cart-summary">
-                    <h3>Order Summary</h3>
-                    <div class="summary-row"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
-                    <div class="summary-row"><span>Shipping</span><span id="cartShipping">Calculated at checkout</span></div>
-                    <div class="summary-total"><span>Total</span><span id="cartTotal">$0.00</span></div>
-                    <div id="paypal-button-container"></div>
-                    <div class="paypal-note">Secure checkout powered by PayPal. Supports cards, Pay Later, and Venmo.</div>
-                </div>
+    <!-- Cart Content -->
+    <div class="container">
+        <h1 class="cart-title">Shopping Cart</h1>
+
+        <div id="empty-cart" class="empty-cart" style="display: none;">
+            <h2>Your cart is empty</h2>
+            <p>Add some amazing supplements to get started!</p>
+            <a href="/shop" class="continue-shopping">Continue Shopping</a>
+        </div>
+
+        <div id="cart-content" class="cart-layout">
+            <div id="cart-items" class="cart-items">
+                <!-- Cart items will be inserted here -->
             </div>
 
-            <!-- AGGRESSIVE UPSELLS -->
-            <div class="upsell-section">
-                <div class="upsell-header">
-                    <h2>🔥 Complete Your Wellness Stack!</h2>
-                    <span class="promo-badge">⚡ LIMITED TIME: Save 20% on These Combos!</span>
+            <div class="order-summary">
+                <h2>Order Summary</h2>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal">$0.00</span>
                 </div>
-                <div class="upsell-grid" id="upsellGrid"></div>
-            </div>
-
-            <!-- BUNDLE DEAL -->
-            <div class="bundle-deal">
-                <h3>💎 VIP Bundle Deal: Buy 3, Get 25% OFF!</h3>
-                <p>Stack your supplements and save BIG. Mix & match any 3 products.</p>
-                <a href="/shop" class="bundle-btn">🛒 Shop Bundles Now</a>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span>Calculated at checkout</span>
+                </div>
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span id="total">$0.00</span>
+                </div>
+                
+                <!-- PayPal Buttons Container -->
+                <div id="paypal-button-container"></div>
+                <div class="paypal-note">Secure checkout powered by PayPal. Supports cards, Pay Later, and Venmo.</div>
             </div>
         </div>
     </div>
 
-
-<!-- Footer -->
-    <footer class="footer">
-        <div style="background: #2854a6; padding: 20px; text-align: center;">
-            <a href="/cart" style="display: inline-block; margin-bottom: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><img src="/public/images/view-cart-button.png" alt="View Cart" style="max-width: 150px; height: auto; cursor: pointer;"></a>
-            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 10px;"><img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;"></div>
-        </div>
-        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
-        <div style="background: #2854a6; padding: 15px 20px; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; font-size: 0.85rem;">
-            <a href="/terms-of-service.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Terms of Service</a>
-            <span style="color: rgba(255,255,255,0.3);">|</span>
-            <a href="/shipping-returns.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Shipping & Returns</a>
-            <span style="color: rgba(255,255,255,0.3);">|</span>
-            <a href="/payment-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Payment Policy</a>
-            <span style="color: rgba(255,255,255,0.3);">|</span>
-            <a href="/privacy-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Privacy Policy</a>
-            <span style="color: rgba(255,255,255,0.3);">|</span>
-            <a href="/contact" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Contact</a>
-            <span style="color: rgba(255,255,255,0.3);">|</span>
-            <a href="/shop" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">🧪 SHOP</a>
-        </div>
-        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
-        <div style="text-align: center; padding: 12px; background: #2854a6;"><p style="color: white; font-size: 0.85rem; margin: 0;">🗽 Copyright 2026 - Success Chemistry® | Powered by 🏄 WindSurf</p></div>
-    </footer>
-
-    <script src="/products-data.js?v=3"></script>
     <script>
+        // Cart functions
         function getCart() {
             const cart = localStorage.getItem('successChemistryCart');
             return cart ? JSON.parse(cart) : [];
@@ -715,327 +334,146 @@
             localStorage.setItem('successChemistryCart', JSON.stringify(cart));
         }
 
-        function formatMoney(value) {
-            return `$${value.toFixed(2)}`;
-        }
-
-        function renderCart() {
-            const itemsContainer = document.getElementById('cartItems');
-            const emptyState = document.getElementById('cartEmpty');
-            const subtotalEl = document.getElementById('cartSubtotal');
-            const totalEl = document.getElementById('cartTotal');
+        function updateQuantity(index, newQuantity) {
             const cart = getCart();
-
-            itemsContainer.innerHTML = '';
-
-            if (!cart.length) {
-                emptyState.style.display = 'block';
-                subtotalEl.textContent = '$0.00';
-                totalEl.textContent = '$0.00';
-                return;
+            if (newQuantity <= 0) {
+                cart.splice(index, 1);
+            } else {
+                cart[index].quantity = newQuantity;
             }
-
-            emptyState.style.display = 'none';
-
-            let subtotal = 0;
-
-            cart.forEach((item, index) => {
-                const quantity = parseInt(item.quantity) || 1;
-                const price = parseFloat(item.price) || 0;
-                subtotal += price * quantity;
-
-                const row = document.createElement('div');
-                row.className = 'cart-item';
-                row.innerHTML = `
-                    <img src="${item.image || '/images/placeholder.jpg'}" alt="${item.name}">
-                    <div>
-                        <h4>${item.name}</h4>
-                        <div class="meta">$${price.toFixed(2)} each</div>
-                        <div class="qty-controls">
-                            <button type="button" data-action="decrease" data-index="${index}">-</button>
-                            <span>${quantity}</span>
-                            <button type="button" data-action="increase" data-index="${index}">+</button>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="meta" style="font-weight: 600; color: #0a234e;">${formatMoney(price * quantity)}</div>
-                        <button class="remove-item" data-action="remove" data-index="${index}">Remove</button>
-                    </div>
-                `;
-                itemsContainer.appendChild(row);
-            });
-
-            subtotalEl.textContent = formatMoney(subtotal);
-            totalEl.textContent = formatMoney(subtotal);
-        }
-
-        function updateCartItem(index, delta) {
-            const cart = getCart();
-            if (!cart[index]) return;
-            cart[index].quantity = Math.max(1, (parseInt(cart[index].quantity) || 1) + delta);
             saveCart(cart);
             renderCart();
         }
 
-        function removeCartItem(index) {
+        function removeItem(index) {
             const cart = getCart();
             cart.splice(index, 1);
             saveCart(cart);
             renderCart();
         }
 
-        document.addEventListener('click', (event) => {
-            const action = event.target.getAttribute('data-action');
-            const index = parseInt(event.target.getAttribute('data-index'));
-            if (!action || Number.isNaN(index)) return;
-
-            if (action === 'increase') updateCartItem(index, 1);
-            if (action === 'decrease') updateCartItem(index, -1);
-            if (action === 'remove') removeCartItem(index);
-        });
-
-        window.addEventListener('DOMContentLoaded', () => {
-            renderCart();
-            renderUpsells();
-        });
-
-        // Aggressive Upsell/Cross-sell Logic
-        function renderUpsells() {
-            const upsellContainer = document.getElementById('upsellGrid');
-            if (!upsellContainer) return;
-
-            // Top recommended products for upselling
-            const recommendedProducts = [
-                { sku: '52274-401', name: 'Women\'s Balance', price: 29.99, image: '/public/images/products/52274-401/01.png', badge: 'BEST SELLER' },
-                { sku: '20644-825', name: 'Elderberry Lung Therapy', price: 24.99, image: '/public/images/products/20644-825/01.png', badge: 'TRENDING' },
-                { sku: '10784-', name: 'Advanced Neurotropic Focus Aid', price: 34.99, image: '/public/images/products/10784-/01.png', badge: 'TOP RATED' },
-                { sku: '10781-105k', name: 'Colon Detox Cleanse', price: 27.99, image: '/public/images/products/10781-105k/01.png', badge: 'POPULAR' }
-            ];
-
+        function renderCart() {
             const cart = getCart();
-            const cartSkus = cart.map(item => item.sku || '');
+            const itemsContainer = document.getElementById('cart-items');
+            const emptyState = document.getElementById('empty-cart');
+            const cartContent = document.getElementById('cart-content');
+            const cartCount = document.getElementById('cart-count');
 
-            // Filter out products already in cart
-            const upsellProducts = recommendedProducts.filter(p => !cartSkus.includes(p.sku));
+            cartCount.textContent = cart.length;
 
-            upsellContainer.innerHTML = upsellProducts.map(product => `
-                <div class="upsell-card" onclick="addUpsellToCart('${product.sku}', '${product.name}', ${product.price}, '${product.image}')">
-                    <span class="upsell-badge">${product.badge}</span>
-                    <img src="${product.image}" alt="${product.name}">
-                    <h3>${product.name}</h3>
-                    <div class="price">
-                        <span class="old-price">$${(product.price * 1.25).toFixed(2)}</span>
-                        $${product.price.toFixed(2)}
-                    </div>
-                    <button class="add-btn">⚡ Add to Cart</button>
-                </div>
-            `).join('');
-        }
-
-        function addUpsellToCart(sku, name, price, image) {
-            const cart = getCart();
-            const existing = cart.find(item => item.sku === sku);
-            
-            if (existing) {
-                existing.quantity = (parseInt(existing.quantity) || 1) + 1;
-            } else {
-                cart.push({ sku, name, price, image, quantity: 1 });
-            }
-            
-            saveCart(cart);
-            renderCart();
-            renderUpsells();
-            
-            // Show success feedback
-            alert(`✅ ${name} added to cart!`);
-        }
-    </script>
-
-    <!-- Configuration -->
-    <script src="/config.js"></script>
-    
-    <!-- Google Analytics & Tracking -->
-    <script src="/tracking.js"></script>
-    
-    <!-- Loyalty Points System -->
-    <script src="/loyalty-points.js"></script>
-
-    <!-- PayPal SDK - Dynamic based on config -->
-    <script>
-        // Load PayPal SDK with correct client ID based on sandbox mode
-        (function() {
-            console.log('🔍 Checking CONFIG:', typeof CONFIG !== 'undefined' ? 'Loaded' : 'NOT LOADED');
-            
-            if (typeof CONFIG === 'undefined') {
-                console.error('❌ CONFIG not loaded! Scripts may not be loading correctly.');
-                // Fallback to production client ID
-                var clientId = 'EBAQIbUDDVgB06yvEWREs2cMox8AKElkxFJAqKF71iUj007dv0YzxlKbepduwV7xGEI5FrjK3vakzm0b';
-            } else {
-                var clientId = CONFIG.SANDBOX_MODE 
-                    ? CONFIG.PAYPAL.SANDBOX_CLIENT_ID 
-                    : CONFIG.PAYPAL.PRODUCTION_CLIENT_ID;
-                console.log(CONFIG.SANDBOX_MODE ? '🧪 PayPal SANDBOX mode enabled' : '💳 PayPal PRODUCTION mode enabled');
-            }
-            
-            console.log('📦 Loading PayPal SDK with client ID:', clientId.substring(0, 20) + '...');
-            
-            const script = document.createElement('script');
-            script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=USD&components=buttons,funding-eligibility&enable-funding=venmo,paylater&disable-funding=credit`;
-            script.async = true;
-            script.onload = function() {
-                console.log('✅ PayPal SDK loaded successfully');
-                initializePayPalButtons();
-            };
-            script.onerror = function() {
-                console.error('❌ Failed to load PayPal SDK');
-            };
-            document.head.appendChild(script);
-        })();
-
-        function initializePayPalButtons() {
-            console.log('🎯 initializePayPalButtons called');
-            
-            if (!window.paypal) {
-                console.error('❌ PayPal SDK not loaded');
+            if (cart.length === 0) {
+                emptyState.style.display = 'block';
+                cartContent.style.display = 'none';
                 return;
             }
-            
-            console.log('✅ window.paypal exists');
 
-            // Track begin checkout
+            emptyState.style.display = 'none';
+            cartContent.style.display = 'grid';
+
+            let subtotal = 0;
+            itemsContainer.innerHTML = cart.map((item, index) => {
+                const itemTotal = (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1);
+                subtotal += itemTotal;
+
+                return `
+                    <div class="cart-item">
+                        <img src="${item.image || '/public/images/placeholder.jpg'}" alt="${item.name}">
+                        <div class="item-details">
+                            <h3>${item.name}</h3>
+                            <div class="item-price">$${item.price}</div>
+                            <div class="quantity-controls">
+                                <button onclick="updateQuantity(${index}, ${item.quantity - 1})">-</button>
+                                <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)">
+                                <button onclick="updateQuantity(${index}, ${item.quantity + 1})">+</button>
+                            </div>
+                            <div class="remove-btn" onclick="removeItem(${index})">Remove</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <strong>$${itemTotal.toFixed(2)}</strong>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('total').textContent = `$${subtotal.toFixed(2)}`;
+        }
+
+        // Initialize PayPal Buttons
+        window.onload = function() {
+            console.log('🎯 Page loaded, initializing cart...');
+            renderCart();
+
             const cart = getCart();
-            const total = cart.reduce((sum, item) => sum + (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1), 0);
-            
-            console.log('🛒 Cart total:', total, 'Items:', cart.length);
-            
-            if (window.SuccessChemistryTracking) {
-                window.SuccessChemistryTracking.trackBeginCheckout(cart, total);
+            if (cart.length === 0) {
+                console.log('⚠️ Cart is empty, PayPal buttons will not render');
+                return;
             }
 
-            console.log('🔘 Creating PayPal buttons...');
-            
+            console.log('✅ Cart has items, initializing PayPal buttons...');
+
             paypal.Buttons({
                 style: {
                     layout: 'vertical',
                     shape: 'rect',
-                    height: 55,
-                    tagline: false
+                    height: 55
                 },
-                createOrder: (data, actions) => {
+                createOrder: function(data, actions) {
                     const cart = getCart();
-                    const total = cart.reduce((sum, item) => sum + (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1), 0);
-                    
-                    const items = cart.map(item => ({
-                        name: item.name,
-                        unit_amount: {
-                            currency_code: 'USD',
-                            value: parseFloat(item.price).toFixed(2)
-                        },
-                        quantity: item.quantity.toString(),
-                        sku: item.sku
-                    }));
+                    const total = cart.reduce((sum, item) => {
+                        return sum + (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1);
+                    }, 0);
+
+                    console.log('💰 Creating order for total:', total);
 
                     return actions.order.create({
                         purchase_units: [{
                             amount: {
                                 value: total.toFixed(2),
-                                breakdown: {
-                                    item_total: {
-                                        currency_code: 'USD',
-                                        value: total.toFixed(2)
-                                    }
-                                }
+                                currency_code: 'USD'
                             },
-                            items: items
+                            description: 'Success Chemistry Supplements'
                         }]
                     });
                 },
-                onApprove: async (data, actions) => {
-                    const order = await actions.order.capture();
-                    
-                    // Track purchase with Google Analytics Enhanced Conversions
-                    if (window.SuccessChemistryTracking) {
-                        const cart = getCart();
-                        const total = cart.reduce((sum, item) => sum + (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1), 0);
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        console.log('✅ Payment completed:', details);
                         
-                        const orderData = {
-                            orderNumber: order.id,
-                            items: cart.map(item => ({
-                                sku: item.sku,
-                                name: item.name,
-                                price: parseFloat(item.price),
-                                quantity: parseInt(item.quantity)
-                            })),
-                            subtotal: total,
-                            shipping: 0,
-                            tax: 0,
-                            total: total
-                        };
+                        // Award loyalty points (5 points per $1)
+                        const total = parseFloat(details.purchase_units[0].amount.value);
+                        const points = Math.floor(total * 5);
+                        const currentPoints = parseInt(localStorage.getItem('loyaltyPoints') || '0');
+                        localStorage.setItem('loyaltyPoints', (currentPoints + points).toString());
                         
-                        const customerData = {
-                            email: order.payer?.email_address,
-                            firstName: order.payer?.name?.given_name,
-                            lastName: order.payer?.name?.surname
-                        };
+                        // Save order
+                        const orders = JSON.parse(localStorage.getItem('successChemistryOrders') || '[]');
+                        orders.push({
+                            id: details.id,
+                            date: new Date().toISOString(),
+                            items: getCart(),
+                            total: total,
+                            pointsEarned: points
+                        });
+                        localStorage.setItem('successChemistryOrders', JSON.stringify(orders));
                         
-                        window.SuccessChemistryTracking.trackPurchase(orderData, customerData);
+                        // Clear cart
+                        localStorage.removeItem('successChemistryCart');
                         
-                        // Track Google Ads conversion if configured
-                        if (typeof CONFIG !== 'undefined' && CONFIG.GOOGLE_ADS.ENABLED) {
-                            window.SuccessChemistryTracking.trackGoogleAdsConversion(
-                                CONFIG.GOOGLE_ADS.CONVERSION_ID,
-                                CONFIG.GOOGLE_ADS.CONVERSION_LABEL,
-                                total,
-                                order.id
-                            );
-                        }
-                    }
-                    
-                    // Award loyalty points (5 points per $1 spent)
-                    if (window.LoyaltyPoints) {
-                        const cart = getCart();
-                        const total = cart.reduce((sum, item) => sum + (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1), 0);
-                        
-                        const pointsEarned = window.LoyaltyPoints.addPoints(
-                            total,
-                            order.id,
-                            `Cart Purchase - ${cart.length} item(s)`
-                        );
-                        
-                        console.log(`🎉 Earned ${pointsEarned} loyalty points!`);
-                    }
-                    
-                    // Save order to history
-                    const cart = getCart();
-                    const total = cart.reduce((sum, item) => sum + (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1), 0);
-                    const orders = JSON.parse(localStorage.getItem('successChemistryOrders') || '[]');
-                    orders.unshift({
-                        orderNumber: order.id,
-                        date: new Date().toISOString(),
-                        items: cart,
-                        total: total,
-                        status: 'completed',
-                        pointsEarned: Math.floor(total * 5)
+                        alert(`✅ Payment completed! You earned ${points} loyalty points!`);
+                        window.location.href = '/subscribe.html';
                     });
-                    localStorage.setItem('successChemistryOrders', JSON.stringify(orders));
-                    
-                    alert('✅ Payment completed! Thank you for your order.');
-                    localStorage.removeItem('successChemistryCart');
-                    
-                    // Redirect to subscription offer page
-                    window.location.href = '/subscribe.html';
                 },
                 onError: function(err) {
-                    console.error('PayPal error:', err);
-                    alert('Payment error. Please try again or contact support.');
+                    console.error('❌ PayPal error:', err);
+                    alert('Payment error. Please try again.');
                 }
             }).render('#paypal-button-container').then(function() {
                 console.log('✅ PayPal buttons rendered successfully!');
             }).catch(function(err) {
                 console.error('❌ Failed to render PayPal buttons:', err);
             });
-        }
+        };
     </script>
-
 </body>
 </html>
