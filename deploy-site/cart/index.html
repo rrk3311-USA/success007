@@ -240,76 +240,73 @@
             display: inline-block;
             padding: 14px 32px;
             background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.95) 0%, 
-                rgba(230, 235, 245, 0.95) 50%, 
-                rgba(200, 210, 230, 0.95) 100%);
-            color: #2854a6;
+                rgba(100, 180, 255, 0.3) 0%, 
+                rgba(150, 100, 255, 0.3) 50%,
+                rgba(255, 100, 200, 0.3) 100%);
+            color: white;
             text-decoration: none;
-            border-radius: 999px;
+            border-radius: 16px;
             margin-top: 20px;
-            font-weight: 700;
+            font-weight: 600;
             font-size: 0.95rem;
-            letter-spacing: 0.5px;
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
             position: relative;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             box-shadow: 
-                0 8px 32px rgba(31, 38, 135, 0.15),
-                0 2px 8px rgba(0, 0, 0, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.9),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.05);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+                0 8px 32px 0 rgba(31, 38, 135, 0.2),
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
         }
 
         .continue-shopping::before {
             content: '';
             position: absolute;
-            inset: -1px;
-            border-radius: 999px;
-            padding: 1px;
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.9),
-                rgba(200, 210, 230, 0.6),
-                rgba(150, 170, 200, 0.8));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-            z-index: -1;
-            opacity: 0.8;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent);
+            transition: left 0.5s;
         }
 
         .continue-shopping::after {
             content: '';
             position: absolute;
-            inset: 2px;
-            border-radius: 999px;
+            inset: 0;
+            border-radius: 16px;
             background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.4) 0%, 
+                rgba(255, 255, 255, 0.1) 0%, 
                 transparent 50%);
             pointer-events: none;
         }
 
         .continue-shopping:hover {
-            transform: translateY(-4px) scale(1.02);
+            transform: translateY(-2px);
             box-shadow: 
-                0 16px 48px rgba(31, 38, 135, 0.25),
-                0 8px 16px rgba(0, 0, 0, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 1),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+                0 12px 40px 0 rgba(31, 38, 135, 0.3),
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
             background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 1) 0%, 
-                rgba(240, 245, 255, 1) 50%, 
-                rgba(220, 230, 250, 1) 100%);
+                rgba(100, 180, 255, 0.4) 0%, 
+                rgba(150, 100, 255, 0.4) 50%,
+                rgba(255, 100, 200, 0.4) 100%);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .continue-shopping:hover::before {
+            left: 100%;
         }
 
         .continue-shopping:active {
-            transform: translateY(-2px) scale(0.98);
+            transform: translateY(0) scale(0.98);
             box-shadow: 
-                0 4px 16px rgba(31, 38, 135, 0.2),
-                inset 0 2px 4px rgba(0, 0, 0, 0.1);
+                0 4px 16px 0 rgba(31, 38, 135, 0.2),
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
         }
 
         .footer {
@@ -504,10 +501,10 @@
                     <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 200px; object-fit: contain; margin-bottom: 15px;">
                     <h3 style="font-size: 1rem; margin-bottom: 10px; color: #1f2937; min-height: 48px;">${product.name}</h3>
                     <div style="font-size: 1.2rem; font-weight: 600; color: #2854a6; margin-bottom: 15px;">$${product.price}</div>
-                    <button style="width: 100%; padding: 14px 28px; background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(230, 235, 245, 0.95) 50%, rgba(200, 210, 230, 0.95) 100%); color: #2854a6; border: 1px solid rgba(255, 255, 255, 0.8); border-radius: 999px; cursor: pointer; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.5px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 0 rgba(0, 0, 0, 0.05); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8); position: relative;"
+                    <button style="width: 100%; padding: 14px 28px; background: linear-gradient(135deg, rgba(100, 180, 255, 0.3) 0%, rgba(150, 100, 255, 0.3) 50%, rgba(255, 100, 200, 0.3) 100%); color: white; border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 16px; cursor: pointer; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.3px; backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.3); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;"
                             onclick="event.stopPropagation(); addToCartFromRecommendation('${product.sku}', '${product.name}', '${product.price}', '${product.image}')"
-                            onmouseover="this.style.transform='translateY(-4px) scale(1.02)'; this.style.boxShadow='0 16px 48px rgba(31, 38, 135, 0.25), 0 8px 16px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 1), inset 0 -1px 0 rgba(0, 0, 0, 0.08)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(240, 245, 255, 1) 50%, rgba(220, 230, 250, 1) 100%)'"
-                            onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 8px 32px rgba(31, 38, 135, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 0 rgba(0, 0, 0, 0.05)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(230, 235, 245, 0.95) 50%, rgba(200, 210, 230, 0.95) 100%)'">
+                            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 40px 0 rgba(31, 38, 135, 0.3), inset 0 1px 0 0 rgba(255, 255, 255, 0.4)'; this.style.background='linear-gradient(135deg, rgba(100, 180, 255, 0.4) 0%, rgba(150, 100, 255, 0.4) 50%, rgba(255, 100, 200, 0.4) 100%)'; this.style.borderColor='rgba(255, 255, 255, 0.25)'"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 32px 0 rgba(31, 38, 135, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.3)'; this.style.background='linear-gradient(135deg, rgba(100, 180, 255, 0.3) 0%, rgba(150, 100, 255, 0.3) 50%, rgba(255, 100, 200, 0.3) 100%)'; this.style.borderColor='rgba(255, 255, 255, 0.18)'">
                         Add to Cart
                     </button>
                 </div>

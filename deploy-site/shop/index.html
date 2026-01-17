@@ -353,76 +353,73 @@
         .btn-add-cart {
             flex: 1;
             background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.95) 0%, 
-                rgba(230, 235, 245, 0.95) 50%, 
-                rgba(200, 210, 230, 0.95) 100%);
-            color: #2854a6;
-            border: 1px solid rgba(255, 255, 255, 0.8);
+                rgba(100, 180, 255, 0.3) 0%, 
+                rgba(150, 100, 255, 0.3) 50%,
+                rgba(255, 100, 200, 0.3) 100%);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.18);
             padding: 14px 28px;
-            border-radius: 999px;
-            font-weight: 700;
+            border-radius: 16px;
+            font-weight: 600;
             font-size: 0.95rem;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             cursor: pointer;
             position: relative;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             box-shadow: 
-                0 8px 32px rgba(31, 38, 135, 0.15),
-                0 2px 8px rgba(0, 0, 0, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.9),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.05);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+                0 8px 32px 0 rgba(31, 38, 135, 0.2),
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
         }
 
         .btn-add-cart::before {
             content: '';
             position: absolute;
-            inset: -1px;
-            border-radius: 999px;
-            padding: 1px;
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.9),
-                rgba(200, 210, 230, 0.6),
-                rgba(150, 170, 200, 0.8));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-            z-index: -1;
-            opacity: 0.8;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent);
+            transition: left 0.5s;
         }
 
         .btn-add-cart::after {
             content: '';
             position: absolute;
-            inset: 2px;
-            border-radius: 999px;
+            inset: 0;
+            border-radius: 16px;
             background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.4) 0%, 
+                rgba(255, 255, 255, 0.1) 0%, 
                 transparent 50%);
             pointer-events: none;
         }
 
         .btn-add-cart:hover {
-            transform: translateY(-4px) scale(1.02);
+            transform: translateY(-2px);
             box-shadow: 
-                0 16px 48px rgba(31, 38, 135, 0.25),
-                0 8px 16px rgba(0, 0, 0, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 1),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+                0 12px 40px 0 rgba(31, 38, 135, 0.3),
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
             background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 1) 0%, 
-                rgba(240, 245, 255, 1) 50%, 
-                rgba(220, 230, 250, 1) 100%);
+                rgba(100, 180, 255, 0.4) 0%, 
+                rgba(150, 100, 255, 0.4) 50%,
+                rgba(255, 100, 200, 0.4) 100%);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .btn-add-cart:hover::before {
+            left: 100%;
         }
 
         .btn-add-cart:active {
-            transform: translateY(-2px) scale(0.98);
+            transform: translateY(0) scale(0.98);
             box-shadow: 
-                0 4px 16px rgba(31, 38, 135, 0.2),
-                inset 0 2px 4px rgba(0, 0, 0, 0.1);
+                0 4px 16px 0 rgba(31, 38, 135, 0.2),
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
         }
 
         .btn-quick-view {
