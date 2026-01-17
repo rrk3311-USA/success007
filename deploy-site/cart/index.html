@@ -238,75 +238,51 @@
 
         .continue-shopping {
             display: inline-block;
-            padding: 14px 32px;
-            background: linear-gradient(135deg, 
-                rgba(100, 180, 255, 0.3) 0%, 
-                rgba(150, 100, 255, 0.3) 50%,
-                rgba(255, 100, 200, 0.3) 100%);
-            color: white;
+            padding: 13px 32px;
+            background: #3E4C7A;
+            color: #FFFFFF;
             text-decoration: none;
-            border-radius: 16px;
+            border-radius: 2px;
             margin-top: 20px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            letter-spacing: 0.3px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            font-weight: 500;
+            font-size: 0.875rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border: none;
             position: relative;
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
             box-shadow: 
-                0 8px 32px 0 rgba(31, 38, 135, 0.2),
-                inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden;
-        }
-
-        .continue-shopping::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(255, 255, 255, 0.2), 
-                transparent);
-            transition: left 0.5s;
+                0 2px 4px rgba(0, 0, 0, 0.1),
+                0 1px 2px rgba(0, 0, 0, 0.06);
+            transition: all 0.2s ease;
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
         .continue-shopping::after {
             content: '';
             position: absolute;
             inset: 0;
-            border-radius: 16px;
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.1) 0%, 
-                transparent 50%);
+            background: rgba(255, 255, 255, 0);
+            transition: background 0.2s ease;
             pointer-events: none;
         }
 
         .continue-shopping:hover {
-            transform: translateY(-2px);
+            background: #4A5A8F;
             box-shadow: 
-                0 12px 40px 0 rgba(31, 38, 135, 0.3),
-                inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
-            background: linear-gradient(135deg, 
-                rgba(100, 180, 255, 0.4) 0%, 
-                rgba(150, 100, 255, 0.4) 50%,
-                rgba(255, 100, 200, 0.4) 100%);
-            border-color: rgba(255, 255, 255, 0.25);
+                0 4px 8px rgba(0, 0, 0, 0.15),
+                0 2px 4px rgba(0, 0, 0, 0.1);
+            transform: translateY(-1px);
         }
 
-        .continue-shopping:hover::before {
-            left: 100%;
+        .continue-shopping:hover::after {
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .continue-shopping:active {
-            transform: translateY(0) scale(0.98);
+            transform: translateY(0);
             box-shadow: 
-                0 4px 16px 0 rgba(31, 38, 135, 0.2),
-                inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+                0 1px 2px rgba(0, 0, 0, 0.1);
+            background: #364168;
         }
 
         .footer {
@@ -501,10 +477,10 @@
                     <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 200px; object-fit: contain; margin-bottom: 15px;">
                     <h3 style="font-size: 1rem; margin-bottom: 10px; color: #1f2937; min-height: 48px;">${product.name}</h3>
                     <div style="font-size: 1.2rem; font-weight: 600; color: #2854a6; margin-bottom: 15px;">$${product.price}</div>
-                    <button style="width: 100%; padding: 14px 28px; background: linear-gradient(135deg, rgba(100, 180, 255, 0.3) 0%, rgba(150, 100, 255, 0.3) 50%, rgba(255, 100, 200, 0.3) 100%); color: white; border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 16px; cursor: pointer; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.3px; backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.3); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;"
+                    <button style="width: 100%; padding: 13px 32px; background: #3E4C7A; color: #FFFFFF; border: none; border-radius: 2px; cursor: pointer; font-weight: 500; font-size: 0.875rem; letter-spacing: 1.5px; text-transform: uppercase; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06); transition: all 0.2s ease; position: relative;"
                             onclick="event.stopPropagation(); addToCartFromRecommendation('${product.sku}', '${product.name}', '${product.price}', '${product.image}')"
-                            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 40px 0 rgba(31, 38, 135, 0.3), inset 0 1px 0 0 rgba(255, 255, 255, 0.4)'; this.style.background='linear-gradient(135deg, rgba(100, 180, 255, 0.4) 0%, rgba(150, 100, 255, 0.4) 50%, rgba(255, 100, 200, 0.4) 100%)'; this.style.borderColor='rgba(255, 255, 255, 0.25)'"
-                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 32px 0 rgba(31, 38, 135, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.3)'; this.style.background='linear-gradient(135deg, rgba(100, 180, 255, 0.3) 0%, rgba(150, 100, 255, 0.3) 50%, rgba(255, 100, 200, 0.3) 100%)'; this.style.borderColor='rgba(255, 255, 255, 0.18)'">
+                            onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1)'; this.style.background='#4A5A8F'"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06)'; this.style.background='#3E4C7A'">
                         Add to Cart
                     </button>
                 </div>
