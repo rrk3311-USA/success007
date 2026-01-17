@@ -554,17 +554,451 @@
             position: relative;
         }
         
-        .product-description ul li::before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: #667eea;
-            font-weight: 700;
-        }
 
-        .buy-section {
-            background: white;
-            padding: 28px;
+.product-brand::after {
+    content: '🪷';
+    font-size: 1.2rem;
+    filter: grayscale(100%) brightness(0.6);
+}
+
+.product-title {
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+}
+
+.product-subtitle {
+    font-size: 1rem;
+    color: #666;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: 18px;
+}
+
+.main-image {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    background: white;
+    padding: 20px;
+}
+
+.product-info h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #1a1a1a;
+}
+
+.price-section {
+    background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+    padding: 24px;
+    border-radius: 12px;
+    margin: 24px 0;
+    border: 2px solid #667eea30;
+}
+
+.product-price {
+    font-size: 3.2rem;
+    font-weight: 900;
+    color: #2c3e50;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.price-label {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.product-details-section {
+    max-width: 1200px;
+    margin: 40px auto 0;
+    padding: 0 20px;
+}
+
+.info-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 35px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.info-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-card h3::before {
+    content: '';
+    width: 4px;
+    height: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 2px;
+}
+
+.product-description {
+    color: #444;
+    line-height: 1.9;
+    font-size: 1.05rem;
+    text-align: left;
+    max-width: 100%;
+    font-weight: 400;
+}
+
+.product-description p {
+    margin-bottom: 1.2em;
+    text-indent: 0;
+}
+
+.product-description p:first-of-type::first-letter {
+    font-size: 3.5em;
+    font-weight: 700;
+    float: left;
+    line-height: 0.85;
+    margin: 0.1em 0.1em 0 0;
+    color: #667eea;
+}
+
+.product-description strong {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.product-description ul {
+    margin: 1em 0 1em 1.5em;
+    list-style: none;
+}
+
+.product-description ul li {
+    margin-bottom: 0.8em;
+    padding-left: 1.5em;
+    position: relative;
+}
+
+.product-description ul li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: #667eea;
+    font-weight: bold;
+}
+
+.buy-section {
+    background: white;
+    padding: 28px;
+    border-radius: 16px;
+    margin: 24px 0;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.bundle-selector {
+    margin-bottom: 30px;
+}
+
+.bundle-option {
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.bundle-option:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.bundle-option.selected {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.bundle-option.selected::before {
+    content: '✓';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #3b82f6;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.bundle-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.bundle-label {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #111827;
+}
+
+.bundle-badge {
+    background: #3b82f6;
+    color: white;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.bundle-pricing {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: 30px;
+}
+
+.bundle-price {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+.bundle-original-price {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    text-decoration: line-through;
+}
+
+.bundle-savings {
+    background: #10b981;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.bundle-details {
+    display: none;
+}
+
+.bundle-detail {
+    display: none;
+}
+
+/* Compact Bundle Selector */
+.bundle-selector-compact {
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    margin: 30px 0;
+    border: 2px solid #e5e7eb;
+}
+
+.bundle-selector-compact h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    color: #111827;
+    font-weight: 600;
+}
+
+.bundle-options-compact {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 12px;
+}
+
+.bundle-option-compact {
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 16px 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    background: white;
+    position: relative;
+}
+
+.bundle-option-compact:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.bundle-option-compact.selected {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.bundle-option-compact.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: #3b82f6;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.bundle-qty-compact {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 4px;
+}
+
+.bundle-name-compact {
+    font-size: 0.7rem;
+    color: #6b7280;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.bundle-price-compact {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 4px;
+}
+
+.bundle-save-compact {
+    font-size: 0.7rem;
+    color: #10b981;
+    font-weight: 600;
+}
+
+.bundle-badge-compact {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #3b82f6;
+    color: white;
+
+/* Tabs */
+.product-tabs {
+    margin: 40px 0;
+}
+
+.tab-buttons {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid #e5e7eb;
+    margin-bottom: 30px;
+}
+
+.tab-button {
+    padding: 15px 30px;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #6b7280;
+    transition: all 0.3s;
+}
+
+.tab-button:hover {
+    color: #2854a6;
+}
+
+.tab-button.active {
+    color: #2854a6;
+    border-bottom-color: #2854a6;
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.supplement-facts {
+    background: #f9fafb;
+    border: 2px solid #2854a6;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 600px;
+    font-family: Arial, sans-serif;
+}
+
+.supplement-facts h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    border-bottom: 8px solid #000;
+    padding-bottom: 5px;
+}
+
+.supplement-facts .serving-info {
+    font-size: 0.9rem;
+    margin: 10px 0;
+    border-bottom: 4px solid #000;
+    padding-bottom: 5px;
+}
+
+.supplement-facts table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.supplement-facts td {
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.supplement-facts .ingredient-name {
+    font-weight: 600;
+}
+
+.supplement-facts .amount {
+    text-align: right;
+    font-weight: 600;
+}
+
+.supplement-facts .daily-value {
+    text-align: right;
+    width: 80px;
+}
             border-radius: 16px;
             margin: 24px 0;
             border: 1px solid #e9ecef;
@@ -1444,28 +1878,68 @@
                     </div>
                 </div>
                 
-                <!-- Full-width Description Section -->
+                <!-- Full-width Description Section with Tabs -->
                 <div class="product-details-section">
-                    ${description ? `
-                    <div class="info-card">
-                        <h3>Product Description</h3>
-                        <div class="product-description">${formatDescription(description)}</div>
+                    <div class="product-tabs">
+                        <div class="tab-buttons">
+                            <button class="tab-button active" onclick="switchTab('description')">Description</button>
+                            <button class="tab-button" onclick="switchTab('supplement-facts')">Supplement Facts</button>
+                            <button class="tab-button" onclick="switchTab('ingredients')">Ingredients</button>
+                        </div>
+                        
+                        <div id="description-tab" class="tab-content active">
+                            ${description ? `
+                            <div class="info-card">
+                                <div class="product-description">${formatDescription(description)}</div>
+                            </div>
+                            ` : '<p>No description available.</p>'}
+                            
+                            ${currentProduct.key_features ? `
+                            <div class="info-card">
+                                <h3>Key Features</h3>
+                                <div class="product-description">${currentProduct.key_features}</div>
+                            </div>
+                            ` : ''}
+                        </div>
+                        
+                        <div id="supplement-facts-tab" class="tab-content">
+                            <div class="info-card">
+                                <div class="supplement-facts">
+                                    <h3>Supplement Facts</h3>
+                                    <div class="serving-info">
+                                        <div>Serving Size: 2 Capsules</div>
+                                        <div>Servings Per Container: 30</div>
+                                    </div>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td class="ingredient-name">Amount Per Serving</td>
+                                                <td class="amount"></td>
+                                                <td class="daily-value">% Daily Value</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="ingredient-name">Proprietary Blend</td>
+                                                <td class="amount">1000mg</td>
+                                                <td class="daily-value">**</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p style="font-size: 0.8rem; margin-top: 15px; color: #666;">
+                                        ** Daily Value not established.<br>
+                                        Other Ingredients: Gelatin (capsule), Rice Flour, Magnesium Stearate.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="ingredients-tab" class="tab-content">
+                            ${currentProduct.ingredients ? `
+                            <div class="info-card">
+                                <div class="product-description">${currentProduct.ingredients}</div>
+                            </div>
+                            ` : '<div class="info-card"><p>Ingredient information coming soon.</p></div>'}
+                        </div>
                     </div>
-                    ` : ''}
-                    
-                    ${currentProduct.key_features ? `
-                    <div class="info-card">
-                        <h3>Key Features</h3>
-                        <div class="product-description">${currentProduct.key_features}</div>
-                    </div>
-                    ` : ''}
-                    
-                    ${currentProduct.ingredients ? `
-                    <div class="info-card">
-                        <h3>Ingredients</h3>
-                        <div class="product-description">${currentProduct.ingredients}</div>
-                    </div>
-                    ` : ''}
                     
                     <!-- Compact Bundle Selector -->
                     <div class="bundle-selector-compact">
@@ -1525,6 +1999,18 @@
             
             // Initialize PayPal button
             initPayPalButton();
+        }
+
+        // Tab switching function
+        function switchTab(tabName) {
+            // Remove active class from all tabs and buttons
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Add active class to selected tab and button
+            const button = event.target;
+            button.classList.add('active');
+            document.getElementById(tabName + '-tab').classList.add('active');
         }
 
         // Bundle selection
