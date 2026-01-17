@@ -207,23 +207,6 @@
             min-width: 250px;
         }
 
-        .sort-dropdown {
-            padding: 10px 16px;
-            border: 1px solid #E0E0E0;
-            border-radius: 6px;
-            background: #F5F5F5;
-            color: #616161;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            min-width: 180px;
-        }
-
-        .sort-dropdown:hover {
-            background: #EEEEEE;
-            border-color: #BDBDBD;
-        }
 
         .search-bar input {
             border: none;
@@ -610,17 +593,9 @@
                     <button class="filter-btn" onclick="window.location.href='/subscribe.html'"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M8 5v6M5 8h6"/></svg> Subscription Offer</button>
                 </div>
                 
-                <div style="display: flex; gap: 12px; align-items: center;">
-                    <select class="sort-dropdown" onchange="sortProducts(this.value)">
-                        <option value="sales">Sort by: Best Selling</option>
-                        <option value="price-low">Sort by: Price (Low to High)</option>
-                        <option value="price-high">Sort by: Price (High to Low)</option>
-                        <option value="name">Sort by: Name (A-Z)</option>
-                    </select>
-                    <div class="search-bar">
-                        <input type="text" placeholder="Search products..." onkeyup="searchProducts(this.value)">
-                        <span>🔍</span>
-                    </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search products..." onkeyup="searchProducts(this.value)">
+                    <span>🔍</span>
                 </div>
             </div>
         </div>
