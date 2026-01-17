@@ -1594,6 +1594,7 @@
 
     <script>
         let currentProduct = null;
+        let currentProductId = null;
 
         // Get product ID from URL
         function getProductIdFromUrl() {
@@ -1610,8 +1611,8 @@
 
         // Load product data
         async function loadProduct() {
-            const productId = getProductIdFromUrl();
-            console.log('Looking for product SKU:', productId);
+            currentProductId = getProductIdFromUrl();
+            console.log('Looking for product SKU:', currentProductId);
             
             // Wait for products-data.js to load
             let attempts = 0;
@@ -1634,13 +1635,13 @@
             
             try {
                 // Use local product data instead of API
-                currentProduct = window.getProductBySKU(productId);
+                currentProduct = window.getProductBySKU(currentProductId);
                 
                 console.log('Found product:', currentProduct ? currentProduct.name : 'Not found');
                 console.log('Available products:', window.getAllProducts ? window.getAllProducts().length : 'function not available');
                 
                 if (!currentProduct) {
-                    throw new Error(`Product not found for SKU: ${productId}`);
+                    throw new Error(`Product not found for SKU: ${currentProductId}`);
                 }
                 
                 renderProduct();
@@ -1654,7 +1655,7 @@
                 document.getElementById('productContent').innerHTML = `
                     <div class="loading">
                         <h2>Product Not Found</h2>
-                        <p>SKU "${productId}" not found in local product data.</p>
+                        <p>SKU "${currentProductId}" not found in local product data.</p>
                         <p style="font-size: 0.9rem; color: #666;">Error: ${error.message}</p>
                         <a href="/shop" class="btn btn-primary">Return to Shop</a>
                     </div>
@@ -1967,7 +1968,7 @@
             displayRecentlyViewed();
             
             // Load supplement facts
-            loadSupplementFacts(productId);
+            loadSupplementFacts(currentProductId);
             
             // Initialize PayPal button
             initPayPalButton();
