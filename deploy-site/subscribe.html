@@ -45,6 +45,32 @@
             height: 60px;
         }
 
+        .blue-nav {
+            background: #2854a6;
+            padding: 18px 0;
+        }
+
+        .blue-nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .blue-nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.56rem;
+            letter-spacing: 0.2px;
+            transition: opacity 0.3s;
+        }
+
+        .blue-nav a:hover {
+            opacity: 0.8;
+        }
+
         /* Hero Section */
         .hero {
             text-align: center;
@@ -454,6 +480,19 @@
             </div>
         </div>
     </div>
+    <div class="header-divider"></div>
+
+    <div class="blue-nav">
+        <div class="container">
+            <a href="/">Home</a>
+            <a href="/shop">Shop</a>
+            <a href="/blog">Articles</a>
+            <a href="/contact">Contact</a>
+            <a href="/cart">Cart 0</a>
+        </div>
+    </div>
+
+    <div class="header-divider"></div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -594,16 +633,26 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <p>🗽 Copyright 2026 - Success Chemistry® | Powered by 🏄 WindSurf</p>
-                <p style="font-size: 0.9rem; margin-top: 10px;">
-                    <a href="/terms-of-service.html" style="color: white; margin: 0 10px;">Terms</a> |
-                    <a href="/privacy-policy.html" style="color: white; margin: 0 10px;">Privacy</a> |
-                    <a href="/contact" style="color: white; margin: 0 10px;">Contact</a>
-                </p>
-            </div>
+        <div style="background: #2854a6; padding: 20px; text-align: center;">
+            <a href="/cart" style="display: inline-block; margin-bottom: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><img src="/public/images/view-cart-button.png" alt="View Cart" style="max-width: 150px; height: auto; cursor: pointer;"></a>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 10px;"><img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;"></div>
         </div>
+        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
+        <div style="background: #2854a6; padding: 15px 20px; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; font-size: 0.85rem;">
+            <a href="/terms-of-service.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Terms of Service</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/shipping-returns.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Shipping & Returns</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/payment-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Payment Policy</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/privacy-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Privacy Policy</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/contact" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Contact</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/shop" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">🧪 SHOP</a>
+        </div>
+        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
+        <div style="text-align: center; padding: 12px; background: #2854a6;"><p style="color: white; font-size: 0.85rem; margin: 0;">🗽 Copyright 2026 - Success Chemistry® | Powered by 🏄 WindSurf</p></div>
     </footer>
 
     <!-- PayPal SDK for Subscriptions -->
