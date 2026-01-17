@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products Database - Success Chemistry</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 25px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-card .label {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card .value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .controls {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            padding: 12px 20px;
+            background: #1a1a1a;
+            border: 2px solid #444;
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 1rem;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .filter-select {
+            padding: 12px 20px;
+            background: #1a1a1a;
+            border: 2px solid #444;
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .table-container {
+            background: #2a2a2a;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        thead {
+            background: #333;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #fff;
+            border-bottom: 2px solid #667eea;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        th:hover {
+            background: #3a3a3a;
+        }
+        
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+        }
+        
+        tr:hover {
+            background: #333;
+        }
+        
+        .sku-cell {
+            font-family: 'Courier New', monospace;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .price-cell {
+            color: #4ade80;
+            font-weight: 600;
+        }
+        
+        .category-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid #667eea;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: #667eea;
+        }
+        
+        .description-cell {
+            max-width: 400px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #aaa;
+        }
+        
+        .images-count {
+            background: rgba(118, 75, 162, 0.2);
+            border: 1px solid #764ba2;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #764ba2;
+        }
+        
+        .action-btn {
+            padding: 6px 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-right: 5px;
+        }
+        
+        .action-btn:hover {
+            background: #5568d3;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: #2a2a2a;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-header h2 {
+            color: #667eea;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+        }
+        
+        .close-btn:hover {
+            color: white;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #aaa;
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            background: #1a1a1a;
+            border: 2px solid #444;
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .image-gallery {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        
+        .image-gallery img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            border: 2px solid #444;
+            border-radius: 8px;
+            background: #1a1a1a;
+        }
+    
+
+.footer {
+            background: #2854a6;
+            color: white;
+            padding: 80px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand p {
+            margin-top: 20px;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .footer-logo img {
+            height: 50px;
+        }
+
+        .footer-links h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .footer-links a {
+            display: block;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-legal a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .product-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .price {
+                font-size: 2rem;
+            }
+            
+            .description-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+</style>
+</head>
+<body>
+    <div class="header">
+        <h1>🗄️ Products Database</h1>
+        <p>Success Chemistry - Product Management System</p>
+        <div class="stats">
+            <div class="stat-card">
+                <div class="label">Total Products</div>
+                <div class="value" id="totalProducts">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Average Price</div>
+                <div class="value" id="avgPrice">$0.00</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Total Images</div>
+                <div class="value" id="totalImages">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Categories</div>
+                <div class="value" id="totalCategories">0</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <input type="text" class="search-box" id="searchBox" placeholder="🔍 Search products by name, SKU, or description...">
+        <select class="filter-select" id="categoryFilter">
+            <option value="">All Categories</option>
+        </select>
+        <button class="btn" onclick="refreshData()">🔄 Refresh</button>
+        <button class="btn" onclick="exportData()">📥 Export CSV</button>
+    </div>
+    
+    <div class="table-container">
+        <table id="productsTable">
+            <thead>
+                <tr>
+                    <th onclick="sortTable('sku')">SKU ↕</th>
+                    <th onclick="sortTable('name')">Product Name ↕</th>
+                    <th onclick="sortTable('price')">Price ↕</th>
+                    <th onclick="sortTable('category')">Category ↕</th>
+                    <th>Description</th>
+                    <th>Images</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <tr>
+                    <td colspan="7" style="text-align: center; padding: 40px;">
+                        Loading products...
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Edit Modal -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Product</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="editForm">
+                <div class="form-group">
+                    <label>SKU</label>
+                    <input type="text" id="editSku" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" id="editName" required>
+                </div>
+                <div class="form-group">
+                    <label>Price ($)</label>
+                    <input type="number" id="editPrice" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <input type="text" id="editCategory">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="editDescription"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Short Description</label>
+                    <textarea id="editShortDescription"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Product Images</label>
+                    <div class="image-gallery" id="imageGallery"></div>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">💾 Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let allProducts = [];
+        let currentSort = { column: 'sku', ascending: true };
+        
+        // Load products from API
+        async function loadProducts() {
+            try {
+                const response = await fetch('/api/db/products');
+                allProducts = await response.json();
+                updateStats();
+                populateCategoryFilter();
+                renderTable();
+            } catch (error) {
+                console.error('Error loading products:', error);
+                document.getElementById('tableBody').innerHTML = `
+                    <tr><td colspan="7" style="text-align: center; color: #ff6b6b; padding: 40px;">
+                        Error loading products. Make sure the server is running.
+                    </td></tr>
+                `;
+            }
+        }
+        
+        function updateStats() {
+            document.getElementById('totalProducts').textContent = allProducts.length;
+            
+            const avgPrice = allProducts.reduce((sum, p) => sum + p.price, 0) / allProducts.length;
+            document.getElementById('avgPrice').textContent = '$' + avgPrice.toFixed(2);
+            
+            const totalImages = allProducts.reduce((sum, p) => {
+                const images = JSON.parse(p.images || '[]');
+                return sum + images.length;
+            }, 0);
+            document.getElementById('totalImages').textContent = totalImages;
+            
+            const categories = new Set(allProducts.map(p => p.category));
+            document.getElementById('totalCategories').textContent = categories.size;
+        }
+        
+        function populateCategoryFilter() {
+            const categories = [...new Set(allProducts.map(p => p.category))].sort();
+            const select = document.getElementById('categoryFilter');
+            select.innerHTML = '<option value="">All Categories</option>';
+            categories.forEach(cat => {
+                select.innerHTML += `<option value="${cat}">${cat}</option>`;
+            });
+        }
+        
+        function renderTable() {
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            
+            let filtered = allProducts.filter(p => {
+                const matchesSearch = !searchTerm || 
+                    p.name.toLowerCase().includes(searchTerm) ||
+                    p.sku.toLowerCase().includes(searchTerm) ||
+                    (p.description && p.description.toLowerCase().includes(searchTerm));
+                
+                const matchesCategory = !categoryFilter || p.category === categoryFilter;
+                
+                return matchesSearch && matchesCategory;
+            });
+            
+            // Sort
+            filtered.sort((a, b) => {
+                let aVal = a[currentSort.column];
+                let bVal = b[currentSort.column];
+                
+                if (typeof aVal === 'string') {
+                    aVal = aVal.toLowerCase();
+                    bVal = bVal.toLowerCase();
+                }
+                
+                if (aVal < bVal) return currentSort.ascending ? -1 : 1;
+                if (aVal > bVal) return currentSort.ascending ? 1 : -1;
+                return 0;
+            });
+            
+            const tbody = document.getElementById('tableBody');
+            
+            if (filtered.length === 0) {
+                tbody.innerHTML = `
+                    <tr><td colspan="7" style="text-align: center; padding: 40px; color: #aaa;">
+                        No products found matching your criteria.
+                    </td></tr>
+                `;
+                return;
+            }
+            
+            tbody.innerHTML = filtered.map(product => {
+                const images = JSON.parse(product.images || '[]');
+                const description = product.description || '';
+                const shortDesc = description.substring(0, 100) + (description.length > 100 ? '...' : '');
+                
+                return `
+                    <tr>
+                        <td class="sku-cell">${product.sku}</td>
+                        <td><strong>${product.name}</strong></td>
+                        <td class="price-cell">$${product.price.toFixed(2)}</td>
+                        <td><span class="category-badge">${product.category || 'N/A'}</span></td>
+                        <td class="description-cell" title="${description}">${shortDesc}</td>
+                        <td><span class="images-count">📷 ${images.length} images</span></td>
+                        <td>
+                            <button class="action-btn" onclick="editProduct('${product.sku}')">✏️ Edit</button>
+                            <button class="action-btn" onclick="viewProduct('${product.sku}')">👁️ View</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+        
+        function sortTable(column) {
+            if (currentSort.column === column) {
+                currentSort.ascending = !currentSort.ascending;
+            } else {
+                currentSort.column = column;
+                currentSort.ascending = true;
+            }
+            renderTable();
+        }
+        
+        function editProduct(sku) {
+            const product = allProducts.find(p => p.sku === sku);
+            if (!product) return;
+            
+            document.getElementById('editSku').value = product.sku;
+            document.getElementById('editName').value = product.name;
+            document.getElementById('editPrice').value = product.price;
+            document.getElementById('editCategory').value = product.category || '';
+            document.getElementById('editDescription').value = product.description || '';
+            document.getElementById('editShortDescription').value = product.short_description || '';
+            
+            const images = JSON.parse(product.images || '[]');
+            const gallery = document.getElementById('imageGallery');
+            gallery.innerHTML = images.map(img => `<img src="${img}" alt="Product image">`).join('');
+            
+            document.getElementById('editModal').style.display = 'flex';
+        }
+        
+        function viewProduct(sku) {
+            window.open(`/product/${sku}`, '_blank');
+        }
+        
+        function closeModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+        
+        function refreshData() {
+            loadProducts();
+        }
+        
+        function exportData() {
+            const csv = [
+                ['SKU', 'Name', 'Price', 'Category', 'Description', 'Images Count'],
+                ...allProducts.map(p => {
+                    const images = JSON.parse(p.images || '[]');
+                    return [
+                        p.sku,
+                        p.name,
+                        p.price,
+                        p.category || '',
+                        (p.description || '').replace(/"/g, '""'),
+                        images.length
+                    ];
+                })
+            ].map(row => row.map(cell => `"${cell}"`).join(',')).join('\n');
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'products-export.csv';
+            a.click();
+        }
+        
+        // Event listeners
+        document.getElementById('searchBox').addEventListener('input', renderTable);
+        document.getElementById('categoryFilter').addEventListener('change', renderTable);
+        
+        document.getElementById('editForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const data = {
+                sku: document.getElementById('editSku').value,
+                name: document.getElementById('editName').value,
+                price: parseFloat(document.getElementById('editPrice').value),
+                category: document.getElementById('editCategory').value,
+                description: document.getElementById('editDescription').value,
+                short_description: document.getElementById('editShortDescription').value
+            };
+            
+            try {
+                const response = await fetch('/api/db/products', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    alert('✅ Product updated successfully!');
+                    closeModal();
+                    loadProducts();
+                } else {
+                    alert('❌ Error updating product');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('❌ Error updating product');
+            }
+        });
+        
+        // Load on page load
+        loadProducts();
+    </script>
+
+
+<!-- Footer -->
+    <footer class="footer">
+        <div style="background: #2854a6; padding: 20px; text-align: center;">
+            <a href="/cart" style="display: inline-block; margin-bottom: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><img src="/public/images/view-cart-button.png" alt="View Cart" style="max-width: 150px; height: auto; cursor: pointer;"></a>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 10px;"><img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;"></div>
+        </div>
+        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
+        <div style="background: #2854a6; padding: 15px 20px; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; font-size: 0.85rem;">
+            <a href="/terms-of-service.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Terms of Service</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/shipping-returns.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Shipping & Returns</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/payment-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Payment Policy</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/privacy-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Privacy Policy</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/contact" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Contact</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="/shop" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">🧪 SHOP</a>
+        </div>
+        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
+        <div style="text-align: center; padding: 12px; background: #2854a6;"><p style="color: white; font-size: 0.85rem; margin: 0;">🗽 Copyright 2026 - Success Chemistry® | Powered by 🏄 WindSurf</p></div>
+    </footer>
+
+</body>
+</html>

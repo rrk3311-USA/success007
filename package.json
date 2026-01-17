@@ -1,0 +1,33 @@
+{
+  "name": "success-chemistry",
+  "version": "1.0.0",
+  "description": "E-commerce site for Success Chemistry",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "server": "node server/index.js"
+  },
+  "dependencies": {
+    "@paypal/agent-toolkit": "^1.8.0",
+    "axios": "^1.6.2",
+    "better-sqlite3": "^9.6.0",
+    "cors": "^2.8.5",
+    "csv-parse": "^6.1.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "google-ads-api": "^22.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "stripe": "^14.10.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.4.0",
+    "vite": "^5.0.8"
+  }
+}

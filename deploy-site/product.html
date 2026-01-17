@@ -513,68 +513,65 @@
         }
         
         .bundle-selector {
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         
         .bundle-option {
-            border: 2px solid #e9ecef;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin-bottom: 6px;
             cursor: pointer;
             transition: all 0.3s;
             position: relative;
-            background: white;
+            background: #0a234e;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         
         .bundle-option:hover {
-            border-color: #3877b9;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(56, 119, 185, 0.15);
+            border-color: rgba(255,255,255,0.4);
+            background: #0d2a5e;
+            transform: translateX(3px);
         }
         
         .bundle-option.selected {
-            border-color: #3877b9;
-            background: linear-gradient(135deg, #3877b915 0%, #3877b905 100%);
-            box-shadow: 0 4px 12px rgba(56, 119, 185, 0.2);
+            border-color: white;
+            background: #0d2a5e;
+            box-shadow: 0 0 0 1px white;
         }
         
         .bundle-option.selected::before {
-            content: '✓';
+            content: '⚓';
             position: absolute;
-            top: 12px;
-            right: 12px;
-            background: #3877b9;
+            left: -8px;
+            top: 50%;
+            transform: translateY(-50%);
             color: white;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
             font-size: 0.9rem;
         }
         
         .bundle-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
+            gap: 8px;
+            flex: 1;
         }
         
         .bundle-label {
-            font-weight: 700;
-            font-size: 1.05rem;
-            color: #2c3e50;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: white;
+            letter-spacing: 0.3px;
         }
         
         .bundle-badge {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
+            background: white;
+            color: #0a234e;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.65rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -582,148 +579,139 @@
         
         .bundle-pricing {
             display: flex;
-            align-items: baseline;
-            gap: 10px;
-            margin-bottom: 6px;
+            align-items: center;
+            gap: 6px;
         }
         
         .bundle-price {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: #3877b9;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: white;
         }
         
         .bundle-original-price {
-            font-size: 1.1rem;
-            color: #999;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
             text-decoration: line-through;
         }
         
         .bundle-savings {
-            background: #27ae60;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.85rem;
+            background: white;
+            color: #0a234e;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.7rem;
             font-weight: 700;
         }
         
         .bundle-details {
-            display: flex;
-            gap: 20px;
-            font-size: 0.9rem;
-            color: #666;
-            margin-top: 8px;
+            display: none;
         }
         
         .bundle-detail {
-            display: flex;
-            align-items: center;
-            gap: 4px;
+            display: none;
         }
         
         /* Compact Bundle Selector */
         .bundle-selector-compact {
-            background: white;
-            padding: 30px;
-            border-radius: 16px;
-            margin: 30px 0;
-            border: 2px solid #3877b9;
-            box-shadow: 0 6px 24px rgba(56, 119, 185, 0.15);
+            background: #0a234e;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px solid white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
         
         .bundle-selector-compact h3 {
             text-align: center;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: white;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
         
         .bundle-options-compact {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+            gap: 8px;
         }
         
         .bundle-option-compact {
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            padding: 16px 12px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 6px;
+            padding: 10px 8px;
             cursor: pointer;
             transition: all 0.3s;
             text-align: center;
-            background: white;
+            background: rgba(255,255,255,0.05);
             position: relative;
         }
         
         .bundle-option-compact:hover {
-            border-color: #3877b9;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(56, 119, 185, 0.2);
+            border-color: white;
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
         }
         
         .bundle-option-compact.selected {
-            border-color: #3877b9;
-            background: linear-gradient(135deg, #3877b915 0%, #3877b905 100%);
-            box-shadow: 0 4px 12px rgba(56, 119, 185, 0.25);
+            border-color: white;
+            background: rgba(255,255,255,0.15);
+            box-shadow: 0 0 0 1px white;
         }
         
         .bundle-option-compact.selected::after {
-            content: '✓';
+            content: '⚓';
             position: absolute;
-            top: 8px;
-            right: 8px;
-            background: #3877b9;
+            top: 4px;
+            right: 4px;
             color: white;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
         }
         
         .bundle-qty-compact {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: #3877b9;
-            margin-bottom: 4px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 2px;
         }
         
         .bundle-name-compact {
-            font-size: 0.75rem;
-            color: #666;
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.8);
             font-weight: 600;
             text-transform: uppercase;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             letter-spacing: 0.5px;
         }
         
         .bundle-price-compact {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: #2c3e50;
-            margin-bottom: 4px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 2px;
         }
         
         .bundle-save-compact {
-            font-size: 0.8rem;
-            color: #27ae60;
-            font-weight: 700;
+            font-size: 0.65rem;
+            color: white;
+            font-weight: 600;
+            background: rgba(255,255,255,0.2);
+            padding: 2px 4px;
+            border-radius: 3px;
+            display: inline-block;
         }
         
         .bundle-badge-compact {
             position: absolute;
-            top: -8px;
+            top: -6px;
             left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: white;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 0.65rem;
+            background: white;
+            color: #0a234e;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.6rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -731,13 +719,13 @@
         }
         
         .bundle-cta-compact {
-            margin-top: 20px;
+            margin-top: 15px;
             text-align: center;
         }
         
         @media (max-width: 768px) {
             .bundle-options-compact {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
@@ -1191,7 +1179,7 @@
     <script src="/products-data.js?v=3"></script>
     
     <!-- PayPal SDK -->
-    <script src="https://www.paypal.com/sdk/js?client-id=EBAQIbUDDVgB06yvEWREs2cMox8AKElkxFJAqKF71iUj007dv0YzxlKbepduwV7xGEI5FrjK3vakzm0b&currency=USD"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=EBAQIbUDDVgB06yvEWREs2cMox8AKElkxFJAqKF71iUj007dv0YzxlKbepduwV7xGEI5FrjK3vakzm0b&currency=USD&components=buttons,funding-eligibility&enable-funding=venmo,paylater&disable-funding=credit"></script>
 
     <script>
         let currentProduct = null;
@@ -1603,10 +1591,9 @@
                 paypal.Buttons({
                 style: {
                     layout: 'vertical',
-                    color: 'gold',
                     shape: 'rect',
-                    label: 'paypal',
-                    height: 50
+                    height: 55,
+                    tagline: false
                 },
                 createOrder: function(data, actions) {
                     const quantity = parseInt(document.getElementById('quantity').value) || 1;

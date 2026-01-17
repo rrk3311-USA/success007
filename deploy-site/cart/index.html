@@ -254,10 +254,18 @@
             opacity: 0.9;
         }
 
+        #paypal-button-container {
+            margin: 20px 0;
+            min-height: 150px;
+            width: 100%;
+        }
+
         .paypal-note {
             font-size: 0.9rem;
             color: #6b7280;
             margin-top: 10px;
+            text-align: center;
+            opacity: 0.9;
         }
 
         .cart-title {
@@ -363,29 +371,173 @@
             0% { background-position: 200% 50%; }
             100% { background-position: -200% 50%; }
         }
-    
 
-.footer {
-            background: #2854a6;
+        /* Upsell Section */
+        .upsell-section {
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea15, #764ba215);
+            border-radius: 18px;
+            border: 2px solid #667eea;
+        }
+
+        .upsell-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .upsell-header h2 {
+            color: #2854a6;
+            font-size: 2rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .upsell-header .promo-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
             color: white;
-            padding: 80px 0 30px;
+            padding: 8px 20px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-top: 10px;
+            animation: pulse 2s infinite;
         }
 
-        .footer-grid {
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .upsell-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 60px;
-            margin-bottom: 60px;
-        }
-
-        .footer-brand p {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
             margin-top: 20px;
-            opacity: 0.8;
-            line-height: 1.6;
         }
 
-        .footer-logo img {
-            height: 50px;
+        .upsell-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upsell-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+
+        .upsell-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .upsell-card img {
+            width: 100%;
+            max-width: 180px;
+            height: 180px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        .upsell-card h3 {
+            color: #0a234e;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .upsell-card .price {
+            color: #667eea;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .upsell-card .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1.1rem;
+            margin-right: 8px;
+        }
+
+        .upsell-card .add-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 999px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .upsell-card .add-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .bundle-deal {
+            background: linear-gradient(135deg, #ffd34d20, #ff6b6b20);
+            border: 3px dashed #ff6b6b;
+            padding: 25px;
+            border-radius: 18px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .bundle-deal h3 {
+            color: #ff6b6b;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .bundle-deal p {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .bundle-deal .bundle-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .bundle-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+        
+        .footer {
+            margin-top: 60px;
+            background: #2854a6;
         }
 
         .footer-links h4 {
@@ -508,6 +660,22 @@
                     <div class="paypal-note">Secure checkout powered by PayPal. Supports cards, Pay Later, and Venmo.</div>
                 </div>
             </div>
+
+            <!-- AGGRESSIVE UPSELLS -->
+            <div class="upsell-section">
+                <div class="upsell-header">
+                    <h2>🔥 Complete Your Wellness Stack!</h2>
+                    <span class="promo-badge">⚡ LIMITED TIME: Save 20% on These Combos!</span>
+                </div>
+                <div class="upsell-grid" id="upsellGrid"></div>
+            </div>
+
+            <!-- BUNDLE DEAL -->
+            <div class="bundle-deal">
+                <h3>💎 VIP Bundle Deal: Buy 3, Get 25% OFF!</h3>
+                <p>Stack your supplements and save BIG. Mix & match any 3 products.</p>
+                <a href="/shop" class="bundle-btn">🛒 Shop Bundles Now</a>
+            </div>
         </div>
     </div>
 
@@ -628,25 +796,244 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             renderCart();
+            renderUpsells();
         });
+
+        // Aggressive Upsell/Cross-sell Logic
+        function renderUpsells() {
+            const upsellContainer = document.getElementById('upsellGrid');
+            if (!upsellContainer) return;
+
+            // Top recommended products for upselling
+            const recommendedProducts = [
+                { sku: '52274-401', name: 'Women\'s Balance', price: 29.99, image: '/public/images/products/52274-401/01.png', badge: 'BEST SELLER' },
+                { sku: '20644-825', name: 'Elderberry Lung Therapy', price: 24.99, image: '/public/images/products/20644-825/01.png', badge: 'TRENDING' },
+                { sku: '10784-', name: 'Advanced Neurotropic Focus Aid', price: 34.99, image: '/public/images/products/10784-/01.png', badge: 'TOP RATED' },
+                { sku: '10781-105k', name: 'Colon Detox Cleanse', price: 27.99, image: '/public/images/products/10781-105k/01.png', badge: 'POPULAR' }
+            ];
+
+            const cart = getCart();
+            const cartSkus = cart.map(item => item.sku || '');
+
+            // Filter out products already in cart
+            const upsellProducts = recommendedProducts.filter(p => !cartSkus.includes(p.sku));
+
+            upsellContainer.innerHTML = upsellProducts.map(product => `
+                <div class="upsell-card" onclick="addUpsellToCart('${product.sku}', '${product.name}', ${product.price}, '${product.image}')">
+                    <span class="upsell-badge">${product.badge}</span>
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <div class="price">
+                        <span class="old-price">$${(product.price * 1.25).toFixed(2)}</span>
+                        $${product.price.toFixed(2)}
+                    </div>
+                    <button class="add-btn">⚡ Add to Cart</button>
+                </div>
+            `).join('');
+        }
+
+        function addUpsellToCart(sku, name, price, image) {
+            const cart = getCart();
+            const existing = cart.find(item => item.sku === sku);
+            
+            if (existing) {
+                existing.quantity = (parseInt(existing.quantity) || 1) + 1;
+            } else {
+                cart.push({ sku, name, price, image, quantity: 1 });
+            }
+            
+            saveCart(cart);
+            renderCart();
+            renderUpsells();
+            
+            // Show success feedback
+            alert(`✅ ${name} added to cart!`);
+        }
     </script>
-    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD&components=buttons" data-sdk-integration-source="button-factory"></script>
+
+    <!-- Configuration -->
+    <script src="/config.js"></script>
+    
+    <!-- Google Analytics & Tracking -->
+    <script src="/tracking.js"></script>
+    
+    <!-- Loyalty Points System -->
+    <script src="/loyalty-points.js"></script>
+
+    <!-- PayPal SDK - Dynamic based on config -->
     <script>
-        if (window.paypal) {
+        // Load PayPal SDK with correct client ID based on sandbox mode
+        (function() {
+            console.log('🔍 Checking CONFIG:', typeof CONFIG !== 'undefined' ? 'Loaded' : 'NOT LOADED');
+            
+            if (typeof CONFIG === 'undefined') {
+                console.error('❌ CONFIG not loaded! Scripts may not be loading correctly.');
+                // Fallback to production client ID
+                var clientId = 'EBAQIbUDDVgB06yvEWREs2cMox8AKElkxFJAqKF71iUj007dv0YzxlKbepduwV7xGEI5FrjK3vakzm0b';
+            } else {
+                var clientId = CONFIG.SANDBOX_MODE 
+                    ? CONFIG.PAYPAL.SANDBOX_CLIENT_ID 
+                    : CONFIG.PAYPAL.PRODUCTION_CLIENT_ID;
+                console.log(CONFIG.SANDBOX_MODE ? '🧪 PayPal SANDBOX mode enabled' : '💳 PayPal PRODUCTION mode enabled');
+            }
+            
+            console.log('📦 Loading PayPal SDK with client ID:', clientId.substring(0, 20) + '...');
+            
+            const script = document.createElement('script');
+            script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=USD&components=buttons,funding-eligibility&enable-funding=venmo,paylater&disable-funding=credit`;
+            script.async = true;
+            script.onload = function() {
+                console.log('✅ PayPal SDK loaded successfully');
+                initializePayPalButtons();
+            };
+            script.onerror = function() {
+                console.error('❌ Failed to load PayPal SDK');
+            };
+            document.head.appendChild(script);
+        })();
+
+        function initializePayPalButtons() {
+            console.log('🎯 initializePayPalButtons called');
+            
+            if (!window.paypal) {
+                console.error('❌ PayPal SDK not loaded');
+                return;
+            }
+            
+            console.log('✅ window.paypal exists');
+
+            // Track begin checkout
+            const cart = getCart();
+            const total = cart.reduce((sum, item) => sum + (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1), 0);
+            
+            console.log('🛒 Cart total:', total, 'Items:', cart.length);
+            
+            if (window.SuccessChemistryTracking) {
+                window.SuccessChemistryTracking.trackBeginCheckout(cart, total);
+            }
+
+            console.log('🔘 Creating PayPal buttons...');
+            
             paypal.Buttons({
+                style: {
+                    layout: 'vertical',
+                    shape: 'rect',
+                    height: 55,
+                    tagline: false
+                },
                 createOrder: (data, actions) => {
                     const cart = getCart();
                     const total = cart.reduce((sum, item) => sum + (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1), 0);
+                    
+                    const items = cart.map(item => ({
+                        name: item.name,
+                        unit_amount: {
+                            currency_code: 'USD',
+                            value: parseFloat(item.price).toFixed(2)
+                        },
+                        quantity: item.quantity.toString(),
+                        sku: item.sku
+                    }));
+
                     return actions.order.create({
-                        purchase_units: [{ amount: { value: total.toFixed(2) } }]
+                        purchase_units: [{
+                            amount: {
+                                value: total.toFixed(2),
+                                breakdown: {
+                                    item_total: {
+                                        currency_code: 'USD',
+                                        value: total.toFixed(2)
+                                    }
+                                }
+                            },
+                            items: items
+                        }]
                     });
                 },
-                onApprove: (data, actions) => {
-                    return actions.order.capture().then(() => {
-                        alert('Payment completed!');
+                onApprove: async (data, actions) => {
+                    const order = await actions.order.capture();
+                    
+                    // Track purchase with Google Analytics Enhanced Conversions
+                    if (window.SuccessChemistryTracking) {
+                        const cart = getCart();
+                        const total = cart.reduce((sum, item) => sum + (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1), 0);
+                        
+                        const orderData = {
+                            orderNumber: order.id,
+                            items: cart.map(item => ({
+                                sku: item.sku,
+                                name: item.name,
+                                price: parseFloat(item.price),
+                                quantity: parseInt(item.quantity)
+                            })),
+                            subtotal: total,
+                            shipping: 0,
+                            tax: 0,
+                            total: total
+                        };
+                        
+                        const customerData = {
+                            email: order.payer?.email_address,
+                            firstName: order.payer?.name?.given_name,
+                            lastName: order.payer?.name?.surname
+                        };
+                        
+                        window.SuccessChemistryTracking.trackPurchase(orderData, customerData);
+                        
+                        // Track Google Ads conversion if configured
+                        if (typeof CONFIG !== 'undefined' && CONFIG.GOOGLE_ADS.ENABLED) {
+                            window.SuccessChemistryTracking.trackGoogleAdsConversion(
+                                CONFIG.GOOGLE_ADS.CONVERSION_ID,
+                                CONFIG.GOOGLE_ADS.CONVERSION_LABEL,
+                                total,
+                                order.id
+                            );
+                        }
+                    }
+                    
+                    // Award loyalty points (5 points per $1 spent)
+                    if (window.LoyaltyPoints) {
+                        const cart = getCart();
+                        const total = cart.reduce((sum, item) => sum + (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1), 0);
+                        
+                        const pointsEarned = window.LoyaltyPoints.addPoints(
+                            total,
+                            order.id,
+                            `Cart Purchase - ${cart.length} item(s)`
+                        );
+                        
+                        console.log(`🎉 Earned ${pointsEarned} loyalty points!`);
+                    }
+                    
+                    // Save order to history
+                    const cart = getCart();
+                    const total = cart.reduce((sum, item) => sum + (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1), 0);
+                    const orders = JSON.parse(localStorage.getItem('successChemistryOrders') || '[]');
+                    orders.unshift({
+                        orderNumber: order.id,
+                        date: new Date().toISOString(),
+                        items: cart,
+                        total: total,
+                        status: 'completed',
+                        pointsEarned: Math.floor(total * 5)
                     });
+                    localStorage.setItem('successChemistryOrders', JSON.stringify(orders));
+                    
+                    alert('✅ Payment completed! Thank you for your order.');
+                    localStorage.removeItem('successChemistryCart');
+                    
+                    // Redirect to subscription offer page
+                    window.location.href = '/subscribe.html';
+                },
+                onError: function(err) {
+                    console.error('PayPal error:', err);
+                    alert('Payment error. Please try again or contact support.');
                 }
-            }).render('#paypal-button-container');
+            }).render('#paypal-button-container').then(function() {
+                console.log('✅ PayPal buttons rendered successfully!');
+            }).catch(function(err) {
+                console.error('❌ Failed to render PayPal buttons:', err);
+            });
         }
     </script>
 

@@ -1,0 +1,17 @@
+{
+  "customerId": "3593851507",
+  "conversionId": "AW-3593851507",
+  "conversionLabel": "purchase",
+  "fullTag": "AW-3593851507/purchase",
+  "name": "Purchase - Success Chemistry",
+  "category": "PURCHASE",
+  "enhancedConversionsEnabled": true,
+  "setupDate": "2026-01-14T23:52:08.200Z",
+  "status": "CONFIGURED",
+  "deploymentUrl": "https://success-chemistry-shop.netlify.app",
+  "trackingFiles": [
+    "/order-success.html",
+    "/google-enhanced-conversions.js",
+    "/conversion-config.json"
+  ]
+}
