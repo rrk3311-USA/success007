@@ -1987,13 +1987,12 @@
                 }
                 const data = await response.json();
                 
-                // Load Suggested Use if available
-                if (data.suggestedUse) {
-                    document.getElementById('suggested-use-content').innerHTML = `
-                        <h3>Suggested Use</h3>
-                        <p style="color: #444; line-height: 1.8; font-size: 1rem;">${data.suggestedUse}</p>
-                    `;
-                }
+                // Load Suggested Use - use product-specific or default text
+                const suggestedUseText = data.suggestedUse || 'As a dietary supplement take two (2) veggie capsules once a day after a meal with an 8oz. glass of water or as directed by your healthcare professional.';
+                document.getElementById('suggested-use-content').innerHTML = `
+                    <h3>Suggested Use</h3>
+                    <p style="color: #444; line-height: 1.8; font-size: 1rem;">${suggestedUseText}</p>
+                `;
                 
                 // Load Supplement Facts
                 if (data.supplementFacts) {
