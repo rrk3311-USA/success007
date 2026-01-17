@@ -1,0 +1,32 @@
+{
+  "buildCommand": "echo 'No build required - static site'",
+  "outputDirectory": "deploy-site",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/product/:sku",
+      "destination": "/product/index.html?sku=:sku"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/images/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*).js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    }
+  ]
+}
