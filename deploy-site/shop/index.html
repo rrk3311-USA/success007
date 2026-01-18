@@ -861,11 +861,11 @@
             card.className = 'product-card';
             card.dataset.category = category;
             card.style.cursor = 'pointer';
-            card.addEventListener('click', () => {
-                window.location.href = `/product/${skuParam}`;
-            });
+            
             const stopClick = (event) => event.stopPropagation();
             const topSellerBadge = isTopSeller(product.sku) ? '<div class="product-badge top-seller">TOP SELLER</div>' : '';
+            
+            // Set innerHTML first
             card.innerHTML = `
                 <div class="product-image">
                     ${topSellerBadge}
@@ -882,22 +882,21 @@
                     </div>
                 </div>
             `;
-            const imageWrap = card.querySelector('.product-image');
-            const img = card.querySelector('.product-image img');
-            if (imageWrap) {
-                imageWrap.style.cursor = 'pointer';
-                imageWrap.addEventListener('click', () => {
-                    window.location.href = `/product/${skuParam}`;
-                });
-            }
-            if (img) {
-                img.addEventListener('click', () => {
-                    window.location.href = `/product/${skuParam}`;
-                });
-            }
+            
+            // Now add event listeners after innerHTML is set
+            card.addEventListener('click', (e) => {
+                // Don't navigate if clicking the button
+                if (e.target.closest('.btn-add-cart')) {
+                    return;
+                }
+                window.location.href = `/product/${skuParam}`;
+            });
+            
+            // Prevent button clicks from triggering card navigation
             card.querySelectorAll('.btn-add-cart').forEach((btn) => {
                 btn.addEventListener('click', stopClick);
             });
+            
             return card;
         }
 

@@ -1845,7 +1845,16 @@ const PRODUCTS_DATA = {
         "upc": "",
         "gtin": "651074168402",
         "key_search_terms": "sclera white supplements, eye whitening vitamins, eyebright lutein, yellow eyes relief, eye beauty supplement, brighter eyes naturally, ocular health support",
-        "supplement_facts": "Serving Size: 2 Capsules\nServings Per Container: 30\n\nVitamin A (as Beta-carotene) 100 mcg RAE 11%\nVitamin C (as Ascorbic acid) 200 mg 222%\nVitamin E (DL-Alpha tocopheryl acetate) 20 mg 133%\nThiamin (as Thiamine mononitrate) 8 mg 667%\nRiboflavin (as B2) 8 mg 615%\nNiacin 40 mg NE 250%\nVitamin B12 (as Cyanocobalamin) 27 mcg 1,125%\nCalcium (as Calcium carbonate) 50 mg 4%\nBiotin 800 mcg 2,667%\nMagnesium (as Magnesium oxide) 40 mg 10%\nZinc (as Zinc oxide) 32 mg 291%\nSelenium (as Selenium Amino Acid Chelate) 8 mcg 15%\nCopper (as Copper gluconate) 2 mg 222%\nChromium (as Chromium picolinate) 3.6 mcg\nProprietary Blend 481 mg (Lutein, Bilberry Extract, Alpha Lipoic Acid, Eyebright, Zeaxanthin, Quercetin, Rutin, L-Taurine, Grape Extract, Lycopene)\n\nOther Ingredients: Rice Flour, Hypromellose (vegetable capsule), Vegetable Stearate, Silicon Dioxide.",
+   Static Site
+success007
+
+Manual Deploy
+Service ID:
+srv-d5m8hjlactks73bn8v00
+
+rrk3311-USA / success007
+main
+https://success007.onrender.com     "supplement_facts": "Serving Size: 2 Capsules\nServings Per Container: 30\n\nVitamin A (as Beta-carotene) 100 mcg RAE 11%\nVitamin C (as Ascorbic acid) 200 mg 222%\nVitamin E (DL-Alpha tocopheryl acetate) 20 mg 133%\nThiamin (as Thiamine mononitrate) 8 mg 667%\nRiboflavin (as B2) 8 mg 615%\nNiacin 40 mg NE 250%\nVitamin B12 (as Cyanocobalamin) 27 mcg 1,125%\nCalcium (as Calcium carbonate) 50 mg 4%\nBiotin 800 mcg 2,667%\nMagnesium (as Magnesium oxide) 40 mg 10%\nZinc (as Zinc oxide) 32 mg 291%\nSelenium (as Selenium Amino Acid Chelate) 8 mcg 15%\nCopper (as Copper gluconate) 2 mg 222%\nChromium (as Chromium picolinate) 3.6 mcg\nProprietary Blend 481 mg (Lutein, Bilberry Extract, Alpha Lipoic Acid, Eyebright, Zeaxanthin, Quercetin, Rutin, L-Taurine, Grape Extract, Lycopene)\n\nOther Ingredients: Rice Flour, Hypromellose (vegetable capsule), Vegetable Stearate, Silicon Dioxide.",
         "seo_targets": {
             "long_tail": ["best sclera white supplements for eye whitening", "eyebright and lutein for brighter eyes", "yellow eyes relief vitamins", "eye beauty supplements for ocular health", "natural eye whitening with lutein"],
             "short_tail": ["eye whitening", "sclera white", "lutein vitamins", "eye beauty", "brighter eyes"]

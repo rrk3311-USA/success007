@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: containersuccess007
+    env: static
+    buildCommand: echo "No build required - static site"
+    staticPublishPath: ./deploy-site
+    headers:
+      - path: /images/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /*.js
+        name: Cache-Control
+        value: public, max-age=3600
+    routes:
+      - type: rewrite
+        source: /product/:sku
+        destination: /product/index.html?sku=:sku
+      - type: rewrite
+        source: /faq/:sku
+        destination: /faq/index.html?sku=:sku
