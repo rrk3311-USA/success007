@@ -175,9 +175,27 @@
         .topbar-inner {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
             gap: 16px;
             padding: 0;
+        }
+
+        .account-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #2854a6;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .account-link:hover {
+            background: rgba(40, 84, 166, 0.1);
+            color: #1e3f7a;
         }
 
         .brand {
@@ -594,6 +612,9 @@
             border-radius: 12px;
             margin: 24px 0;
             border: 2px solid #667eea30;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
         
         .product-price {
@@ -608,6 +629,12 @@
             display: flex;
             align-items: baseline;
             gap: 10px;
+            order: 1;
+        }
+        
+        .price-section .product-title {
+            order: 2;
+            margin-bottom: 0;
         }
         
         .price-label {
@@ -795,6 +822,25 @@
     40%, 100% { opacity: 0; transform: translateY(-50%) scale(0.5); }
 }
 
+@keyframes shimmer-hover {
+    0% { background-position: 0% 50%; }
+    25% { background-position: 50% 50%; }
+    50% { background-position: 100% 50%; }
+    75% { background-position: 150% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+@keyframes shimmer-sweep {
+    0% { left: -100%; }
+    100% { left: 200%; }
+}
+
+@keyframes sparkle-hover {
+    0%, 20% { opacity: 0; transform: translateY(-50%) scale(0.5); }
+    25%, 35% { opacity: 1; transform: translateY(-50%) scale(1.2); }
+    40%, 100% { opacity: 0; transform: translateY(-50%) scale(0.5); }
+}
+
 .product-title {
     font-size: 1.9rem;
     font-weight: 800;
@@ -833,6 +879,9 @@
     border-radius: 12px;
     margin: 24px 0;
     border: 2px solid #667eea30;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .product-price {
@@ -847,6 +896,12 @@
     display: flex;
     align-items: baseline;
     gap: 10px;
+    order: 1;
+}
+
+.price-section .product-title {
+    order: 2;
+    margin-bottom: 0;
 }
 
 .price-label {
@@ -962,112 +1017,319 @@
 
 /* Main Bundle Selector - Glassmorphic Style */
 .bundle-selector {
-    margin-bottom: 24px;
+    background: linear-gradient(135deg, rgba(140, 190, 240, 0.7) 0%, rgba(120, 180, 235, 0.6) 50%, rgba(140, 200, 245, 0.7) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 12px;
+    border-radius: 16px;
+    margin: 12px 0 24px 0;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 6px 24px rgba(100, 180, 255, 0.2), inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+/* Unified Module: Frosty Glass Background */
+.unified-product-module {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    padding: 16px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 2px solid rgba(10, 35, 78, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.unified-product-module h3 {
+    text-align: left;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    color: #0a234e;
+    font-weight: 600;
+}
+
+.unified-product-module p {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    margin-bottom: 6px;
+    color: #0a234e;
+}
+
+.module-divider {
+    height: 1px;
+    background: rgba(10, 35, 78, 0.15);
+    margin: 10px 0;
+}
+
+/* Ticket-style border for Suggested Use section */
+.unified-product-module > div:first-child {
+    border: 2px dashed rgba(10, 35, 78, 0.3);
+    border-radius: 6px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    margin-bottom: 12px;
+}
+
+.bundle-selector h3 {
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+    color: #0a234e;
+    font-weight: 600;
+}
+
+.bundle-selector .bundle-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.bundle-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 20px 0;
+    overflow: visible;
+    padding: 10px 0;
+}
+
+.bundle-card {
+    background: white;
+    border-radius: 16px;
+    overflow: visible;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
+}
+
+.bundle-card-body {
+    overflow: hidden;
+}
+
+.bundle-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border-color: rgba(79, 172, 254, 0.5);
+    z-index: 10;
+}
+
+
+.bundle-card.selected {
+    border-color: rgb(255, 197, 57);
+    box-shadow: 0 8px 24px rgba(255, 180, 40, 0.4);
+    transform: translateY(-4px);
+}
+
+.bundle-card-badge {
+    padding: 10px 16px;
+    font-weight: 700;
+    font-size: 0.7rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.bundle-badge-popular {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.bundle-badge-value {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+}
+
+.bundle-badge-save {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+.bundle-card-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    text-align: center;
+}
+
+.bundle-card-price {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #0a234e;
+    line-height: 1.2;
+}
+
+.bundle-card-per-bottle {
+    font-size: 0.85rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.bundle-card-savings {
+    font-size: 0.75rem;
+    color: #10b981;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.bundle-card.selected .bundle-card-badge {
+    background: linear-gradient(135deg, rgba(255, 197, 57, 0.95) 0%, rgba(255, 180, 40, 0.9) 100%);
+    color: #0a234e;
+    box-shadow: 0 2px 8px rgba(255, 180, 40, 0.4);
+}
+
+@media (max-width: 768px) {
+    .bundle-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .bundle-selector .bundle-options {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
 }
 
 .bundle-option {
-    background: linear-gradient(135deg, rgba(60, 100, 160, 0.5) 0%, rgba(40, 84, 166, 0.45) 50%, rgba(60, 110, 170, 0.5) 100%);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: white;
+    border: 2px solid rgba(255, 255, 255, 0.8);
     border-radius: 12px;
-    padding: 14px 18px;
-    margin-bottom: 10px;
+    padding: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 4px 15px rgba(10, 35, 78, 0.2);
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .bundle-option:hover {
     border-color: rgba(79, 172, 254, 0.6);
-    background: linear-gradient(135deg, rgba(70, 120, 180, 0.55) 0%, rgba(50, 100, 175, 0.5) 100%);
-    box-shadow: 0 6px 20px rgba(10, 35, 78, 0.3);
+    background: #f8fbff;
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .bundle-option.selected {
+    border-color: #ffc539;
+    background: white;
+    box-shadow: 0 8px 24px rgba(255, 197, 57, 0.4);
+    border-width: 3px;
+    transform: translateY(-2px);
+}
+
+.unified-product-module .bundle-option {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.unified-product-module .bundle-option:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.unified-product-module .bundle-option.selected {
     border-color: rgb(255, 197, 57);
     background: linear-gradient(135deg, rgba(255, 197, 57, 0.9) 0%, rgba(255, 180, 40, 0.85) 50%, rgba(255, 210, 70, 0.9) 100%);
-    box-shadow: 0 6px 25px rgba(255, 180, 40, 0.4);
 }
 
 .bundle-option.selected::before {
-    content: '✓';
-    position: absolute;
-    right: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #0a234e;
-    font-size: 1.1rem;
-    font-weight: 700;
+    content: '';
+    display: none;
 }
 
 .bundle-header {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 10px;
-    flex: 1;
+    gap: 8px;
+    margin-bottom: 12px;
+    position: relative;
 }
 
 .bundle-label {
+    font-size: 1.1rem;
     font-weight: 600;
-    font-size: 0.9rem;
-    color: #ffffff;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    color: #0a234e;
+}
+
+.unified-product-module .bundle-label {
+    font-size: 0.95rem;
 }
 
 .bundle-option.selected .bundle-label {
     color: #0a234e;
-    text-shadow: none;
+    font-weight: 700;
 }
 
 .bundle-badge {
-    background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
-    color: #0a234e;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-size: 0.65rem;
-    font-weight: 700;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
+.bundle-option.selected .bundle-badge {
+    background: linear-gradient(135deg, #ffc539 0%, #ffb428 100%);
+    color: #0a234e;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(255, 197, 57, 0.4);
+}
+
 .bundle-pricing {
     display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-right: 30px;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .bundle-price {
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    color: #ffffff;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    color: #0a234e;
+    line-height: 1.2;
+}
+
+.unified-product-module .bundle-price {
+    font-size: 1.2rem;
 }
 
 .bundle-option.selected .bundle-price {
     color: #0a234e;
-    text-shadow: none;
+}
+
+.bundle-per-bottle {
+    font-size: 0.9rem;
+    color: #6b7280;
+    font-weight: 500;
 }
 
 .bundle-original-price {
     font-size: 0.85rem;
-    color: #9ca3af;
+    color: #6b7280;
     text-decoration: line-through;
 }
 
 .bundle-savings {
-    background: #10b981;
-    color: white;
-    padding: 3px 8px;
-    border-radius: 4px;
-    font-size: 0.75rem;
+    font-size: 0.85rem;
+    color: #10b981;
     font-weight: 600;
+    background: #d1fae5;
+    padding: 4px 10px;
+    border-radius: 6px;
+    display: inline-block;
+    width: fit-content;
+    margin-top: 4px;
 }
 
 .bundle-details {
@@ -1078,12 +1340,12 @@
     display: none;
 }
 
-/* Compact Bundle Selector - Glassmorphic Style */
+/* Compact Bundle Selector - Simple Design */
 .bundle-selector-compact {
     background: linear-gradient(135deg, rgba(140, 190, 240, 0.7) 0%, rgba(120, 180, 235, 0.6) 50%, rgba(140, 200, 245, 0.7) 100%);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    padding: 12px;
+    padding: 20px 15px;
     border-radius: 16px;
     margin: 12px 0;
     border: 2px solid rgba(255, 255, 255, 0.5);
@@ -1092,16 +1354,138 @@
 
 .bundle-selector-compact h3 {
     text-align: center;
-    margin-bottom: 8px;
-    font-size: 0.85rem;
+    margin-bottom: 16px;
+    font-size: 1rem;
     color: #0a234e;
+    font-weight: 700;
+}
+
+.bundle-selector-compact .bundle-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.bundle-display-large {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 16px 0;
+    min-height: 180px;
+    flex-wrap: wrap;
+}
+
+.bottle-large {
+    width: 120px;
+    height: auto;
+    max-height: 180px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2));
+    transition: transform 0.3s ease;
+}
+
+.bottle-large:hover {
+    transform: translateY(-5px);
+}
+
+.bundle-price-display {
+    text-align: center;
+    margin: 16px 0;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.bundle-price-main {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #0a234e;
+    line-height: 1.2;
+    margin-bottom: 6px;
+}
+
+.bundle-price-details {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.bundle-save-text {
+    color: #10b981;
     font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.bundle-buttons-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+}
+
+.bundle-btn {
+    position: relative;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 70px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.bundle-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    border-color: rgba(79, 172, 254, 0.6);
+}
+
+.bundle-btn.selected {
+    background: linear-gradient(135deg, rgba(255, 197, 57, 0.95) 0%, rgba(255, 180, 40, 0.9) 100%);
+    border-color: rgb(255, 197, 57);
+    box-shadow: 0 3px 10px rgba(255, 180, 40, 0.4);
+    transform: translateY(-1px);
+}
+
+.bundle-btn-badge {
+    font-size: 0.55rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: #0a234e;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 2px 6px;
+    border-radius: 8px;
+}
+
+.bundle-btn.selected .bundle-btn-badge {
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.bundle-btn-text {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #0a234e;
 }
 
 .bundle-options-compact {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    overflow: visible;
 }
 
 .bundle-option-compact {
@@ -1110,22 +1494,67 @@
     -webkit-backdrop-filter: blur(10px);
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 12px;
-    padding: 12px 16px;
+    padding: 14px 18px;
+    margin-top: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
+    overflow: visible;
     box-shadow: 0 3px 12px rgba(10, 35, 78, 0.2);
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 20px;
     width: 100%;
 }
 
 .bundle-option-compact:hover {
     border-color: rgba(79, 172, 254, 0.6);
     background: linear-gradient(135deg, rgba(70, 120, 180, 0.55) 0%, rgba(50, 100, 175, 0.5) 100%);
+    background-size: 200% 100%;
+    animation: shimmer-hover 2s linear infinite;
     box-shadow: 0 6px 20px rgba(10, 35, 78, 0.3);
     transform: translateY(-2px);
+}
+
+.bundle-option-compact:not(.selected):hover {
+    overflow: hidden;
+}
+
+.bundle-option-compact:not(.selected):hover::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -100%;
+    width: 50%;
+    height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: skewX(-25deg);
+    animation: shimmer-sweep 2s linear infinite;
+    z-index: 1;
+}
+
+.bundle-option-compact:not(.selected):hover::after {
+    content: '✨';
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.7rem;
+    opacity: 0;
+    animation: sparkle-hover 2s linear infinite;
+    z-index: 1;
+}
+
+.bundle-option-compact.selected:hover::after {
+    content: '✨';
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.7rem;
+    opacity: 0;
+    animation: sparkle-hover 2s linear infinite;
+    z-index: 1;
 }
 
 .bundle-option-compact.selected {
@@ -1134,7 +1563,11 @@
     box-shadow: 0 6px 25px rgba(255, 180, 40, 0.4);
 }
 
-.bundle-option-compact.selected .bundle-qty-compact,
+.bundle-option-compact.selected .bundle-qty-compact {
+    color: #ffd700;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
 .bundle-option-compact.selected .bundle-name-compact,
 .bundle-option-compact.selected .bundle-price-compact {
     color: #0a234e;
@@ -1145,7 +1578,7 @@
     color: #065f46;
 }
 
-.bundle-option-compact.selected::after {
+.bundle-option-compact.selected::before {
     content: '✓';
     position: absolute;
     top: 6px;
@@ -1153,6 +1586,23 @@
     color: #0a234e;
     font-size: 0.8rem;
     font-weight: 700;
+    z-index: 2;
+}
+
+.bundle-option-compact.selected:hover::before {
+    content: '✓';
+}
+
+.bundle-option-compact.selected:hover::after {
+    content: '✨';
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.7rem;
+    opacity: 0;
+    animation: sparkle-hover 2s linear infinite;
+    z-index: 1;
 }
 
 .bundle-qty-compact {
@@ -1190,9 +1640,10 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     flex-shrink: 0;
-    min-width: 80px;
+    min-width: 100px;
+    padding-right: 8px;
 }
 
 .mini-bottle {
@@ -1209,6 +1660,7 @@
     display: flex;
     flex-direction: column;
     flex: 1;
+    gap: 4px;
 }
 
 .bundle-pricing-row {
@@ -1239,11 +1691,11 @@
 
 .bundle-badge-compact {
     position: absolute;
-    top: -8px;
-    right: 12px;
+    top: -10px;
+    right: 10px;
     background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
     color: #0a234e;
-    padding: 3px 8px;
+    padding: 4px 10px;
     border-radius: 10px;
     font-size: 0.55rem;
     font-weight: 700;
@@ -1251,7 +1703,8 @@
     letter-spacing: 0.3px;
     white-space: nowrap;
     box-shadow: 0 2px 8px rgba(255, 140, 0, 0.4);
-    z-index: 1;
+    z-index: 10;
+    pointer-events: none;
 }
 
 .bundle-cta-compact {
@@ -1262,44 +1715,266 @@
 .bundle-cta-compact .btn {
     background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
     color: #0a234e;
-    border: none;
+    border: 3px solid #4facfe;
     padding: 12px 24px;
-    border-radius: 12px;
+    border-radius: 25px;
     font-weight: 700;
     font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 6px 20px rgba(79, 172, 254, 0.5);
+    box-shadow: 0 6px 20px rgba(79, 172, 254, 0.5), 0 0 20px rgba(79, 172, 254, 0.3);
     width: 100%;
     max-width: 100%;
     transform: translateY(-2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+}
+
+.bundle-cta-compact .btn .btn-text {
+    color: #0a234e;
+}
+
+.bundle-cta-compact .btn::before {
+    content: '🛒';
+    font-size: 1rem;
+}
+
+.bundle-cta-compact .btn {
+    position: relative;
+    overflow: hidden;
 }
 
 .bundle-cta-compact .btn:hover {
-    transform: translateY(0);
-    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 50%, #4facfe 100%);
+    background-size: 200% 100%;
+    animation: shimmer-hover 2s linear infinite;
+    border-color: #4facfe;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(79, 172, 254, 0.5), 0 0 25px rgba(79, 172, 254, 0.3);
 }
 
-/* Main Bundle Selector Button - Match Compact Version */
-.bundle-selector .btn {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+.bundle-cta-compact .btn:hover::before {
+    content: '🛒';
+    position: relative;
+}
+
+.bundle-cta-compact .btn:hover::after {
+    content: '✨';
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    opacity: 0;
+    animation: sparkle-hover 2s linear infinite;
+}
+
+.bundle-cta-compact .btn:hover .btn-text {
     color: #0a234e;
-    border: none;
+}
+
+.bundle-bottles-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    min-height: 60px;
+    width: 100%;
+}
+
+.bundle-bottle-preview {
+    width: 50px;
+    height: auto;
+    object-fit: contain;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.bundle-bottle-preview.fade {
+    opacity: 0.3;
+    transform: scale(0.9);
+}
+
+.bundle-add-btn {
+    background: #2854a6 !important;
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    border: 2px solid #2854a6 !important;
+    box-shadow: 0 4px 20px rgba(40, 84, 166, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease !important;
+    color: white !important;
+    position: relative !important;
+    overflow: visible !important;
+}
+
+.bundle-add-btn .btn-text {
+    color: white !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    75% { transform: rotate(5deg); }
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0) translateY(0); }
+    50% { opacity: 1; transform: scale(1) translateY(-10px); }
+}
+
+.bundle-add-btn::before {
+    content: '✨';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.bundle-add-btn::after {
+    content: '✨ ✨';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.bundle-add-btn:hover {
+    background: #1e3f7a !important;
+    border-color: #1e3f7a !important;
+    border-width: 2px !important;
+    box-shadow: 0 6px 30px rgba(30, 63, 122, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.bundle-add-btn:hover::before {
+    opacity: 1;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+.bundle-add-btn:hover::after {
+    opacity: 1;
+    animation: sparkle 2s ease-in-out infinite 0.5s;
+}
+
+.bundle-add-btn:hover .btn-text {
+    color: #FFC439 !important;
+    font-weight: 700 !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Make cart icon wiggle on hover */
+.bundle-add-btn .cart-icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.bundle-add-btn:hover .cart-icon {
+    animation: wiggle 0.5s ease-in-out infinite;
+}
+
+/* Main Bundle Selector Button - Green Frost Glass with Metallic Stroke */
+.bundle-selector .btn {
+    background: #2854a6 !important;
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    border: 2px solid #2854a6 !important;
+    box-shadow: 0 4px 20px rgba(40, 84, 166, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
     padding: 12px 24px;
-    border-radius: 12px;
+    border-radius: 25px;
     font-weight: 700;
     font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 6px 20px rgba(79, 172, 254, 0.5);
     width: 100%;
     max-width: 100%;
     transform: translateY(-2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+    color: white !important;
+}
+
+.bundle-selector .btn .btn-text {
+    color: white !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.bundle-selector .btn::before {
+    content: '🛒';
+    font-size: 1rem;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.bundle-selector .btn:hover .btn-text {
+    color: #FFC439 !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.bundle-selector .btn::before {
+    animation: none;
+}
+
+.bundle-selector .btn::after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
 }
 
 .bundle-selector .btn:hover {
-    transform: translateY(0);
-    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+    background: #1e3f7a !important;
+    border-color: #1e3f7a !important;
+    border-width: 2px !important;
+    box-shadow: 0 6px 30px rgba(30, 63, 122, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.bundle-selector .btn:hover::before {
+    content: '🛒';
+    animation: wiggle 0.5s ease-in-out infinite;
+}
+
+.bundle-selector .btn:hover::after {
+    content: '✨ ✨';
+    opacity: 1;
+    animation: sparkle 2s ease-in-out infinite 0.5s;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    opacity: 0;
+    animation: sparkle-hover 2s linear infinite;
+}
+
+.bundle-selector .btn:hover .btn-text {
+    color: #FFC439 !important;
 }
 
 /* Tabs */
@@ -1436,12 +2111,12 @@
 
 .supplement-facts {
     text-align: left;
-    background: rgba(80, 80, 80, 0.85);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: unset;
+    background-color: rgba(255, 255, 255, 1);
     padding: 16px;
     border-radius: 10px;
     border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(0, 0, 0, 1);
 }
 
 .supplement-facts-compact {
@@ -1450,25 +2125,24 @@
 }
 
 .supplement-facts-compact h4 {
-    font-size: 0.7rem;
-    font-weight: 700;
-    margin-bottom: 6px;
-    color: #ffffff;
-    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #0a234e;
 }
 
 .supplement-facts-compact p {
     margin: 4px 0;
-    line-height: 1.4;
-    color: #e0e0e0;
-    font-size: 0.55rem;
+    line-height: 1.6;
+    color: #0a234e;
+    font-size: 0.85rem;
     font-family: 'Inter', -apple-system, sans-serif;
 }
 
 .serving-compact {
-    font-size: 0.5rem;
-    color: #cccccc;
-    font-style: italic;
+    font-size: 0.85rem;
+    color: #0a234e;
+    font-style: normal;
 }
 
 .ingredients-compact {
@@ -1476,7 +2150,8 @@
 }
 
 .ingredients-compact strong {
-    color: #ffffff;
+    color: #0a234e;
+    font-weight: 600;
 }
 
 .facts-footer-compact {
@@ -1588,6 +2263,11 @@
         /* Compact Bundle Selector - Glassmorphic (using main styles above) */
         
         @media (max-width: 768px) {
+            .bundle-selector-compact .bundle-options {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
             .bundle-options-compact {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -1896,6 +2576,10 @@
                 <a class="brand" href="/">
                     <img src="/public/images/SC_logo_withR.png" alt="Success Chemistry">
                 </a>
+                <a href="/my-account-dashboard.html" class="account-link">
+                    <span>👤</span>
+                    <span>My Account</span>
+                </a>
             </div>
         </div>
     </div>
@@ -1904,10 +2588,9 @@
     <div class="blue-nav">
         <div class="container">
             <a href="/">Home</a>
-            <a href="/shop">🧪 Shop</a>
+            <a href="/shop">Shop</a>
             <a href="/blog">Articles</a>
-            <a href="/contact">Contact</a>
-            <a href="/cart">Cart <span id="navCartCount">0</span></a>
+            <a href="/cart">🛒 Cart <span id="navCartCount">0</span></a>
         </div>
     </div>
 
@@ -2284,91 +2967,68 @@
                     <!-- Product Info -->
                     <div class="product-info">
                         ${isTopSeller ? `<div class="top-seller-badge">🏆 #1 TOP SELLER</div>` : ''}
-                        <h1 class="product-title">${productTitle}</h1>
+                        
+                        <div class="price-section">
+                            <div class="product-price">$${price}</div>
+                            <h1 class="product-title">${productTitle}</h1>
+                        </div>
                         ${productSubtitle ? `<div class="product-subtitle">${productSubtitle}</div>` : ''}
                         
                         <div class="buy-section">
                             <!-- Bundle Selector -->
                             <div class="bundle-selector">
-                                <h3 style="margin-bottom: 16px; font-size: 1.2rem; color: #2c3e50;">📦 Select Your Bundle</h3>
-                                
-                                <div class="bundle-option" onclick="selectBundle(1)" id="bundle-1">
+                                <h3>🛒 Ready to Order? Choose Your Bundle</h3>
+                                <div class="bundle-options">
+                                <div class="bundle-option" onclick="selectBundle(2)" id="bundle-2">
                                     <div class="bundle-header">
-                                        <span class="bundle-label">1 Bottle - Starter Supply</span>
+                                        <span class="bundle-badge">POPULAR</span>
+                                        <span class="bundle-label">2 Bottles</span>
                                     </div>
-                                    <div class="bundle-pricing">
-                                        <span class="bundle-price">$${price}</span>
-                                    </div>
-                                    <div class="bundle-details">
-                                        <span class="bundle-detail">📊 30 Servings</span>
-                                        <span class="bundle-detail">⚖️ 0.31 lbs</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="bundle-option selected" onclick="selectBundle(2)" id="bundle-2">
-                                    <div class="bundle-header">
-                                        <span class="bundle-label">2 Bottles - Most Popular</span>
-                                        <span class="bundle-badge">Most Popular</span>
-                                    </div>
+                                    <div style="font-size: 0.75rem; color: #6b7280; margin-bottom: 8px;">Good place to start</div>
                                     <div class="bundle-pricing">
                                         <span class="bundle-price">$${(price * 2 * 0.78).toFixed(2)}</span>
-                                        <span class="bundle-original-price">$${(price * 2).toFixed(2)}</span>
-                                        <span class="bundle-savings">Save $${(price * 2 * 0.22).toFixed(2)}</span>
-                                    </div>
-                                    <div class="bundle-details">
-                                        <span class="bundle-detail">📊 60 Servings</span>
-                                        <span class="bundle-detail">💰 $${((price * 2 * 0.78) / 2).toFixed(2)}/bottle</span>
+                                        <span class="bundle-per-bottle">$${((price * 2 * 0.78) / 2).toFixed(2)} per bottle</span>
                                     </div>
                                 </div>
                                 
-                                <div class="bundle-option" onclick="selectBundle(3)" id="bundle-3">
+                                <div class="bundle-option selected" onclick="selectBundle(3)" id="bundle-3">
                                     <div class="bundle-header">
-                                        <span class="bundle-label">3 Bottles - Best Value</span>
-                                        <span class="bundle-badge">Best Value</span>
+                                        <span class="bundle-badge">MOST POPULAR</span>
+                                        <span class="bundle-label">3 Bottles</span>
                                     </div>
+                                    <div style="font-size: 0.75rem; color: #6b7280; margin-bottom: 8px;">Chosen by most customers</div>
                                     <div class="bundle-pricing">
                                         <span class="bundle-price">$${(price * 3 * 0.62).toFixed(2)}</span>
-                                        <span class="bundle-original-price">$${(price * 3).toFixed(2)}</span>
+                                        <span class="bundle-per-bottle">$${((price * 3 * 0.62) / 3).toFixed(2)} per bottle</span>
                                         <span class="bundle-savings">Save $${(price * 3 * 0.38).toFixed(2)}</span>
-                                    </div>
-                                    <div class="bundle-details">
-                                        <span class="bundle-detail">📊 90 Servings</span>
-                                        <span class="bundle-detail">💰 $${((price * 3 * 0.62) / 3).toFixed(2)}/bottle</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="bundle-option" onclick="selectBundle(4)" id="bundle-4">
-                                    <div class="bundle-header">
-                                        <span class="bundle-label">4 Bottles - Great Savings</span>
-                                    </div>
-                                    <div class="bundle-pricing">
-                                        <span class="bundle-price">$${(price * 4 * 0.59).toFixed(2)}</span>
-                                        <span class="bundle-original-price">$${(price * 4).toFixed(2)}</span>
-                                        <span class="bundle-savings">Save $${(price * 4 * 0.41).toFixed(2)}</span>
-                                    </div>
-                                    <div class="bundle-details">
-                                        <span class="bundle-detail">📊 120 Servings</span>
-                                        <span class="bundle-detail">💰 $${((price * 4 * 0.59) / 4).toFixed(2)}/bottle</span>
                                     </div>
                                 </div>
                                 
                                 <div class="bundle-option" onclick="selectBundle(5)" id="bundle-5">
                                     <div class="bundle-header">
-                                        <span class="bundle-label">5 Bottles - Maximum Savings</span>
+                                        <span class="bundle-badge" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">BEST VALUE</span>
+                                        <span class="bundle-label">5 Bottles</span>
                                     </div>
                                     <div class="bundle-pricing">
                                         <span class="bundle-price">$${(price * 5 * 0.58).toFixed(2)}</span>
-                                        <span class="bundle-original-price">$${(price * 5).toFixed(2)}</span>
+                                        <span class="bundle-per-bottle">$${((price * 5 * 0.58) / 5).toFixed(2)} per bottle</span>
                                         <span class="bundle-savings">Save $${(price * 5 * 0.42).toFixed(2)}</span>
                                     </div>
-                                    <div class="bundle-details">
-                                        <span class="bundle-detail">📊 150 Servings</span>
-                                        <span class="bundle-detail">💰 $${((price * 5 * 0.58) / 5).toFixed(2)}/bottle</span>
-                                    </div>
+                                </div>
+                                </div>
+                                <div class="bundle-bottles-display" id="bundle-bottles-display-main" style="display: flex; justify-content: center; align-items: center; gap: 12px; margin: 20px 0; padding: 12px; background: rgba(255, 255, 255, 0.5); border-radius: 8px; min-height: 60px;">
+                                    ${Array(5).fill(0).map((_, i) => `
+                                        <img src="${mainImage}" alt="Bottle" class="bundle-bottle-preview" style="width: 50px; height: auto; object-fit: contain; opacity: ${i < 3 ? 1 : 0.3}; transition: all 0.3s ease;" onerror="this.src='/images/placeholder.jpg'">
+                                    `).join('')}
+                                </div>
+                                <div class="bundle-cta-compact">
+                                    <button class="btn btn-primary bundle-add-btn" onclick="addToCart()" style="background: #10b981; width: 100%; padding: 16px; font-size: 1.1rem; font-weight: 600;"><span class="cart-icon">🛒</span><span class="btn-text">Add Bundle to Cart</span></button>
+                                </div>
+                                <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(10, 35, 78, 0.1); font-size: 0.85rem; color: #0a234e; text-align: center;">
+                                    <div style="margin-bottom: 8px;">✓ 30-Day Money-Back Guarantee</div>
+                                    <div>✓ Free shipping on 3+ bottles</div>
                                 </div>
                             </div>
-                            
-                            <button class="btn btn-primary" onclick="addToCart()"><span class="btn-text">Add to Cart</span></button>
                             
                             <div class="paypal-divider">
                                 <span>OR PAY WITH</span>
@@ -2379,17 +3039,6 @@
                             </div>
                             
                             <p style="text-align: center; font-size: 0.75rem; color: #666; margin-top: 12px;">🔒 Secure checkout powered by PayPal</p>
-                        </div>
-                        
-                        <div class="meta-info">
-                            <div class="meta-item">
-                                <div class="label">Category</div>
-                                <div class="value">${currentProduct.category || 'Supplements'}</div>
-                            </div>
-                            <div class="meta-item">
-                                <div class="label">Stock Status</div>
-                                <div class="value" style="color: #27ae60;">✓ In Stock</div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -2418,77 +3067,92 @@
                     </div>
                     ` : ''}
                     
-                    <!-- Suggested Use & Supplement Facts -->
-                    <div class="info-card" style="text-align: left; background: #f5f5f5; padding: 25px; border-radius: 12px;">
-                        <div style="margin-bottom: 20px; text-align: left;">
-                            <h3 style="text-align: left; margin-bottom: 10px;">Suggested Use</h3>
-                            <p style="color: #0a234e; line-height: 1.8; font-size: 1rem;">${currentProduct.suggested_use || 'As a dietary supplement take two (2) veggie capsules once a day after a meal with an 8oz. glass of water or as directed by your healthcare professional.'}</p>
+                    <!-- Unified Module: Supplement Facts + Category + Stock + GTIN -->
+                    <div class="unified-product-module">
+                        <div>
+                            <h3>Suggested Use</h3>
+                            <p>${currentProduct.suggested_use || 'As a dietary supplement take two (2) veggie capsules once a day after a meal with an 8oz. glass of water or as directed by your healthcare professional.'}</p>
                         </div>
-                        ${currentProduct.key_search_terms ? `
-                        <div style="margin-bottom: 20px; text-align: left;">
-                            <h3 style="text-align: left; margin-bottom: 10px;">Key Benefits & Features</h3>
-                            <p style="color: #0a234e; line-height: 1.8; font-size: 0.95rem;">${currentProduct.key_search_terms}</p>
+                        
+                        <div class="module-divider"></div>
+                        
+                        <div>
+                            <div class="supplement-facts" id="supplement-facts-content" style="text-align: left;">
+                                <p>Loading supplement facts...</p>
+                            </div>
                         </div>
-                        ` : ''}
-                        <div class="supplement-facts" id="supplement-facts-content" style="text-align: left;">
-                            <p>Loading supplement facts...</p>
+                        
+                        <div class="module-divider"></div>
+                        
+                        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                            <div>
+                                <span style="color: #6b7280;">Category:</span> <span style="color: #0a234e; font-weight: 500;">${currentProduct.category || 'Supplements'}</span>
+                            </div>
+                            <div>
+                                <span style="color: #6b7280;">Stock:</span> <span style="color: #27ae60; font-weight: 500;">✓ In Stock</span>
+                            </div>
+                            ${currentProduct.gtin || currentProduct.upc ? `
+                            <div>
+                                <span style="color: #6b7280;">GTIN:</span> <span style="color: #0a234e; font-weight: 500;">${currentProduct.gtin || currentProduct.upc || 'N/A'}</span>
+                            </div>
+                            ` : ''}
                         </div>
-                    </div>
-                    
-                    <!-- Compact Bundle Selector -->
-                    <div class="bundle-selector-compact">
-                        <h3>🛒 Ready to Order? Choose Your Bundle</h3>
-                        <div class="bundle-options-compact">
-                            <div class="bundle-option-compact" onclick="selectBundle(2)" id="bundle-compact-2">
-                                <div class="bundle-bottles"><img src="${mainImage}" class="mini-bottle" alt="bottle"><img src="${mainImage}" class="mini-bottle" alt="bottle"></div>
-                                <div class="bundle-info">
-                                    <div class="bundle-name-compact">2 Bottles - Starter Bundle</div>
-                                    <div class="bundle-pricing-row">
-                                        <div class="bundle-price-compact">$${(price * 2 * 0.78).toFixed(2)}</div>
-                                        <div class="bundle-save-compact">Save $${(price * 2 * 0.22).toFixed(2)}</div>
+                        
+                        <div class="module-divider"></div>
+                        
+                        <!-- Compact Bundle Selector - Card Layout -->
+                        <div class="bundle-selector-compact" style="margin: 30px 0;">
+                            <h3>🛒 Ready to Order? Choose Your Bundle</h3>
+                            <div class="bundle-options">
+                                <div class="bundle-option" onclick="selectBundle(2)" id="bundle-compact-2">
+                                    <div class="bundle-header">
+                                        <span class="bundle-badge">POPULAR</span>
+                                        <span class="bundle-label">2 Bottles</span>
+                                    </div>
+                                    <div style="font-size: 0.75rem; color: #6b7280; margin-bottom: 8px;">Good place to start</div>
+                                    <div class="bundle-pricing">
+                                        <span class="bundle-price">$${(price * 2 * 0.78).toFixed(2)}</span>
+                                        <span class="bundle-per-bottle">$${((price * 2 * 0.78) / 2).toFixed(2)} per bottle</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="bundle-option selected" onclick="selectBundle(3)" id="bundle-compact-3">
+                                    <div class="bundle-header">
+                                        <span class="bundle-badge">MOST POPULAR</span>
+                                        <span class="bundle-label">3 Bottles</span>
+                                    </div>
+                                    <div style="font-size: 0.75rem; color: #6b7280; margin-bottom: 8px;">Chosen by most customers</div>
+                                    <div class="bundle-pricing">
+                                        <span class="bundle-price">$${(price * 3 * 0.62).toFixed(2)}</span>
+                                        <span class="bundle-per-bottle">$${((price * 3 * 0.62) / 3).toFixed(2)} per bottle</span>
+                                        <span class="bundle-savings">Save $${(price * 3 * 0.38).toFixed(2)}</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="bundle-option" onclick="selectBundle(5)" id="bundle-compact-5">
+                                    <div class="bundle-header">
+                                        <span class="bundle-badge" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">BEST VALUE</span>
+                                        <span class="bundle-label">5 Bottles</span>
+                                    </div>
+                                    <div class="bundle-pricing">
+                                        <span class="bundle-price">$${(price * 5 * 0.58).toFixed(2)}</span>
+                                        <span class="bundle-per-bottle">$${((price * 5 * 0.58) / 5).toFixed(2)} per bottle</span>
+                                        <span class="bundle-savings">Save $${(price * 5 * 0.42).toFixed(2)}</span>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div class="bundle-option-compact selected" onclick="selectBundle(3)" id="bundle-compact-3">
-                                <span class="bundle-badge-compact">Popular</span>
-                                <div class="bundle-bottles"><img src="${mainImage}" class="mini-bottle" alt="bottle"><img src="${mainImage}" class="mini-bottle" alt="bottle"><img src="${mainImage}" class="mini-bottle" alt="bottle"></div>
-                                <div class="bundle-info">
-                                    <div class="bundle-name-compact">3 Bottles - Most Popular</div>
-                                    <div class="bundle-pricing-row">
-                                        <div class="bundle-price-compact">$${(price * 3 * 0.62).toFixed(2)}</div>
-                                        <div class="bundle-save-compact">Save $${(price * 3 * 0.38).toFixed(2)}</div>
-                                    </div>
-                                </div>
+                            <div class="bundle-bottles-display" id="bundle-bottles-display-compact" style="display: flex; justify-content: center; align-items: center; gap: 12px; margin: 20px 0; padding: 12px; background: rgba(255, 255, 255, 0.5); border-radius: 8px; min-height: 60px;">
+                                ${Array(3).fill(0).map((_, i) => `
+                                    <img src="${mainImage}" alt="Bottle" class="bundle-bottle-preview" style="width: 50px; height: auto; object-fit: contain; opacity: ${i < 3 ? 1 : 0.3}; transition: all 0.3s ease;" onerror="this.src='/images/placeholder.jpg'">
+                                `).join('')}
                             </div>
-                            
-                            <div class="bundle-option-compact" onclick="selectBundle(4)" id="bundle-compact-4">
-                                <div class="bundle-bottles"><img src="${mainImage}" class="mini-bottle" alt="bottle"><img src="${mainImage}" class="mini-bottle" alt="bottle"><img src="${mainImage}" class="mini-bottle" alt="bottle"><img src="${mainImage}" class="mini-bottle" alt="bottle"></div>
-                                <div class="bundle-info">
-                                    <div class="bundle-name-compact">4 Bottles - Great Savings</div>
-                                    <div class="bundle-pricing-row">
-                                        <div class="bundle-price-compact">$${(price * 4 * 0.59).toFixed(2)}</div>
-                                        <div class="bundle-save-compact">Save $${(price * 4 * 0.41).toFixed(2)}</div>
-                                    </div>
-                                </div>
+                            <div class="bundle-cta-compact">
+                                <button class="btn btn-primary bundle-add-btn" onclick="addToCart()" style="background: #10b981; width: 100%; padding: 16px; font-size: 1.1rem; font-weight: 600;"><span class="btn-text">Add Bundle to Cart</span></button>
                             </div>
-                            
-                            <div class="bundle-option-compact" onclick="selectBundle(5)" id="bundle-compact-5">
-                                <span class="bundle-badge-compact">Best Value</span>
-                                <div class="bundle-bottles"><img src="${mainImage}" class="mini-bottle" alt="bottle"><img src="${mainImage}" class="mini-bottle" alt="bottle"><img src="${mainImage}" class="mini-bottle" alt="bottle"><img src="${mainImage}" class="mini-bottle" alt="bottle"><img src="${mainImage}" class="mini-bottle" alt="bottle"></div>
-                                <div class="bundle-info">
-                                    <div class="bundle-name-compact">5 Bottles - Max Savings</div>
-                                    <div class="bundle-pricing-row">
-                                        <div class="bundle-price-compact">$${(price * 5 * 0.58).toFixed(2)}</div>
-                                        <div class="bundle-save-compact">Save $${(price * 5 * 0.42).toFixed(2)}</div>
-                                    </div>
-                                </div>
+                            <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(10, 35, 78, 0.1); font-size: 0.85rem; color: #0a234e; text-align: center;">
+                                <div style="margin-bottom: 8px;">✓ 30-Day Money-Back Guarantee</div>
+                                <div>✓ Free shipping on 3+ bottles</div>
                             </div>
-                        </div>
-                        <div class="bundle-cta-compact">
-                            <button class="btn btn-primary" onclick="addToCart(event)" style="max-width: 400px; margin: 0 auto;">
-                                <span class="btn-text">Add Selected Bundle to Cart</span>
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -2502,6 +3166,7 @@
             
             // Load supplement facts
             loadSupplementFacts(currentProductId);
+            
             
             // Initialize PayPal button
             initPayPalButton();
@@ -2546,21 +3211,40 @@
             let servingInfo = [];
             let ingredients = [];
             let footer = [];
+            let foundServingInfo = false;
             let inIngredients = false;
             
             // Parse the text into sections
             for (let line of lines) {
                 if (line.startsWith('Supplement Facts')) {
                     continue;
-                } else if (line.startsWith('Serving Size:') || line.startsWith('Servings Per Container:')) {
+                } else if (line.startsWith('Serving Size:') || line.startsWith('Servings Per Container:') || line.startsWith('Serving Per Bottle:')) {
                     servingInfo.push(line);
+                    foundServingInfo = true;
                 } else if (line.includes('Amount Per Serving') || line.includes('%DV') || line.includes('% Daily Value')) {
                     inIngredients = true;
-                } else if (line.startsWith('**') || line.startsWith('Other Ingredients:') || line.startsWith('Distributed by:')) {
+                } else if (foundServingInfo && !inIngredients) {
+                    // After serving info, check if this looks like an ingredient (has amount like "100 mg", "50 mcg RAE", etc.)
+                    if (line.match(/\d+\s*(?:mg|mcg|g|IU)(?:\s+(?:RAE|NE))?/i) && !line.startsWith('Other') && !line.startsWith('Inactive')) {
+                        inIngredients = true;
+                        ingredients.push(line);
+                    }
+                } else if (line.startsWith('Other Ingredients:') || line.startsWith('Inactive Ingredients:') || line.startsWith('Distributed by:')) {
                     inIngredients = false;
                     footer.push(line);
                 } else if (inIngredients && line) {
+                    // Capture ingredient lines (including sub-items like "  Pumpkin Extract" or blends in parentheses)
+                    if (line.startsWith('**') || line.match(/Daily Value|Percent Daily|DV not established/i)) {
+                        // Skip DV not established lines
+                        continue;
+                    }
+                    // Skip lines that are just DV percentages without ingredient names
+                    if (line.match(/^\d+%$/)) {
+                        continue;
+                    }
                     ingredients.push(line);
+                } else if (!inIngredients && foundServingInfo && (line.startsWith('**') || line.startsWith('Distributed by:'))) {
+                    footer.push(line);
                 }
             }
             
@@ -2575,22 +3259,45 @@
                 const ingredientTexts = [];
                 
                 ingredients.forEach(line => {
-                    const match = line.match(/^(.+?)\s+(\d+\s*(?:mg|mcg|g|IU))\s*(.*)$/i);
+                    // Handle format: "Name (as form) Amount RAE %DV" or "Name Amount %DV" or "Name - Amount"
+                    // Match: Name (optional parenthetical) Amount (optional units like RAE, NE) (optional %DV)
+                    let match = line.match(/^(.+?)\s*-\s*(\d+\s*(?:mg|mcg|g|IU))(?:\s+(.+))?$/i);
+                    if (!match) {
+                        // Try format: "Vitamin A (as Beta-carotene) 100 mcg RAE 11%"
+                        match = line.match(/^(.+?)\s+(\d+\s*(?:mg|mcg|g|IU)(?:\s+(?:RAE|NE))?)\s*(.+)?$/i);
+                    }
+                    if (!match) {
+                        // Try format: "Proprietary Blend 481 mg (Lutein, Bilberry...)"
+                        match = line.match(/^(.+?)\s+(\d+\s*(?:mg|mcg|g|IU))\s*(\(.+\))?$/i);
+                    }
+                    
                     if (match) {
                         const name = match[1].trim();
                         const amount = match[2].trim();
-                        const dv = match[3].trim();
-                        if (dv && dv !== '**') {
-                            ingredientTexts.push(`${name} ${amount} (${dv})`);
+                        const extra = match[3] ? match[3].trim() : '';
+                        // Only include extra if it's not just a percentage number
+                        if (extra && !extra.match(/^\d+%$/)) {
+                            // Check if it starts with a percentage - if so, format as (11%)
+                            if (extra.match(/^\d+%/)) {
+                                ingredientTexts.push(`${name} ${amount} (${extra})`);
+                            } else {
+                                ingredientTexts.push(`${name} ${amount} ${extra}`);
+                            }
                         } else {
                             ingredientTexts.push(`${name} ${amount}`);
                         }
-                    } else {
+                    } else if (line.trim() && !line.match(/Daily Value|Percent Daily|^\d+%$/i)) {
+                        // If no match but line looks like an ingredient (not empty, not DV text, not just a percentage)
                         ingredientTexts.push(line);
                     }
                 });
                 
-                html += ingredientTexts.join(', ') + '.</p>';
+                if (ingredientTexts.length > 0) {
+                    html += ingredientTexts.join(', ') + '</p>';
+                } else {
+                    // Fallback: show raw ingredients if parsing failed
+                    html += ingredients.join(', ') + '</p>';
+                }
             }
             
             // Build footer
@@ -2615,23 +3322,83 @@
         }
 
         // Bundle selection
-        let selectedBundle = 2; // Default to 2 bottles (Most Popular)
+        let selectedBundle = 3; // Default to 3 bottles (Most Popular)
         
         function selectBundle(quantity) {
-            // Remove selected class from all bundles (both main and compact)
-            document.querySelectorAll('.bundle-option, .bundle-option-compact').forEach(option => {
+            // Remove selected class from all bundles (both regular and compact)
+            document.querySelectorAll('.bundle-option').forEach(option => {
                 option.classList.remove('selected');
             });
+            document.querySelectorAll('.bundle-card').forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.querySelectorAll('.bundle-option-compact').forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.querySelectorAll('.bundle-ring').forEach(ring => {
+                ring.classList.remove('selected');
+            });
             
-            // Add selected class to both main and compact bundle selectors
+            // Add selected class to selected bundle in main product area
             const mainBundle = document.getElementById(`bundle-${quantity}`);
-            const compactBundle = document.getElementById(`bundle-compact-${quantity}`);
-            
             if (mainBundle) mainBundle.classList.add('selected');
+            
+            // Add selected class to selected compact bundle in unified module
+            const compactBundle = document.getElementById(`bundle-compact-${quantity}`);
             if (compactBundle) compactBundle.classList.add('selected');
+            
+            // Update bottle display
+            updateBottleDisplay(quantity);
             
             // Update selected bundle
             selectedBundle = quantity;
+        }
+        
+        function updateBottleDisplay(quantity) {
+            // Update compact bundle display
+            const bottleDisplayCompact = document.getElementById('bundle-bottles-display-compact');
+            // Update main bundle display
+            const bottleDisplayMain = document.getElementById('bundle-bottles-display-main');
+            
+            if (!currentProduct) return;
+            
+            const mainImage = currentProduct.images && currentProduct.images[0] ? currentProduct.images[0] : '/images/placeholder.jpg';
+            
+            // Show up to 5 bottles, fade the rest
+            const maxBottles = 5;
+            const bottleHtml = Array(maxBottles).fill(0).map((_, i) => {
+                const isVisible = i < quantity;
+                return `<img src="${mainImage}" alt="Bottle" class="bundle-bottle-preview ${!isVisible ? 'fade' : ''}" style="width: 50px; height: auto; object-fit: contain; opacity: ${isVisible ? 1 : 0.3}; transition: all 0.3s ease;" onerror="this.src='/images/placeholder.jpg'">`;
+            }).join('');
+            
+            if (bottleDisplayCompact) bottleDisplayCompact.innerHTML = bottleHtml;
+            if (bottleDisplayMain) bottleDisplayMain.innerHTML = bottleHtml;
+        }
+        
+        function updateBottleDisplay(quantity) {
+            // Update compact bundle display
+            const bottleDisplayCompact = document.getElementById('bundle-bottles-display-compact');
+            // Update main bundle display
+            const bottleDisplayMain = document.getElementById('bundle-bottles-display-main');
+            
+            if (!currentProduct) return;
+            
+            const mainImage = currentProduct.images && currentProduct.images[0] ? currentProduct.images[0] : '/images/placeholder.jpg';
+            
+            // Show up to 5 bottles, fade the rest
+            const maxBottles = 5;
+            const bottleHtml = Array(maxBottles).fill(0).map((_, i) => {
+                const isVisible = i < quantity;
+                return `<img src="${mainImage}" alt="Bottle" class="bundle-bottle-preview ${!isVisible ? 'fade' : ''}" style="width: 50px; height: auto; object-fit: contain; opacity: ${isVisible ? 1 : 0.3}; transition: all 0.3s ease;" onerror="this.src='/images/placeholder.jpg'">`;
+            }).join('');
+            
+            if (bottleDisplayCompact) bottleDisplayCompact.innerHTML = bottleHtml;
+            if (bottleDisplayMain) bottleDisplayMain.innerHTML = bottleHtml;
+        }
+        
+        function updateBundleDisplay(quantity) {
+            // Legacy function - no longer used
+            return;
         }
         
         // Quantity control functions
@@ -2682,17 +3449,25 @@
                 createOrder: function(data, actions) {
                     const quantity = parseInt(document.getElementById('quantity').value) || 1;
                     const unitPrice = parseFloat(currentProduct.price || 0);
-                    const totalPrice = (unitPrice * quantity).toFixed(2);
+                    const subtotal = unitPrice * quantity;
+                    // Default to US (no shipping) until address is known
+                    const shipping = 0;
+                    const totalPrice = (subtotal + shipping).toFixed(2);
                     
                     return actions.order.create({
                         purchase_units: [{
                             description: `${currentProduct.name} (Qty: ${quantity})`,
                             amount: {
                                 value: totalPrice,
+                                currency_code: 'USD',
                                 breakdown: {
                                     item_total: {
                                         currency_code: 'USD',
-                                        value: totalPrice
+                                        value: subtotal.toFixed(2)
+                                    },
+                                    shipping: {
+                                        currency_code: 'USD',
+                                        value: shipping.toFixed(2)
                                     }
                                 }
                             },
@@ -2705,8 +3480,44 @@
                                 quantity: quantity.toString(),
                                 sku: currentProduct.sku
                             }]
-                        }]
+                        }],
+                        application_context: {
+                            shipping_preference: 'GET_FROM_FILE'
+                        }
                     });
+                },
+                onShippingChange: function(data, actions) {
+                    const quantity = parseInt(document.getElementById('quantity').value) || 1;
+                    const unitPrice = parseFloat(currentProduct.price || 0);
+                    const subtotal = unitPrice * quantity;
+                    
+                    // Check if shipping address is outside USA
+                    const countryCode = data.shipping_address?.country_code || 'US';
+                    const shipping = (countryCode !== 'US') ? 15.00 : 0.00;
+                    const total = subtotal + shipping;
+
+                    console.log('📦 Shipping to', countryCode, '- Shipping:', shipping);
+
+                    return actions.order.patch([
+                        {
+                            op: 'replace',
+                            path: '/purchase_units/@reference_id==\'default\'/amount',
+                            value: {
+                                value: total.toFixed(2),
+                                currency_code: 'USD',
+                                breakdown: {
+                                    item_total: {
+                                        currency_code: 'USD',
+                                        value: subtotal.toFixed(2)
+                                    },
+                                    shipping: {
+                                        currency_code: 'USD',
+                                        value: shipping.toFixed(2)
+                                    }
+                                }
+                            }
+                        }
+                    ]);
                 },
                 onApprove: async function(data, actions) {
                     const order = await actions.order.capture();
@@ -2715,7 +3526,9 @@
                     if (window.SuccessChemistryTracking) {
                         const quantity = parseInt(document.getElementById('quantity').value) || 1;
                         const unitPrice = parseFloat(currentProduct.price || 0);
-                        const total = unitPrice * quantity;
+                        const subtotal = unitPrice * quantity;
+                        const shipping = parseFloat(order.purchase_units[0].amount.breakdown?.shipping?.value || 0);
+                        const total = parseFloat(order.purchase_units[0].amount.value);
                         
                         const orderData = {
                             orderNumber: order.id,
@@ -2725,8 +3538,8 @@
                                 price: unitPrice,
                                 quantity: quantity
                             }],
-                            subtotal: total,
-                            shipping: 0,
+                            subtotal: subtotal,
+                            shipping: shipping,
                             tax: 0,
                             total: total
                         };

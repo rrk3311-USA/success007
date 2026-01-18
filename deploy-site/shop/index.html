@@ -7,7 +7,7 @@
     <meta name="description" content="Shop premium quality supplements from Success Chemistry. Fast shipping, satisfaction guaranteed.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: white;
@@ -90,9 +90,27 @@
         .topbar-inner {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
             gap: 16px;
             padding: 0;
+        }
+
+        .account-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #2854a6;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .account-link:hover {
+            background: rgba(40, 84, 166, 0.1);
+            color: #1e3f7a;
         }
 
         .header-divider {
@@ -242,11 +260,16 @@
         .search-bar {
             display: flex;
             align-items: center;
-            background: white;
-            border: 2px solid #e9ecef;
+            background: rgba(140, 195, 245, 0.5);
+            backdrop-filter: blur(15px) saturate(180%);
+            -webkit-backdrop-filter: blur(15px) saturate(180%);
+            border: 2px solid rgba(255, 255, 255, 0.6);
             border-radius: 25px;
-            padding: 8px 16px;
+            padding: 10px 18px;
             min-width: 250px;
+            max-width: 500px;
+            width: auto;
+            box-shadow: 0 4px 12px rgba(80, 150, 220, 0.2);
         }
 
 
@@ -256,6 +279,12 @@
             flex: 1;
             font-family: inherit;
             font-size: 0.9rem;
+            background: transparent;
+            color: #0a234e;
+        }
+
+        .search-bar input::placeholder {
+            color: rgba(10, 35, 78, 0.6);
         }
 
         /* PRODUCTS GRID */
@@ -344,7 +373,9 @@
             font-weight: 700;
             color: #2854a6;
             margin-bottom: 8px;
-            line-height: 1.3;
+            line-height: 1.4;
+            font-family: 'Inter', 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            letter-spacing: -0.01em;
         }
 
 
@@ -363,7 +394,7 @@
         .product-price {
             font-size: 1.5rem;
             font-weight: 800;
-            color: #2854a6;
+            color: #10b981;
         }
 
         .product-price .original {
@@ -390,8 +421,8 @@
 
         .btn-add-cart {
             flex: 1;
-            background: #3E4C7A;
-            color: #FFFFFF;
+            background: #2854a6;
+            color: white;
             border: none;
             padding: 13px 32px;
             border-radius: 2px;
@@ -404,7 +435,7 @@
             box-shadow: 
                 0 2px 4px rgba(0, 0, 0, 0.1),
                 0 1px 2px rgba(0, 0, 0, 0.06);
-            transition: all 0.2s ease;
+            transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, color 0.2s ease;
             font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
@@ -418,7 +449,8 @@
         }
 
         .btn-add-cart:hover {
-            background: #4A5A8F;
+            background: #FFC439;
+            color: #1e3f7a;
             box-shadow: 
                 0 4px 8px rgba(0, 0, 0, 0.15),
                 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -433,7 +465,7 @@
             transform: translateY(0);
             box-shadow: 
                 0 1px 2px rgba(0, 0, 0, 0.1);
-            background: #364168;
+            background: #1e3f7a;
         }
 
         /* URGENCY ELEMENTS */
@@ -594,6 +626,10 @@
                 <a class="brand" href="/">
                     <img src="/public/images/SC_logo_withR.png" alt="Success Chemistry">
                 </a>
+                <a href="/my-account-dashboard.html" class="account-link">
+                    <span>👤</span>
+                    <span>My Account</span>
+                </a>
             </div>
         </div>
     </div>
@@ -603,10 +639,9 @@
     <div class="blue-nav">
         <div class="container">
             <a href="/">Home</a>
-            <a href="/shop">🧪 Shop</a>
+            <a href="/shop">Shop</a>
             <a href="/blog">Articles</a>
-            <a href="/contact">Contact</a>
-            <a href="/cart">Cart 0</a>
+            <a href="/cart">🛒 Cart <span id="cart-count-nav">0</span></a>
         </div>
     </div>
 
@@ -705,13 +740,15 @@
         </div>
     </section>
 
-    <script src="/products-data.js?v=4"></script>
+    <script src="/products-data.js?v=4" onerror="console.error('Failed to load products-data.js');" onload="console.log('products-data.js loaded successfully');"></script>
     <script>
         // Test if products data loaded
-        console.log('Products data script loaded');
+        console.log('Shop page script loaded');
         console.log('window.getAllProducts available:', typeof window.getAllProducts);
         if (typeof window.getAllProducts === 'function') {
             console.log('Products count:', window.getAllProducts().length);
+        } else {
+            console.warn('getAllProducts not yet available, will retry...');
         }
         let currentSort = 'sales';
         let allProductsCache = [];
@@ -848,14 +885,130 @@
             return 'all';
         }
 
+        function cleanProductName(name) {
+            if (!name) return '';
+            
+            // Remove strange encoding characters like ¬Æ
+            let cleaned = name.replace(/[¬Æ]/g, '').trim();
+            
+            // Handle bundle products - extract the actual product name
+            // "3 Bottle - BUNDLE DEAL - NEW LUNG - Lung Cleanse" -> "Lung Cleanse Detox"
+            // "3 Bottle - BUNDLE DEAL - Sclera White | Eye-Whitening" -> "Sclera White Eye Brightening"
+            if (cleaned.match(/^\d+\s+Bottle/i)) {
+                const parts = cleaned.split(/[-–—|]/);
+                let productName = '';
+                // Find the actual product name (usually contains product keywords)
+                for (let i = parts.length - 1; i >= 0; i--) {
+                    const part = parts[i].trim();
+                    if (part && !part.match(/BUNDLE DEAL|pack|bottle|Eye-Whitening/i)) {
+                        if (part.match(/Sclera|Lung|Mushroom|Eye|Detox|Cleanse/i) || part.length > 5) {
+                            productName = part;
+                            break;
+                        }
+                    }
+                }
+                // If we found a good product name, use it; otherwise use last non-bundle part
+                if (productName) {
+                    cleaned = productName;
+                } else {
+                    for (let i = parts.length - 1; i >= 0; i--) {
+                        const part = parts[i].trim();
+                        if (part && !part.match(/BUNDLE DEAL|pack|bottle/i) && part.length > 2) {
+                            cleaned = part;
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            // Remove "Success Chemistry" prefix variations
+            cleaned = cleaned
+                .replace(/^Success Chemistry\s*®?\s*[-–—]?\s*/i, '')
+                .replace(/^Success Chemistry\s*/i, '')
+                .trim();
+            
+            // Remove "Skinny Bean" prefix
+            cleaned = cleaned.replace(/^Skinny Bean\s*[-–—]?\s*/i, '').trim();
+            
+            // For names with dashes, take the main product name and up to 2-3 descriptive words
+            // "Sclera White - Eye Beauty Dietary Supplement..." -> "Sclera White Eye Brightening"
+            // "Lung Cleanse - Natural Respiratory..." -> "Lung Cleanse Detox"
+            if (cleaned.includes(' - ') || cleaned.includes(' – ') || cleaned.includes(' | ')) {
+                const parts = cleaned.split(/[-–—|]/);
+                const mainPart = parts[0].trim();
+                
+                // Special handling for specific products
+                if (mainPart.match(/Sclera White/i)) {
+                    // Extract 2-3 descriptive words from second part
+                    const descPart = (parts[1] || '').trim();
+                    const words = descPart.split(/\s+/).filter(w => 
+                        w.length > 3 && 
+                        !w.match(/^(Supplement|Dietary|With|for|and|the|our|by)$/i) &&
+                        w.match(/^[a-zA-Z]+$/)
+                    ).slice(0, 2);
+                    
+                    if (words.length > 0) {
+                        cleaned = mainPart + ' ' + words.join(' ');
+                    } else {
+                        cleaned = mainPart + ' Eye Brightening';
+                    }
+                } else if (mainPart.match(/Lung|Detox|Cleanse/i)) {
+                    // Add "Detox" if it's a cleanse product
+                    cleaned = mainPart.includes('Detox') || mainPart.includes('Cleanse') ? mainPart : mainPart + ' Detox';
+                } else {
+                    // For other products, extract 2-3 key descriptive words
+                    if (parts[1]) {
+                        const descPart = parts[1].trim();
+                        const words = descPart.split(/\s+/).filter(w => 
+                            w.length > 3 && 
+                            !w.match(/^(Supplement|with|for|and|the|our|by)$/i) &&
+                            w.match(/^[a-zA-Z]+$/)
+                        ).slice(0, 2);
+                        
+                        if (words.length > 0 && words.length <= 2) {
+                            cleaned = mainPart + ' ' + words.join(' ');
+                        } else {
+                            cleaned = mainPart;
+                        }
+                    } else {
+                        cleaned = mainPart;
+                    }
+                }
+            } else {
+                // No dashes - clean up long names
+                // Remove "with X, Y, Z" patterns
+                cleaned = cleaned.replace(/\s*with\s+[A-Z].*$/, '');
+                
+                // If still very long, take first meaningful phrase (up to 5-6 words)
+                const words = cleaned.split(/\s+/);
+                if (words.length > 6) {
+                    cleaned = words.slice(0, 5).join(' ');
+                }
+            }
+            
+            // Clean up any remaining issues
+            cleaned = cleaned.replace(/\s+/g, ' ').trim();
+            
+            // Final length check - truncate at word boundary if too long (max ~50 chars for card)
+            if (cleaned.length > 50) {
+                cleaned = cleaned.substring(0, 47).trim();
+                const lastSpace = cleaned.lastIndexOf(' ');
+                if (lastSpace > 30) {
+                    cleaned = cleaned.substring(0, lastSpace);
+                }
+            }
+            
+            return cleaned || name.substring(0, 50).trim();
+        }
+
         function buildProductCard(product) {
             const image = product.images && product.images[0] ? product.images[0] : '/images/placeholder.jpg';
             const price = Number(product.price || 0).toFixed(2);
             const category = normalizeCategory(product);
             const categoryLabel = product.category || 'Supplements';
             const skuParam = encodeURIComponent(product.sku);
-            // Limit product name to 80 characters
-            const displayName = product.name.length > 80 ? product.name.substring(0, 77) + '...' : product.name;
+            // Clean product name for display
+            const displayName = cleanProductName(product.name);
 
             const card = document.createElement('div');
             card.className = 'product-card';
@@ -872,11 +1025,10 @@
                     <img src="${image}" alt="${product.name}">
                 </div>
                 <div class="product-info">
-                    <div class="product-category">${categoryLabel}</div>
-                    <h3 class="product-name">${displayName}</h3>
                     <div class="product-price-row">
                         <div class="product-price">$${price}</div>
                     </div>
+                    <h3 class="product-name">${displayName}</h3>
                     <div class="product-actions">
                         <button class="btn-add-cart" onclick="addToCart('${product.name.replace(/'/g, "&#39;")}', ${price})">Add to Cart</button>
                     </div>
@@ -912,10 +1064,22 @@
             }
 
             if (typeof window.getAllProducts !== 'function') {
-                debug.innerHTML = 'Waiting for products data...';
+                debug.innerHTML = 'Waiting for products data... (checking products-data.js)';
+                // Limit retries to prevent infinite loop
+                const maxRetries = 100; // 10 seconds max
+                loadAllProducts.retryCount = (loadAllProducts.retryCount || 0) + 1;
+                if (loadAllProducts.retryCount > maxRetries) {
+                    debug.innerHTML = 'ERROR: products-data.js failed to load after ' + maxRetries + ' attempts. Please check the file path.';
+                    debug.style.background = '#f44336';
+                    debug.style.color = 'white';
+                    console.error('Failed to load products-data.js after', maxRetries, 'attempts');
+                    return;
+                }
                 setTimeout(loadAllProducts, 100);
                 return;
             }
+            // Reset retry count on success
+            loadAllProducts.retryCount = 0;
 
             try {
                 const products = window.getAllProducts().filter(p => p && p.sku);

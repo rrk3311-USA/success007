@@ -1349,7 +1349,7 @@
                         <div class="buy-section">
                             <!-- Bundle Selector -->
                             <div class="bundle-selector">
-                                <h3 style="margin-bottom: 16px; font-size: 1.2rem; color: #2c3e50;">📦 Select Your Bundle</h3>
+                                <h3 style="margin-bottom: 16px; font-size: 1.2rem; color: #2c3e50;">🛒 Ready to Order? Choose Your Bundle</h3>
                                 
                                 <div class="bundle-option" onclick="selectBundle(1)" id="bundle-1">
                                     <div class="bundle-header">
@@ -1427,7 +1427,7 @@
                                 </div>
                             </div>
                             
-                            <button class="btn btn-primary" onclick="addToCart()"><span class="btn-text">Add to Cart</span></button>
+                            <button class="btn btn-primary" onclick="addToCart()"><span class="btn-text">Add Selected Bundle to Cart</span></button>
                             
                             <div class="paypal-divider">
                                 <span>OR PAY WITH</span>
@@ -1598,17 +1598,25 @@
                 createOrder: function(data, actions) {
                     const quantity = parseInt(document.getElementById('quantity').value) || 1;
                     const unitPrice = parseFloat(currentProduct.price || 0);
-                    const totalPrice = (unitPrice * quantity).toFixed(2);
+                    const subtotal = unitPrice * quantity;
+                    // Default to US (no shipping) until address is known
+                    const shipping = 0;
+                    const totalPrice = (subtotal + shipping).toFixed(2);
                     
                     return actions.order.create({
                         purchase_units: [{
                             description: `${currentProduct.name} (Qty: ${quantity})`,
                             amount: {
                                 value: totalPrice,
+                                currency_code: 'USD',
                                 breakdown: {
                                     item_total: {
                                         currency_code: 'USD',
-                                        value: totalPrice
+                                        value: subtotal.toFixed(2)
+                                    },
+                                    shipping: {
+                                        currency_code: 'USD',
+                                        value: shipping.toFixed(2)
                                     }
                                 }
                             },
@@ -1621,8 +1629,44 @@
                                 quantity: quantity.toString(),
                                 sku: currentProduct.sku
                             }]
-                        }]
+                        }],
+                        application_context: {
+                            shipping_preference: 'GET_FROM_FILE'
+                        }
                     });
+                },
+                onShippingChange: function(data, actions) {
+                    const quantity = parseInt(document.getElementById('quantity').value) || 1;
+                    const unitPrice = parseFloat(currentProduct.price || 0);
+                    const subtotal = unitPrice * quantity;
+                    
+                    // Check if shipping address is outside USA
+                    const countryCode = data.shipping_address?.country_code || 'US';
+                    const shipping = (countryCode !== 'US') ? 15.00 : 0.00;
+                    const total = subtotal + shipping;
+
+                    console.log('📦 Shipping to', countryCode, '- Shipping:', shipping);
+
+                    return actions.order.patch([
+                        {
+                            op: 'replace',
+                            path: '/purchase_units/@reference_id==\'default\'/amount',
+                            value: {
+                                value: total.toFixed(2),
+                                currency_code: 'USD',
+                                breakdown: {
+                                    item_total: {
+                                        currency_code: 'USD',
+                                        value: subtotal.toFixed(2)
+                                    },
+                                    shipping: {
+                                        currency_code: 'USD',
+                                        value: shipping.toFixed(2)
+                                    }
+                                }
+                            }
+                        }
+                    ]);
                 },
                 onApprove: async function(data, actions) {
                     const order = await actions.order.capture();

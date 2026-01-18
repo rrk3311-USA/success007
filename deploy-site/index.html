@@ -110,9 +110,27 @@
         .topbar-inner {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
             gap: 16px;
             padding: 0;
+        }
+
+        .account-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #2854a6;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .account-link:hover {
+            background: rgba(40, 84, 166, 0.1);
+            color: #1e3f7a;
         }
 
         .blue-nav {
@@ -732,6 +750,10 @@
                 <a class="brand" href="/">
                     <img src="/public/images/SC_logo_withR.png" alt="Success Chemistry">
                 </a>
+                <a href="/my-account-dashboard.html" class="account-link">
+                    <span>👤</span>
+                    <span>My Account</span>
+                </a>
             </div>
         </div>
     </div>
@@ -740,10 +762,9 @@
     <div class="blue-nav">
         <div class="container">
             <a href="/">Home</a>
-            <a href="/shop">🧪 Shop</a>
+            <a href="/shop">Shop</a>
             <a href="/blog">Articles</a>
-            <a href="/contact">Contact</a>
-            <a href="/cart">Cart 0</a>
+            <a href="/cart">🛒 Cart 0</a>
         </div>
     </div>
 

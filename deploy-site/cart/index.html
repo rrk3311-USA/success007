@@ -63,7 +63,25 @@
         .topbar-inner {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
+        }
+
+        .account-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #2854a6;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .account-link:hover {
+            background: rgba(40, 84, 166, 0.1);
+            color: #1e3f7a;
         }
 
         .brand img {
@@ -169,11 +187,12 @@
         .quantity-controls button {
             width: 32px;
             height: 32px;
-            border: 1px solid #d1d5db;
+            border: 1px solid rgba(40, 84, 167, 1);
             background: white;
             border-radius: 6px;
             cursor: pointer;
             font-size: 1.2rem;
+            color: rgba(40, 84, 167, 1);
         }
 
         .quantity-controls button:hover {
@@ -186,6 +205,7 @@
             border: 1px solid #d1d5db;
             border-radius: 6px;
             padding: 6px;
+            background-color: rgba(40, 84, 167, 1);
         }
 
         .remove-btn {
@@ -333,6 +353,10 @@
                 <a class="brand" href="/">
                     <img src="/public/images/SC_logo_withR.png" alt="Success Chemistry">
                 </a>
+                <a href="/my-account-dashboard.html" class="account-link">
+                    <span>👤</span>
+                    <span>My Account</span>
+                </a>
             </div>
         </div>
     </div>
@@ -341,10 +365,9 @@
     <div class="blue-nav">
         <div class="container">
             <a href="/">Home</a>
-            <a href="/shop">🧪 Shop</a>
+            <a href="/shop">Shop</a>
             <a href="/blog">Articles</a>
-            <a href="/contact">Contact</a>
-            <a href="/cart">Cart <span id="cart-count">0</span></a>
+            <a href="/cart">🛒 Cart <span id="cart-count">0</span></a>
         </div>
     </div>
 
@@ -376,7 +399,7 @@
                 </div>
                 <div class="summary-row">
                     <span>Shipping</span>
-                    <span>Calculated at checkout</span>
+                    <span id="shipping-amount">Calculated at checkout</span>
                 </div>
                 <div class="summary-total">
                     <span>Total</span>
@@ -497,10 +520,10 @@
                     <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 200px; object-fit: contain; margin-bottom: 15px;">
                     <h3 style="font-size: 1rem; margin-bottom: 10px; color: #1f2937; min-height: 48px;">${product.name}</h3>
                     <div style="font-size: 1.2rem; font-weight: 600; color: #2854a6; margin-bottom: 15px;">$${product.price}</div>
-                    <button style="width: 100%; padding: 13px 32px; background: #3E4C7A; color: #FFFFFF; border: none; border-radius: 2px; cursor: pointer; font-weight: 500; font-size: 0.875rem; letter-spacing: 1.5px; text-transform: uppercase; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06); transition: all 0.2s ease; position: relative;"
+                    <button style="width: 100%; padding: 13px 32px; background: #2854a6; color: #FFFFFF; border: none; border-radius: 2px; cursor: pointer; font-weight: 500; font-size: 0.875rem; letter-spacing: 1.5px; text-transform: uppercase; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06); transition: all 0.2s ease; position: relative;"
                             onclick="event.stopPropagation(); addToCartFromRecommendation('${product.sku}', '${product.name}', '${product.price}', '${product.image}')"
-                            onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1)'; this.style.background='#4A5A8F'"
-                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06)'; this.style.background='#3E4C7A'">
+                            onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1)'; this.style.background='#3264c8'"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06)'; this.style.background='#2854a6'">
                         Add to Cart
                     </button>
                 </div>
@@ -545,21 +568,72 @@
                 },
                 createOrder: function(data, actions) {
                     const cart = getCart();
-                    const total = cart.reduce((sum, item) => {
+                    const subtotal = cart.reduce((sum, item) => {
                         return sum + (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1);
                     }, 0);
 
-                    console.log('💰 Creating order for total:', total);
+                    // Default to US (no shipping) until address is known
+                    const shipping = 0;
+                    const total = subtotal + shipping;
+
+                    console.log('💰 Creating order for subtotal:', subtotal);
 
                     return actions.order.create({
                         purchase_units: [{
                             amount: {
                                 value: total.toFixed(2),
-                                currency_code: 'USD'
+                                currency_code: 'USD',
+                                breakdown: {
+                                    item_total: {
+                                        currency_code: 'USD',
+                                        value: subtotal.toFixed(2)
+                                    },
+                                    shipping: {
+                                        currency_code: 'USD',
+                                        value: shipping.toFixed(2)
+                                    }
+                                }
                             },
                             description: 'Success Chemistry Supplements'
-                        }]
+                        }],
+                        application_context: {
+                            shipping_preference: 'GET_FROM_FILE'
+                        }
                     });
+                },
+                onShippingChange: function(data, actions) {
+                    const cart = getCart();
+                    const subtotal = cart.reduce((sum, item) => {
+                        return sum + (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1);
+                    }, 0);
+                    
+                    // Check if shipping address is outside USA
+                    const countryCode = data.shipping_address?.country_code || 'US';
+                    const shipping = (countryCode !== 'US') ? 15.00 : 0.00;
+                    const total = subtotal + shipping;
+
+                    console.log('📦 Shipping to', countryCode, '- Shipping:', shipping);
+
+                    return actions.order.patch([
+                        {
+                            op: 'replace',
+                            path: '/purchase_units/@reference_id==\'default\'/amount',
+                            value: {
+                                value: total.toFixed(2),
+                                currency_code: 'USD',
+                                breakdown: {
+                                    item_total: {
+                                        currency_code: 'USD',
+                                        value: subtotal.toFixed(2)
+                                    },
+                                    shipping: {
+                                        currency_code: 'USD',
+                                        value: shipping.toFixed(2)
+                                    }
+                                }
+                            }
+                        }
+                    ]);
                 },
                 onApprove: function(data, actions) {
                     return actions.order.capture().then(function(details) {
