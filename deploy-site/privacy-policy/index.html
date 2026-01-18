@@ -836,7 +836,7 @@
             const div = document.createElement('div');
             div.className = 'product-card';
             div.addEventListener('click', () => {
-                window.location.href = `/product/${product.sku}`;
+                window.location.href = `/product/?sku=${product.sku}`;
             });
 
             div.innerHTML = `

@@ -889,7 +889,7 @@
                 if (e.target.closest('.btn-add-cart')) {
                     return;
                 }
-                window.location.href = `/product/${skuParam}`;
+                window.location.href = `/product/?sku=${skuParam}`;
             });
             
             // Prevent button clicks from triggering card navigation
