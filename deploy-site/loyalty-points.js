@@ -142,19 +142,22 @@ class LoyaltyPointsSystem {
         return data ? data.history : [];
     }
 
-    // Show points notification
+    // Show points notification with Lucky Golden Rabbit mascot
     showPointsNotification(points, type) {
         const message = type === 'earned' 
-            ? `🎉 You earned ${points} points!` 
-            : `✅ Redeemed ${points} points!`;
+            ? `You earned ${points} Lucky Points!` 
+            : `Redeemed ${points} Lucky Points!`;
 
-        // Create notification element
+        // Create notification element with golden rabbit mascot
         const notification = document.createElement('div');
         notification.className = 'loyalty-notification';
         notification.innerHTML = `
             <div class="loyalty-notification-content">
-                <span class="loyalty-notification-icon">${type === 'earned' ? '⭐' : '🎁'}</span>
-                <span class="loyalty-notification-text">${message}</span>
+                <span class="loyalty-mascot">🐰⭐</span>
+                <div class="loyalty-notification-text-wrap">
+                    <span class="loyalty-notification-title">${type === 'earned' ? 'Lucky Rabbit Says...' : 'Points Redeemed!'}</span>
+                    <span class="loyalty-notification-text">${message}</span>
+                </div>
             </div>
         `;
 
@@ -189,13 +192,13 @@ class LoyaltyPointsSystem {
         const headerWidget = document.getElementById('loyaltyHeaderWidget');
         if (headerWidget) {
             headerWidget.innerHTML = `
-                <span class="loyalty-icon">⭐</span>
-                <span class="loyalty-text">${points.toLocaleString()} pts</span>
+                <span class="loyalty-mascot-mini">🐰⭐</span>
+                <span class="loyalty-text">${points.toLocaleString()}</span>
             `;
         }
     }
 
-    // Create header widget
+    // Create header widget with Lucky Golden Rabbit
     createHeaderWidget() {
         const data = this.getData();
         const points = data ? data.points : 0;
@@ -205,8 +208,8 @@ class LoyaltyPointsSystem {
         widget.className = 'loyalty-header-widget';
         widget.innerHTML = `
             <a href="/my-account.html#loyalty" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 6px;">
-                <span class="loyalty-icon">⭐</span>
-                <span class="loyalty-text">${points.toLocaleString()} pts</span>
+                <span class="loyalty-mascot-mini">🐰⭐</span>
+                <span class="loyalty-text">${points.toLocaleString()}</span>
             </a>
         `;
 
@@ -250,22 +253,25 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Add CSS for loyalty notifications and widgets
+// Add CSS for loyalty notifications and widgets - Frosty Glassmorphic UX with Golden Rabbit
 const loyaltyStyles = document.createElement('style');
 loyaltyStyles.textContent = `
     .loyalty-notification {
         position: fixed;
         top: 20px;
         right: 20px;
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        color: white;
-        padding: 16px 24px;
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        background: linear-gradient(135deg, rgba(200, 230, 255, 0.85) 0%, rgba(180, 220, 255, 0.8) 50%, rgba(255, 230, 180, 0.85) 100%);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        color: #0a234e;
+        padding: 16px 20px;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(100, 180, 255, 0.3), inset 0 1px 0 rgba(255,255,255,0.5);
+        border: 2px solid rgba(255,255,255,0.5);
         z-index: 10000;
         opacity: 0;
         transform: translateX(400px);
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .loyalty-notification.show {
@@ -279,46 +285,88 @@ loyaltyStyles.textContent = `
         gap: 12px;
     }
 
-    .loyalty-notification-icon {
-        font-size: 24px;
+    .loyalty-mascot {
+        font-size: 36px;
+        filter: drop-shadow(0 2px 6px rgba(212,175,55,0.4));
+        animation: mascotBounce 0.8s ease-out infinite;
+    }
+
+    @keyframes mascotBounce {
+        0%, 100% { transform: translateY(0) rotate(-5deg); }
+        50% { transform: translateY(-6px) rotate(5deg); }
+    }
+
+    .loyalty-notification-text-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .loyalty-notification-title {
+        font-weight: 700;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #2854a6;
     }
 
     .loyalty-notification-text {
-        font-weight: 600;
+        font-weight: 700;
         font-size: 15px;
+        color: #0a234e;
     }
 
     .loyalty-header-widget {
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        color: white;
-        padding: 8px 16px;
+        background: linear-gradient(135deg, rgba(255, 230, 150, 0.9) 0%, rgba(200, 230, 255, 0.85) 100%);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: #0a234e;
+        padding: 6px 14px;
         border-radius: 999px;
-        font-weight: 600;
-        font-size: 14px;
+        font-weight: 700;
+        font-size: 13px;
         cursor: pointer;
         transition: all 0.3s;
         display: flex;
         align-items: center;
         gap: 6px;
+        border: 2px solid rgba(255,255,255,0.5);
+        box-shadow: 0 4px 15px rgba(100, 180, 255, 0.2);
     }
 
     .loyalty-header-widget:hover {
-        transform: scale(1.05);
-        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        transform: scale(1.08);
+        box-shadow: 0 6px 25px rgba(212,175,55,0.4);
+        background: linear-gradient(135deg, rgba(255, 220, 120, 0.95) 0%, rgba(180, 220, 255, 0.9) 100%);
     }
 
-    .loyalty-icon {
+    .loyalty-mascot-mini {
         font-size: 18px;
+        animation: miniHop 2s ease-in-out infinite;
+    }
+
+    @keyframes miniHop {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-2px); }
+    }
+
+    .loyalty-text {
+        font-weight: 800;
+        color: #2854a6;
     }
 
     .loyalty-points-badge {
-        background: linear-gradient(135deg, #ffd34d, #d4af37);
+        background: linear-gradient(135deg, rgba(255, 230, 150, 0.9), rgba(200, 230, 255, 0.85));
+        backdrop-filter: blur(8px);
         color: #0a234e;
         padding: 4px 12px;
         border-radius: 999px;
         font-weight: 700;
-        font-size: 13px;
-        display: inline-block;
+        font-size: 12px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        border: 1px solid rgba(255,255,255,0.4);
     }
 
     @media (max-width: 768px) {
@@ -326,7 +374,11 @@ loyaltyStyles.textContent = `
             top: 10px;
             right: 10px;
             left: 10px;
-            padding: 12px 16px;
+            padding: 14px 16px;
+        }
+
+        .loyalty-mascot {
+            font-size: 30px;
         }
 
         .loyalty-notification-text {
@@ -334,8 +386,12 @@ loyaltyStyles.textContent = `
         }
 
         .loyalty-header-widget {
-            padding: 6px 12px;
-            font-size: 13px;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        .loyalty-mascot-mini {
+            font-size: 15px;
         }
     }
 `;

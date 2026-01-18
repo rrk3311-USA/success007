@@ -29,17 +29,42 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+
         body {
             font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             color: #333;
             background: white;
-            overflow-x: hidden;
         }
 
         .container {
-            max-width: 1200px;
+            width: 100%;
+            max-width: 100%;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 16px;
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                max-width: 720px;
+                padding: 0 20px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 960px;
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1140px;
+            }
         }
 
         .brand {
@@ -279,6 +304,19 @@
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
+        }
+
+        .product-badge.top-seller {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+            animation: pulse-badge 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .product-image img {
@@ -565,7 +603,7 @@
     <div class="blue-nav">
         <div class="container">
             <a href="/">Home</a>
-            <a href="/shop">Shop</a>
+            <a href="/shop">🧪 Shop</a>
             <a href="/blog">Articles</a>
             <a href="/contact">Contact</a>
             <a href="/cart">Cart 0</a>
@@ -667,7 +705,7 @@
         </div>
     </section>
 
-    <script src="/products-data.js?v=3"></script>
+    <script src="/products-data.js?v=4"></script>
     <script>
         // Test if products data loaded
         console.log('Products data script loaded');
@@ -678,21 +716,47 @@
         let currentSort = 'sales';
         let allProductsCache = [];
 
+        // Top sellers based on actual WooCommerce sales data
+        const topSellerSKUs = [
+            '10786-807',    // #1 - Sclera White (151 sales)
+            '10786-807-3',  // #2 - Sclera White 3-Pack (54 sales)
+            '20647-507',    // #3 - Lung Detox (21 sales)
+            '20646-838',    // #4 - Mushroom Immune (13 sales)
+            '10777-810',    // #5 - Liver Cleanse (8 sales)
+            '31412-404U',   // #6 - UTI Relief (8 sales)
+            '10781-105k',   // #8 - KETO CORE (8 sales)
+            '10788-302-1',  // #11 - Colon Cleanse (6 sales)
+            '11209-221'     // #19 - Hair Growth (3 sales)
+        ];
+
+        function isTopSeller(sku) {
+            return topSellerSKUs.includes(sku);
+        }
+
         function getSalesRank(product) {
             const sku = product.sku;
             const salesData = {
-                '52274-401': 1500,
-                '14179-504-2': 1200,
-                '10786-807-2': 1100,
-                '14179-504': 950,
-                '10786-807': 900,
-                '52274-401-2': 850,
-                '10786-807-3': 800,
-                '14179-504-3': 750,
-                '10786-807-4': 700,
-                '14179-504-4': 650
+                '10786-807': 151,
+                '10786-807-3': 54,
+                '20647-507': 21,
+                '20646-838': 13,
+                '10777-810': 8,
+                '31412-404U': 8,
+                '10781-105k': 8,
+                '14179-504': 8,
+                '10779-123': 7,
+                '2004-817': 7,
+                '10788-302-1': 6,
+                '5036-401-1': 6,
+                '20647-507-3': 4,
+                '1994-807-1': 4,
+                '31410-836': 4,
+                '10787-1091': 4,
+                '10786-807-2': 3,
+                '30581-817': 3,
+                '11209-221': 3
             };
-            return salesData[sku] || Math.floor(Math.random() * 500);
+            return salesData[sku] || 0;
         }
 
         function sortProducts(sortType) {
@@ -798,12 +862,13 @@
             card.dataset.category = category;
             card.style.cursor = 'pointer';
             card.addEventListener('click', () => {
-                window.location.href = `/product/?sku=${skuParam}`;
+                window.location.href = `/product/${skuParam}`;
             });
             const stopClick = (event) => event.stopPropagation();
+            const topSellerBadge = isTopSeller(product.sku) ? '<div class="product-badge top-seller">TOP SELLER</div>' : '';
             card.innerHTML = `
                 <div class="product-image">
-                    ${category !== 'all' ? `<div class="product-badge">${category === 'bestsellers' ? 'BESTSELLER' : category.toUpperCase()}</div>` : ''}
+                    ${topSellerBadge}
                     <img src="${image}" alt="${product.name}">
                 </div>
                 <div class="product-info">
@@ -822,12 +887,12 @@
             if (imageWrap) {
                 imageWrap.style.cursor = 'pointer';
                 imageWrap.addEventListener('click', () => {
-                    window.location.href = `/product?sku=${skuParam}`;
+                    window.location.href = `/product/${skuParam}`;
                 });
             }
             if (img) {
                 img.addEventListener('click', () => {
-                    window.location.href = `/product?sku=${skuParam}`;
+                    window.location.href = `/product/${skuParam}`;
                 });
             }
             card.querySelectorAll('.btn-add-cart').forEach((btn) => {

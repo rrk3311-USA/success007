@@ -57,7 +57,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325397405",
         "key_search_terms": "prostate health supplement, saw palmetto for men, urinary flow support, natural prostate relief, men's wellness vitamins, nighttime bathroom trips reduction, prostate health supplements for men over 40",
         "seo_targets": {
             "long_tail": ["best prostate health supplements with saw palmetto and quercetin", "natural remedies for frequent urination at night", "men's prostate support for urinary health", "prostate supplements for better bladder control", "natural ingredients for prostate wellness"],
@@ -88,7 +88,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325396675",
         "key_search_terms": "eye health supplements, lutein and zeaxanthin vitamins, blue light protection supplements, macular degeneration support, vision health for digital age, eye strain relief supplements",
         "seo_targets": {
             "long_tail": ["best lutein and zeaxanthin supplements for eye health", "blue light protection supplements for computer users", "macular degeneration prevention vitamins", "vision health supplements for screen time", "eye strain relief from digital devices"],
@@ -116,7 +116,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "651536055516",
         "key_search_terms": "hair growth supplements, biotin for hair growth, natural hair vitamins, DHT blocker for hair loss, thicker hair supplements, women's hair growth pills, men's hair regrowth",
         "seo_targets": {
             "long_tail": ["best hair growth supplements with biotin and horsetail", "natural DHT blocker for hair loss prevention", "thicker hair vitamins for women and men", "hair regrowth supplements with bamboo extract", "island botanical hair growth formula"],
@@ -146,7 +146,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325396668",
         "key_search_terms": "UTI relief supplements, D-mannose cranberry pills, urinary tract health support, bladder health vitamins, natural UTI prevention, women's urinary health, urinary tract infection relief",
         "seo_targets": {
             "long_tail": ["best D-mannose cranberry supplements for UTI prevention", "natural urinary tract health support for women", "UTI relief supplements with hibiscus and dandelion", "bladder health vitamins for urinary wellness", "urinary tract infection prevention pills"],
@@ -172,7 +172,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "651536055646",
         "key_search_terms": "African mango extract, keto diet drops, weight loss supplements, metabolism booster, appetite suppressant, ketogenic diet support, fat burning drops",
         "seo_targets": {
             "long_tail": ["African mango extract drops for weight loss", "keto diet liquid supplements for metabolism", "natural appetite suppressant drops", "ketogenic lifestyle support supplements", "fat burning drops for energy"],
@@ -200,12 +200,54 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325395272",
         "key_search_terms": "liver cleanse supplements, milk thistle detox pills, liver detox support, dandelion root liver health, artichoke extract liver, natural liver support, liver health vitamins",
         "seo_targets": {
             "long_tail": ["best liver cleanse supplements with milk thistle", "natural liver detox pills with dandelion root", "liver support formula with artichoke extract", "milk thistle supplements for liver health", "comprehensive liver detox and cleanse"],
             "short_tail": ["liver cleanse pills", "milk thistle supplements", "liver detox", "liver support", "detox supplements"]
-        }
+        },
+        "faqs": [
+            {
+                "question": "How does Milk Thistle support liver health and detoxification?",
+                "answer": "Milk Thistle contains silymarin, a powerful antioxidant that helps protect liver cells from toxins and supports the liver's natural regeneration process. It has been used for centuries to promote liver health and is one of the most researched herbs for liver support."
+            },
+            {
+                "question": "How long should I take Liver Cleanse for a complete detox?",
+                "answer": "For a thorough liver cleanse, we recommend taking Liver Cleanse Pills for 30-60 days. Many users continue taking it as ongoing liver support, especially if exposed to alcohol, processed foods, or environmental toxins regularly."
+            },
+            {
+                "question": "What are the signs that I might need liver support?",
+                "answer": "Common signs include fatigue, digestive issues, skin problems, difficulty losing weight, and feeling sluggish after meals. If you consume alcohol, take medications, or eat processed foods regularly, your liver may benefit from additional support."
+            },
+            {
+                "question": "Can I take Liver Cleanse while drinking alcohol occasionally?",
+                "answer": "Yes, Liver Cleanse can help support your liver when consuming alcohol occasionally. The Milk Thistle and other ingredients help protect liver cells from oxidative stress. However, for best results, minimize alcohol consumption during your cleanse."
+            },
+            {
+                "question": "What makes this liver cleanse formula comprehensive?",
+                "answer": "Our formula combines 10+ liver-supporting ingredients: Milk Thistle (silymarin), Dandelion Root (bile flow), Artichoke Extract (digestion), Turmeric (inflammation), Ginger, Burdock Root, and antioxidants like Grape Seed Extract - providing multi-faceted liver support."
+            },
+            {
+                "question": "Is Liver Cleanse safe for daily long-term use?",
+                "answer": "Yes, Liver Cleanse is made with natural ingredients that are safe for ongoing daily use. Many healthcare practitioners recommend continuous liver support, especially in today's world of processed foods and environmental toxins."
+            },
+            {
+                "question": "How should I take Liver Cleanse Pills for best results?",
+                "answer": "Take 2 veggie capsules once daily after a meal with an 8oz glass of water. Taking with food helps absorption and reduces any potential stomach sensitivity. For enhanced detox, drink plenty of water throughout the day."
+            },
+            {
+                "question": "Can Liver Cleanse help with weight loss?",
+                "answer": "A healthy liver is essential for proper fat metabolism. By supporting liver function and detoxification, Liver Cleanse may help optimize your body's ability to process fats and toxins, which can support weight management efforts."
+            },
+            {
+                "question": "Are there any side effects from Liver Cleanse?",
+                "answer": "Liver Cleanse is made with natural, well-tolerated ingredients. Some people may experience mild digestive changes as the body detoxifies. If you're pregnant, nursing, or taking medications, consult your healthcare provider before use."
+            },
+            {
+                "question": "Is this liver supplement vegetarian-friendly?",
+                "answer": "Yes, Liver Cleanse Pills use vegetable capsules (Hypromellose) and contain no animal-derived ingredients, making them suitable for vegetarians seeking liver support."
+            }
+        ]
     },
     "783325395333": {
         "sku": "783325395333",
@@ -230,7 +272,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325395333",
         "key_search_terms": "moringa oleifera supplements, moringa leaf extract, natural energy supplements, joint health vitamins, sleep quality support, superfood supplements, antioxidant vitamins",
         "seo_targets": {
             "long_tail": ["best moringa oleifera supplements for energy", "natural moringa leaf extract for joint health", "moringa supplements for sleep quality", "superfood vitamins with antioxidants", "moringa capsules for overall wellness"],
@@ -255,7 +297,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "635635749859",
         "key_search_terms": "women's probiotic for weight loss, slimming probiotics, gut health supplements, digestive health for women, metabolism boosting probiotics, 40 billion CFU probiotic",
         "seo_targets": {
             "long_tail": ["best women's probiotic for weight loss and slimming", "40 billion CFU probiotic for gut health", "digestive health probiotics for women", "metabolism boosting probiotic supplements", "slimming probiotics for weight management"],
@@ -284,7 +326,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325396644",
         "key_search_terms": "lung cleanse supplements, lung detox pills, respiratory health support, smoker's lung cleanse, breathing support vitamins, lung health formula, respiratory detox",
         "seo_targets": {
             "long_tail": ["best lung cleanse supplements for smokers", "natural lung detox pills for respiratory health", "lung health vitamins for clear breathing", "respiratory support supplements with herbs", "lung detoxification formula for ex-smokers"],
@@ -312,7 +354,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325395579",
         "key_search_terms": "women's vaginal probiotic, feminine pH balance, yeast infection prevention, vaginal health supplements, organic women's probiotic, intimate health support",
         "seo_targets": {
             "long_tail": ["best women's probiotic for vaginal health", "organic feminine pH balance supplements", "yeast infection prevention probiotics for women", "vaginal flora balance supplements", "intimate health probiotics for women"],
@@ -339,7 +381,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325395944",
         "key_search_terms": "eye whitening supplements, bright eyes vitamins, eye redness relief, sclera whitening pills, eye health supplements, clear eyes vitamins, eye detox",
         "seo_targets": {
             "long_tail": ["best eye whitening supplements for bright eyes", "natural eye redness relief vitamins", "sclera whitening supplements with lutein", "eye detox pills for clear eyes", "eye health vitamins for radiant eyes"],
@@ -366,7 +408,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325396224",
         "key_search_terms": "resveratrol supplements, anti-aging vitamins, Japanese knotweed extract, youthful skin supplements, longevity vitamins, antioxidant supplements, wine extract pills",
         "seo_targets": {
             "long_tail": ["best resveratrol supplements for anti-aging", "Japanese knotweed extract for youthful skin", "trans-resveratrol supplements for longevity", "antioxidant vitamins for skin health", "wine extract supplements for cardiovascular health"],
@@ -393,7 +435,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325395593",
         "key_search_terms": "beard growth supplements, rapid beard growth formula, thicker beard vitamins, men's facial hair growth, beard health supplements, fuller beard pills, beard growth vitamins",
         "seo_targets": {
             "long_tail": ["best beard growth supplements for thicker beard", "rapid beard growth formula with biotin", "men's facial hair growth vitamins", "natural beard growth supplements", "fuller beard vitamins for men"],
@@ -419,7 +461,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325396453",
         "key_search_terms": "gaming supplements, e-sports energy pills, gamer focus formula, gaming endurance supplements, mental clarity for gamers, esports performance vitamins",
         "seo_targets": {
             "long_tail": ["best gaming supplements for focus and energy", "e-sports energy pills for endurance", "gamer focus formula with caffeine", "mental clarity supplements for gamers", "esports performance vitamins for long sessions"],
@@ -446,7 +488,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325395159",
         "key_search_terms": "CoQ10 supplements, heart health vitamins, coenzyme Q10 for blood pressure, cardiovascular wellness, ubiquinone supplements, energy boosting CoQ10",
         "seo_targets": {
             "long_tail": ["best CoQ10 supplements for heart health", "coenzyme Q10 for blood pressure support", "cardiovascular wellness vitamins with ubiquinone", "CoQ10 supplements for energy and heart", "high potency CoQ10 for cardiovascular health"],
@@ -473,7 +515,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "742779533142",
         "key_search_terms": "vitamin K2 D3 supplements, bone health vitamins, heart health with vitamin D, calcium absorption supplements, immune support vitamins, BioPerine enhanced vitamins",
         "seo_targets": {
             "long_tail": ["best vitamin K2 D3 supplements for bone health", "heart health vitamins with vitamin D3", "calcium absorption supplements with K2", "immune support vitamins with BioPerine", "vitamin D3 K2 for stronger bones"],
@@ -499,7 +541,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "651536055387",
         "key_search_terms": "CLA safflower oil, conjugated linoleic acid, weight loss supplements, fat burning pills, BMI lowering supplements, lean muscle support, natural diet pills",
         "seo_targets": {
             "long_tail": ["best CLA safflower oil supplements for weight loss", "conjugated linoleic acid for fat burning", "BMI lowering supplements with CLA", "lean muscle support with safflower oil", "natural weight loss pills with CLA"],
@@ -526,7 +568,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325395449",
         "key_search_terms": "PMS relief supplements, krill oil for women, omega-3 for hormonal balance, women's heart health, brain function supplements, anti-aging omega-3, menstrual relief vitamins",
         "seo_targets": {
             "long_tail": ["best krill oil supplements for PMS relief", "omega-3 for women's hormonal balance", "krill oil for heart and brain health", "anti-aging omega-3 supplements for women", "menstrual relief vitamins with EPA DHA"],
@@ -553,7 +595,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "651536055349",
         "key_search_terms": "African mango keto stack, weight loss supplements, keto diet pills, raspberry ketones, green tea extract weight loss, fat burning supplements, metabolism boosters",
         "seo_targets": {
             "long_tail": ["best African mango supplements for keto diet", "weight loss pills with raspberry ketones", "green tea extract for fat burning", "keto stack supplements for metabolism", "natural fat burning supplements with caffeine"],
@@ -579,7 +621,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "645080279443",
         "key_search_terms": "stress relief supplements for women, anti-anxiety natural formula, ashwagandha for stress, chamomile calming pills, GABA supplements, panic relief vitamins, mood enhancement",
         "seo_targets": {
             "long_tail": ["best stress relief supplements for women with ashwagandha", "natural anti-anxiety formula with chamomile", "GABA supplements for panic relief", "mood enhancement vitamins for women", "calming supplements with lemon balm"],
@@ -605,7 +647,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "651074168525",
         "key_search_terms": "nootropic supplements, brain focus pills, DMAE cognitive support, bacopa memory enhancement, GABA for mental clarity, brain health vitamins, focus and concentration",
         "seo_targets": {
             "long_tail": ["best nootropic supplements for brain focus", "DMAE cognitive support for mental clarity", "bacopa monnieri for memory enhancement", "GABA supplements for focus and concentration", "brain health vitamins for students"],
@@ -632,7 +674,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "651536055318",
         "key_search_terms": "female libido enhancement, women's sex drive supplements, natural aphrodisiac for women, sexual arousal pills, mood enhancement for women, intimacy support vitamins",
         "seo_targets": {
             "long_tail": ["best female libido enhancement supplements natural", "women's sex drive pills with maca and ashwagandha", "natural aphrodisiac for women's arousal", "sexual wellness supplements for women", "mood and libido enhancement vitamins"],
@@ -656,7 +698,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "651074168389",
         "key_search_terms": "testosterone booster, men's libido supplements, muscle growth vitamins, tribulus terrestris, natural testosterone support, lean muscle supplements, men's performance enhancement",
         "seo_targets": {
             "long_tail": ["best testosterone booster for muscle growth", "natural testosterone supplements with tribulus", "men's libido enhancement vitamins", "lean muscle growth supplements for men", "testosterone support for performance and stamina"],
@@ -682,7 +724,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "651536055257",
         "key_search_terms": "raspberry ketone supplements, fat burner pills, weight loss with African mango, green tea extract diet, metabolism booster, natural weight loss, energy boost supplements",
         "seo_targets": {
             "long_tail": ["best raspberry ketone supplements for weight loss", "fat burner pills with African mango and green tea", "natural metabolism booster for weight loss", "energy boost supplements with caffeine", "apple cider vinegar weight loss pills"],
@@ -710,7 +752,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325396477",
         "key_search_terms": "keto diet pills, ketosis fat burner, weight loss supplements, energy and focus blend, raspberry ketones keto, green tea extract diet, thermogenic supplements",
         "seo_targets": {
             "long_tail": ["best keto diet pills for ketosis and weight loss", "advanced ketosis fat burner with caffeine", "thermogenic supplements for energy and focus", "raspberry ketones for keto diet", "green tea extract for fat burning"],
@@ -736,12 +778,54 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325395753",
         "key_search_terms": "UTI relief supplements, D-mannose cranberry pills, urinary tract health, bladder infection prevention, natural UTI treatment, women's urinary health, hibiscus UTI support",
         "seo_targets": {
             "long_tail": ["best UTI relief supplements with D-mannose and cranberry", "natural urinary tract infection treatment", "bladder health supplements for women", "hibiscus and dandelion UTI prevention", "D-mannose for recurring UTI prevention"],
             "short_tail": ["UTI relief", "urinary tract health", "D-mannose pills", "cranberry supplements", "bladder support"]
-        }
+        },
+        "faqs": [
+            {
+                "question": "How does D-Mannose help prevent and treat UTIs?",
+                "answer": "D-Mannose is a natural sugar that prevents E. coli bacteria (the cause of 90% of UTIs) from adhering to the urinary tract walls. Instead of sticking, bacteria bind to D-Mannose and are flushed out when you urinate, providing natural UTI prevention and relief."
+            },
+            {
+                "question": "How quickly does UTI Relief work for UTI symptoms?",
+                "answer": "Many users experience relief from burning and urgency within 24-48 hours. For active UTIs, take as directed and drink plenty of water. For prevention, consistent daily use helps maintain urinary tract health and reduce recurrence."
+            },
+            {
+                "question": "Is UTI Relief a natural alternative to antibiotics?",
+                "answer": "Yes, UTI Relief offers a natural approach to urinary tract health. D-Mannose has been shown in studies to be as effective as antibiotics for preventing recurring UTIs, without the side effects or antibiotic resistance concerns. However, consult a doctor for severe infections."
+            },
+            {
+                "question": "Can I take UTI Relief daily for prevention?",
+                "answer": "Absolutely! UTI Relief is safe for daily use as a preventive measure. Women prone to recurring UTIs often take it daily or after activities that may trigger infections (like intimacy or swimming) to maintain urinary tract health."
+            },
+            {
+                "question": "What makes this UTI supplement more effective than cranberry alone?",
+                "answer": "Our formula combines 1000mg D-Mannose with Cranberry, Hibiscus (shown to reduce UTIs by 80% in studies), and Dandelion Extract. This multi-ingredient approach targets UTIs from multiple angles - prevention, bacterial elimination, and urinary tract support."
+            },
+            {
+                "question": "Is UTI Relief safe during pregnancy or breastfeeding?",
+                "answer": "While our ingredients are natural, we recommend consulting your healthcare provider before taking any supplement during pregnancy or breastfeeding. D-Mannose is generally considered safe, but professional guidance is always best."
+            },
+            {
+                "question": "Can men take UTI Relief for urinary tract health?",
+                "answer": "Yes! While UTIs are more common in women, men can also benefit from UTI Relief for urinary tract and bladder health support. The D-Mannose and cranberry work the same way regardless of gender."
+            },
+            {
+                "question": "How should I take UTI Relief for best results?",
+                "answer": "Take 2 capsules daily with a full glass of water. For active UTI symptoms, you may take up to 4 capsules daily. Drink plenty of water throughout the day to help flush bacteria from your urinary tract."
+            },
+            {
+                "question": "Does UTI Relief help with interstitial cystitis or bladder pain?",
+                "answer": "While UTI Relief is formulated for bacterial UTIs, some users with interstitial cystitis report relief from the soothing properties of the ingredients. However, IC is a different condition - consult your urologist for specific IC treatment."
+            },
+            {
+                "question": "Are there any side effects from UTI Relief?",
+                "answer": "UTI Relief is made with natural, well-tolerated ingredients. D-Mannose may cause mild bloating in some people initially. The formula is non-GMO, free from artificial additives, and uses vegetable capsules for easy digestion."
+            }
+        ]
     },
     "30581-817": {
         "sku": "30581-817",
@@ -763,7 +847,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325396033",
         "key_search_terms": "sleep support supplements, natural sleep aid, melatonin for sleep, ashwagandha sleep, goji berry relaxation, insomnia relief, better sleep vitamins",
         "seo_targets": {
             "long_tail": ["best natural sleep aid with melatonin and ashwagandha", "sleep support supplements for insomnia relief", "goji berry and valerian root for better sleep", "natural sleep vitamins for restful nights", "melatonin supplements for sleep quality"],
@@ -790,7 +874,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325395234",
         "key_search_terms": "horny goat weed supplements, libido enhancer for men and women, maca root for stamina, tongkat ali performance, L-arginine blood flow, ginseng energy, sexual health vitamins",
         "seo_targets": {
             "long_tail": ["best horny goat weed supplements for libido", "maca root and tongkat ali for stamina", "L-arginine supplements for blood flow", "natural libido enhancer for men and women", "ginseng for energy and performance"],
@@ -818,7 +902,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325395555",
         "key_search_terms": "female fertility supplements, conception aid for women, reproductive health support, hormone balance vitamins, prenatal wellness, natural fertility boost, women's fertility vitamins",
         "seo_targets": {
             "long_tail": ["best female fertility supplements for conception", "natural conception aid with maca and ashwagandha", "reproductive health support for women", "hormone balance vitamins for fertility", "prenatal wellness supplements for women"],
@@ -845,12 +929,54 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325395531",
         "key_search_terms": "keto booster supplements, extra strength keto pills, weight loss keto, enhanced focus supplements, fat metabolism booster, ketogenic diet support, mental clarity vitamins",
         "seo_targets": {
             "long_tail": ["best keto booster supplements for weight loss", "extra strength keto pills for fat metabolism", "ketogenic diet supplements for mental clarity", "enhanced focus and energy keto pills", "advanced keto booster for ketosis"],
             "short_tail": ["keto booster", "keto pills", "weight loss keto", "fat metabolism", "mental clarity"]
-        }
+        },
+        "faqs": [
+            {
+                "question": "How does KETO CORE help with weight loss on a keto diet?",
+                "answer": "KETO CORE contains ingredients like Raspberry Ketone, Garcinia Cambogia, and Green Coffee Bean Extract that support fat metabolism and help your body burn fat more efficiently. It complements a ketogenic diet by boosting your body's natural fat-burning processes."
+            },
+            {
+                "question": "Will KETO CORE help me get into ketosis faster?",
+                "answer": "KETO CORE supports your body's transition to ketosis by enhancing fat metabolism. While it's not a replacement for following a proper keto diet (low carb, high fat), it can help optimize your body's ability to use fat for fuel."
+            },
+            {
+                "question": "Does KETO CORE contain caffeine? Will it keep me awake?",
+                "answer": "Yes, KETO CORE contains 260mg of Caffeine Anhydrous per serving (2 capsules) plus Green Tea Extract. This provides energy and mental focus but may affect sleep if taken late in the day. We recommend taking it in the morning or early afternoon."
+            },
+            {
+                "question": "How long does it take to see results with KETO CORE?",
+                "answer": "Many users notice increased energy and mental clarity within the first few days. For weight loss results, consistent use for 4-8 weeks combined with a ketogenic diet and exercise typically shows the best outcomes."
+            },
+            {
+                "question": "Can I take KETO CORE if I'm not on a strict keto diet?",
+                "answer": "Yes! While KETO CORE is optimized for those following a ketogenic diet, the fat-burning and metabolism-boosting ingredients can benefit anyone looking to support weight management and increase energy levels."
+            },
+            {
+                "question": "What makes KETO CORE 'Extra Strength' compared to other keto supplements?",
+                "answer": "KETO CORE Extra Strength features higher concentrations of key ingredients: 260mg each of Green Coffee Bean, Raspberry Ketone, Garcinia Cambogia, Caffeine, and Green Tea Extract - providing comprehensive metabolic support in every serving."
+            },
+            {
+                "question": "Are there any side effects from KETO CORE?",
+                "answer": "KETO CORE is generally well-tolerated. Due to the caffeine content, some users may experience jitters or difficulty sleeping if taken too late. Start with one capsule to assess tolerance. Not recommended for those sensitive to caffeine."
+            },
+            {
+                "question": "How should I take KETO CORE for best results?",
+                "answer": "Take 2 capsules daily with a meal and water, preferably in the morning or early afternoon. For best weight loss results, combine with a ketogenic or low-carb diet and regular exercise. Stay hydrated throughout the day."
+            },
+            {
+                "question": "Can I take KETO CORE with other supplements?",
+                "answer": "KETO CORE can be combined with most supplements. However, avoid taking with other caffeine-containing products to prevent excessive stimulation. If taking medications, consult your healthcare provider before use."
+            },
+            {
+                "question": "Is KETO CORE suitable for vegetarians?",
+                "answer": "Yes, KETO CORE uses vegetable capsules (Hypromellose) and contains no animal-derived ingredients, making it suitable for vegetarians following a keto lifestyle."
+            }
+        ]
     },
     "39969-861": {
         "sku": "39969-861",
@@ -874,7 +1000,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325395036",
         "key_search_terms": "vocal health supplements, singer's voice support, lung and larynx health, vocal performance vitamins, respiratory health for singers, voice strain relief, organic vocal supplements",
         "seo_targets": {
             "long_tail": ["best vocal health supplements for singers", "lung and larynx support for vocal performance", "natural voice strain relief vitamins", "respiratory health supplements for singers", "organic vocal support for performers"],
@@ -900,12 +1026,54 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325395067",
         "key_search_terms": "colon cleanse supplements, natural body detox pills, digestive health support, psyllium husk colon cleanse, senna leaf detox, aloe vera gut health, bowel movement support",
         "seo_targets": {
             "long_tail": ["best colon cleanse supplements for detoxification", "natural body detox pills with psyllium husk", "digestive health support with senna leaf", "aloe vera supplements for gut health", "colon cleanse for regular bowel movements"],
             "short_tail": ["colon cleanse", "detox pills", "digestive health", "gut cleanse", "bowel support"]
-        }
+        },
+        "faqs": [
+            {
+                "question": "How does Colon Cleanse help with digestive health and detoxification?",
+                "answer": "Colon Cleanse combines Psyllium Husk (fiber for bulk and toxin removal), Senna Leaf (natural laxative for bowel movements), Aloe Vera (soothes digestive tract), and Probiotics (supports gut bacteria). Together, they help eliminate waste, reduce bloating, and promote regular bowel movements."
+            },
+            {
+                "question": "How quickly does Colon Cleanse work?",
+                "answer": "Most users experience results within 6-12 hours after taking Colon Cleanse due to the Senna Leaf content. For a thorough cleanse, we recommend using for 7-14 days. The Psyllium Husk provides gentle, ongoing digestive support."
+            },
+            {
+                "question": "Is Colon Cleanse safe for regular use?",
+                "answer": "Colon Cleanse is designed for periodic cleansing (7-14 day cycles) rather than continuous daily use. The Senna Leaf is a stimulant laxative best used short-term. For ongoing digestive support, consider taking breaks between cleanse cycles."
+            },
+            {
+                "question": "Will Colon Cleanse cause cramping or discomfort?",
+                "answer": "Our formula is designed to be gentle yet effective. The Aloe Vera helps soothe the digestive tract. Some users may experience mild cramping initially as the body adjusts. Start with one capsule to assess tolerance, then increase to the full dose."
+            },
+            {
+                "question": "Can Colon Cleanse help with weight loss?",
+                "answer": "Colon Cleanse helps eliminate waste and reduce bloating, which may result in temporary weight reduction. While it's not a weight loss supplement, many users feel lighter and less bloated after a cleanse, which can kickstart a healthier lifestyle."
+            },
+            {
+                "question": "What are the benefits of Psyllium Husk in this formula?",
+                "answer": "Psyllium Husk is a soluble fiber that absorbs water and forms a gel-like substance, helping to bulk up stool and promote regular bowel movements. It also helps trap and remove toxins from the digestive tract while supporting healthy cholesterol levels."
+            },
+            {
+                "question": "Does Colon Cleanse contain probiotics?",
+                "answer": "Yes! Colon Cleanse includes Lactobacillus Acidophilus (1 Billion CFU), a beneficial probiotic that helps restore healthy gut bacteria after cleansing. This supports long-term digestive health and immune function."
+            },
+            {
+                "question": "How should I take Colon Cleanse for best results?",
+                "answer": "Take 2 capsules daily with a full glass of water, preferably in the evening. Drink plenty of water throughout the day (8+ glasses) to help the fiber work effectively. For a complete cleanse, use for 7-14 days."
+            },
+            {
+                "question": "Can I take Colon Cleanse while on medications?",
+                "answer": "Colon Cleanse may affect the absorption of some medications. Take medications at least 2 hours before or after taking Colon Cleanse. If you're on prescription medications, consult your healthcare provider before starting any cleanse."
+            },
+            {
+                "question": "Is Colon Cleanse suitable for vegetarians?",
+                "answer": "Yes, Colon Cleanse uses vegetable capsules and contains plant-based ingredients including Psyllium Husk, Senna Leaf, and Aloe Vera, making it suitable for vegetarians seeking digestive support."
+            }
+        ]
     },
     "11209-221": {
         "sku": "11209-221",
@@ -928,12 +1096,54 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325395210",
         "key_search_terms": "hair growth supplements, biotin for hair, collagen hair vitamins, reduce hair loss, stronger hair pills, saw palmetto hair, thicker hair supplements",
         "seo_targets": {
             "long_tail": ["best hair growth supplements with biotin and collagen", "natural hair loss reduction vitamins", "stronger healthier hair supplements", "saw palmetto for hair thinning", "thicker hair vitamins for men and women"],
             "short_tail": ["hair growth pills", "biotin supplements", "hair vitamins", "reduce hair loss", "thicker hair"]
-        }
+        },
+        "faqs": [
+            {
+                "question": "How does this Hair Growth Supplement help with hair loss?",
+                "answer": "Our formula combines Biotin (5000mcg) for keratin production, Saw Palmetto to block DHT (the hormone linked to hair loss), Collagen for hair structure, and botanical extracts like Horsetail and Fo-Ti that nourish hair follicles. This multi-pronged approach addresses hair loss from multiple angles."
+            },
+            {
+                "question": "How long does it take to see results from hair growth supplements?",
+                "answer": "Hair grows approximately 1/2 inch per month. Most users notice reduced shedding within 4-6 weeks and visible new growth within 2-3 months. For best results, take consistently for at least 3-6 months as hair growth is a gradual process."
+            },
+            {
+                "question": "Is this hair supplement suitable for both men and women?",
+                "answer": "Yes! Our Hair Growth Supplement is formulated for both men and women experiencing hair thinning, slow growth, or hair loss. The ingredients like Biotin, Collagen, and Saw Palmetto benefit all hair types regardless of gender."
+            },
+            {
+                "question": "What does Biotin do for hair growth?",
+                "answer": "Biotin (Vitamin B7) is essential for producing keratin, the protein that makes up your hair. Our formula contains 5000mcg of Biotin - a therapeutic dose that supports stronger, thicker hair growth and helps prevent breakage and brittleness."
+            },
+            {
+                "question": "How does Saw Palmetto help prevent hair loss?",
+                "answer": "Saw Palmetto naturally blocks 5-alpha-reductase, the enzyme that converts testosterone to DHT. DHT is the primary hormone responsible for pattern hair loss in both men and women. By reducing DHT levels, Saw Palmetto helps protect hair follicles."
+            },
+            {
+                "question": "Will this supplement help with thinning hair or just promote new growth?",
+                "answer": "Both! The formula addresses thinning by strengthening existing hair with Collagen and Keratin, while promoting new growth through Biotin and follicle-nourishing botanicals like Fo-Ti and Horsetail Extract. It also reduces shedding with Saw Palmetto."
+            },
+            {
+                "question": "Are there any side effects from hair growth supplements?",
+                "answer": "Our Hair Growth Supplement uses natural, well-tolerated ingredients. Biotin is water-soluble, so excess is safely excreted. Some users notice improved skin and nails as a bonus. If you have hormone-sensitive conditions, consult your doctor regarding Saw Palmetto."
+            },
+            {
+                "question": "How should I take the Hair Growth Supplement for best results?",
+                "answer": "Take 2 capsules daily with a meal and water. Taking with food helps absorption of the fat-soluble vitamins. Consistency is crucial - take daily for at least 3 months to see significant results. Stay hydrated for optimal hair health."
+            },
+            {
+                "question": "Can I take this with other vitamins or supplements?",
+                "answer": "Yes, our Hair Growth Supplement can be combined with most other vitamins. However, if you're already taking a multivitamin with Biotin, be mindful of total Biotin intake. High Biotin levels can affect certain lab tests - inform your doctor if having bloodwork."
+            },
+            {
+                "question": "Does this supplement help with hair damaged from heat styling or coloring?",
+                "answer": "Yes! The Collagen, Keratin, and Vitamin E in our formula help repair and strengthen damaged hair. While it won't reverse existing damage, it supports healthier new growth and helps protect hair from future damage by fortifying each strand."
+            }
+        ]
     },
     "14182-303": {
         "sku": "14182-303",
@@ -956,7 +1166,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325395173",
         "key_search_terms": "digestive enzymes supplements, probiotics for digestion, reduce bloating pills, gut health support, nutrient absorption vitamins, digestive health formula, enzyme probiotic blend",
         "seo_targets": {
             "long_tail": ["best digestive enzymes with probiotics for bloating", "gut health supplements for nutrient absorption", "digestive health formula with enzymes", "probiotics for better digestion", "reduce bloating supplements with enzymes"],
@@ -983,7 +1193,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325395340",
         "key_search_terms": "multi-collagen supplements, collagen for skin hair nails, joint health collagen, types I II III V X collagen, anti-aging collagen, skin elasticity vitamins, collagen peptides",
         "seo_targets": {
             "long_tail": ["best multi-collagen supplements for skin and joints", "collagen types I II III V X for anti-aging", "joint health collagen peptides", "skin elasticity vitamins with collagen", "collagen supplements for hair and nails"],
@@ -1011,7 +1221,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325395098",
         "key_search_terms": "blood sugar supplements, glucose control vitamins, berberine for blood sugar, cinnamon blood sugar support, insulin sensitivity supplements, metabolic health, diabetes support vitamins",
         "seo_targets": {
             "long_tail": ["best blood sugar supplements with berberine", "natural glucose control vitamins with cinnamon", "insulin sensitivity supplements for diabetes", "metabolic health support for blood sugar", "blood sugar management with alpha-lipoic acid"],
@@ -1038,7 +1248,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325395388",
         "key_search_terms": "oral health probiotic, fresh breath supplements, teeth and gum health, oral microbiome balance, dental hygiene vitamins, plaque prevention, gum disease support",
         "seo_targets": {
             "long_tail": ["best oral health probiotic for fresh breath", "teeth and gum health supplements with probiotics", "oral microbiome balance for dental hygiene", "plaque prevention vitamins with probiotics", "gum disease support supplements"],
@@ -1064,7 +1274,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325395166",
         "key_search_terms": "beauty sleep supplements, melatonin sleep aid, 5-HTP for relaxation, natural sleep pills, chamomile valerian sleep, restful sleep vitamins, sleep quality support",
         "seo_targets": {
             "long_tail": ["best beauty sleep supplements with melatonin", "5-HTP and melatonin for restful sleep", "natural sleep aid with chamomile and valerian", "sleep quality support vitamins", "relaxation supplements for better sleep"],
@@ -1091,7 +1301,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325395739",
         "key_search_terms": "Irish sea moss supplements, immune support vitamins, bladderwrack thyroid health, burdock root detox, organic sea moss, skin and joint health, nutrient-dense seaweed",
         "seo_targets": {
             "long_tail": ["best Irish sea moss supplements for immune support", "organic sea moss with bladderwrack for thyroid", "burdock root detox supplements", "skin and joint health with sea moss", "nutrient-dense seaweed vitamins"],
@@ -1118,7 +1328,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325395982",
         "key_search_terms": "ginseng supplements, ginkgo biloba cognitive support, red Korean panax root, energy boost vitamins, mental clarity supplements, immune health support, focus and memory",
         "seo_targets": {
             "long_tail": ["best ginseng supplements with ginkgo biloba", "red Korean panax root for energy and focus", "cognitive support vitamins for mental clarity", "immune health supplements with ginseng", "memory and focus supplements with ginkgo"],
@@ -1146,7 +1356,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325396040",
         "key_search_terms": "maca root supplements, organic maca for energy, red black yellow maca, stamina and libido boost, hormonal balance vitamins, adaptogen supplements, performance enhancement",
         "seo_targets": {
             "long_tail": ["best organic maca root supplements for energy", "red black yellow maca for stamina and libido", "hormonal balance vitamins with maca", "adaptogen supplements for performance", "maca root for men and women"],
@@ -1173,7 +1383,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325396217",
         "key_search_terms": "ashwagandha supplements, stress relief vitamins, muscle health support, organic adaptogen, anxiety reduction, sleep quality improvement, natural relaxation",
         "seo_targets": {
             "long_tail": ["best organic ashwagandha supplements for stress relief", "muscle health support with ashwagandha", "natural adaptogen for anxiety reduction", "sleep quality improvement vitamins", "ashwagandha for relaxation and well-being"],
@@ -1201,7 +1411,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "701575296491",
         "key_search_terms": "booty growth supplements, butt enhancement vitamins, curves support pills, muscle growth for glutes, body contouring supplements, firmer booty vitamins, natural curves enhancement",
         "seo_targets": {
             "long_tail": ["best booty growth supplements for curves", "butt enhancement vitamins for firmer glutes", "natural body contouring supplements", "muscle growth vitamins for booty", "curves support pills for women"],
@@ -1228,7 +1438,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "651536055608",
         "key_search_terms": "estrogen enhancement supplements, hormone balance vitamins, menopause relief, dong quai for women, maca hormonal support, hot flash relief, women's hormonal health",
         "seo_targets": {
             "long_tail": ["best estrogen enhancement supplements for hormone balance", "menopause relief vitamins with dong quai", "maca and ashwagandha for hormonal support", "hot flash relief supplements for women", "natural hormone balance for women"],
@@ -1255,7 +1465,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "651536055325",
         "key_search_terms": "saffron extract supplements, appetite suppressant natural, metabolism booster, weight management pills, mood enhancement vitamins, hunger control, saffron for weight loss",
         "seo_targets": {
             "long_tail": ["best saffron extract supplements for appetite suppression", "natural metabolism booster for weight loss", "mood enhancement vitamins with saffron", "hunger control supplements for weight management", "saffron extract for emotional eating"],
@@ -1281,7 +1491,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "651074168501",
         "key_search_terms": "carb blocker supplements, white kidney bean extract, appetite suppression, weight management pills, low carb diet support, calorie reduction, keto diet supplements",
         "seo_targets": {
             "long_tail": ["best carb blocker supplements with white kidney bean", "appetite suppression for low carb diets", "weight management pills for calorie reduction", "keto diet supplements for carb control", "natural carb blocker for weight loss"],
@@ -1307,7 +1517,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "651074168570",
         "key_search_terms": "berberine supplements, blood sugar management, weight loss support, insulin sensitivity vitamins, metabolism booster, heart health supplements, glucose regulation",
         "seo_targets": {
             "long_tail": ["best berberine supplements for blood sugar management", "weight loss support with berberine", "insulin sensitivity vitamins for diabetes", "metabolism booster for healthy weight", "berberine for heart health and glucose"],
@@ -1335,7 +1545,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "651074168440",
         "key_search_terms": "prostate health supplements, saw palmetto for men, urinary function support, quercetin prostate, men's wellness vitamins, bladder health, nighttime bathroom relief",
         "seo_targets": {
             "long_tail": ["best prostate health supplements with saw palmetto", "urinary function support for men", "quercetin and juniper for prostate health", "men's wellness vitamins for bladder health", "nighttime bathroom relief supplements"],
@@ -1362,7 +1572,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "635635749835",
         "key_search_terms": "women's multivitamin, mood and beauty vitamins, daily women's health, energy boost for women, antioxidant supplements, herbal adaptogens, women's wellness",
         "seo_targets": {
             "long_tail": ["best women's multivitamin for mood and beauty", "daily women's health vitamins with antioxidants", "energy boost supplements for women", "herbal adaptogens for women's wellness", "mood enhancement vitamins for women"],
@@ -1390,12 +1600,54 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "701575296285",
         "key_search_terms": "lung detox supplements, respiratory health support, mullein for lungs, marshmallow root breathing, lung cleanse vitamins, smoker's lung detox, immune health respiratory",
         "seo_targets": {
             "long_tail": ["best lung detox supplements with mullein", "respiratory health support with marshmallow root", "lung cleanse vitamins for smokers", "herbal lung detox for better breathing", "immune health supplements for respiratory function"],
             "short_tail": ["lung detox", "respiratory health", "lung cleanse", "breathing support", "immune health"]
-        }
+        },
+        "faqs": [
+            {
+                "question": "How does Lung Detox help cleanse and support respiratory health?",
+                "answer": "Lung Detox combines powerful herbs like Mullein and Marshmallow Root that have been traditionally used to soothe and cleanse the respiratory system. Mullein helps reduce inflammation in the airways while Marshmallow Root coats and soothes mucous membranes, helping to expel toxins and support easier breathing."
+            },
+            {
+                "question": "Is Lung Detox effective for smokers or former smokers?",
+                "answer": "Yes, Lung Detox is specifically formulated to help remove toxins that accumulate from smoking and environmental pollutants. The combination of Mullein, antioxidants like Lutein and Lycopene, and immune-boosting ingredients helps support the body's natural cleansing processes for healthier lungs."
+            },
+            {
+                "question": "How long should I take Lung Detox to see results?",
+                "answer": "Most users notice improvements in breathing and respiratory comfort within 2-4 weeks. For a thorough lung cleanse, we recommend taking Lung Detox for at least 60-90 days. Those with significant exposure to pollutants or smoking may benefit from longer-term use."
+            },
+            {
+                "question": "What are the key ingredients in Lung Detox and their benefits?",
+                "answer": "Lung Detox features Mullein (reduces respiratory inflammation), Marshmallow Root (soothes airways), Ginger (anti-inflammatory), Stinging Nettle (reduces irritation), plus an Antioxidant Blend with Green Tea and Grape Seed Extract, and an Immune Support Blend with Echinacea, Beta Glucan, and Spirulina."
+            },
+            {
+                "question": "Can I take Lung Detox if I have asthma or other respiratory conditions?",
+                "answer": "While Lung Detox contains natural ingredients that support respiratory health, if you have asthma, COPD, or other respiratory conditions, please consult your healthcare provider before starting any new supplement to ensure it's appropriate for your specific situation."
+            },
+            {
+                "question": "Is Lung Detox safe for daily long-term use?",
+                "answer": "Yes, Lung Detox is made with natural, high-quality ingredients and is designed for daily use. It's manufactured in an FDA-compliant, GMP-certified facility. For ongoing respiratory support, many customers continue taking it as part of their daily wellness routine."
+            },
+            {
+                "question": "How should I take Lung Detox for best results?",
+                "answer": "Take 2 veggie capsules once daily after a meal with an 8oz glass of water. Taking with food helps with absorption and reduces any potential stomach sensitivity. Consistency is key for optimal lung cleansing benefits."
+            },
+            {
+                "question": "Does Lung Detox help with allergies and seasonal respiratory issues?",
+                "answer": "Yes, ingredients like Stinging Nettle and Echinacea in Lung Detox have natural antihistamine and immune-supporting properties that may help reduce seasonal respiratory discomfort and support the body's response to environmental allergens."
+            },
+            {
+                "question": "Can Lung Detox help improve breathing during exercise?",
+                "answer": "Many users report improved breathing capacity and endurance after using Lung Detox regularly. By supporting clearer airways and reducing inflammation, the supplement may help optimize oxygen intake during physical activity."
+            },
+            {
+                "question": "Is Lung Detox suitable for vegetarians and vegans?",
+                "answer": "Yes, Lung Detox uses vegetable capsules (Hypromellose) and contains no animal-derived ingredients, making it suitable for vegetarians and vegans seeking respiratory support."
+            }
+        ]
     },
     "20646-838": {
         "sku": "20646-838",
@@ -1417,12 +1669,54 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "701575296378",
         "key_search_terms": "mushroom immune supplements, lung health immunity, reishi cordyceps chaga, medicinal mushrooms, respiratory health support, immune system boost, organic mushroom blend",
         "seo_targets": {
             "long_tail": ["best mushroom immune supplements for lung health", "reishi cordyceps chaga for immunity", "medicinal mushrooms for respiratory support", "organic mushroom blend for immune boost", "lung health supplements with mushrooms"],
             "short_tail": ["mushroom supplements", "immune boost", "lung health", "reishi cordyceps", "medicinal mushrooms"]
-        }
+        },
+        "faqs": [
+            {
+                "question": "What are the benefits of medicinal mushrooms for immune and lung health?",
+                "answer": "Medicinal mushrooms like Reishi, Cordyceps, and Chaga contain powerful beta-glucans and polysaccharides that support immune function. Cordyceps specifically enhances oxygen uptake and lung capacity, while Reishi reduces inflammation and supports respiratory health. Together, they provide comprehensive immune and lung support."
+            },
+            {
+                "question": "How does Cordyceps improve lung function and breathing?",
+                "answer": "Cordyceps has been used for centuries to enhance respiratory function. It increases oxygen utilization in the body, improves lung capacity, and boosts ATP production for better energy. Athletes often use Cordyceps to improve endurance and breathing efficiency during exercise."
+            },
+            {
+                "question": "Are the mushrooms in this supplement organic and safe?",
+                "answer": "Yes, our Mushroom Immune Aid contains 100% organic mushroom extracts including Reishi, Cordyceps, Chaga, Turkey Tail, Shiitake, Lion's Mane, and Maitake. All mushrooms are sourced from certified organic farms and processed in a GMP-certified facility for safety and potency."
+            },
+            {
+                "question": "How long does it take to feel the immune-boosting effects?",
+                "answer": "Many users notice improved energy and vitality within 1-2 weeks. For full immune system support, we recommend consistent use for 4-8 weeks as the beneficial compounds build up in your system. Long-term use provides the best results for immune resilience."
+            },
+            {
+                "question": "Can I take Mushroom Immune Aid daily for ongoing immune support?",
+                "answer": "Absolutely! Mushroom Immune Aid is designed for daily use as part of your wellness routine. The organic mushroom blend provides ongoing immune support, and many customers take it year-round for consistent protection and vitality."
+            },
+            {
+                "question": "What makes this mushroom blend different from single-mushroom supplements?",
+                "answer": "Our formula combines 7 powerful medicinal mushrooms plus Vitamin C, D3, and Zinc for synergistic benefits. Each mushroom offers unique properties - Reishi for stress and immunity, Cordyceps for energy and lungs, Lion's Mane for cognitive function, and Chaga for antioxidants - providing comprehensive support."
+            },
+            {
+                "question": "Is Mushroom Immune Aid suitable for vegetarians?",
+                "answer": "Yes, Mushroom Immune Aid is 100% vegetarian and vegan-friendly. It uses vegetable capsules and contains only plant-based organic mushroom extracts with no animal-derived ingredients."
+            },
+            {
+                "question": "Can I take this with other supplements or medications?",
+                "answer": "Mushroom supplements are generally safe to combine with other vitamins. However, if you're taking immunosuppressants, blood thinners, or diabetes medications, please consult your healthcare provider as some mushrooms may interact with these medications."
+            },
+            {
+                "question": "How should I take Mushroom Immune Aid for best results?",
+                "answer": "Take 2 veggie capsules daily with a meal and water. For enhanced absorption, take with a meal containing healthy fats. Consistency is key - daily use provides the best immune-supporting benefits."
+            },
+            {
+                "question": "Does this supplement help with seasonal immune challenges?",
+                "answer": "Yes! The combination of immune-boosting mushrooms with Vitamin C, D3, and Zinc makes this formula excellent for seasonal immune support. Many customers increase their intake during cold and flu season for extra protection."
+            }
+        ]
     },
     "20645-306": {
         "sku": "20645-306",
@@ -1444,7 +1738,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "701575296323",
         "key_search_terms": "lung and body immune support, echinacea probiotics, elderberry vitamin C, respiratory vitality, immune boost supplements, digestive health, total body wellness",
         "seo_targets": {
             "long_tail": ["best lung and body immune support with echinacea", "elderberry and vitamin C for immune boost", "probiotics for respiratory and digestive health", "total body wellness supplements", "immune support with probiotics and elderberry"],
@@ -1471,7 +1765,7 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325395357",
         "key_search_terms": "elderberry lung therapy, lung detox pills, sambucus respiratory health, mullein marshmallow root, immune boost elderberry, lung cleanse supplements, respiratory detoxification",
         "seo_targets": {
             "long_tail": ["best elderberry lung therapy detox pills", "sambucus respiratory health supplements", "mullein and marshmallow root for lung cleanse", "immune boost with elderberry extract", "lung detoxification supplements natural"],
@@ -1485,6 +1779,7 @@ const PRODUCTS_DATA = {
         "category": "Unisex",
         "description": "Maximum Strength Height Growth Support!\n\nAchieve your growth potential with Maximum Strength Height Growth Support by Success Chemistry. This doctor-recommended supplement features 13 essential nutrients to support healthy bone and joint function, contributing to overall skeletal health and development.\n\nKey Ingredients and Their Benefits:\n\nTurmeric Powder (800mg): Known for its antioxidant and soothing properties to support joint health.\nGlucosamine Sulfate (200mg): Helps maintain healthy cartilage and joint function.\nTurmeric 95% Curcuminoids (100mg): Provides concentrated antioxidant support.\nGinger Extract (100mg): Promotes joint health and helps reduce discomfort.\nChondroitin Sulfate (50mg): Supports cartilage and joint flexibility.\nFrankincense Extract (40mg): Known for soothing properties.\nMSM (10mg): Supports connective tissue health.\nBioPerine® (10mg): Enhances nutrient absorption.\nQuercetin (8mg): Antioxidant that supports bone health.\nL-Methionine (8mg): Promotes joint health.\nBromelain (8mg): Supports joint comfort.\n\n \nWhy Choose Maximum Strength Height Growth Support?\n\nSupports Bone Health: Formulated to help maintain healthy bone growth and development.\nComprehensive Joint Support: A blend of 13 essential nutrients to support bone and joint health.\nDoctor Recommended: Trusted by healthcare professionals for safety and quality.\nNon-GMO and Natural: Made with high-quality, non-GMO ingredients for a natural approach.\nEnhanced Absorption: BioPerine® promotes optimal absorption, maximizing the benefits of each nutrient.\n\n \nReach Your Height Potential Naturally\nWith Maximum Strength Height Growth Support by Success Chemistry, you can trust in a formula designed to support your bone and joint health. Ideal for growing teens and adults looking to enhance their stature, this supplement provides essential nutrients for optimal growth. Invest in your journey towards achieving your height potential with our safe and effective formula.",
         "short_description": "Boost your height naturally with Maximum Strength Height Growth Support. Doctor-recommended supplement with 13 essential nutrients for bone and joint health. Non-GMO, 60 veggie capsules",
+        "suggested_use": "As a dietary supplement take two (2) veggie capsules once a day after a meal with an 8oz. glass of water or as directed by your healthcare professional.",
         "images": [
             "/images/products/14180-830/01.jpg",
             "/images/products/14180-830/02.jpg",
@@ -1496,8 +1791,9 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "651074168143",
         "key_search_terms": "height growth supplements, bone health vitamins, joint support nutrients, turmeric glucosamine, skeletal development, growth support for teens, natural height boost",
+        "supplement_facts": "Serving Size: 2 Capsules\nServings Per Container: 30\n\nTurmeric Root 800 mg\nGlucosamine Sulfate 200 mg\nTurmeric 95% 100 mg\nGinger Extract 100 mg\nChondroitin Sulfate 50 mg\nBoswellia Extract 40 mg\nMSM (Methylsulfonylmethane) 10 mg\nBioPerine® 10 mg\nQuercetin 8 mg\nMethionine 8 mg\nBromelain 8 mg\n\nInactive Ingredients: Cellulose (Vegetable Capsule), Rice Flour.\nContains: Shellfish.",
         "seo_targets": {
             "long_tail": ["best height growth supplements with essential nutrients", "bone and joint health vitamins for growth", "turmeric and glucosamine for skeletal support", "natural height boost supplements for teens", "growth support vitamins with BioPerine"],
             "short_tail": ["height growth", "bone health", "joint support", "growth vitamins", "skeletal health"]
@@ -1510,6 +1806,7 @@ const PRODUCTS_DATA = {
         "category": "Unisex",
         "description": "Transform your lashes and brows with Cosmic Icon® Eyelash Growth and Eyebrow Dietary Supplement by Success Chemistry. This advanced dietary supplement is crafted to naturally stimulate hair follicles, encouraging faster growth and stronger, healthier eyelashes and eyebrows. Each serving delivers 500mg plus of a potent blend of natural ingredients, ensuring optimal results.\nKey Ingredients and Their Benefits\n\nP-amino Benzoic Acid (PABA): Known for supporting natural hair color and preventing hair loss, PABA enhances overall hair follicle health and promotes robust growth.\nHorsetail Extract (Equisetum arvense L.): Rich in silica, this extract strengthens hair strands, reduces breakage, and enhances shine, fostering healthier growth.\nFo-Ti (Polygonum multiflorum): A traditional Chinese herb that nourishes hair follicles, promoting hair growth and preventing thinning.\nBamboo Extract (Phyllostachys viridis): A silica-rich extract that supports hair strength and elasticity, reducing breakage and encouraging thicker growth.\nStinging Nettle (Urtica dioica L.): Known for its anti-inflammatory properties, stinging nettle reduces scalp irritation, promoting healthier hair follicles.\nChinese Peony (Paeonia lactiflora): Enhances blood circulation, delivering essential nutrients to hair follicles and promoting healthy growth.\nSpirulina (Arthrospira platensis): Packed with proteins, vitamins, and minerals, spirulina nourishes hair follicles, supporting overall hair health and growth.\nSaw Palmetto (Serenoa repens): Helps block DHT, a hormone linked to hair loss, encouraging fuller and thicker growth.\nPlant Sterols (from Soy Bean): Support healthy hair growth by improving scalp health and providing essential nutrients to hair follicles.\nAlfalfa (Medicago sativa): Rich in vitamins and minerals, alfalfa supports overall hair health and stronger growth.\nBarley Grass (Hordeum vulgare L.): Contains essential nutrients that support hair growth, strength, and texture.\n\n \nWhy Choose Cosmic Icon® Eyelash Growth and Eyebrow Dietary Supplement?\n\nPromotes Hair Growth: Specially formulated to stimulate hair follicles for longer, fuller eyelashes and thicker eyebrows.\nStrengthens and Nourishes: A blend of biotin, peptides, and botanical extracts strengthens hair from the root, reducing breakage and enhancing overall hair health.\nConvenient Capsule Form: Easy-to-swallow capsules provide the full benefits of our powerful formula in each serving.\nSafe and Natural: Made from natural ingredients, free from harsh chemicals, and suitable for all hair and skin types.\n\nAchieve Beautiful Lashes and Brows Naturally\nElevate your beauty routine with Cosmic Icon® Eyelash Growth and Eyebrow Dietary Supplement by Success Chemistry. Our advanced formula harnesses the power of natural ingredients to promote longer, fuller lashes and thicker brows. Experience the confidence of beautiful, voluminous lashes and brows with our expertly crafted supplement.",
         "short_description": "Achieve longer, fuller lashes and thicker brows with Cosmic Icon Eyelash Growth and Eyebrow Dietary Supplement. Our 30-day supply provides 500mg plus per serving of natural ingredients to promote stronger, healthier hair. Enhance your beauty routine naturally.",
+        "suggested_use": "As a dietary supplement take two (2) veggie capsules once a day after a meal with an 8oz. glass of water or as directed by your healthcare professional.",
         "images": [
             "/images/products/3008-221/01.png",
             "/images/products/3008-221/02.png",
@@ -1520,8 +1817,9 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "635635749798",
         "key_search_terms": "eyelash growth supplements, eyebrow enhancement vitamins, longer fuller lashes, thicker brows naturally, hair follicle support, biotin for lashes, natural lash growth",
+        "supplement_facts": "Serving Size: 2 Capsules\nServings Per Container: 30\n\nVitamin A (as Beta-carotene) 120 mcg RAE 13%\nVitamin C (as Ascorbic acid) 120 mg 133%\nCalcium (as Calcium carbonate) 80 mg 6%\nIron (as Ferrous fumarate) 14.5 mg 81%\nVitamin D3 (as Cholecalciferol) 20 mcg 100%\nVitamin E (as DL-Alpha tocopheryl acetate) 14 mg 93%\nVitamin B1 (as Thiamine mononitrate) 6 mg 500%\nVitamin B6 (as Pyridoxine HCl) 8 mg 471%\nFolate 1,467 mcg DFE 367%\nVitamin B12 (as Cyanocobalamin) 12 mcg 500%\nBiotin 600 mcg 2,000%\nVitamin B5 (as D-Calcium pantothenate) 30 mg 600%\nMagnesium (as Magnesium Oxide) 120 mg 29%\nZinc (as Zinc Oxide) 7 mg 64%\nManganese (as Manganese amino acid chelate) 4 mg 174%\nPotassium (as Potassium gluconate) 12 mg\nProprietary Blend: 409 mg (PABA, L-Tyrosine HCL, Horsetail extract, Fo-Ti, Bamboo extract, Nettle root, Peony, Spirulina, Saw palmetto, Plant sterols, Alfalfa, Barley grass)\n\nInactive Ingredients: Cellulose (Vegetable Capsule), Rice Flour, Magnesium stearate, Silicon dioxide. Contains: Soy.",
         "seo_targets": {
             "long_tail": ["best eyelash growth supplements for longer lashes", "eyebrow enhancement vitamins for thicker brows", "natural hair follicle support for lashes", "biotin supplements for lash and brow growth", "fuller lashes and brows naturally"],
             "short_tail": ["eyelash growth", "eyebrow vitamins", "lash supplements", "thicker brows", "hair growth"]
@@ -1532,26 +1830,68 @@ const PRODUCTS_DATA = {
         "name": "Sclera White - Eye Beauty Dietary Supplement With Eyebright & Lutein",
         "price": 27.36,
         "category": "Best Sellers",
-        "description": "Sclera White Dietary Supplement for Eyes With Eyebright Whiting & Lutein Yellow Eyes Relief Sclera White  Eye-Whitening Vitamin Supplement!\n\n\n \nTransform your eye health with Sclera White - the ultimate dietary supplement designed to enhance your natural beauty. Enriched with Eyebright and Lutein, this powerful formula promotes the health of ocular tissues while helping to whiten your eyes. Experience relief from yellowing with our expertly crafted lutein supplement for eye health, featuring lutein and bilberry extract to support vibrant vision.\nSay goodbye to dullness! Sclera White is not just another eye whitening solution; it’s your go-to for achieving that bright, captivating gaze. Perfect for those searching for eye whitening drops trending on TikTok, our unique blend includes lutein and zeaxanthin, which are essential for maintaining eye wellness.\nBoost your daily routine with these lutein eye vitamins, and discover the difference in clarity and brightness. Why settle for ordinary when you can enhance your look with our whitening eye drops? Inspired by popular products like Lumify and Meibo, Sclera White is your all-in-one lutein complex to elevate your eye beauty.\nUnlock the secret to stunning eyes with Sclera White - where eye health meets beauty!\nSclera White is made in Utah, USA, using organically sourced extracts. Your bottles are manufactured in a FDA-compliant facility operating with GMP guidelines featuring:\n \n\n\n\nEyebright\n Traditionally used for eye health, particularly for reducing inflammation and irritation. While there's anecdotal evidence supporting its use for soothing eye strain and reducing redness, scientific research is limited. It's primarily used in homeopathic and herbal medicine.\n\n\n\n\nLutein\nThis carotenoid is well-studied for its benefits in eye health. It's found in the macula of the eye and helps in absorbing high-energy blue light, thereby reducing the risk of AMD and cataracts. Supplementing with lutein can improve visual function, particularly in older adults.\n\n\n\n\nZeaxanthin\nSimilar to lutein, zeaxanthin is concentrated in the eye's macula. Together, they form the macular pigment which protects against blue light from digital devices. Studies suggest that zeaxanthin supplementation can enhance visual performance and reduce glare discomfort.\n\n\n\n\nLycopene\nThis antioxidant is known for its role in protecting against oxidative damage from light, which might contribute to clearer eyes. While not as extensively studied for eye health as lutein or zeaxanthin, some research indicates potential benefits in reducing the risk of cataracts and AMD.\n\n\n\n\nBilberry Extract\nOften linked to improved night vision and reduced eye fatigue due to its anthocyanin content. These compounds might enhance blood flow to the eyes, which could make eyes appear brighter or less strained.\n\n\n\n\nRutin\nKnown primarily for its vascular protective effects, rutin might help in maintaining the integrity of small blood vessels in the eyes, potentially reducing conditions like hemorrhagic retinopathy, which could indirectly make eyes look less red.\n\n\n\n\nL-Taurine\nEssential for maintaining good retinal function. While direct impacts on eye brightness or clarity aren't well-documented, taurine's role in retinal health might contribute to overall eye health maintenance.\n\n\n\n\nGrape Extract\nContains resveratrol and other polyphenols which have antioxidant properties. These could help in protecting eye tissues from oxidative stress, potentially leading to clearer or brighter eyes by supporting the health of the ocular tissues.\n\n\n\n\nExperience the benefits of brighter, healthier eyes with Success Chemistry's Sclera White Eye-Whitening Vitamin Supplement. Whether you’re looking to reduce eye strain, enhance your vision, or achieve a more radiant look, our formula provides the comprehensive support your eyes need. Promote clearer, brighter eyes naturally.\n\nOrder now and start your journey to brighter, healthier eyes!\n\n\n\n\n\n\n\n    \n                    \n\n\n\t\t\n\t\t\tvar player = document.querySelector('presto-player#presto-player-1');\n\t\t\tplayer.video_id = 5;\n\t\t\t\t\t\t\t\t\t\t\t\tplayer.preset = {\"id\":1,\"name\":\"Default\",\"slug\":\"default\",\"icon\":\"format-video\",\"skin\":\"modern\",\"play-large\":true,\"rewind\":true,\"play\":true,\"fast-forward\":true,\"progress\":true,\"current-time\":true,\"mute\":true,\"volume\":true,\"speed\":false,\"pip\":false,\"fullscreen\":true,\"captions\":false,\"reset_on_end\":true,\"auto_hide\":true,\"show_time_elapsed\":false,\"captions_enabled\":false,\"save_player_position\":true,\"sticky_scroll\":false,\"sticky_scroll_position\":\"bottom right\",\"on_video_end\":\"select\",\"play_video_viewport\":false,\"hide_youtube\":false,\"lazy_load_youtube\":false,\"hide_logo\":false,\"border_radius\":0,\"caption_style\":\"\",\"caption_background\":\"\",\"is_locked\":true,\"cta\":[\"\"],\"watermark\":[\"\"],\"search\":[\"\"],\"email_collection\":[\"\"],\"action_bar\":[\"\"],\"created_by\":1,\"created_at\":\"2025-01-04 09:08:57\",\"updated_at\":\"2025-01-04 09:08:57\",\"deleted_at\":\"\"};\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tplayer.chapters = [];\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tplayer.overlays = [];\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tplayer.tracks = [];\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tplayer.branding = {\"logo\":\"\",\"color\":\"#00b3ff\",\"logo_width\":150,\"player_css\":\"\"};\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tplayer.blockAttributes = {\"playsInline\":true,\"id\":5,\"attachment_id\":1647,\"src\":\"https:\\/\\/successchemistry.com\\/wp-content\\/uploads\\/2025\\/03\\/merge_BF6DD484-F11D-48DD-A6FB-D32AF3995B1E.mp4\",\"poster\":\"https:\\/\\/successchemistry.com\\/wp-content\\/uploads\\/2025\\/03\\/EC762E93-E0E7-46AC-903E-A197C3A76A72_1_102_o.jpeg\",\"preset\":1,\"visibility\":\"public\",\"color\":\"#00b3ff\",\"mutedPreview\":{\"enabled\":false,\"captions\":false},\"mutedOverlay\":{\"enabled\":false,\"src\":\"\",\"width\":200,\"focalPoint\":{\"x\":0.5,\"y\":0.5}},\"mutedOverlayType\":\"text\",\"mutedOverlayText\":\"Click to play\",\"mutedOverlayImageWidth\":200,\"chapters\":[],\"overlays\":[],\"tracks\":[],\"title\":\"merge_BF6DD484-F11D-48DD-A6FB-D32AF3995B1E\"};\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tplayer.skin = \"modern\";\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tplayer.analytics = false;\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tplayer.automations = true;\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tplayer.provider = \"self-hosted\";\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tplayer.youtube = {\"noCookie\":false,\"channelId\":\"\",\"show_count\":false};\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\n\t\t\t{\"@context\":\"https:\\/\\/schema.org\",\"@type\":\"VideoObject\",\"name\":\"merge_BF6DD484-F11D-48DD-A6FB-D32AF3995B1E\",\"thumbnailUrl\":\"https:\\/\\/successchemistry.com\\/wp-content\\/uploads\\/2025\\/03\\/EC762E93-E0E7-46AC-903E-A197C3A76A72_1_102_o.jpeg\",\"uploadDate\":\"2025-03-08T18:05:01-08:00\",\"contentUrl\":\"https:\\/\\/successchemistry.com\\/wp-content\\/uploads\\/2025\\/03\\/merge_BF6DD484-F11D-48DD-A6FB-D32AF3995B1E.mp4\"}\t\t\n\t\t\n\n\n\n\nView Bottle in 360°",
-        "short_description": "Transform your eye health with Sclera White &#8211; the ultimate dietary supplement designed to enhance your natural beauty. Enriched with Eyebright and Lutein, this powerful formula promotes the health of ocular tissues while helping to whiten your eyes. Experience relief from yellowing with our expertly crafted lutein supplement for eye health, featuring lutein and bilberry extract to support vibrant vision.\nSay goodbye to dullness! Sclera White is not just another eye whitening solution; it’s your go-to for achieving that bright, captivating gaze. Perfect for those searching for eye whitening drops trending on TikTok, our unique blend includes lutein and zeaxanthin, which are essential for maintaining eye wellness.\nBoost your daily routine with these lutein eye vitamins, and discover the difference in clarity and brightness. Why settle for ordinary when you can enhance your look with our whitening eye drops? Inspired by popular products like Lumify and Meibo, Sclera White is your all-in-one lutein complex to elevate your eye beauty.\nUnlock the secret to stunning eyes with Sclera White &#8211; where eye health meets beauty!",
+        "description": "Sclera White Dietary Supplement for Eyes With Eyebright Whiting & Lutein Yellow Eyes Relief Sclera White  Eye-Whitening Vitamin Supplement!\n\n\n \nTransform your eye health with Sclera White - the ultimate dietary supplement designed to enhance your natural beauty. Enriched with Eyebright and Lutein, this powerful formula promotes the health of ocular tissues while helping to whiten your eyes. Experience relief from yellowing with our expertly crafted lutein supplement for eye health, featuring lutein and bilberry extract to support vibrant vision.\nSay goodbye to dullness! Sclera White is not just another eye whitening solution; it’s your go-to for achieving that bright, captivating gaze. Perfect for those searching for eye whitening drops trending on TikTok, our unique blend includes lutein and zeaxanthin, which are essential for maintaining eye wellness.\nBoost your daily routine with these lutein eye vitamins, and discover the difference in clarity and brightness. Why settle for ordinary when you can enhance your look with our whitening eye drops? Inspired by popular products like Lumify and Meibo, Sclera White is your all-in-one lutein complex to elevate your eye beauty.\nUnlock the secret to stunning eyes with Sclera White - where eye health meets beauty!\nSclera White is made in Utah, USA, using organically sourced extracts. Your bottles are manufactured in a FDA-compliant facility operating with GMP guidelines featuring:\n \n\n\n\nEyebright\n Traditionally used for eye health, particularly for reducing inflammation and irritation. While there's anecdotal evidence supporting its use for soothing eye strain and reducing redness, scientific research is limited. It's primarily used in homeopathic and herbal medicine.\n\n\n\n\nLutein\nThis carotenoid is well-studied for its benefits in eye health. It's found in the macula of the eye and helps in absorbing high-energy blue light, thereby reducing the risk of AMD and cataracts. Supplementing with lutein can improve visual function, particularly in older adults.\n\n\n\n\nZeaxanthin\nSimilar to lutein, zeaxanthin is concentrated in the eye's macula. Together, they form the macular pigment which protects against blue light from digital devices. Studies suggest that zeaxanthin supplementation can enhance visual performance and reduce glare discomfort.\n\n\n\n\nLycopene\nThis antioxidant is known for its role in protecting against oxidative damage from light, which might contribute to clearer eyes. While not as extensively studied for eye health as lutein or zeaxanthin, some research indicates potential benefits in reducing the risk of cataracts and AMD.\n\n\n\n\nBilberry Extract\nOften linked to improved night vision and reduced eye fatigue due to its anthocyanin content. These compounds might enhance blood flow to the eyes, which could make eyes appear brighter or less strained.\n\n\n\n\nRutin\nKnown primarily for its vascular protective effects, rutin might help in maintaining the integrity of small blood vessels in the eyes, potentially reducing conditions like hemorrhagic retinopathy, which could indirectly make eyes look less red.\n\n\n\n\nL-Taurine\nEssential for maintaining good retinal function. While direct impacts on eye brightness or clarity aren't well-documented, taurine's role in retinal health might contribute to overall eye health maintenance.\n\n\n\n\nGrape Extract\nContains resveratrol and other polyphenols which have antioxidant properties. These could help in protecting eye tissues from oxidative stress, potentially leading to clearer or brighter eyes by supporting the health of the ocular tissues.\n\n\n\n\nExperience the benefits of brighter, healthier eyes with Success Chemistry's Sclera White Eye-Whitening Vitamin Supplement. Whether you’re looking to reduce eye strain, enhance your vision, or achieve a more radiant look, our formula provides the comprehensive support your eyes need. Promote clearer, brighter eyes naturally.\n\nOrder now and start your journey to brighter, healthier eyes!\n\n\n\n\n\n\n\n    \n                    \n\n\nView Bottle in 360°",
+        "short_description": "Transform your eye health with Sclera White &#8211; the ultimate dietary supplement designed to enhance your natural beauty. Enriched with Eyebright and Lutein, this powerful formula promotes the health of ocular tissues while helping to whiten your eyes. Experience relief from yellowing with our expertly crafted lutein supplement for eye health, featuring lutein and bilberry extract to support vibrant vision.\nSay goodbye to dullness! Sclera White is not just another eye whitening solution; it's your go-to for achieving that bright, captivating gaze. Perfect for those searching for eye whitening drops trending on TikTok, our unique blend includes lutein and zeaxanthin, which are essential for maintaining eye wellness.\nBoost your daily routine with these lutein eye vitamins, and discover the difference in clarity and brightness. Why settle for ordinary when you can enhance your look with our whitening eye drops? Inspired by popular products like Lumify and Meibo, Sclera White is your all-in-one lutein complex to elevate your eye beauty.\nUnlock the secret to stunning eyes with Sclera White &#8211; where eye health meets beauty!",
+        "suggested_use": "As a dietary supplement take two (2) veggie capsules once a day after a meal with an 8oz. glass of water or as directed by your healthcare professional.",
         "images": [
             "/images/products/10786-807/01.png",
             "/images/products/10786-807/02.jpg",
             "/images/products/10786-807/03.jpg",
             "/images/products/10786-807/04.png",
             "/images/products/10786-807/05.png",
-            "/images/products/10786-807/06.jpg",
-            "/images/products/10786-807/07.jpg",
-            "/images/products/10786-807/08.png"
+            "/images/products/10786-807/06.jpg"
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "651074168402",
         "key_search_terms": "sclera white supplements, eye whitening vitamins, eyebright lutein, yellow eyes relief, eye beauty supplement, brighter eyes naturally, ocular health support",
+        "supplement_facts": "Serving Size: 2 Capsules\nServings Per Container: 30\n\nVitamin A (as Beta-carotene) 100 mcg RAE 11%\nVitamin C (as Ascorbic acid) 200 mg 222%\nVitamin E (DL-Alpha tocopheryl acetate) 20 mg 133%\nThiamin (as Thiamine mononitrate) 8 mg 667%\nRiboflavin (as B2) 8 mg 615%\nNiacin 40 mg NE 250%\nVitamin B12 (as Cyanocobalamin) 27 mcg 1,125%\nCalcium (as Calcium carbonate) 50 mg 4%\nBiotin 800 mcg 2,667%\nMagnesium (as Magnesium oxide) 40 mg 10%\nZinc (as Zinc oxide) 32 mg 291%\nSelenium (as Selenium Amino Acid Chelate) 8 mcg 15%\nCopper (as Copper gluconate) 2 mg 222%\nChromium (as Chromium picolinate) 3.6 mcg\nProprietary Blend 481 mg (Lutein, Bilberry Extract, Alpha Lipoic Acid, Eyebright, Zeaxanthin, Quercetin, Rutin, L-Taurine, Grape Extract, Lycopene)\n\nOther Ingredients: Rice Flour, Hypromellose (vegetable capsule), Vegetable Stearate, Silicon Dioxide.",
         "seo_targets": {
             "long_tail": ["best sclera white supplements for eye whitening", "eyebright and lutein for brighter eyes", "yellow eyes relief vitamins", "eye beauty supplements for ocular health", "natural eye whitening with lutein"],
             "short_tail": ["eye whitening", "sclera white", "lutein vitamins", "eye beauty", "brighter eyes"]
-        }
+        },
+        "faqs": [
+            {
+                "question": "How does Sclera White help whiten eyes naturally?",
+                "answer": "Sclera White contains Eyebright and Lutein, two powerful ingredients that support ocular tissue health. Lutein helps filter harmful blue light while Eyebright has been traditionally used to reduce eye redness and irritation. Together, they promote brighter, clearer-looking eyes from within."
+            },
+            {
+                "question": "How long does it take to see results with Sclera White eye whitening supplements?",
+                "answer": "Most users begin noticing improvements in eye clarity and brightness within 2-4 weeks of consistent daily use. For optimal results, we recommend taking Sclera White for at least 60-90 days as the nutrients build up in your system to support long-term eye health."
+            },
+            {
+                "question": "Is Sclera White safe for daily use and are there any side effects?",
+                "answer": "Yes, Sclera White is made with natural ingredients in a GMP-certified, FDA-compliant facility in the USA. It contains no artificial colors or harsh chemicals. The formula uses vegetable capsules and is generally well-tolerated. As with any supplement, consult your healthcare provider if you have specific concerns."
+            },
+            {
+                "question": "What makes Sclera White different from eye whitening drops like Lumify?",
+                "answer": "Unlike topical eye drops that provide temporary relief, Sclera White works from within by nourishing your eyes with essential vitamins, antioxidants, and botanicals. It addresses the root causes of eye dullness by supporting overall ocular health with ingredients like Lutein, Zeaxanthin, Bilberry Extract, and Vitamin A."
+            },
+            {
+                "question": "Can Sclera White help with yellow eyes caused by lifestyle factors?",
+                "answer": "Sclera White is formulated to support eye health and may help reduce the appearance of yellowing caused by everyday factors like screen time, lack of sleep, or environmental stress. The antioxidant-rich formula with Lutein and Zeaxanthin helps protect eye tissues from oxidative damage."
+            },
+            {
+                "question": "What are the key ingredients in Sclera White and their benefits?",
+                "answer": "Sclera White features a proprietary blend including Lutein (filters blue light, supports macular health), Eyebright (traditional herb for eye clarity), Bilberry Extract (supports night vision), Zeaxanthin (protects against oxidative stress), plus essential vitamins A, C, E, and B-complex for comprehensive eye nutrition."
+            },
+            {
+                "question": "How should I take Sclera White for best results?",
+                "answer": "Take 2 capsules daily with a meal and a full glass of water. For best absorption, take with a meal containing healthy fats. Consistency is key - take daily for at least 60-90 days to experience the full benefits of the eye-supporting nutrients."
+            },
+            {
+                "question": "Is Sclera White suitable for contact lens wearers?",
+                "answer": "Yes, Sclera White is an oral supplement that works internally to support eye health, so it's perfectly safe for contact lens wearers. Many users find that improved eye health from proper nutrition can make wearing contacts more comfortable."
+            },
+            {
+                "question": "Can I take Sclera White with other vitamins or medications?",
+                "answer": "Sclera White contains vitamins and natural botanicals that are generally safe to combine with other supplements. However, if you're taking prescription medications, especially blood thinners or eye medications, please consult your healthcare provider before starting any new supplement."
+            },
+            {
+                "question": "Where is Sclera White manufactured and is it quality tested?",
+                "answer": "Sclera White is proudly made in Utah, USA, in an FDA-compliant facility following strict GMP (Good Manufacturing Practice) guidelines. Each batch is tested for purity and potency to ensure you receive a safe, high-quality product."
+            }
+        ]
     },
     "10786-807-3": {
         "sku": "10786-807-3",
@@ -1560,6 +1900,7 @@ const PRODUCTS_DATA = {
         "category": "Best Sellers",
         "description": "Experience the ultimate eye brightening solution with our exclusive 3-pack bundle of Sclera White Eye Whitening Vitamin Supplement. Formulated with the powerful combination of Eyebright and Lutein, this supplement is designed to naturally promote healthier and brighter eyes.\n\nWhether you’re looking to maintain clear, vibrant eyes or enhance your eye health, this bundle offers the perfect solution for ongoing care. With three bottles, you’ll have a consistent supply to support your vision and eye appearance naturally, providing you with the radiance and clarity you deserve.",
         "short_description": "Get brighter, healthier eyes naturally with the Sclera White Eye Whitening Vitamin Supplement 3-Pack. Packed with Eyebright and Lutein, this bundle supports eye health and promotes a vibrant, clear look. Shop now at Success Chemistry!",
+        "suggested_use": "As a dietary supplement take two (2) veggie capsules once a day after a meal with an 8oz. glass of water or as directed by your healthcare professional.",
         "images": [
             "/images/products/10786-807-3/01.png",
             "/images/products/10786-807-3/02.png",
@@ -1570,12 +1911,35 @@ const PRODUCTS_DATA = {
         ],
         "stock": 100000,
         "upc": "",
-        "gtin": "",
+        "gtin": "783325396637",
         "key_search_terms": "sclera white bundle, eye whitening 3 pack, eyebright lutein bundle, brighter eyes value pack, eye health supplements, eye whitening vitamins deal, ocular health bundle",
+        "supplement_facts": "Serving Size: 2 Capsules\nServings Per Container: 30 (per bottle)\n\nVitamin A (as Beta-carotene) 100 mcg RAE 11%\nVitamin C (as Ascorbic acid) 200 mg 222%\nVitamin E (DL-Alpha tocopheryl acetate) 20 mg 133%\nThiamin (as Thiamine mononitrate) 8 mg 667%\nRiboflavin (as B2) 8 mg 615%\nNiacin 40 mg NE 250%\nVitamin B12 (as Cyanocobalamin) 27 mcg 1,125%\nCalcium (as Calcium carbonate) 50 mg 4%\nBiotin 800 mcg 2,667%\nMagnesium (as Magnesium oxide) 40 mg 10%\nZinc (as Zinc oxide) 32 mg 291%\nSelenium (as Selenium Amino Acid Chelate) 8 mcg 15%\nCopper (as Copper gluconate) 2 mg 222%\nChromium (as Chromium picolinate) 3.6 mcg\nProprietary Blend 481 mg (Lutein, Bilberry Extract, Alpha Lipoic Acid, Eyebright, Zeaxanthin, Quercetin, Rutin, L-Taurine, Grape Extract, Lycopene)\n\nOther Ingredients: Rice Flour, Hypromellose (vegetable capsule), Vegetable Stearate, Silicon Dioxide.",
         "seo_targets": {
             "long_tail": ["best sclera white bundle for eye whitening", "eyebright and lutein 3 pack value deal", "brighter eyes supplements bundle", "eye health vitamins multi-pack", "eye whitening bundle for ongoing care"],
             "short_tail": ["eye whitening bundle", "sclera white 3 pack", "lutein bundle", "eye health deal", "brighter eyes"]
-        }
+        },
+        "faqs": [
+            {
+                "question": "Why should I buy the Sclera White 3-pack bundle instead of a single bottle?",
+                "answer": "The 3-pack bundle offers significant savings and ensures you have a consistent 90-day supply for optimal results. Eye health supplements work best with continuous use, and having 3 bottles means you won't run out during your eye wellness journey."
+            },
+            {
+                "question": "How long will the Sclera White 3-bottle bundle last?",
+                "answer": "Each bottle contains 60 capsules (30 servings at 2 capsules per day). The 3-pack provides a full 90-day supply, which is the recommended duration to experience the full benefits of the eye-supporting nutrients."
+            },
+            {
+                "question": "Is the Sclera White bundle the same formula as the single bottle?",
+                "answer": "Yes, absolutely! The 3-pack contains the exact same premium Sclera White formula with Eyebright, Lutein, Zeaxanthin, and Bilberry Extract. You're simply getting more bottles at a better value."
+            },
+            {
+                "question": "Can I share the Sclera White bundle with family members?",
+                "answer": "Yes! The 3-pack is perfect for sharing with family members who want to support their eye health. Each bottle is individually sealed for freshness and can be used by different household members."
+            },
+            {
+                "question": "What's the shelf life of Sclera White supplements in the bundle?",
+                "answer": "Sclera White has a shelf life of 2 years from the manufacturing date when stored properly in a cool, dry place. The bundle gives you plenty of time to use all three bottles while maintaining full potency."
+            }
+        ]
     }
 };
 

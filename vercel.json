@@ -4,22 +4,14 @@
   "outputDirectory": "deploy-site",
   "cleanUrls": false,
   "trailingSlash": false,
-  "redirects": [
-    {
-      "source": "/",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/shop",
-      "destination": "/shop/index.html"
-    },
-    {
-      "source": "/cart",
-      "destination": "/cart/index.html"
-    },
+  "rewrites": [
     {
       "source": "/product/:sku",
       "destination": "/product/index.html?sku=:sku"
+    },
+    {
+      "source": "/faq/:sku",
+      "destination": "/faq/index.html?sku=:sku"
     }
   ],
   "headers": [
