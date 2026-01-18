@@ -9,3 +9,5 @@ dist
 
 # Large files - review repo with PSD files
 review-repo/
+.vercel
+.env*.local

@@ -2,9 +2,21 @@
   "installCommand": "echo 'Skipping install - static site only'",
   "buildCommand": "echo 'No build required - static site'",
   "outputDirectory": "deploy-site",
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false,
   "redirects": [
+    {
+      "source": "/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/shop",
+      "destination": "/shop/index.html"
+    },
+    {
+      "source": "/cart",
+      "destination": "/cart/index.html"
+    },
     {
       "source": "/product/:sku",
       "destination": "/product/index.html?sku=:sku"

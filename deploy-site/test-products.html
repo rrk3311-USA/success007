@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products Test</title>
+</head>
+<body>
+    <h1>Products Test</h1>
+    <div id="test-output"></div>
+    
+    <script src="/products-data.js?v=3"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded');
+            console.log('window.getAllProducts:', typeof window.getAllProducts);
+            
+            setTimeout(() => {
+                console.log('Testing after delay...');
+                
+                if (typeof window.getAllProducts === 'function') {
+                    const products = window.getAllProducts();
+                    console.log('Products found:', products.length);
+                    
+                    const output = document.getElementById('test-output');
+                    output.innerHTML = `
+                        <h2>Results:</h2>
+                        <p>window.getAllProducts function: ${typeof window.getAllProducts}</p>
+                        <p>Products count: ${products.length}</p>
+                        <p>First product: ${products[0] ? products[0].name : 'None'}</p>
+                        <p>First product SKU: ${products[0] ? products[0].sku : 'None'}</p>
+                    `;
+                } else {
+                    console.error('getAllProducts function not found!');
+                    document.getElementById('test-output').innerHTML = '<p style="color: red;">ERROR: getAllProducts function not found!</p>';
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

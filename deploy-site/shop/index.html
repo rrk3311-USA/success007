@@ -653,6 +653,7 @@
     <!-- PRODUCTS GRID -->
     <section class="shop-content">
         <div class="container">
+            <div id="debugOutput" style="background: #ffeb3b; padding: 10px; margin-bottom: 20px; display: none;"></div>
             <div class="products-grid" id="productsGrid"></div>
         </div>
     </section>
@@ -666,7 +667,14 @@
         </div>
     </section>
 
+    <script src="/products-data.js?v=3"></script>
     <script>
+        // Test if products data loaded
+        console.log('Products data script loaded');
+        console.log('window.getAllProducts available:', typeof window.getAllProducts);
+        if (typeof window.getAllProducts === 'function') {
+            console.log('Products count:', window.getAllProducts().length);
+        }
         let currentSort = 'sales';
         let allProductsCache = [];
 
@@ -711,7 +719,7 @@
 
             grid.innerHTML = '';
             sorted.forEach(product => {
-                const card = createProductCard(product);
+                const card = buildProductCard(product);
                 grid.appendChild(card);
             });
         }
@@ -829,16 +837,26 @@
         }
 
         function loadAllProducts() {
+            const debug = document.getElementById('debugOutput');
+            debug.style.display = 'block';
+            debug.innerHTML = 'Loading products...';
+            
             const grid = document.getElementById('productsGrid');
-            if (!grid) return;
+            if (!grid) {
+                debug.innerHTML = 'ERROR: productsGrid not found';
+                return;
+            }
 
             if (typeof window.getAllProducts !== 'function') {
+                debug.innerHTML = 'Waiting for products data...';
                 setTimeout(loadAllProducts, 100);
                 return;
             }
 
-            const products = window.getAllProducts().filter(p => p && p.sku);
-            allProductsCache = products;
+            try {
+                const products = window.getAllProducts().filter(p => p && p.sku);
+                debug.innerHTML = 'Found ' + products.length + ' products. Rendering...';
+                allProductsCache = products;
             
             // Sort by sales by default
             const sorted = [...products].sort((a, b) => getSalesRank(b) - getSalesRank(a));
@@ -846,12 +864,16 @@
             grid.innerHTML = '';
             sorted.forEach(product => {
                 const card = buildProductCard(product);
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                 grid.appendChild(card);
-                observer.observe(card);
             });
+            debug.innerHTML = 'Rendered ' + sorted.length + ' products successfully!';
+            debug.style.background = '#4caf50';
+            debug.style.color = 'white';
+            } catch (error) {
+                debug.innerHTML = 'ERROR: ' + error.message;
+                debug.style.background = '#f44336';
+                debug.style.color = 'white';
+            }
         }
         // Cart functionality
         let cartCount = 0;
@@ -955,11 +977,12 @@
 
         // Observe product cards
         document.addEventListener('DOMContentLoaded', () => {
-            loadAllProducts();
+            // Wait a bit to ensure products-data.js is fully loaded
+            setTimeout(() => {
+                loadAllProducts();
+            }, 500);
         });
     </script>
-
-    <script src="/products-data.js?v=3"></script>
 
 
 <!-- Footer -->

@@ -1475,17 +1475,10 @@
                     </div>
                     ` : ''}
                     
-                    ${currentProduct.key_features ? `
+                    ${currentProduct.key_search_terms ? `
                     <div class="info-card">
-                        <h3>Key Features</h3>
-                        <div class="product-description">${currentProduct.key_features}</div>
-                    </div>
-                    ` : ''}
-                    
-                    ${currentProduct.ingredients ? `
-                    <div class="info-card">
-                        <h3>Ingredients</h3>
-                        <div class="product-description">${currentProduct.ingredients}</div>
+                        <h3>Key Benefits & Features</h3>
+                        <div class="product-description">${currentProduct.key_search_terms}</div>
                     </div>
                     ` : ''}
                     

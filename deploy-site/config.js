@@ -10,7 +10,7 @@ const CONFIG = {
     // PayPal Configuration
     PAYPAL: {
         // Get Sandbox Client ID from: https://developer.paypal.com/dashboard/applications/sandbox
-        SANDBOX_CLIENT_ID: 'YOUR_SANDBOX_CLIENT_ID', // Replace with your Sandbox Client ID
+        SANDBOX_CLIENT_ID: 'ATM3Eoawal0vHl1xqCcuP5TvlPBP-96AHV0xP0tiQ-KlAd_tuSLLQjKMsby8lgbgE7jN5zXPF3HjMUNk', // Replace with your Sandbox Client ID
         PRODUCTION_CLIENT_ID: 'EBAQIbUDDVgB06yvEWREs2cMox8AKElkxFJAqKF71iUj007dv0YzxlKbepduwV7xGEI5FrjK3vakzm0b'
     },
     

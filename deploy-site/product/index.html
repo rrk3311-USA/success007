@@ -1678,7 +1678,71 @@
             // Update page title and meta
             document.title = `${currentProduct.name} - Success Chemistry`;
             document.getElementById('pageTitle').textContent = `${currentProduct.name} - Success Chemistry`;
-            document.getElementById('pageDescription').content = currentProduct.meta_description || description.substring(0, 160);
+            document.getElementById('pageDescription').content = currentProduct.short_description || currentProduct.meta_description || description.substring(0, 160);
+            document.getElementById('breadcrumbName').textContent = currentProduct.name;
+            
+            // Add SEO keywords meta tag if seo_targets exist
+            if (currentProduct.seo_targets) {
+                let existingKeywords = document.querySelector('meta[name="keywords"]');
+                if (!existingKeywords) {
+                    existingKeywords = document.createElement('meta');
+                    existingKeywords.setAttribute('name', 'keywords');
+                    document.head.appendChild(existingKeywords);
+                }
+                const allKeywords = [
+                    ...(currentProduct.seo_targets.short_tail || []),
+                    ...(currentProduct.seo_targets.long_tail || [])
+                ].join(', ');
+                existingKeywords.setAttribute('content', allKeywords);
+            }
+            
+            // Add structured data for Google Merchant Center
+            const structuredData = {
+                "@context": "https://schema.org/",
+                "@type": "Product",
+                "name": currentProduct.name,
+                "image": currentProduct.images || [],
+                "description": currentProduct.short_description || description.substring(0, 500),
+                "sku": currentProduct.sku,
+                "brand": {
+                    "@type": "Brand",
+                    "name": "Success Chemistry"
+                },
+                "offers": {
+                    "@type": "Offer",
+                    "url": window.location.href,
+                    "priceCurrency": "USD",
+                    "price": currentProduct.price,
+                    "availability": "https://schema.org/InStock",
+                    "seller": {
+                        "@type": "Organization",
+                        "name": "Success Chemistry"
+                    }
+                }
+            };
+            
+            // Add GTIN if available
+            if (currentProduct.gtin) {
+                structuredData.gtin = currentProduct.gtin;
+            } else if (currentProduct.upc) {
+                structuredData.gtin12 = currentProduct.upc;
+            }
+            
+            // Add category
+            if (currentProduct.category) {
+                structuredData.category = currentProduct.category;
+            }
+            
+            // Insert or update structured data script
+            let structuredDataScript = document.getElementById('product-structured-data');
+            if (!structuredDataScript) {
+                structuredDataScript = document.createElement('script');
+                structuredDataScript.id = 'product-structured-data';
+                structuredDataScript.type = 'application/ld+json';
+                document.head.appendChild(structuredDataScript);
+            }
+            structuredDataScript.textContent = JSON.stringify(structuredData);
+            
             document.getElementById('breadcrumbName').textContent = currentProduct.name;
             
             // Build image gallery HTML
@@ -1894,10 +1958,10 @@
                     </div>
                     ` : ''}
                     
-                    ${currentProduct.key_features ? `
+                    ${currentProduct.key_search_terms ? `
                     <div class="info-card">
-                        <h3>Key Features</h3>
-                        <div class="product-description">${currentProduct.key_features}</div>
+                        <h3>Key Benefits & Features</h3>
+                        <div class="product-description">${currentProduct.key_search_terms}</div>
                     </div>
                     ` : ''}
                     

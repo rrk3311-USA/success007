@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Minimal Shop Test</title>
+    <style>
+        .product { border: 1px solid #ccc; margin: 10px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Minimal Shop Test</h1>
+    <div id="products"></div>
+    
+    <script src="/products-data.js?v=3"></script>
+    <script>
+        setTimeout(() => {
+            console.log('Testing products loading...');
+            
+            if (typeof window.getAllProducts === 'function') {
+                const products = window.getAllProducts();
+                console.log('Found products:', products.length);
+                
+                const container = document.getElementById('products');
+                container.innerHTML = '<h2>Products: ' + products.length + '</h2>';
+                
+                products.slice(0, 3).forEach(product => {
+                    const div = document.createElement('div');
+                    div.className = 'product';
+                    div.innerHTML = `
+                        <h3>${product.name}</h3>
+                        <p>SKU: ${product.sku}</p>
+                        <p>Price: $${product.price}</p>
+                        <p>Category: ${product.category}</p>
+                    `;
+                    container.appendChild(div);
+                });
+            } else {
+                console.error('getAllProducts not available');
+                document.getElementById('products').innerHTML = '<p style="color: red;">ERROR: getAllProducts function not found</p>';
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

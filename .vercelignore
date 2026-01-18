@@ -1,0 +1,7 @@
+review-repo/
+.git/
+*.psd
+*.pdf
+.DS_Store
+node_modules/
+.env*

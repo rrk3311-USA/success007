@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Test</title>
+</head>
+<body>
+    <h1>Debug Test</h1>
+    <div id="output"></div>
+    
+    <script src="/products-data.js?v=3"></script>
+    <script>
+        // Test immediately after script loads
+        console.log('Script loaded, testing...');
+        document.getElementById('output').innerHTML = 'Testing...';
+        
+        // Test 1: Check if function exists
+        if (typeof window.getAllProducts === 'function') {
+            console.log('✅ getAllProducts function exists');
+            document.getElementById('output').innerHTML += '<br>✅ getAllProducts function exists';
+            
+            // Test 2: Get products
+            try {
+                const products = window.getAllProducts();
+                console.log('✅ Got products:', products.length);
+                document.getElementById('output').innerHTML += '<br>✅ Got products: ' + products.length;
+                
+                // Test 3: Show first product
+                if (products.length > 0) {
+                    console.log('✅ First product:', products[0].name);
+                    document.getElementById('output').innerHTML += '<br>✅ First product: ' + products[0].name;
+                } else {
+                    console.log('❌ No products found');
+                    document.getElementById('output').innerHTML += '<br>❌ No products found';
+                }
+            } catch (error) {
+                console.log('❌ Error getting products:', error);
+                document.getElementById('output').innerHTML += '<br>❌ Error: ' + error.message;
+            }
+        } else {
+            console.log('❌ getAllProducts function does not exist');
+            document.getElementById('output').innerHTML += '<br>❌ getAllProducts function does not exist';
+            console.log('window object keys:', Object.keys(window).filter(k => k.includes('product')));
+        }
+    </script>
+</body>
+</html>
