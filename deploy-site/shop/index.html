@@ -3,8 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop - Success Chemistry | Premium Supplements</title>
-    <meta name="description" content="Shop premium quality supplements from Success Chemistry. Fast shipping, satisfaction guaranteed.">
+    <title>Shop Supplements - Success Chemistry | Premium Vitamins & Health Supplements</title>
+    <meta name="description" content="Shop premium quality supplements and vitamins from Success Chemistry. Women's health, men's health, eye health, weight loss, and immune support supplements. Fast shipping, satisfaction guaranteed.">
+    <meta name="keywords" content="buy supplements, shop vitamins, health supplements, dietary supplements, women's supplements, men's supplements, eye health supplements, weight loss supplements, immune support, Success Chemistry">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://successchemistry.com/shop">
+    <meta property="og:title" content="Shop Supplements - Success Chemistry | Premium Vitamins & Health Supplements">
+    <meta property="og:description" content="Shop premium quality supplements and vitamins. Women's health, men's health, eye health, and more. Fast shipping, satisfaction guaranteed.">
+    <meta property="og:image" content="https://successchemistry.com/images/SC_logo_withR.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://successchemistry.com/shop">
+    <meta property="twitter:title" content="Shop Supplements - Success Chemistry">
+    <meta property="twitter:description" content="Shop premium quality supplements and vitamins. Fast shipping, satisfaction guaranteed.">
+    <meta property="twitter:image" content="https://successchemistry.com/images/SC_logo_withR.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -224,11 +240,23 @@
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
 
+        .category-card:hover .category-overlay {
+            background: linear-gradient(to top, rgba(40, 84, 166, 0.95), rgba(40, 84, 166, 0.4));
+            color: white;
+            border-top: 2px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .category-card:hover img {
+            filter: grayscale(0%) contrast(1.2) brightness(1.1);
+            transform: scale(1.05);
+        }
+
         .category-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             filter: grayscale(100%) contrast(1.1);
+            transition: all 0.3s ease;
         }
 
         .category-overlay {
@@ -242,6 +270,7 @@
             padding: 20px;
             color: #2D3748;
             border-top: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
         }
 
         .category-name {
@@ -306,6 +335,9 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
             border: 1px solid #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .product-card:hover {
@@ -315,12 +347,27 @@
 
         .product-image {
             position: relative;
-            height: 250px;
-            background: #f8f9fa;
+            flex: 2;
+            min-height: 0;
+            background: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
+        }
+
+        .product-price-overlay {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: transparent;
+            color: #10b981;
+            padding: 0;
+            border-radius: 0;
+            font-size: 1.4rem;
+            font-weight: 800;
+            box-shadow: none;
+            z-index: 10;
         }
 
         .product-badge {
@@ -352,11 +399,68 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            padding: 20px;
+            padding: 15px;
+            loading: lazy;
+        }
+        
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px;
+            font-size: 1.2rem;
+            color: #667eea;
+        }
+        
+        .loading-spinner::after {
+            content: '';
+            width: 40px;
+            height: 40px;
+            margin-left: 15px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .products-grid.loading {
+            min-height: 400px;
         }
 
         .product-info {
-            padding: 20px;
+            flex: 1;
+            min-height: 80px;
+            max-height: 120px;
+            padding: 12px 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to top, rgba(140, 195, 245, 0.95), rgba(140, 195, 245, 0.3));
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            border-top: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 12px rgba(80, 150, 220, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover .product-info {
+            background: linear-gradient(to top, rgba(40, 84, 166, 0.95), rgba(40, 84, 166, 0.4));
+            color: white;
+            border-top: 2px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .product-card:hover .product-info .product-name {
+            color: white;
+        }
+
+        .product-card:hover .product-info .product-category {
+            color: rgba(255, 255, 255, 0.9);
         }
 
         .product-category {
@@ -369,13 +473,18 @@
         }
 
         .product-name {
-            font-size: 1.3rem;
+            font-size: 1.05rem;
             font-weight: 700;
             color: #2854a6;
             margin-bottom: 8px;
             line-height: 1.4;
             font-family: 'Inter', 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             letter-spacing: -0.01em;
+            text-align: center;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
 
@@ -385,16 +494,13 @@
         }
 
         .product-price-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 15px;
+            display: none;
         }
 
         .product-price {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 800;
-            color: #10b981;
+            color: white;
         }
 
         .product-price .original {
@@ -424,11 +530,11 @@
             background: #2854a6;
             color: white;
             border: none;
-            padding: 13px 32px;
+            padding: 10px 24px;
             border-radius: 2px;
             font-weight: 500;
-            font-size: 0.875rem;
-            letter-spacing: 1.5px;
+            font-size: 0.8rem;
+            letter-spacing: 1.2px;
             text-transform: uppercase;
             cursor: pointer;
             position: relative;
@@ -481,6 +587,82 @@
             color: #856404;
             font-weight: 500;
             font-size: 0.9rem;
+        }
+
+        /* VIEW ALL Button - Gradient Border with Stars */
+        .btn-view-all {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 32px;
+            background: white;
+            border: 3px solid;
+            border-image: linear-gradient(90deg, #40e0d0 0%, #4299e1 50%, #764ba2 100%) 1;
+            border-radius: 12px;
+            color: #2d3748;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-view-all .star-icons {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+
+        .btn-view-all .star-icons span {
+            display: inline-block;
+            filter: drop-shadow(0 0 3px rgba(64, 224, 208, 0.5));
+        }
+
+        .btn-view-all .star-icons span:nth-child(1) {
+            color: #40e0d0;
+            font-size: 1.2rem;
+        }
+
+        .btn-view-all .star-icons span:nth-child(2) {
+            color: #4299e1;
+            font-size: 1rem;
+        }
+
+        .btn-view-all .star-icons span:nth-child(3) {
+            color: #40e0d0;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .btn-view-all::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .btn-view-all:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            border-image: linear-gradient(90deg, #20b2aa 0%, #3498db 50%, #8b5cf6 100%) 1;
+        }
+
+        .btn-view-all:hover::after {
+            transform: translateX(100%);
+        }
+
+        .btn-view-all:active {
+            transform: translateY(0);
         }
 
         /* SOCIAL PROOF */
@@ -639,9 +821,10 @@
     <div class="blue-nav">
         <div class="container">
             <a href="/">Home</a>
-            <a href="/shop">Shop</a>
             <a href="/blog">Articles</a>
+            <a href="/shop">🧪 Shop</a>
             <a href="/cart">🛒 Cart <span id="cart-count-nav">0</span></a>
+            <a href="/contact">Contact</a>
         </div>
     </div>
 
@@ -658,56 +841,56 @@
             <div class="filter-container">
                 <div class="category-grid">
                     <div class="category-card" onclick="filterByCategory('bestsellers')">
-                        <img src="https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=400&h=300&fit=crop" alt="Best Sellers">
+                        <img src="/images/Catagory Thumbnail Images/Best sellers Catagory image.jpg" alt="Best Sellers Supplements">
                         <div class="category-overlay">
                             <div class="category-name">Best Sellers</div>
                             <div class="category-count" id="count-bestsellers">15 Products</div>
                         </div>
                     </div>
                     <div class="category-card" onclick="filterByCategory('mens')">
-                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=300&fit=crop" alt="Men's Health">
+                        <img src="/images/Catagory Thumbnail Images/mens health catagory thumb.webp" alt="Men's Health Supplements">
                         <div class="category-overlay">
                             <div class="category-name">Men's Health</div>
                             <div class="category-count" id="count-mens">8 Products</div>
                         </div>
                     </div>
                     <div class="category-card" onclick="filterByCategory('womens')">
-                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=300&fit=crop" alt="Women's Health">
+                        <img src="/images/Catagory Thumbnail Images/womens health thumb.webp" alt="Women's Health Supplements">
                         <div class="category-overlay">
                             <div class="category-name">Women's Health</div>
                             <div class="category-count" id="count-womens">11 Products</div>
                         </div>
                     </div>
                     <div class="category-card" onclick="filterByCategory('eye')">
-                        <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&h=300&fit=crop" alt="Eye Health">
+                        <img src="/images/Catagory Thumbnail Images/OPZ-eyeBeautiful-lashes__94531.1721847264.jpg" alt="Eye Health Supplements">
                         <div class="category-overlay">
                             <div class="category-name">Eye Health</div>
                             <div class="category-count" id="count-eye">3 Products</div>
                         </div>
                     </div>
                     <div class="category-card" onclick="filterByCategory('weight')">
-                        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&h=300&fit=crop" alt="Weight Loss">
+                        <img src="/images/Catagory Thumbnail Images/weight loss catagory thumb.webp" alt="Weight Loss Supplements">
                         <div class="category-overlay">
                             <div class="category-name">Weight Loss</div>
                             <div class="category-count" id="count-weight">7 Products</div>
                         </div>
                     </div>
                     <div class="category-card" onclick="filterByCategory('bundles')">
-                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop" alt="Bundle Deals">
+                        <img src="/images/Catagory Thumbnail Images/Bundle Deals.webp" alt="Bundle Deals Supplements">
                         <div class="category-overlay">
                             <div class="category-name">Bundle Deals</div>
                             <div class="category-count" id="count-bundles">20 Products</div>
                         </div>
                     </div>
                     <div class="category-card" onclick="filterByCategory('unisex')">
-                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop" alt="Unisex">
+                        <img src="/images/Catagory Thumbnail Images/unisex thumb.webp" alt="Unisex Supplements">
                         <div class="category-overlay">
                             <div class="category-name">Unisex</div>
                             <div class="category-count" id="count-unisex">28 Products</div>
                         </div>
                     </div>
                     <div class="category-card" onclick="filterByCategory('legacy')">
-                        <img src="https://images.unsplash.com/photo-1505751104628-8dc9e4c00c4f?w=400&h=300&fit=crop" alt="Legacy">
+                        <img src="/images/Catagory Thumbnail Images/legacy cat thumb.jpg" alt="Legacy Supplements">
                         <div class="category-overlay">
                             <div class="category-name">Legacy</div>
                             <div class="category-count" id="count-legacy">20 Products</div>
@@ -727,7 +910,9 @@
     <section class="shop-content">
         <div class="container">
             <div id="debugOutput" style="background: #ffeb3b; padding: 10px; margin-bottom: 20px; display: none;"></div>
-            <div class="products-grid" id="productsGrid"></div>
+            <div class="products-grid loading" id="productsGrid">
+                <div class="loading-spinner">Loading products...</div>
+            </div>
         </div>
     </section>
 
@@ -740,7 +925,8 @@
         </div>
     </section>
 
-    <script src="/products-data.js?v=4" onerror="console.error('Failed to load products-data.js');" onload="console.log('products-data.js loaded successfully');"></script>
+    <link rel="preload" href="/products-data.js" as="script" crossorigin>
+    <script src="/products-data.js?v=5" onerror="console.error('Failed to load products-data.js');" onload="console.log('products-data.js loaded successfully');"></script>
     <script>
         // Test if products data loaded
         console.log('Shop page script loaded');
@@ -979,26 +1165,26 @@
                 // Remove "with X, Y, Z" patterns
                 cleaned = cleaned.replace(/\s*with\s+[A-Z].*$/, '');
                 
-                // If still very long, take first meaningful phrase (up to 5-6 words)
+                // Allow more words for complete sentences (up to 10 words)
                 const words = cleaned.split(/\s+/);
-                if (words.length > 6) {
-                    cleaned = words.slice(0, 5).join(' ');
+                if (words.length > 10) {
+                    cleaned = words.slice(0, 10).join(' ');
                 }
             }
             
             // Clean up any remaining issues
             cleaned = cleaned.replace(/\s+/g, ' ').trim();
             
-            // Final length check - truncate at word boundary if too long (max ~50 chars for card)
-            if (cleaned.length > 50) {
-                cleaned = cleaned.substring(0, 47).trim();
+            // Final length check - allow longer text for complete sentences (max ~75 chars)
+            if (cleaned.length > 75) {
+                cleaned = cleaned.substring(0, 72).trim();
                 const lastSpace = cleaned.lastIndexOf(' ');
-                if (lastSpace > 30) {
+                if (lastSpace > 40) {
                     cleaned = cleaned.substring(0, lastSpace);
                 }
             }
             
-            return cleaned || name.substring(0, 50).trim();
+            return cleaned || name.substring(0, 75).trim();
         }
 
         function buildProductCard(product) {
@@ -1022,12 +1208,10 @@
             card.innerHTML = `
                 <div class="product-image">
                     ${topSellerBadge}
-                    <img src="${image}" alt="${product.name}">
+                    <img src="${image}" alt="${product.name}" loading="lazy" onerror="this.src='/images/placeholder.jpg'">
+                    <div class="product-price-overlay">$${price}</div>
                 </div>
                 <div class="product-info">
-                    <div class="product-price-row">
-                        <div class="product-price">$${price}</div>
-                    </div>
                     <h3 class="product-name">${displayName}</h3>
                     <div class="product-actions">
                         <button class="btn-add-cart" onclick="addToCart('${product.name.replace(/'/g, "&#39;")}', ${price})">Add to Cart</button>
@@ -1054,53 +1238,68 @@
 
         function loadAllProducts() {
             const debug = document.getElementById('debugOutput');
-            debug.style.display = 'block';
-            debug.innerHTML = 'Loading products...';
-            
             const grid = document.getElementById('productsGrid');
+            
             if (!grid) {
-                debug.innerHTML = 'ERROR: productsGrid not found';
+                console.error('productsGrid not found');
                 return;
             }
 
+            // Check if products data is loaded
             if (typeof window.getAllProducts !== 'function') {
-                debug.innerHTML = 'Waiting for products data... (checking products-data.js)';
-                // Limit retries to prevent infinite loop
-                const maxRetries = 100; // 10 seconds max
+                // Faster retry with exponential backoff
                 loadAllProducts.retryCount = (loadAllProducts.retryCount || 0) + 1;
+                const maxRetries = 50; // Reduced from 100
+                const delay = Math.min(loadAllProducts.retryCount * 50, 500); // Cap at 500ms
+                
                 if (loadAllProducts.retryCount > maxRetries) {
-                    debug.innerHTML = 'ERROR: products-data.js failed to load after ' + maxRetries + ' attempts. Please check the file path.';
-                    debug.style.background = '#f44336';
-                    debug.style.color = 'white';
+                    grid.innerHTML = '<div class="loading-spinner" style="color: #f44336;">Error loading products. Please refresh the page.</div>';
                     console.error('Failed to load products-data.js after', maxRetries, 'attempts');
                     return;
                 }
-                setTimeout(loadAllProducts, 100);
+                setTimeout(loadAllProducts, delay);
                 return;
             }
+            
             // Reset retry count on success
             loadAllProducts.retryCount = 0;
 
             try {
                 const products = window.getAllProducts().filter(p => p && p.sku);
-                debug.innerHTML = 'Found ' + products.length + ' products. Rendering...';
                 allProductsCache = products;
             
-            // Sort by sales by default
-            const sorted = [...products].sort((a, b) => getSalesRank(b) - getSalesRank(a));
-            
-            grid.innerHTML = '';
-            sorted.forEach(product => {
-                const card = buildProductCard(product);
-                grid.appendChild(card);
-            });
-            debug.innerHTML = 'Rendered ' + sorted.length + ' products successfully!';
-            debug.style.background = '#4caf50';
-            debug.style.color = 'white';
+                // Sort by sales by default
+                const sorted = [...products].sort((a, b) => getSalesRank(b) - getSalesRank(a));
+                
+                // Remove loading indicator
+                grid.classList.remove('loading');
+                grid.innerHTML = '';
+                
+                // Render products with requestAnimationFrame for better performance
+                let index = 0;
+                const renderBatch = () => {
+                    const batchSize = 20; // Render 20 at a time
+                    const end = Math.min(index + batchSize, sorted.length);
+                    
+                    for (let i = index; i < end; i++) {
+                        const card = buildProductCard(sorted[i]);
+                        grid.appendChild(card);
+                    }
+                    
+                    index = end;
+                    
+                    if (index < sorted.length) {
+                        requestAnimationFrame(renderBatch);
+                    } else {
+                        console.log('Rendered', sorted.length, 'products successfully!');
+                    }
+                };
+                
+                renderBatch();
+                
             } catch (error) {
-                debug.innerHTML = 'ERROR: ' + error.message;
-                debug.style.background = '#f44336';
-                debug.style.color = 'white';
+                grid.innerHTML = '<div class="loading-spinner" style="color: #f44336;">Error: ' + error.message + '</div>';
+                console.error('Error loading products:', error);
             }
         }
         // Cart functionality
@@ -1205,10 +1404,18 @@
 
         // Observe product cards
         document.addEventListener('DOMContentLoaded', () => {
-            // Wait a bit to ensure products-data.js is fully loaded
+            // Start loading products immediately (reduced delay)
             setTimeout(() => {
                 loadAllProducts();
-            }, 500);
+            }, 100);
+        });
+        
+        // Also try loading if products-data.js loads after DOMContentLoaded
+        window.addEventListener('load', () => {
+            if (document.getElementById('productsGrid').children.length === 0 || 
+                document.getElementById('productsGrid').querySelector('.loading-spinner')) {
+                loadAllProducts();
+            }
         });
     </script>
 
@@ -1216,8 +1423,20 @@
 <!-- Footer -->
     <footer class="footer">
         <div style="background: #2854a6; padding: 20px; text-align: center;">
-            <a href="/cart" style="display: inline-block; margin-bottom: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><img src="/public/images/view-cart-button.png" alt="View Cart" style="max-width: 150px; height: auto; cursor: pointer;"></a>
-            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 10px;"><img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;"></div>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-bottom: 10px;">
+                <a href="/shop" class="btn-view-all">
+                    <span class="star-icons">
+                        <span>✦</span>
+                        <span>✦</span>
+                        <span>✦</span>
+                    </span>
+                    View All
+                </a>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 10px;">
+                <a href="/cart" style="display: inline-block; margin-bottom: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><img src="/public/images/view-cart-button.png" alt="View Cart" style="max-width: 150px; height: auto; cursor: pointer;"></a>
+                <img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;">
+            </div>
         </div>
         <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
         <div style="background: #2854a6; padding: 15px 20px; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; font-size: 0.85rem;">

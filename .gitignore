@@ -11,3 +11,12 @@ dist
 review-repo/
 .vercel
 .env*.local
+
+# Large image folders that shouldn't be deployed
+deploy-site/images/UGC & Review/
+deploy-site/images/SC backgrounds/
+deploy-site/images/GMP proccess images/
+deploy-site/images/Great images to sort/
+deploy-site/public/images/UGC & Review/
+deploy-site/public/images/SC backgrounds/
+deploy-site/public/images/GMP proccess images/

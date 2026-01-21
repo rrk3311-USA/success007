@@ -1,0 +1,20 @@
+# Large folders that shouldn't be deployed
+images/UGC & Review/
+images/SC backgrounds/
+images/GMP proccess images/
+images/Great images to sort/
+
+# Large files that are too big
+**/Screenshot*.png
+**/Screen Shot*.png
+**/*.png
+!images/products/**/*.png
+!public/images/products/**/*.png
+!images/Catagory Thumbnail Images/**/*.png
+!images/*.png
+!public/images/*.png
+
+# But keep product images and category thumbnails
+!images/products/
+!public/images/products/
+!images/Catagory Thumbnail Images/

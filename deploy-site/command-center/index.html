@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Vision Command Center - Success Chemistry</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #2854a6;
+            --accent-blue: #4299e1;
+            --accent-purple: #667eea;
+            --accent-purple2: #764ba2;
+            --accent-cyan: #00d2ff;
+            --text-dark: #1a1a2e;
+            --text-muted: #4a5568;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f5f9ff 50%, #e8f4f8 100%);
+            color: var(--text-dark);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text-dark) 0%, var(--accent-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+        }
+
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .vision-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border-radius: 24px;
+            padding: 35px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 60px rgba(66, 153, 225, 0.15),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .vision-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(66, 153, 225, 0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        }
+
+        .vision-card h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .vision-card .icon {
+            font-size: 2rem;
+        }
+
+        .vision-item {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .vision-item.completed {
+            opacity: 0.7;
+            text-decoration: line-through;
+        }
+
+        .vision-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        .vision-item label {
+            flex: 1;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .add-item-form {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .add-item-form input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            font-family: inherit;
+            font-size: 1rem;
+            color: var(--text-dark);
+        }
+
+        .add-item-form input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .add-item-form button {
+            padding: 12px 24px;
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .add-item-form button:hover {
+            background: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 15px 50px rgba(66, 153, 225, 0.15),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            text-align: center;
+        }
+
+        .stat-card .value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-blue);
+            margin: 10px 0;
+        }
+
+        .stat-card .label {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-vision {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 60px rgba(66, 153, 225, 0.15),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .brand-vision h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: var(--text-dark);
+        }
+
+        .brand-vision .mission {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .brand-vision .values {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .value-item {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .value-item h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 8px;
+        }
+
+        .value-item p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .vision-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌟 Life Vision Command Center</h1>
+            <p>Your strategic dashboard for Success Chemistry</p>
+        </div>
+
+        <!-- Brand Vision -->
+        <div class="brand-vision">
+            <h2>Brand Vision & Mission</h2>
+            <div class="mission">
+                "Nature's nutrients, scientifically formulated — for results you can feel."
+            </div>
+            <p style="color: var(--text-muted); line-height: 1.8; margin-top: 15px;">
+                Premium dietary supplements made in USA. 3rd party tested, scientifically formulated with nature's nutrients. 
+                Built with a quality-first mindset: clean ingredients, clear product pages, and a focus on repeatable routines.
+            </p>
+            <div class="values">
+                <div class="value-item">
+                    <h3>🌍 Earth + Science</h3>
+                    <p>Combining nature's best with scientific rigor</p>
+                </div>
+                <div class="value-item">
+                    <h3>✅ Quality First</h3>
+                    <p>GMP-certified, 3rd party tested, made in USA</p>
+                </div>
+                <div class="value-item">
+                    <h3>🔬 Science-Backed</h3>
+                    <p>Evidence-based formulations for real results</p>
+                </div>
+                <div class="value-item">
+                    <h3>💪 Results You Feel</h3>
+                    <p>Designed for daily consistency and real impact</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="stats-section">
+            <div class="stat-card">
+                <div class="label">Total Products</div>
+                <div class="value" id="totalProducts">45+</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Brand Colors</div>
+                <div class="value">8</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Design Components</div>
+                <div class="value">12+</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Active Pages</div>
+                <div class="value">15+</div>
+            </div>
+        </div>
+
+        <!-- Vision Boards -->
+        <div class="vision-grid">
+            <!-- Business Goals -->
+            <div class="vision-card">
+                <h2><span class="icon">🎯</span> Business Goals</h2>
+                <div id="businessGoals">
+                    <div class="vision-item">
+                        <input type="checkbox" id="goal1" onchange="toggleGoal('goal1')">
+                        <label for="goal1">Reach $100K monthly revenue</label>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" id="goal2" onchange="toggleGoal('goal2')">
+                        <label for="goal2">Launch 10 new products this year</label>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" id="goal3" onchange="toggleGoal('goal3')">
+                        <label for="goal3">Build 50K+ email subscribers</label>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" id="goal4" onchange="toggleGoal('goal4')">
+                        <label for="goal4">Achieve 4.8+ average product rating</label>
+                    </div>
+                </div>
+                <div class="add-item-form">
+                    <input type="text" id="newBusinessGoal" placeholder="Add new business goal...">
+                    <button onclick="addGoal('business')">Add</button>
+                </div>
+            </div>
+
+            <!-- Design Vision -->
+            <div class="vision-card">
+                <h2><span class="icon">🎨</span> Design Vision</h2>
+                <div id="designGoals">
+                    <div class="vision-item">
+                        <input type="checkbox" id="design1" onchange="toggleGoal('design1')">
+                        <label for="design1">Implement frosted glass design system</label>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" id="design2" onchange="toggleGoal('design2')">
+                        <label for="design2">Create consistent brand identity</label>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" id="design3" onchange="toggleGoal('design3')">
+                        <label for="design3">Optimize mobile experience</label>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" id="design4" onchange="toggleGoal('design4')">
+                        <label for="design4">Build component library</label>
+                    </div>
+                </div>
+                <div class="add-item-form">
+                    <input type="text" id="newDesignGoal" placeholder="Add new design goal...">
+                    <button onclick="addGoal('design')">Add</button>
+                </div>
+            </div>
+
+            <!-- Marketing Goals -->
+            <div class="vision-card">
+                <h2><span class="icon">📈</span> Marketing Goals</h2>
+                <div id="marketingGoals">
+                    <div class="vision-item">
+                        <input type="checkbox" id="marketing1" onchange="toggleGoal('marketing1')">
+                        <label for="marketing1">Launch Google Ads campaigns</label>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" id="marketing2" onchange="toggleGoal('marketing2')">
+                        <label for="marketing2">Set up Meta advertising</label>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" id="marketing3" onchange="toggleGoal('marketing3')">
+                        <label for="marketing3">Build social media presence</label>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" id="marketing4" onchange="toggleGoal('marketing4')">
+                        <label for="marketing4">Create content marketing strategy</label>
+                    </div>
+                </div>
+                <div class="add-item-form">
+                    <input type="text" id="newMarketingGoal" placeholder="Add new marketing goal...">
+                    <button onclick="addGoal('marketing')">Add</button>
+                </div>
+            </div>
+
+            <!-- Technical Goals -->
+            <div class="vision-card">
+                <h2><span class="icon">⚙️</span> Technical Goals</h2>
+                <div id="techGoals">
+                    <div class="vision-item">
+                        <input type="checkbox" id="tech1" onchange="toggleGoal('tech1')">
+                        <label for="tech1">Optimize site performance</label>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" id="tech2" onchange="toggleGoal('tech2')">
+                        <label for="tech2">Implement SEO best practices</label>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" id="tech3" onchange="toggleGoal('tech3')">
+                        <label for="tech3">Set up analytics tracking</label>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" id="tech4" onchange="toggleGoal('tech4')">
+                        <label for="tech4">Build admin dashboard</label>
+                    </div>
+                </div>
+                <div class="add-item-form">
+                    <input type="text" id="newTechGoal" placeholder="Add new technical goal...">
+                    <button onclick="addGoal('tech')">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load saved goals from localStorage
+        function loadGoals() {
+            const saved = localStorage.getItem('visionBoardGoals');
+            if (saved) {
+                const goals = JSON.parse(saved);
+                Object.keys(goals).forEach(id => {
+                    const checkbox = document.getElementById(id);
+                    if (checkbox) {
+                        checkbox.checked = goals[id];
+                        if (goals[id]) {
+                            checkbox.closest('.vision-item').classList.add('completed');
+                        }
+                    }
+                });
+            }
+        }
+
+        // Save goals to localStorage
+        function saveGoals() {
+            const checkboxes = document.querySelectorAll('.vision-item input[type="checkbox"]');
+            const goals = {};
+            checkboxes.forEach(cb => {
+                goals[cb.id] = cb.checked;
+            });
+            localStorage.setItem('visionBoardGoals', JSON.stringify(goals));
+        }
+
+        // Toggle goal completion
+        function toggleGoal(id) {
+            const checkbox = document.getElementById(id);
+            const item = checkbox.closest('.vision-item');
+            if (checkbox.checked) {
+                item.classList.add('completed');
+            } else {
+                item.classList.remove('completed');
+            }
+            saveGoals();
+        }
+
+        // Add new goal
+        function addGoal(category) {
+            const inputId = `new${category.charAt(0).toUpperCase() + category.slice(1)}Goal`;
+            const input = document.getElementById(inputId);
+            const text = input.value.trim();
+            
+            if (!text) return;
+            
+            const containerId = `${category}Goals`;
+            const container = document.getElementById(containerId);
+            const newId = `${category}${Date.now()}`;
+            
+            const newItem = document.createElement('div');
+            newItem.className = 'vision-item';
+            newItem.innerHTML = `
+                <input type="checkbox" id="${newId}" onchange="toggleGoal('${newId}')">
+                <label for="${newId}">${text}</label>
+            `;
+            
+            container.appendChild(newItem);
+            input.value = '';
+            saveGoals();
+        }
+
+        // Load goals on page load
+        window.addEventListener('DOMContentLoaded', loadGoals);
+
+        // Allow Enter key to add goals
+        document.querySelectorAll('.add-item-form input').forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const form = this.closest('.vision-card');
+                    const button = form.querySelector('.add-item-form button');
+                    button.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

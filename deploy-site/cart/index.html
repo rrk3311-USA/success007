@@ -11,6 +11,9 @@
     <!-- PayPal SDK with Sandbox Client ID -->
     <script src="https://www.paypal.com/sdk/js?client-id=ATM3Eoawal0vHl1xqCcuP5TvlPBP-96AHV0xP0tiQ-KlAd_tuSLLQjKMsby8lgbgE7jN5zXPF3HjMUNk&currency=USD&components=buttons,funding-eligibility&enable-funding=venmo,paylater&disable-funding=credit"></script>
     
+    <!-- WooCommerce Order Integration -->
+    <script src="/woocommerce-order-integration.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -365,9 +368,10 @@
     <div class="blue-nav">
         <div class="container">
             <a href="/">Home</a>
-            <a href="/shop">Shop</a>
             <a href="/blog">Articles</a>
+            <a href="/shop">🧪 Shop</a>
             <a href="/cart">🛒 Cart <span id="cart-count">0</span></a>
+            <a href="/contact">Contact</a>
         </div>
     </div>
 
@@ -409,6 +413,14 @@
                 <!-- PayPal Buttons Container -->
                 <div id="paypal-button-container"></div>
                 <div class="paypal-note">Secure checkout powered by PayPal. Supports cards, Pay Later, and Venmo.</div>
+                
+                <!-- Test Payment Button (Development Only) -->
+                <button id="test-payment-btn" style="margin-top: 15px; padding: 12px 24px; background: #10b981; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; width: 100%;" onclick="simulateTestPayment()">
+                    🧪 Test Payment (Bypass PayPal)
+                </button>
+                <div style="margin-top: 8px; font-size: 0.85rem; color: #666; text-align: center;">
+                    This simulates a completed payment for testing Capsule CRM integration
+                </div>
             </div>
         </div>
 
@@ -421,6 +433,10 @@
         </div>
     </div>
 
+    <!-- Capsule CRM Integration -->
+    <script src="/capsule-integration.js"></script>
+    <script src="/shipstation-integration.js"></script>
+    
     <script>
         // Cart functions
         function getCart() {
@@ -548,6 +564,14 @@
         }
 
         // Initialize PayPal Buttons
+        // Initialize WooCommerce API from localStorage (if configured in admin)
+        const wooKey = localStorage.getItem('wooCommerceConsumerKey');
+        const wooSecret = localStorage.getItem('wooCommerceConsumerSecret');
+        if (wooKey && wooSecret && window.WooCommerceOrder) {
+            window.WooCommerceOrder.init(wooKey, wooSecret);
+            console.log('✅ WooCommerce API initialized from admin settings');
+        }
+        
         window.onload = function() {
             console.log('🎯 Page loaded, initializing cart...');
             renderCart();
@@ -637,30 +661,7 @@
                 },
                 onApprove: function(data, actions) {
                     return actions.order.capture().then(function(details) {
-                        console.log('✅ Payment completed:', details);
-                        
-                        // Award loyalty points (5 points per $1)
-                        const total = parseFloat(details.purchase_units[0].amount.value);
-                        const points = Math.floor(total * 5);
-                        const currentPoints = parseInt(localStorage.getItem('loyaltyPoints') || '0');
-                        localStorage.setItem('loyaltyPoints', (currentPoints + points).toString());
-                        
-                        // Save order
-                        const orders = JSON.parse(localStorage.getItem('successChemistryOrders') || '[]');
-                        orders.push({
-                            id: details.id,
-                            date: new Date().toISOString(),
-                            items: getCart(),
-                            total: total,
-                            pointsEarned: points
-                        });
-                        localStorage.setItem('successChemistryOrders', JSON.stringify(orders));
-                        
-                        // Clear cart
-                        localStorage.removeItem('successChemistryCart');
-                        
-                        alert(`✅ Payment completed! You earned ${points} loyalty points!`);
-                        window.location.href = '/subscribe.html';
+                        handlePaymentSuccess(details);
                     });
                 },
                 onError: function(err) {
@@ -673,12 +674,228 @@
                 console.error('❌ Failed to render PayPal buttons:', err);
             });
         };
+
+        // Test Payment Function - Simulates PayPal payment completion
+        function simulateTestPayment() {
+            const cart = getCart();
+            if (cart.length === 0) {
+                alert('⚠️ Your cart is empty! Add some items first.');
+                return;
+            }
+
+            const subtotal = cart.reduce((sum, item) => {
+                return sum + (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1);
+            }, 0);
+            const shipping = 0; // US shipping
+            const total = subtotal + shipping;
+
+            // Simulate PayPal order details
+            const mockPayPalDetails = {
+                id: 'TEST-' + Date.now(),
+                status: 'COMPLETED',
+                purchase_units: [{
+                    amount: {
+                        value: total.toFixed(2),
+                        currency_code: 'USD',
+                        breakdown: {
+                            item_total: { value: subtotal.toFixed(2) },
+                            shipping: { value: shipping.toFixed(2) }
+                        }
+                    },
+                    shipping: {
+                        address: {
+                            address_line_1: '123 Test Street',
+                            admin_area_2: 'Los Angeles',
+                            admin_area_1: 'CA',
+                            postal_code: '90001',
+                            country_code: 'US'
+                        }
+                    }
+                }],
+                payer: {
+                    name: {
+                        given_name: 'Test',
+                        surname: 'Customer'
+                    },
+                    email_address: 'test@successchemistry.com',
+                    phone: {
+                        phone_number: {
+                            national_number: '5551234567'
+                        }
+                    }
+                }
+            };
+
+            console.log('🧪 Simulating test payment...', mockPayPalDetails);
+
+            // Use the same logic as real PayPal approval
+            handlePaymentSuccess(mockPayPalDetails);
+        }
+
+        // Extract payment success logic to reusable function
+        async function handlePaymentSuccess(details) {
+            console.log('✅ Payment completed:', details);
+            
+            // Award loyalty points (5 points per $1)
+            const total = parseFloat(details.purchase_units[0].amount.value);
+            const points = Math.floor(total * 5);
+            const currentPoints = parseInt(localStorage.getItem('loyaltyPoints') || '0');
+            localStorage.setItem('loyaltyPoints', (currentPoints + points).toString());
+            
+            // Prepare order data
+            const orderData = {
+                id: details.id,
+                orderId: details.id,
+                date: new Date().toISOString(),
+                items: getCart(),
+                total: total,
+                pointsEarned: points,
+                status: 'completed',
+                customerName: `${details.payer?.name?.given_name || ''} ${details.payer?.name?.surname || ''}`.trim() || 'Customer',
+                customerEmail: details.payer?.email_address || '',
+                customerData: {
+                    email: details.payer?.email_address,
+                    firstName: details.payer?.name?.given_name,
+                    lastName: details.payer?.name?.surname,
+                    phone: details.payer?.phone?.phone_number?.national_number,
+                    address: details.purchase_units[0]?.shipping?.address
+                }
+            };
+            
+            // Prepare customer data from PayPal
+            const customerData = {
+                email: details.payer?.email_address,
+                firstName: details.payer?.name?.given_name,
+                lastName: details.payer?.name?.surname,
+                phone: details.payer?.phone?.phone_number?.national_number,
+                address: details.purchase_units[0]?.shipping?.address
+            };
+            
+            // Save order locally
+            const orders = JSON.parse(localStorage.getItem('successChemistryOrders') || '[]');
+            orders.push(orderData);
+            localStorage.setItem('successChemistryOrders', JSON.stringify(orders));
+            
+            // Sync to Capsule CRM (don't block on error)
+            let capsuleResult = null;
+            if (window.CapsuleCRM && window.CapsuleCRM.syncOrder) {
+                try {
+                    console.log('🔄 Syncing to Capsule CRM...');
+                    capsuleResult = await window.CapsuleCRM.syncOrder(orderData, customerData);
+                    if (capsuleResult.success) {
+                        console.log('✅ Successfully synced to Capsule CRM!', capsuleResult);
+                    } else {
+                        console.warn('⚠️ Capsule sync completed with warnings:', capsuleResult);
+                    }
+                } catch (err) {
+                    console.error('❌ Capsule sync error:', err);
+                    capsuleResult = { success: false, error: err.message };
+                }
+            } else {
+                console.warn('⚠️ Capsule CRM integration not loaded');
+            }
+            
+            // Sync to ShipStation for on-demand fulfillment (don't block on error)
+            let shipstationResult = null;
+            if (window.ShipStation && window.ShipStation.syncOrder) {
+                try {
+                    console.log('📦 Syncing to ShipStation...');
+                    shipstationResult = await window.ShipStation.syncOrder(orderData, customerData, details);
+                    if (shipstationResult.success) {
+                        console.log('✅ Successfully synced to ShipStation!', shipstationResult);
+                    } else {
+                        console.warn('⚠️ ShipStation sync failed:', shipstationResult.error);
+                    }
+                } catch (err) {
+                    console.error('❌ ShipStation sync error:', err);
+                    shipstationResult = { success: false, error: err.message };
+                }
+            } else {
+                console.warn('⚠️ ShipStation integration not loaded or not configured');
+            }
+            
+            // Sync to WooCommerce (don't block on error)
+            let wooCommerceResult = null;
+            if (window.WooCommerceOrder && window.WooCommerceOrder.syncOrder) {
+                try {
+                    console.log('🛒 Syncing to WooCommerce...');
+                    wooCommerceResult = await window.WooCommerceOrder.syncOrder(details);
+                    if (wooCommerceResult && wooCommerceResult.id) {
+                        console.log('✅ Successfully synced to WooCommerce!', wooCommerceResult);
+                        // Update order data with WooCommerce order ID
+                        orderData.wooCommerceId = wooCommerceResult.id;
+                        orderData.wooCommerceNumber = wooCommerceResult.number;
+                        // Re-save with WooCommerce info
+                        const orders = JSON.parse(localStorage.getItem('successChemistryOrders') || '[]');
+                        const orderIndex = orders.findIndex(o => (o.id || o.orderId) === orderData.id);
+                        if (orderIndex >= 0) {
+                            orders[orderIndex] = orderData;
+                            localStorage.setItem('successChemistryOrders', JSON.stringify(orders));
+                        }
+                    } else {
+                        console.warn('⚠️ WooCommerce sync failed');
+                    }
+                } catch (err) {
+                    console.error('❌ WooCommerce sync error:', err);
+                    wooCommerceResult = { success: false, error: err.message };
+                }
+            } else {
+                console.warn('⚠️ WooCommerce integration not loaded or not configured');
+            }
+            
+            // Clear cart
+            localStorage.removeItem('successChemistryCart');
+            
+            // Show success message with sync status
+            let message = `✅ Payment completed! You earned ${points} loyalty points!`;
+            
+            if (capsuleResult) {
+                if (capsuleResult.success) {
+                    message += '\n\n✅ Synced to Capsule CRM!';
+                    message += `\n- Contact created/found`;
+                    message += `\n- Opportunity created`;
+                    message += `\n- Follow-up task created`;
+                } else {
+                    message += `\n\n⚠️ Capsule sync: ${capsuleResult.error || 'Failed'}`;
+                }
+            }
+            
+            if (shipstationResult) {
+                if (shipstationResult.success) {
+                    message += '\n\n📦 Order sent to ShipStation!';
+                    message += `\n- Order #${shipstationResult.orderNumber || orderData.orderId}`;
+                    message += `\n- Ready for fulfillment`;
+                } else {
+                    message += `\n\n⚠️ ShipStation sync: ${shipstationResult.error || 'Failed'}`;
+                    message += `\n(Order saved locally - will retry)`; 
+                }
+            }
+            
+            if (wooCommerceResult) {
+                if (wooCommerceResult && wooCommerceResult.id) {
+                    message += '\n\n🛒 Order created in WooCommerce!';
+                    message += `\n- WooCommerce Order #${wooCommerceResult.number || wooCommerceResult.id}`;
+                    message += `\n- Status: ${wooCommerceResult.status}`;
+                } else {
+                    message += `\n\n⚠️ WooCommerce sync: ${wooCommerceResult?.error || 'Failed'}`;
+                    message += `\n(Order saved locally)`; 
+                }
+            }
+            
+            alert(message);
+            window.location.href = '/subscribe.html';
+        }
     </script>
 
     <footer class="footer">
         <div style="background: #2854a6; padding: 20px; text-align: center;">
-            <a href="/cart" style="display: inline-block; margin-bottom: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><img src="/public/images/view-cart-button.png" alt="View Cart" style="max-width: 150px; height: auto; cursor: pointer;"></a>
-            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 10px;"><img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;"></div>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-bottom: 10px;">
+                <a href="/shop" style="display: inline-block; margin-bottom: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><img src="/public/images/home/view-all-products.png" alt="View All" style="max-width: 150px; height: auto; cursor: pointer;"></a>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 10px;">
+                <a href="/cart" style="display: inline-block; margin-bottom: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><img src="/public/images/view-cart-button.png" alt="View Cart" style="max-width: 150px; height: auto; cursor: pointer;"></a>
+                <img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;">
+            </div>
         </div>
         <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
         <div style="background: #2854a6; padding: 15px 20px; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; font-size: 0.85rem;">

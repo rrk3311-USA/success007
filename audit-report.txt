@@ -1,0 +1,790 @@
+🔍 FULL PROJECT AUDIT
+====================
+
+📁 PROJECT FOLDERS & LOCATIONS
+================================
+
+📍 LOCAL DEVELOPMENT (Where you work):
+   /Users/r-kammer/CascadeProjects/Success Chemistry
+   ✅ EXISTS
+   📊 Size: 10G
+
+📍 PRODUCTION REPO (What gets deployed):
+   /Users/r-kammer/Documents/GitHub/success007
+   ✅ EXISTS
+   📊 Size: 697M
+
+🔀 GIT STATUS
+============
+
+📦 Repository: https://github.com/rrk3311-USA/success007.git
+🌿 Current branch: main
+
+📝 Files tracked by git:
+   888 files
+
+📋 Modified/New files (not committed):
+ M .gitignore
+ M deploy-site/admin/index.html
+ M deploy-site/blog.html
+ M deploy-site/blog/index.html
+ M deploy-site/cart/index.html
+ M deploy-site/contact/index.html
+ M deploy-site/faq/index.html
+ D deploy-site/images/home/P1022254.RW2
+ D deploy-site/images/home/beautiful-abstract-wallpaper-PT8CLJ4.jpg
+ D deploy-site/images/home/shutterstock_148602884.jpg
+ M deploy-site/index.html
+ M deploy-site/my-account-dashboard.html
+ M deploy-site/payment-policy/index.html
+ M deploy-site/privacy-policy/index.html
+ M deploy-site/product/10775-506/index.html
+ M deploy-site/product/52274-401.html
+ M deploy-site/product/index.html
+ D deploy-site/public/images/home/P1022254.RW2
+ D deploy-site/public/images/home/beautiful-abstract-wallpaper-PT8CLJ4.jpg
+ D deploy-site/public/images/home/shutterstock_148602884.jpg
+   ... and 41 more
+
+🗑️  Files git is ignoring (.gitignore):
+
+
+📂 LOCAL DEV FOLDER STRUCTURE
+==============================
+
+Top-level folders in local dev:
+   📁 2026 SC labels  (22M)
+   📁 SEO-Optimized (15M)
+   📁 atomic-crm (484M)
+   📁 deploy-site (460M)
+   📁 espocrm (3.1M)
+   📁 home-page-media (24K)
+   📁 node_modules (630M)
+   📁 public (60K)
+   📁 review-repo (2.5G)
+   📁 server (6.2M)
+   📁 too-big-for-vercel (2.3G)
+
+deploy-site/ subfolders:
+   📁 admin (60K)
+   📁 blog (16K)
+   📁 cart (40K)
+   📁 command-center (20K)
+   📁 contact (16K)
+   📁 email-templates (32K)
+   📁 faq (20K)
+   📁 feeds (288K)
+   📁 images (287M)
+   📁 payment-policy (28K)
+   📁 privacy-policy (28K)
+   📁 product (260K)
+   📁 public (171M)
+   📁 shipping-returns (28K)
+   📁 shop (56K)
+   📁 terms-of-service (32K)
+
+📂 PRODUCTION REPO STRUCTURE
+============================
+
+Top-level items:
+   📄 2026 SC labels
+   📄 BUNDLING_SUGGESTIONS.md
+   📄 COMPARISON.md
+   📄 CUSTOM_LOCAL_DOMAIN_SETUP.md
+   📄 DEPLOYMENT_WORKFLOW.md
+   📄 DEPLOY_NOW.md
+   📄 ENHANCED_CONVERSIONS_SETUP.md
+   📄 FLEET_MANAGER_README.md
+   📄 GOOGLE_ADS_OAUTH_SETUP.md
+   📄 GOOGLE_ADS_SETUP.md
+   📄 GOOGLE_ANALYTICS_SETUP.md
+   📄 GOOGLE_MERCHANT_ADS_LINKING.md
+   📄 GOOGLE_UCP_SETUP_COMPLETE.md
+   📄 LOCAL_DATABASE_MIGRATION_PLAN.md
+   📄 LOCAL_SETUP_COMPLETE.md
+   📄 PAYPAL_AGENT_TOOLKIT_GUIDE.md
+   📄 PAYPAL_API_SETUP.md
+   📄 PAYPAL_SMART_BUTTONS_GUIDE.md
+   📄 PREVIEW.md
+   📄 PRODUCT_SEO_CONTENT.md
+   📄 QUICK_START_FLEET_MANAGER.md
+   📄 README.md
+   📄 SETUP_COMPLETE.md
+   📄 SHOP_SETUP_INSTRUCTIONS.md
+   📄 START_BEAUTIFUL_URLS.md
+   📄 SUBSCRIBE_AND_SAVE_GUIDE.md
+   📄 audit-report.txt
+   📄 check-large-files.sh
+   📄 cleanup-for-deploy.sh
+   📁 deploy-site/ (335M)
+
+deploy-site/ subfolders:
+   📁 admin (60K)
+   📁 blog (16K)
+   📁 cart (40K)
+   📁 command-center (20K)
+   📁 contact (16K)
+   📁 email-templates (32K)
+   📁 faq (20K)
+   📁 feeds (288K)
+   📁 images (162M)
+   📁 payment-policy (28K)
+   📁 privacy-policy (28K)
+   📁 product (252K)
+   📁 public (171M)
+   📁 shipping-returns (28K)
+   📁 shop (56K)
+   📁 terms-of-service (32K)
+
+🔍 CHECKING FOR DEAD/BROKEN FILES
+==================================
+
+Looking for common dead file patterns...
+
+🔎 Suspicious files (might be dead):
+   EARTH-GAVE-US-NATURE'S-NUTRIENTS-JUST-FOR-YOU-1569png
+   keo burn drops.PNG
+   IMG_3842.HEIC
+   blood-sugar-
+   IMG_2731.JPG
+   IMG_2421.JPG
+   IMG_1300.JPG
+   EARTH-GAVE-US-NATURE'S-NUTRIENTS-JUST-FOR-YOU-1569png
+   netlify.toml
+
+📋 Potential duplicate files:
+   🔄 01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+      01.jpg
+   🔄 01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+      01.png
+   🔄 02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+      02.jpg
+   🔄 02.png
+      02.png
+      02.png
+      02.png
+      02.png
+      02.png
+      02.png
+      02.png
+      02.png
+      02.png
+      02.png
+      02.png
+      02.png
+      02.png
+      02.png
+      02.png
+      02.png
+      02.png
+      02.png
+      02.png
+      02.png
+      02.png
+      02.png
+      02.png
+      02.png
+      02.png
+      02.png
+   🔄 03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+      03.jpg
+   🔄 03.png
+      03.png
+      03.png
+      03.png
+      03.png
+      03.png
+      03.png
+      03.png
+      03.png
+      03.png
+      03.png
+      03.png
+      03.png
+      03.png
+      03.png
+      03.png
+      03.png
+      03.png
+      03.png
+      03.png
+      03.png
+   🔄 04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+      04.jpg
+   🔄 04.png
+      04.png
+      04.png
+      04.png
+      04.png
+      04.png
+      04.png
+      04.png
+      04.png
+      04.png
+      04.png
+      04.png
+      04.png
+      04.png
+      04.png
+      04.png
+      04.png
+      04.png
+      04.png
+      04.png
+      04.png
+      04.png
+      04.png
+   🔄 05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+      05.jpg
+   🔄 05.png
+      05.png
+      05.png
+      05.png
+      05.png
+      05.png
+      05.png
+      05.png
+      05.png
+      05.png
+      05.png
+      05.png
+      05.png
+      05.png
+      05.png
+      05.png
+      05.png
+      05.png
+      05.png
+      05.png
+      05.png
+
+🌐 URLs FOUND IN CODE
+====================
+
+External URLs (http/https):
+   http://127.0.0.1:7242/inge
+   http://ba
+   http://localho
+   http://www.
+   http://www.bing.com/
+   http://www.w3.org/2001/XMLSchema-in
+   https://analytic
+   https://api.cap
+   https://blueviolet-
+   https://cdn.j
+   https://developer.paypal.com/da
+   https://font
+   https://merchant
+   https://myaccount.google.com/apppa
+   https://www.googletagmanager.com/gtag/j
+   https://www.paypal.com/
+
+Local paths (/shop, /product, etc.):
+   "/blog
+   "/cart
+   "/contact
+   "/faq/${currentProduct.
+   "/payment-policy.html
+   "/privacy-policy.html
+   "/product
+   "/product/?
+   "/product?
+   '/cart
+   '/cart.html
+   '/product/?
+   '/product?
+
+📊 LARGE FILES SUMMARY
+======================
+
+Files over 5MB:
+   7.3M - /Users/r-kammer/CascadeProjects/Success
+   5.1M - /Users/r-kammer/CascadeProjects/Success
+   7.3M - /Users/r-kammer/CascadeProjects/Success
+   7.3M - /Users/r-kammer/CascadeProjects/Success
+
+Files over 2MB:
+   Total: 40 files
+
+💡 SUMMARY & UNDERSTANDING
+==========================
+
+📍 YOU HAVE TWO MAIN LOCATIONS:
+
+1. LOCAL DEV (CascadeProjects):
+   - Where you edit files
+   - Run: node local-server.js
+   - View at: http://localhost:8080
+   - NOT automatically deployed
+
+2. PRODUCTION REPO (GitHub/success007):
+   - What gets deployed to successchemistry.com
+   - Managed by git
+   - GitHub Desktop watches THIS folder
+   - When you push, it deploys automatically
+
+🔄 WORKFLOW:
+   1. Edit in CascadeProjects → Test at localhost:8080
+   2. Sync to GitHub repo → ./sync-selective.sh
+   3. Commit & push → Deploys to .com
+
+📋 NEXT STEPS:
+   1. Review the files above
+   2. Clean up any dead files you see
+   3. Sync when ready: ./sync-selective.sh
+   4. Deploy: git add . && git commit && git push
+

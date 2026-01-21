@@ -344,8 +344,9 @@
     <nav class="blue-nav">
         <div class="container">
             <a href="/">Home</a>
+            <a href="/blog">Articles</a>
             <a href="/shop">🧪 Shop</a>
-            <a href="/cart">Cart</a>
+            <a href="/cart">🛒 Cart</a>
             <a href="/contact">Contact</a>
         </div>
     </nav>
@@ -365,12 +366,14 @@
     <footer>
         <div class="container">
             <p>&copy; 2024 Success Chemistry. All rights reserved.</p>
-            <p><a href="/shop">🧪 Shop</a> | <a href="/contact">Contact Us</a></p>
+            <p><a href="/shop">Shop</a> | <a href="/contact">Contact Us</a></p>
         </div>
     </footer>
 
     <!-- Products Data -->
-    <script src="/products-data.js"></script>
+    <!-- Preload products data for faster loading -->
+    <link rel="preload" href="/products-data.js?v=3" as="script">
+    <script src="/products-data.js?v=3" async></script>
     
     <script>
         let currentProduct = null;
@@ -437,18 +440,39 @@
                 return;
             }
 
-            // Wait for products data
+            // Wait for products data - improved loading
+            const faqContent = document.getElementById('faqContent');
+            faqContent.innerHTML = `
+                <div style="text-align: center; padding: 2rem;">
+                    <div style="margin-bottom: 1rem;">⏳ Waiting for products data...</div>
+                    <div style="font-size: 0.9rem; color: #666;">Loading FAQ information...</div>
+                </div>
+            `;
+            
             let attempts = 0;
-            while (typeof window.getProductBySKU !== 'function' && attempts < 50) {
+            const maxAttempts = 100; // 10 seconds total
+            
+            while (typeof window.getProductBySKU !== 'function' && attempts < maxAttempts) {
                 await new Promise(resolve => setTimeout(resolve, 100));
                 attempts++;
+                
+                if (attempts % 20 === 0 && attempts < maxAttempts) {
+                    faqContent.innerHTML = `
+                        <div style="text-align: center; padding: 2rem;">
+                            <div style="margin-bottom: 1rem;">⏳ Waiting for products data...</div>
+                            <div style="font-size: 0.9rem; color: #666;">Still loading... (${Math.ceil(attempts * 0.1)}s)</div>
+                        </div>
+                    `;
+                }
             }
 
             if (typeof window.getProductBySKU !== 'function') {
-                document.getElementById('faqContent').innerHTML = `
+                faqContent.innerHTML = `
                     <div class="loading">
                         <h2>Error loading product data</h2>
-                        <p><a href="/shop">Return to Shop</a></p>
+                        <p>Product data failed to load. Please refresh the page.</p>
+                        <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">If the problem persists, please check your internet connection.</p>
+                        <p style="margin-top: 1rem;"><a href="/shop">Return to Shop</a></p>
                     </div>
                 `;
                 return;

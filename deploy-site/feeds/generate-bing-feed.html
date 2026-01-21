@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Bing Shopping Feed</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2854a6;
+            margin-bottom: 10px;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        button {
+            background: #2854a6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #1e3f7a;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        textarea {
+            width: 100%;
+            min-height: 400px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2854a6;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 Generate Bing Shopping Feed</h1>
+        <p>Generate an XML feed for Bing Merchant Center (Microsoft Advertising)</p>
+        
+        <div id="status" class="status info" style="display: none;"></div>
+        
+        <div class="stats" id="stats" style="display: none;">
+            <div class="stat-box">
+                <div class="stat-value" id="product-count">0</div>
+                <div class="stat-label">Products</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="feed-size">0 KB</div>
+                <div class="stat-label">Feed Size</div>
+            </div>
+        </div>
+        
+        <div>
+            <button id="generate-btn" onclick="generateFeed()">Generate Bing Shopping Feed</button>
+            <button id="download-btn" onclick="downloadFeed()" disabled>Download Feed</button>
+            <button id="validate-btn" onclick="validateFeed()" disabled>Validate XML</button>
+        </div>
+        
+        <textarea id="feed-output" placeholder="Generated feed will appear here..."></textarea>
+    </div>
+
+    <!-- Load products data -->
+    <script src="/products-data.js"></script>
+    
+    <!-- Bing feed generator -->
+    <script>
+        let generatedFeed = '';
+        
+        function escapeXml(text) {
+            if (!text) return '';
+            return String(text)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&apos;');
+        }
+
+        function cleanText(text) {
+            if (!text) return '';
+            let cleaned = text.replace(/<[^>]*>/g, '');
+            cleaned = cleaned.replace(/&nbsp;/g, ' ');
+            cleaned = cleaned.replace(/&amp;/g, '&');
+            cleaned = cleaned.replace(/&lt;/g, '<');
+            cleaned = cleaned.replace(/&gt;/g, '>');
+            cleaned = cleaned.replace(/\s+/g, ' ').trim();
+            return cleaned;
+        }
+
+        function generateBingFeed() {
+            if (typeof PRODUCTS_DATA === 'undefined') {
+                showStatus('error', '❌ Products data not loaded. Make sure products-data.js is accessible.');
+                return '';
+            }
+
+            const BASE_URL = 'https://successchemistry.com';
+            const products = Object.values(PRODUCTS_DATA);
+            
+            let xml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0" xmlns:c="http://www.bing.com/shopping/ns/1.0">
+  <channel>
+    <title>Success Chemistry Product Feed - Bing Shopping</title>
+    <link>${BASE_URL}</link>
+    <description>Premium health supplements and wellness products</description>
+`;
+
+            products.forEach(product => {
+                const id = product.sku;
+                const title = cleanText(product.name).substring(0, 255);
+                const description = cleanText(product.short_description || product.description || '').substring(0, 5000);
+                const link = `${BASE_URL}/product/?sku=${encodeURIComponent(product.sku)}`;
+                const imageLink = product.images && product.images[0] ? 
+                    (product.images[0].startsWith('http') ? product.images[0] : `${BASE_URL}${product.images[0]}`) : '';
+                const price = `${product.price} USD`;
+                const availability = product.stock > 0 ? 'in stock' : 'out of stock';
+                const brand = 'Success Chemistry';
+                const condition = 'new';
+                const mpn = product.sku;
+                const gtin = product.gtin || product.upc || '';
+                
+                let bingCategory = 'Health & Beauty > Health Care > Fitness & Nutrition > Vitamins & Supplements';
+                const category = (product.category || '').toLowerCase();
+                if (category.includes('women')) {
+                    bingCategory = 'Health & Beauty > Health Care > Fitness & Nutrition > Vitamins & Supplements > Women\'s Health';
+                } else if (category.includes('men')) {
+                    bingCategory = 'Health & Beauty > Health Care > Fitness & Nutrition > Vitamins & Supplements > Men\'s Health';
+                } else if (category.includes('eye') || category.includes('vision')) {
+                    bingCategory = 'Health & Beauty > Health Care > Fitness & Nutrition > Vitamins & Supplements > Eye Health';
+                } else if (category.includes('weight')) {
+                    bingCategory = 'Health & Beauty > Health Care > Fitness & Nutrition > Vitamins & Supplements > Weight Management';
+                }
+                
+                xml += `    <item>
+      <g:id>${escapeXml(id)}</g:id>
+      <g:title>${escapeXml(title)}</g:title>
+      <g:description>${escapeXml(description)}</g:description>
+      <g:link>${escapeXml(link)}</g:link>
+      <g:image_link>${escapeXml(imageLink)}</g:image_link>
+      <g:price>${price}</g:price>
+      <g:availability>${availability}</g:availability>
+      <g:brand>${escapeXml(brand)}</g:brand>
+      <g:condition>${condition}</g:condition>
+      <g:product_type>${escapeXml(bingCategory)}</g:product_type>
+      <g:mpn>${escapeXml(mpn)}</g:mpn>
+      ${gtin ? `<g:gtin>${escapeXml(gtin)}</g:gtin>` : ''}
+      <g:google_product_category>${escapeXml(bingCategory)}</g:google_product_category>
+`;
+
+                if (product.images && product.images.length > 1) {
+                    product.images.slice(1, 11).forEach(img => {
+                        const imgUrl = img.startsWith('http') ? img : `${BASE_URL}${img}`;
+                        xml += `      <g:additional_image_link>${escapeXml(imgUrl)}</g:additional_image_link>\n`;
+                    });
+                }
+                
+                xml += `      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>0 USD</g:price>
+      </g:shipping>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Express</g:service>
+        <g:price>15 USD</g:price>
+      </g:shipping>
+      <g:custom_label_0>${escapeXml(product.category || 'Health Supplements')}</g:custom_label_0>
+      <g:custom_label_1>${product.price < 30 ? 'Low Price' : product.price < 50 ? 'Mid Price' : 'High Price'}</g:custom_label_1>
+      <g:custom_label_2>${product.name.includes('Bundle') || product.name.includes('Pack') ? 'Bundle' : 'Single'}</g:custom_label_2>
+    </item>
+`;
+            });
+
+            xml += `  </channel>
+</rss>`;
+
+            return xml;
+        }
+
+        function generateFeed() {
+            try {
+                showStatus('info', '🔄 Generating Bing Shopping feed...');
+                
+                generatedFeed = generateBingFeed();
+                
+                if (generatedFeed) {
+                    document.getElementById('feed-output').value = generatedFeed;
+                    document.getElementById('download-btn').disabled = false;
+                    document.getElementById('validate-btn').disabled = false;
+                    
+                    const products = Object.values(PRODUCTS_DATA || {});
+                    const feedSize = (new Blob([generatedFeed]).size / 1024).toFixed(2);
+                    
+                    document.getElementById('product-count').textContent = products.length;
+                    document.getElementById('feed-size').textContent = feedSize + ' KB';
+                    document.getElementById('stats').style.display = 'grid';
+                    
+                    showStatus('success', `✅ Feed generated successfully! ${products.length} products included.`);
+                } else {
+                    showStatus('error', '❌ Failed to generate feed. Check console for errors.');
+                }
+            } catch (error) {
+                showStatus('error', '❌ Error: ' + error.message);
+                console.error(error);
+            }
+        }
+
+        function downloadFeed() {
+            if (!generatedFeed) {
+                showStatus('error', '❌ No feed generated yet. Click "Generate" first.');
+                return;
+            }
+            
+            const blob = new Blob([generatedFeed], { type: 'application/xml' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'bing-shopping-feed.xml';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showStatus('success', '✅ Feed downloaded as bing-shopping-feed.xml');
+        }
+
+        function validateFeed() {
+            if (!generatedFeed) {
+                showStatus('error', '❌ No feed generated yet. Click "Generate" first.');
+                return;
+            }
+            
+            try {
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(generatedFeed, 'text/xml');
+                
+                const parserError = xmlDoc.querySelector('parsererror');
+                if (parserError) {
+                    showStatus('error', '❌ XML Validation Error: ' + parserError.textContent);
+                } else {
+                    const items = xmlDoc.querySelectorAll('item');
+                    showStatus('success', `✅ XML is valid! Found ${items.length} product items.`);
+                }
+            } catch (error) {
+                showStatus('error', '❌ Validation Error: ' + error.message);
+            }
+        }
+
+        function showStatus(type, message) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.className = 'status ' + type;
+            statusDiv.textContent = message;
+            statusDiv.style.display = 'block';
+        }
+
+        // Auto-generate on load if products are available
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                if (typeof PRODUCTS_DATA !== 'undefined' && Object.keys(PRODUCTS_DATA).length > 0) {
+                    showStatus('info', '✅ Products data loaded. Click "Generate Bing Shopping Feed" to create the feed.');
+                } else {
+                    showStatus('error', '❌ Products data not loaded. Make sure products-data.js is accessible.');
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

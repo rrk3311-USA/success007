@@ -1,0 +1,206 @@
+# LLMs.txt - Success Chemistry Website Guide for AI Agents
+
+# Site Information
+Site Name: Success Chemistry
+Domain: https://successchemistry.com
+Description: Premium dietary supplements and vitamins made in USA. 3rd party tested, scientifically formulated with nature's nutrients.
+Tagline: "Nature's nutrients, scientifically formulated — for results you can feel."
+Mission: Premium dietary supplements made in USA, 3rd party tested, scientifically formulated with nature's nutrients. Built with a quality-first mindset: clean ingredients, clear product pages, and a focus on repeatable routines.
+
+# Brand Identity
+Brand Colors:
+- Primary Blue: #2854a6
+- Accent Blue: #4299e1
+- Accent Purple: #667eea
+- Accent Purple 2: #764ba2
+- Accent Cyan: #00d2ff
+- Text Dark: #1a1a2e
+- Text Muted: #4a5568
+
+Typography:
+- Primary Font: Nunito (weights: 400, 500, 600, 700, 800)
+- Secondary Font: Inter (weights: 400, 500, 600, 700, 800)
+
+Design System:
+- Frosted glass effects (glassmorphism)
+- Modern, clean aesthetic
+- Gradient backgrounds
+- Responsive design
+
+# Key Pages
+Home: https://successchemistry.com/
+Shop: https://successchemistry.com/shop
+Cart: https://successchemistry.com/cart
+Blog: https://successchemistry.com/blog
+FAQ: https://successchemistry.com/faq
+Contact: https://successchemistry.com/contact
+Privacy Policy: https://successchemistry.com/privacy-policy
+Shipping & Returns: https://successchemistry.com/shipping-returns
+Terms of Service: https://successchemistry.com/terms-of-service
+Payment Policy: https://successchemistry.com/payment-policy
+Subscribe: https://successchemistry.com/subscribe
+My Account: https://successchemistry.com/my-account
+Admin Dashboard: https://successchemistry.com/admin
+Command Center: https://successchemistry.com/command-center
+Branding Kit: https://successchemistry.com/branding-kit.html
+
+# Product Pages
+Product pages follow pattern: https://successchemistry.com/product?sku={SKU}
+Example: https://successchemistry.com/product?sku=52274-401
+
+# Product Data
+Products are stored in: /products-data.js
+Total Products: 45+ supplements
+Product Categories:
+- Women's Health (10 products)
+- Men's Health (5 products)
+- Eye Health (5 products)
+- Weight Loss (4 products)
+- Immune Support (4 products)
+- Energy & Vitality (4 products)
+- Sleep & Relaxation (3 products)
+- Detox & Cleanse (4 products)
+- Joint Health (2 products)
+- Heart Health (2 products)
+- Beauty & Wellness (2 products)
+
+# Featured Products
+- Women's Balance (SKU: 52274-401) - Female libido & arousal support
+- New Lung (SKU: 20647-507) - Lung detox premium cleanse
+- Liver Cleanse (SKU: 10775-506) - Liver detox formula
+- Prostate Renew - Men's prostate health
+- Lutein Eye Health - Vision support
+
+# Product Information Structure
+Each product includes:
+- SKU (unique identifier)
+- Name
+- Price (USD)
+- Category
+- Full description
+- Short description
+- Suggested use
+- Supplement facts
+- Ingredients list
+- Images (multiple views)
+- Stock status
+- UPC/GTIN codes
+
+# API Endpoints (if backend server running)
+Base URL: http://localhost:3001/api (development)
+Production: https://successchemistry.com/api
+
+Health Check: GET /api/health
+
+Authentication:
+- POST /api/auth/login
+- GET /api/auth/verify
+- POST /api/auth/logout
+- POST /api/auth/change-password
+
+Products:
+- GET /api/products - List all products
+- GET /api/products/:sku - Get single product
+- POST /api/products - Create product (auth required)
+- PUT /api/products/:sku - Update product (auth required)
+- DELETE /api/products/:sku - Delete product (auth required)
+- POST /api/products/bulk - Bulk operations (auth required)
+
+Orders:
+- GET /api/orders - List orders
+- GET /api/orders/:id - Get single order
+- POST /api/orders - Create order
+- PUT /api/orders/:id - Update order
+- GET /api/orders/stats/summary - Order statistics
+
+Users:
+- GET /api/users - List users
+- GET /api/users/:id - Get single user
+
+Analytics:
+- GET /api/analytics/overview - Dashboard overview
+- GET /api/analytics/sales-chart - Sales data
+- GET /api/analytics/categories - Category analytics
+
+# Cart System
+Cart is stored in browser localStorage with key: 'successChemistryCart'
+Cart structure:
+{
+  sku: string,
+  name: string,
+  price: number,
+  quantity: number,
+  image: string
+}
+
+# Payment Integration
+Payment Provider: PayPal
+PayPal Smart Buttons are integrated on product and cart pages
+Checkout flow: Cart → PayPal → Thank You page
+
+# Content Structure
+- Static HTML pages in /deploy-site/
+- Product data in /products-data.js
+- Images in /images/products/{SKU}/
+- Public assets in /public/
+
+# SEO & Discovery
+Sitemap: https://successchemistry.com/sitemap.xml
+Robots.txt: https://successchemistry.com/robots.txt
+Structured Data: JSON-LD on product pages
+
+# Key Features
+- E-commerce functionality
+- Product catalog with 45+ items
+- Shopping cart (localStorage-based)
+- Product pages with image galleries
+- Frosted glass UI components
+- Responsive design
+- Admin dashboard
+- Branding kit/design system
+
+# How AI Agents Can Interact
+
+1. Browse Products:
+   - Visit /shop to see all products
+   - Use /product?sku={SKU} to view specific products
+   - Product data available in /products-data.js
+
+2. Understand Brand:
+   - Visit /branding-kit.html for complete design system
+   - Check color palette, typography, components
+
+3. Access Admin:
+   - Admin dashboard at /admin
+   - Login: admin / admin123 (development)
+
+4. View Vision Board:
+   - Command center at /command-center
+   - Strategic goals and brand vision
+
+5. Check Site Structure:
+   - Review sitemap.xml for all pages
+   - Check robots.txt for crawl rules
+
+# Technical Stack
+Frontend: Static HTML, CSS, JavaScript
+Backend: Node.js/Express (optional, for admin features)
+Database: SQLite (ecommerce.db, products.db)
+Server: Express.js on port 8080 (local) or 3001 (API)
+
+# Contact Information
+Email: info@successchemistry.com
+Customer Service: Available via contact page
+
+# Compliance & Quality
+- Made in USA
+- GMP-certified facility
+- 3rd party tested
+- FDA-compliant labeling
+- Non-GMO ingredients
+- Vegetarian capsules available
+
+# Last Updated
+Generated: 2026-01-19
+Site Version: 1.0
+Content Updates: Tracked via sitemap.xml lastmod dates

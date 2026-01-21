@@ -96,11 +96,20 @@
 
         /* Dashboard */
         .dashboard {
-            display: none;
+            display: none !important;
         }
 
         .dashboard.active {
-            display: block;
+            display: block !important;
+        }
+        
+        /* Ensure login screen can be hidden */
+        .login-container {
+            display: flex;
+        }
+        
+        .login-container.hidden {
+            display: none !important;
         }
 
         .header {
@@ -330,27 +339,8 @@
     </style>
 </head>
 <body>
-    <!-- Login Screen -->
-    <div id="loginScreen" class="login-container">
-        <div class="login-box">
-            <h1>Admin Login</h1>
-            <p>Success Chemistry Dashboard</p>
-            <form onsubmit="login(event)">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" required>
-                </div>
-                <button type="submit" class="login-btn">Sign In</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Dashboard -->
-    <div id="dashboard" class="dashboard">
+    <!-- Dashboard - No Login Required -->
+    <div id="dashboard" class="dashboard active" style="display: block;">
         <div class="header">
             <div class="header-inner">
                 <h1>Success Chemistry Admin</h1>
@@ -361,10 +351,11 @@
         <div class="container">
             <!-- Tabs -->
             <div class="tabs">
-                <button class="tab-btn active" onclick="switchTab('overview')">Overview</button>
-                <button class="tab-btn" onclick="switchTab('orders')">Orders</button>
-                <button class="tab-btn" onclick="switchTab('products')">Products</button>
-                <button class="tab-btn" onclick="switchTab('customers')">Customers</button>
+                <button class="tab-btn active" onclick="switchTab('overview', event)">Overview</button>
+                <button class="tab-btn" onclick="switchTab('orders', event)">Orders</button>
+                <button class="tab-btn" onclick="switchTab('products', event)">Products</button>
+                <button class="tab-btn" onclick="switchTab('customers', event)">Customers</button>
+                <button class="tab-btn" onclick="switchTab('analytics', event)">Analytics</button>
             </div>
 
             <!-- Overview Tab -->
@@ -402,6 +393,15 @@
 
             <!-- Orders Tab -->
             <div id="orders" class="tab-content">
+                <div style="margin-bottom: 20px; display: flex; gap: 12px; flex-wrap: wrap;">
+                    <button onclick="configureWooCommerceAPI()" class="btn-primary" style="background: #3E4C7A; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;">
+                        ⚙️ Configure WooCommerce API
+                    </button>
+                    <button onclick="showManualOrderEntry()" class="btn-primary" style="background: #48BB78; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;">
+                        ➕ Add Order Manually
+                    </button>
+                </div>
+                ${WOOCOMMERCE_CONFIG.consumerKey ? '<div style="padding: 10px; background: #C6F6D5; border-radius: 6px; margin-bottom: 20px; color: #22543D;"><strong>✅ WooCommerce API Configured</strong> - Orders from new site will push to WooCommerce</div>' : '<div style="padding: 10px; background: #FED7D7; border-radius: 6px; margin-bottom: 20px; color: #742A2A;"><strong>⚠️ WooCommerce API Not Configured</strong> - Click "Configure WooCommerce API" to enable order pushing</div>'}
                 <div class="data-table">
                     <div class="table-header">
                         <h2>All Orders</h2>
@@ -432,63 +432,189 @@
                     <div id="customersTable"></div>
                 </div>
             </div>
+
+            <!-- Analytics Tab -->
+            <div id="analytics" class="tab-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Google Analytics</h3>
+                        <div class="value" style="font-size: 1.2rem; margin: 10px 0;">📊 Connected</div>
+                        <div class="change" style="margin-top: 10px;">
+                            <a href="https://analytics.google.com" target="_blank" style="color: #667eea; text-decoration: none;">View Analytics →</a>
+                        </div>
+                        <p style="margin-top: 15px; font-size: 0.85rem; color: #718096;">
+                            💡 Reminder: Check Google Analytics and Search Console connection
+                        </p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Search Console</h3>
+                        <div class="value" style="font-size: 1.2rem; margin: 10px 0;">🔍 Connected</div>
+                        <div class="change" style="margin-top: 10px;">
+                            <a href="https://search.google.com/search-console" target="_blank" style="color: #667eea; text-decoration: none;">View Search Console →</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="data-table" style="margin-top: 24px;">
+                    <div class="table-header">
+                        <h2>Analytics Reminders</h2>
+                    </div>
+                    <div style="padding: 24px;">
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: 12px; border-bottom: 1px solid #E2E8F0;">
+                                ✅ <strong>Google Analytics:</strong> Verify tracking is working on live site
+                            </li>
+                            <li style="padding: 12px; border-bottom: 1px solid #E2E8F0;">
+                                ✅ <strong>Search Console:</strong> Check indexing status and sitemap submission
+                            </li>
+                            <li style="padding: 12px; border-bottom: 1px solid #E2E8F0;">
+                                ✅ <strong>Conversion Tracking:</strong> Set up e-commerce tracking for orders
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script src="/products-data.js"></script>
+    <script src="/woocommerce-order-integration.js"></script>
     <script>
-        // Simple authentication (in production, use proper backend authentication)
-        function login(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            // Demo credentials (replace with real authentication)
-            if (username === 'admin' && password === 'admin123') {
-                localStorage.setItem('adminLoggedIn', 'true');
-                showDashboard();
-            } else {
-                alert('Invalid credentials. Try: admin / admin123');
-            }
-        }
-
+        console.log('🔵 Admin dashboard script loaded!');
+        console.log('🔵 Current URL:', window.location.href);
+        console.log('🔵 Document ready state:', document.readyState);
+        
+        // Login removed - direct access
         function logout() {
-            localStorage.removeItem('adminLoggedIn');
-            document.getElementById('loginScreen').style.display = 'flex';
-            document.getElementById('dashboard').classList.remove('active');
+            // Just reload the page
+            location.reload();
         }
 
         function showDashboard() {
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('dashboard').classList.add('active');
+            // Dashboard is always visible now - just load data
             loadDashboardData();
         }
 
-        // Check if already logged in
-        if (localStorage.getItem('adminLoggedIn') === 'true') {
+        // Make functions globally accessible
+        window.logout = logout;
+        window.showDashboard = showDashboard;
+        window.switchTab = switchTab;
+        window.configureWooCommerceAPI = configureWooCommerceAPI;
+        window.showManualOrderEntry = showManualOrderEntry;
+        window.loadOrders = loadOrders;
+        window.viewOrder = viewOrder;
+        window.viewOrderDetails = viewOrderDetails;
+
+        // Load dashboard immediately - no login needed
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, showing dashboard...');
             showDashboard();
-        }
+        });
 
         // Tab switching
-        function switchTab(tabName) {
+        function switchTab(tabName, event) {
+            // Remove active from all tabs
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
             
-            event.target.classList.add('active');
-            document.getElementById(tabName).classList.add('active');
+            // Add active to clicked tab button
+            if (event && event.target) {
+                event.target.classList.add('active');
+            } else {
+                // Fallback: find button by text
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    if (btn.textContent.toLowerCase().includes(tabName.toLowerCase())) {
+                        btn.classList.add('active');
+                    }
+                });
+            }
+            
+            // Show the tab content
+            const tabContent = document.getElementById(tabName);
+            if (tabContent) {
+                tabContent.classList.add('active');
+            }
+            
+            // Load data when switching to Orders tab
+            if (tabName === 'orders') {
+                loadOrders();
+            } else if (tabName === 'products') {
+                loadProducts();
+            }
         }
 
         // Load dashboard data
-        function loadDashboardData() {
-            loadOrders();
+        async function loadDashboardData() {
+            console.log('Loading dashboard data...');
+            await loadOrders();
             loadProducts();
             updateStats();
         }
 
-        // Mock orders data (in production, fetch from backend)
-        let ordersData = JSON.parse(localStorage.getItem('adminOrders') || '[]');
+        // Get products from products-data.js or localStorage
+        function getAllProducts() {
+            try {
+                // Wait a bit for products-data.js to load
+                if (typeof PRODUCTS_DATA !== 'undefined' && PRODUCTS_DATA) {
+                    console.log('Products loaded from PRODUCTS_DATA:', Object.keys(PRODUCTS_DATA).length);
+                    return Object.values(PRODUCTS_DATA);
+                }
+                // Fallback: try localStorage
+                const stored = localStorage.getItem('productsData');
+                if (stored) {
+                    const data = JSON.parse(stored);
+                    return Object.values(data);
+                }
+                // Return empty array if nothing found
+                console.warn('No products data found');
+                return [];
+            } catch (error) {
+                console.error('Error loading products:', error);
+                return [];
+            }
+        }
 
-        function loadOrders() {
+        // Load orders from API or localStorage
+        let ordersData = JSON.parse(localStorage.getItem('successChemistryOrders') || '[]');
+
+        // Fetch orders from backend API
+        async function fetchOrdersFromAPI() {
+            try {
+                const response = await fetch('http://localhost:3001/api/orders?limit=1000');
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.orders && data.orders.length > 0) {
+                        // Convert API format to display format
+                        ordersData = data.orders.map(order => ({
+                            id: order.order_number || order.id,
+                            orderId: order.order_number || order.id,
+                            customerName: order.customer_name,
+                            customerEmail: order.customer_email,
+                            date: order.created_at,
+                            total: order.total,
+                            status: order.status || 'completed',
+                            items: order.items || [],
+                            shippingAddress: typeof order.shipping_address === 'string' ? JSON.parse(order.shipping_address) : order.shipping_address
+                        }));
+                        console.log(`✅ Loaded ${ordersData.length} orders from API`);
+                        return true;
+                    }
+                }
+            } catch (error) {
+                console.log('API not available, using localStorage:', error.message);
+            }
+            return false;
+        }
+
+        async function loadOrders() {
+            // Try to fetch from API first
+            const apiLoaded = await fetchOrdersFromAPI();
+            
+            // Show loading message
+            const ordersTableEl = document.getElementById('ordersTable');
+            if (ordersTableEl) {
+                ordersTableEl.innerHTML = '<div style="padding: 20px; text-align: center;">Loading orders...</div>';
+            }
+            
             const table = `
                 <table>
                     <thead>
@@ -502,31 +628,60 @@
                         </tr>
                     </thead>
                     <tbody id="ordersTableBody">
-                        ${ordersData.length === 0 ? '<tr><td colspan="6" class="empty-state">No orders yet</td></tr>' : ordersData.map(order => `
+                        ${ordersData.length === 0 ? `<tr><td colspan="6" class="empty-state">
+                            <p>No orders found.</p>
+                            <p style="margin-top: 10px; font-size: 0.9rem; color: #718096;">
+                                ${apiLoaded ? 'API connected but no orders in database.' : 'Start API server with: npm run admin<br>Or orders will appear after customers complete payments.'}
+                            </p>
+                        </td></tr>` : ordersData.map(order => {
+                            const orderDate = order.date ? new Date(order.date).toLocaleDateString('en-US', { 
+                                year: 'numeric', 
+                                month: 'short', 
+                                day: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            }) : 'N/A';
+                            const customerName = order.customerName || (order.customerData?.firstName && order.customerData?.lastName ? `${order.customerData.firstName} ${order.customerData.lastName}` : order.customer) || 'N/A';
+                            const orderId = order.id || order.orderId || 'N/A';
+                            const total = parseFloat(order.total || 0).toFixed(2);
+                            const itemCount = order.items?.length || 0;
+                            const status = order.status || 'completed';
+                            
+                            return `
                             <tr>
-                                <td>#${order.id}</td>
-                                <td>${order.customer}</td>
-                                <td>${order.date}</td>
-                                <td>$${order.total}</td>
-                                <td><span class="badge ${order.status}">${order.status}</span></td>
-                                <td><button class="action-btn" onclick="viewOrder('${order.id}')">View</button></td>
+                                <td><strong>${orderId}</strong></td>
+                                <td>${customerName}</td>
+                                <td>${orderDate}</td>
+                                <td>$${total}</td>
+                                <td><span class="badge ${status}">${status.charAt(0).toUpperCase() + status.slice(1)}</span></td>
+                                <td><button class="action-btn" onclick="viewOrder('${orderId}')">View</button></td>
                             </tr>
-                        `).join('')}
+                        `;
+                        }).join('')}
                     </tbody>
                 </table>
             `;
             
-            document.getElementById('ordersTable').innerHTML = table;
-            document.getElementById('recentOrdersTable').innerHTML = table;
+            const ordersTableEl = document.getElementById('ordersTable');
+            const recentOrdersTableEl = document.getElementById('recentOrdersTable');
+            
+            if (ordersTableEl) {
+                ordersTableEl.innerHTML = table;
+            }
+            if (recentOrdersTableEl) {
+                recentOrdersTableEl.innerHTML = table;
+            }
         }
 
         function loadProducts() {
-            if (typeof getAllProducts !== 'function') {
-                setTimeout(loadProducts, 100);
+            const products = getAllProducts();
+            console.log('Loaded products:', products.length);
+            
+            if (products.length === 0) {
+                document.getElementById('productsTable').innerHTML = '<div class="empty-state">No products found. Products will load from products-data.js</div>';
                 return;
             }
-
-            const products = getAllProducts();
+            
             const table = `
                 <table>
                     <thead>
@@ -570,13 +725,97 @@
         }
 
         function viewOrder(orderId) {
-            alert('View order #' + orderId + '\n\nThis would open order details in a modal or new page.');
+            const order = ordersData.find(o => (o.id || o.orderId) === orderId);
+            if (!order) {
+                alert('Order not found');
+                return;
+            }
+            
+            const orderDate = order.date ? new Date(order.date).toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            }) : 'N/A';
+            
+            let details = `Order Details\n\n`;
+            details += `Order ID: ${order.id || order.orderId}\n`;
+            details += `Date: ${orderDate}\n`;
+            details += `Customer: ${order.customerName || (order.customerData?.firstName && order.customerData?.lastName ? `${order.customerData.firstName} ${order.customerData.lastName}` : order.customer) || 'N/A'}\n`;
+            details += `Email: ${order.customerEmail || order.customerData?.email || 'N/A'}\n`;
+            details += `Total: $${parseFloat(order.total || 0).toFixed(2)}\n`;
+            details += `Status: ${order.status || 'completed'}\n\n`;
+            details += `Items:\n`;
+            
+            if (order.items && order.items.length > 0) {
+                order.items.forEach((item, index) => {
+                    details += `${index + 1}. ${item.name || item.title || 'Product'}\n`;
+                    details += `   SKU: ${item.sku || 'N/A'}\n`;
+                    details += `   Quantity: ${item.quantity || 1}\n`;
+                    details += `   Price: $${parseFloat(item.price || 0).toFixed(2)}\n\n`;
+                });
+            } else {
+                details += `No items found\n`;
+            }
+            
+            if (order.pointsEarned) {
+                details += `Loyalty Points Earned: ${order.pointsEarned}\n`;
+            }
+            
+            alert(details);
         }
 
         function editProduct(sku) {
             alert('Edit product: ' + sku + '\n\nThis would open product editor in a modal or new page.');
         }
 
+        // View order details
+        function viewOrderDetails(orderId) {
+            const order = ordersData.find(o => (o.id || o.orderId) === orderId);
+            if (!order) {
+                alert('Order not found');
+                return;
+            }
+            
+            const orderDate = order.date ? new Date(order.date).toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            }) : 'N/A';
+            
+            let details = `Order Details\n\n`;
+            details += `Order ID: ${order.id || order.orderId}\n`;
+            details += `Date: ${orderDate}\n`;
+            details += `Customer: ${order.customerName || order.customer || 'N/A'}\n`;
+            details += `Email: ${order.customerEmail || 'N/A'}\n`;
+            details += `Total: $${parseFloat(order.total || 0).toFixed(2)}\n`;
+            details += `Status: ${order.status || 'completed'}\n\n`;
+            details += `Items:\n`;
+            
+            if (order.items && order.items.length > 0) {
+                order.items.forEach((item, index) => {
+                    details += `${index + 1}. ${item.name || item.title || 'Product'}\n`;
+                    details += `   SKU: ${item.sku || 'N/A'}\n`;
+                    details += `   Quantity: ${item.quantity || 1}\n`;
+                    details += `   Price: $${parseFloat(item.price || 0).toFixed(2)}\n\n`;
+                });
+            } else {
+                details += `No items found\n`;
+            }
+            
+            if (order.pointsEarned) {
+                details += `Loyalty Points Earned: ${order.pointsEarned}\n`;
+            }
+            
+            alert(details);
+        }
+        
+        // Make viewOrderDetails available globally
+        window.viewOrderDetails = viewOrderDetails;
+        
         function searchOrders(query) {
             // Implement order search
         }
@@ -589,6 +828,194 @@
             // Implement customer search
         }
 
+        // Configure WooCommerce API
+        function configureWooCommerceAPI() {
+            const currentKey = localStorage.getItem('wooCommerceConsumerKey') || '';
+            const currentSecret = localStorage.getItem('wooCommerceConsumerSecret') || '';
+            
+            const key = prompt('Enter WooCommerce Consumer Key (ck_...):', currentKey);
+            if (key === null) return; // User cancelled
+            
+            const secret = prompt('Enter WooCommerce Consumer Secret (cs_...):', currentSecret);
+            if (secret === null) return; // User cancelled
+            
+            if (key && secret) {
+                localStorage.setItem('wooCommerceConsumerKey', key);
+                localStorage.setItem('wooCommerceConsumerSecret', secret);
+                
+                // Initialize WooCommerce API
+                if (window.WooCommerceOrder) {
+                    window.WooCommerceOrder.init(key, secret);
+                }
+                
+                alert('✅ WooCommerce API configured! Orders will now push to WooCommerce.');
+                location.reload(); // Reload to show updated status
+            } else {
+                alert('❌ Both Consumer Key and Secret are required!');
+            }
+        }
+
+        // Show manual order entry modal
+        function showManualOrderEntry() {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+                background: rgba(0,0,0,0.5); z-index: 10000;
+                display: flex; align-items: center; justify-content: center;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: white; padding: 30px; border-radius: 12px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto;">
+                    <h2 style="margin-bottom: 20px;">➕ Add Order Manually</h2>
+                    <p style="color: #718096; margin-bottom: 20px;">Paste your TikTok order details (text or describe from image):</p>
+                    <textarea id="orderInput" placeholder="Example: Customer: John Doe, Email: john@example.com, Address: 123 Main St, City, State 12345, Products: SKU123 x2, SKU456 x1, Total: $59.98" style="width: 100%; min-height: 200px; padding: 12px; border: 1px solid #E2E8F0; border-radius: 6px; font-family: inherit; margin-bottom: 20px;"></textarea>
+                    <div style="display: flex; gap: 12px;">
+                        <button onclick="parseAndPushOrder()" style="flex: 1; background: #48BB78; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;">Parse & Push to WooCommerce</button>
+                        <button onclick="this.closest('div[style*=\"position: fixed\"]').remove()" style="background: #E2E8F0; color: #2D3748; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer;">Cancel</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Make parseAndPushOrder available
+            window.parseAndPushOrder = function() {
+                const input = document.getElementById('orderInput').value;
+                if (!input.trim()) {
+                    alert('Please enter order details!');
+                    return;
+                }
+                
+                // Simple parser (can be enhanced)
+                const order = parseOrderText(input);
+                
+                if (!order.customerEmail || !order.items || order.items.length === 0) {
+                    alert('❌ Could not parse order. Please include: customer email, products (SKU and quantity), and total.');
+                    return;
+                }
+                
+                // Push to WooCommerce
+                pushOrderToWooCommerce(order);
+            };
+        }
+
+        // Parse order text
+        function parseOrderText(text) {
+            const order = {
+                customerName: '',
+                customerEmail: '',
+                shippingAddress: '',
+                items: [],
+                total: 0
+            };
+            
+            // Extract email
+            const emailMatch = text.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/i);
+            if (emailMatch) order.customerEmail = emailMatch[1];
+            
+            // Extract name
+            const nameMatch = text.match(/customer[:\s]+([^,\n]+)/i) || text.match(/name[:\s]+([^,\n]+)/i);
+            if (nameMatch) order.customerName = nameMatch[1].trim();
+            
+            // Extract total
+            const totalMatch = text.match(/\$?(\d+\.?\d*)/g);
+            if (totalMatch && totalMatch.length > 0) {
+                order.total = parseFloat(totalMatch[totalMatch.length - 1].replace('$', ''));
+            }
+            
+            // Extract products (SKU x quantity)
+            const productMatches = text.match(/([A-Z0-9-]+)\s*x\s*(\d+)/gi) || text.match(/([A-Z0-9-]+)\s+(\d+)/gi);
+            if (productMatches) {
+                productMatches.forEach(match => {
+                    const parts = match.match(/([A-Z0-9-]+)\s*x?\s*(\d+)/i);
+                    if (parts) {
+                        order.items.push({
+                            sku: parts[1],
+                            quantity: parseInt(parts[2]),
+                            name: parts[1] // Will be filled from product data
+                        });
+                    }
+                });
+            }
+            
+            return order;
+        }
+
+        // Push order to WooCommerce
+        async function pushOrderToWooCommerce(order) {
+            const key = localStorage.getItem('wooCommerceConsumerKey');
+            const secret = localStorage.getItem('wooCommerceConsumerSecret');
+            
+            if (!key || !secret) {
+                alert('❌ WooCommerce API not configured! Click "Configure WooCommerce API" first.');
+                return;
+            }
+            
+            if (!window.WooCommerceOrder) {
+                alert('❌ WooCommerce integration not loaded!');
+                return;
+            }
+            
+            // Initialize if needed
+            window.WooCommerceOrder.init(key, secret);
+            
+            // Format order for WooCommerce
+            const wooOrder = {
+                id: 'MANUAL-' + Date.now(),
+                purchase_units: [{
+                    amount: {
+                        value: order.total.toString(),
+                        currency_code: 'USD',
+                        breakdown: {
+                            item_total: { value: order.total.toString() },
+                            shipping: { value: '0.00' }
+                        }
+                    },
+                    shipping: {
+                        address: {
+                            address_line_1: order.shippingAddress || 'Address TBD',
+                            admin_area_2: 'City',
+                            admin_area_1: 'State',
+                            postal_code: '00000',
+                            country_code: 'US'
+                        }
+                    },
+                    items: order.items.map(item => ({
+                        sku: item.sku,
+                        name: item.name || item.sku,
+                        quantity: item.quantity.toString(),
+                        unit_amount: { value: (order.total / order.items.reduce((sum, i) => sum + i.quantity, 0)).toString(), currency_code: 'USD' }
+                    }))
+                }],
+                payer: {
+                    name: {
+                        given_name: order.customerName.split(' ')[0] || 'Customer',
+                        surname: order.customerName.split(' ').slice(1).join(' ') || 'Name'
+                    },
+                    email_address: order.customerEmail
+                }
+            };
+            
+            try {
+                alert('🔄 Pushing order to WooCommerce...');
+                const result = await window.WooCommerceOrder.syncOrder(wooOrder);
+                if (result) {
+                    alert('✅ Order pushed to WooCommerce successfully!');
+                    document.querySelector('div[style*="position: fixed"]')?.remove();
+                    loadOrders(); // Refresh orders list
+                } else {
+                    alert('❌ Failed to push order. Check console for details.');
+                }
+            } catch (error) {
+                console.error('Error pushing order:', error);
+                alert('❌ Error: ' + error.message);
+            }
+        }
+
+        // Make functions globally accessible
+        window.configureWooCommerceAPI = configureWooCommerceAPI;
+        window.showManualOrderEntry = showManualOrderEntry;
+
         // Load customers table
         document.getElementById('customersTable').innerHTML = `
             <div class="empty-state">
@@ -599,6 +1026,5 @@
                 <p>Customer information from completed orders will be displayed in this section.</p>
             </div>
         `;
-    </script>
 </body>
 </html>

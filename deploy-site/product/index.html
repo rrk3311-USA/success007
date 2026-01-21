@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Preload products data for faster loading -->
+    <link rel="preload" href="/products-data.js?v=3" as="script">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -2588,9 +2591,10 @@
     <div class="blue-nav">
         <div class="container">
             <a href="/">Home</a>
-            <a href="/shop">Shop</a>
             <a href="/blog">Articles</a>
+            <a href="/shop">🧪 Shop</a>
             <a href="/cart">🛒 Cart <span id="navCartCount">0</span></a>
+            <a href="/contact">Contact</a>
         </div>
     </div>
 
@@ -2610,7 +2614,7 @@
         <div class="breadcrumb">
             <a href="/">🏠 Home</a>
             <span class="breadcrumb-separator">›</span>
-            <a href="/shop">🧪 Shop</a>
+            <a href="/shop">Shop</a>
             <span class="breadcrumb-separator">›</span>
             <span class="breadcrumb-current" id="breadcrumbName">Loading...</span>
         </div>
@@ -2618,7 +2622,10 @@
 
     <!-- Product Content -->
     <div id="productContent" class="loading">
-        Loading product information...
+        <div style="text-align: center; padding: 2rem;">
+            <div style="margin-bottom: 1rem;">⏳ Waiting for products data...</div>
+            <div style="font-size: 0.9rem; color: #666;">Loading product information...</div>
+        </div>
     </div>
     
     <!-- Recently Viewed Products -->
@@ -2630,8 +2637,13 @@
     <!-- Footer -->
     <footer class="footer">
         <div style="background: #2854a6; padding: 20px; text-align: center;">
-            <a href="/cart" style="display: inline-block; margin-bottom: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><img src="/public/images/view-cart-button.png" alt="View Cart" style="max-width: 150px; height: auto; cursor: pointer;"></a>
-            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 10px;"><img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;"></div>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-bottom: 10px;">
+                <a href="/shop" style="display: inline-block; margin-bottom: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><img src="/public/images/home/view-all-products.png" alt="View All" style="max-width: 150px; height: auto; cursor: pointer;"></a>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 10px;">
+                <a href="/cart" style="display: inline-block; margin-bottom: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><img src="/public/images/view-cart-button.png" alt="View Cart" style="max-width: 150px; height: auto; cursor: pointer;"></a>
+                <img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;">
+            </div>
         </div>
         <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
         <div style="background: #2854a6; padding: 15px 20px; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; font-size: 0.85rem;">
@@ -2660,8 +2672,14 @@
     <!-- Loyalty Points System -->
     <script src="/loyalty-points.js"></script>
     
-    <!-- Local Products Data -->
-    <script src="/products-data.js?v=3"></script>
+    <!-- Capsule CRM Integration -->
+    <script src="/capsule-integration.js"></script>
+    
+    <!-- ShipStation Integration -->
+    <script src="/shipstation-integration.js"></script>
+    
+    <!-- Local Products Data - Load async to not block rendering -->
+    <script src="/products-data.js?v=3" async></script>
     
     <!-- PayPal SDK - Dynamic based on config -->
     <script>
@@ -2702,20 +2720,42 @@
             currentProductId = getProductIdFromUrl();
             console.log('Looking for product SKU:', currentProductId);
             
-            // Wait for products-data.js to load
+            // Update loading message
+            const productContent = document.getElementById('productContent');
+            productContent.innerHTML = `
+                <div style="text-align: center; padding: 2rem;">
+                    <div style="margin-bottom: 1rem;">⏳ Waiting for products data...</div>
+                    <div style="font-size: 0.9rem; color: #666;">This should only take a moment...</div>
+                </div>
+            `;
+            
+            // Wait for products-data.js to load - improved with exponential backoff
             let attempts = 0;
-            while (typeof window.getProductBySKU !== 'function' && attempts < 50) {
+            const maxAttempts = 100; // 10 seconds total (100 * 100ms)
+            
+            while (typeof window.getProductBySKU !== 'function' && attempts < maxAttempts) {
                 await new Promise(resolve => setTimeout(resolve, 100));
                 attempts++;
+                
+                // Update message every 20 attempts (2 seconds)
+                if (attempts % 20 === 0 && attempts < maxAttempts) {
+                    productContent.innerHTML = `
+                        <div style="text-align: center; padding: 2rem;">
+                            <div style="margin-bottom: 1rem;">⏳ Waiting for products data...</div>
+                            <div style="font-size: 0.9rem; color: #666;">Still loading... (${Math.ceil(attempts * 0.1)}s)</div>
+                        </div>
+                    `;
+                }
             }
             
             if (typeof window.getProductBySKU !== 'function') {
-                console.error('getProductBySKU function not loaded after 5 seconds');
-                document.getElementById('productContent').innerHTML = `
+                console.error('getProductBySKU function not loaded after 10 seconds');
+                productContent.innerHTML = `
                     <div class="loading">
                         <h2>Loading Error</h2>
-                        <p>Product data failed to load. Please refresh the page.</p>
-                        <a href="/shop" class="btn btn-primary">Return to Shop</a>
+                        <p>Product data failed to load. This might be a network issue. Please refresh the page.</p>
+                        <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">If the problem persists, please check your internet connection or try again later.</p>
+                        <a href="/shop" class="btn btn-primary" style="margin-top: 1rem; display: inline-block;">Return to Shop</a>
                     </div>
                 `;
                 return;
@@ -2756,11 +2796,46 @@
             const price = parseFloat(currentProduct.price || 0).toFixed(2);
             const description = currentProduct.description || '';
             
-            // Update page title and meta
-            document.title = `${currentProduct.name} - Success Chemistry`;
-            document.getElementById('pageTitle').textContent = `${currentProduct.name} - Success Chemistry`;
-            document.getElementById('pageDescription').content = currentProduct.short_description || currentProduct.meta_description || description.substring(0, 160);
+            // Update page title with "supplement" keyword
+            const productName = currentProduct.name;
+            const titleSuffix = productName.toLowerCase().includes('supplement') ? ' - Success Chemistry' : ' Supplement - Success Chemistry';
+            const seoTitle = `${productName}${titleSuffix}`;
+            document.title = seoTitle;
+            document.getElementById('pageTitle').textContent = seoTitle;
+            
+            // Update meta description
+            const metaDesc = currentProduct.short_description || currentProduct.meta_description || description.substring(0, 160);
+            const metaDescWithSupplement = metaDesc.toLowerCase().includes('supplement') ? metaDesc : `${metaDesc} Premium supplement from Success Chemistry.`;
+            document.getElementById('pageDescription').content = metaDescWithSupplement.substring(0, 160);
             document.getElementById('breadcrumbName').textContent = currentProduct.name;
+            
+            // Update or create Open Graph tags
+            const updateOrCreateMeta = (property, content) => {
+                let meta = document.querySelector(`meta[property="${property}"]`);
+                if (!meta) {
+                    meta = document.createElement('meta');
+                    meta.setAttribute('property', property);
+                    document.head.appendChild(meta);
+                }
+                meta.setAttribute('content', content);
+            };
+            
+            // Open Graph tags
+            updateOrCreateMeta('og:type', 'product');
+            updateOrCreateMeta('og:title', seoTitle);
+            updateOrCreateMeta('og:description', metaDescWithSupplement.substring(0, 200));
+            updateOrCreateMeta('og:url', window.location.href);
+            if (currentProduct.images && currentProduct.images[0]) {
+                updateOrCreateMeta('og:image', new URL(currentProduct.images[0], window.location.origin).href);
+            }
+            
+            // Twitter Card tags
+            updateOrCreateMeta('twitter:card', 'summary_large_image');
+            updateOrCreateMeta('twitter:title', seoTitle);
+            updateOrCreateMeta('twitter:description', metaDescWithSupplement.substring(0, 200));
+            if (currentProduct.images && currentProduct.images[0]) {
+                updateOrCreateMeta('twitter:image', new URL(currentProduct.images[0], window.location.origin).href);
+            }
             
             // Add SEO keywords meta tag if seo_targets exist
             if (currentProduct.seo_targets) {
@@ -3578,24 +3653,78 @@
                         console.log(`🎉 Earned ${pointsEarned} loyalty points!`);
                     }
                     
-                    // Send order to your server
-                    try {
-                        await fetch(`${API_BASE}/api/orders/paypal`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                orderId: order.id,
-                                product: currentProduct,
-                                paypalOrder: order
-                            })
-                        });
-                        
-                        alert('✅ Payment successful! Order ID: ' + order.id);
-                        showUpsellProducts();
-                    } catch (error) {
-                        console.error('Error saving order:', error);
-                        alert('Payment received but there was an error saving your order. Please contact support with Order ID: ' + order.id);
+                    // Prepare order data for sync
+                    const orderQuantity = parseInt(document.getElementById('quantity').value) || 1;
+                    const orderUnitPrice = parseFloat(currentProduct.price || 0);
+                    const orderShipping = parseFloat(order.purchase_units[0].amount.breakdown?.shipping?.value || 0);
+                    const orderTotal = parseFloat(order.purchase_units[0].amount.value);
+                    
+                    const orderData = {
+                        id: order.id,
+                        orderId: order.id,
+                        orderNumber: order.id,
+                        date: new Date().toISOString(),
+                        items: [{
+                            sku: currentProduct.sku,
+                            name: currentProduct.name,
+                            price: orderUnitPrice,
+                            quantity: orderQuantity,
+                            image: currentProduct.images?.[0]
+                        }],
+                        subtotal: orderUnitPrice * orderQuantity,
+                        shipping: orderShipping,
+                        tax: 0,
+                        total: orderTotal
+                    };
+                    
+                    const customerData = {
+                        email: order.payer?.email_address,
+                        firstName: order.payer?.name?.given_name,
+                        lastName: order.payer?.name?.surname,
+                        phone: order.payer?.phone?.phone_number?.national_number
+                    };
+                    
+                    // Sync to ShipStation for on-demand fulfillment
+                    let shipstationResult = null;
+                    if (window.ShipStation && window.ShipStation.syncOrder) {
+                        try {
+                            console.log('📦 Syncing to ShipStation...');
+                            shipstationResult = await window.ShipStation.syncOrder(orderData, customerData, order);
+                            if (shipstationResult.success) {
+                                console.log('✅ Successfully synced to ShipStation!', shipstationResult);
+                            } else {
+                                console.warn('⚠️ ShipStation sync failed:', shipstationResult.error);
+                            }
+                        } catch (err) {
+                            console.error('❌ ShipStation sync error:', err);
+                            shipstationResult = { success: false, error: err.message };
+                        }
                     }
+                    
+                    // Sync to Capsule CRM (if loaded)
+                    let capsuleResult = null;
+                    if (window.CapsuleCRM && window.CapsuleCRM.syncOrder) {
+                        try {
+                            console.log('🔄 Syncing to Capsule CRM...');
+                            capsuleResult = await window.CapsuleCRM.syncOrder(orderData, customerData);
+                            if (capsuleResult.success) {
+                                console.log('✅ Successfully synced to Capsule CRM!', capsuleResult);
+                            }
+                        } catch (err) {
+                            console.error('❌ Capsule sync error:', err);
+                        }
+                    }
+                    
+                    // Build success message
+                    let message = `✅ Payment successful! Order ID: ${order.id}`;
+                    if (shipstationResult?.success) {
+                        message += '\n\n📦 Order sent to ShipStation for fulfillment!';
+                    } else if (shipstationResult) {
+                        message += `\n\n⚠️ ShipStation sync: ${shipstationResult.error || 'Failed'}`;
+                    }
+                    
+                    alert(message);
+                    showUpsellProducts();
                 },
                 onError: function(err) {
                     console.error('PayPal error:', err);

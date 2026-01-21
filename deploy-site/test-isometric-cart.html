@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test: Isometric Add to Cart Buttons - Success Chemistry</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #2854a6;
+            --accent-blue: #4299e1;
+            --accent-purple: #667eea;
+            --accent-purple2: #764ba2;
+            --accent-cyan: #00d2ff;
+            --text-dark: #1a1a2e;
+            --text-muted: #4a5568;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f5f9ff 50%, #e8f4f8 100%);
+            color: var(--text-dark);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text-dark) 0%, var(--accent-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 60px rgba(66, 153, 225, 0.15),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+        }
+
+        /* 2D Frosted Glass Add to Cart Buttons */
+        .isometric-container {
+            margin: 40px 0;
+        }
+
+        .isometric-buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            justify-items: center;
+        }
+
+        .isometric-button-wrapper {
+            text-align: center;
+        }
+
+        .product-info {
+            margin-top: 20px;
+            color: var(--text-muted);
+        }
+
+        .product-info h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .product-info .price {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary-blue);
+            margin: 8px 0;
+        }
+
+        .isometric-button {
+            width: 100%;
+            max-width: 320px;
+            height: 80px;
+            position: relative;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
+            cursor: pointer;
+            margin: 0 auto;
+        }
+
+        .isometric-button:hover {
+            transform: translateY(-3px);
+        }
+
+        .isometric-button:active {
+            transform: translateY(0);
+        }
+
+        .isometric-button.adding {
+            animation: addToCartPulse 0.6s ease;
+        }
+
+        @keyframes addToCartPulse {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-5px) scale(1.02); }
+        }
+
+        .isometric-button-face {
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 3px solid;
+            border-image: linear-gradient(135deg, 
+                rgba(192, 192, 192, 0.8) 0%,
+                rgba(255, 255, 255, 0.9) 25%,
+                rgba(192, 192, 192, 0.8) 50%,
+                rgba(255, 255, 255, 0.9) 75%,
+                rgba(192, 192, 192, 0.8) 100%
+            ) 1;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(192, 192, 192, 0.3);
+            overflow: hidden;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        /* Textured frosted glass effect */
+        .isometric-button-face::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                repeating-linear-gradient(0deg, 
+                    rgba(255, 255, 255, 0.03) 0px,
+                    transparent 1px,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.03) 3px
+                ),
+                repeating-linear-gradient(90deg, 
+                    rgba(255, 255, 255, 0.03) 0px,
+                    transparent 1px,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.03) 3px
+                ),
+                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            border-radius: 999px;
+        }
+
+        .isometric-button-face::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.1) 0%,
+                transparent 50%,
+                rgba(0, 0, 0, 0.05) 100%
+            );
+            pointer-events: none;
+            border-radius: 999px;
+        }
+
+        .isometric-button-face .text {
+            position: relative;
+            z-index: 1;
+            font-weight: 800;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Silver metal stroke effect */
+        .isometric-button.lung .isometric-button-face {
+            border-color: rgba(192, 192, 192, 0.9);
+            background: rgba(102, 126, 234, 0.15);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+                0 0 0 2px rgba(192, 192, 192, 0.4),
+                inset 0 0 20px rgba(192, 192, 192, 0.2);
+        }
+
+        .isometric-button.womens .isometric-button-face {
+            border-color: rgba(192, 192, 192, 0.9);
+            background: rgba(240, 147, 251, 0.15);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+                0 0 0 2px rgba(192, 192, 192, 0.4),
+                inset 0 0 20px rgba(192, 192, 192, 0.2);
+        }
+
+        .isometric-button.liver .isometric-button-face {
+            border-color: rgba(192, 192, 192, 0.9);
+            background: rgba(0, 210, 255, 0.15);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+                0 0 0 2px rgba(192, 192, 192, 0.4),
+                inset 0 0 20px rgba(192, 192, 192, 0.2);
+        }
+
+        .isometric-button:hover .isometric-button-face {
+            box-shadow: 
+                0 12px 40px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.7),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+                0 0 0 2px rgba(255, 255, 255, 0.6),
+                inset 0 0 30px rgba(192, 192, 192, 0.3);
+            border-color: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Success State */
+        .isometric-button.success .isometric-button-face {
+            background: rgba(72, 187, 120, 0.25);
+            border-color: rgba(72, 187, 120, 0.6);
+        }
+
+        .isometric-button.success .isometric-button-face .text {
+            animation: checkmark 0.5s ease;
+            color: #16a34a;
+        }
+
+        @keyframes checkmark {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Cart Display */
+        .cart-display {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-display h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .cart-items {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            margin-bottom: 8px;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .cart-item-quantity {
+            color: var(--text-muted);
+            margin: 0 10px;
+        }
+
+        .cart-item-price {
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .cart-total {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .clear-cart {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: rgba(239, 68, 68, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            border-radius: 12px;
+            color: #dc2626;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .clear-cart:hover {
+            background: rgba(239, 68, 68, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(72, 187, 120, 0.9);
+            backdrop-filter: blur(20px);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            font-weight: 600;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .isometric-button {
+                max-width: 100%;
+                height: 70px;
+            }
+
+            .isometric-button-face {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Isometric Add to Cart Test</h1>
+            <p style="color: var(--text-muted);">Test the isometric frosted glass buttons with real cart functionality</p>
+        </div>
+
+        <!-- Cart Display -->
+        <div class="cart-display">
+            <h2>🛒 Shopping Cart</h2>
+            <div id="cartContent">
+                <p style="color: var(--text-muted);">Your cart is empty</p>
+            </div>
+        </div>
+
+        <!-- Isometric Buttons -->
+        <div class="section">
+            <h2 class="section-title">Add to Cart Buttons</h2>
+            <div class="isometric-container">
+                <div class="isometric-buttons-grid">
+                    <!-- New Lung -->
+                    <div class="isometric-button-wrapper">
+                        <div class="isometric-button lung" onclick="addToCart('20647-507', 'New Lung® Lung Detox Premium Cleanse', 29.99, '/images/products/20647-507/01.png')">
+                            <div class="isometric-button-face">
+                                <div class="text">Add to Cart</div>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>New Lung® Detox</h3>
+                            <div class="price">$29.99</div>
+                            <p style="font-size: 0.9rem;">Lung health support</p>
+                        </div>
+                    </div>
+
+                    <!-- Women's Balance -->
+                    <div class="isometric-button-wrapper">
+                        <div class="isometric-button womens" onclick="addToCart('52274-401', 'Women\'s Balance Premium Supplement', 29.99, '/images/products/52274-401/01.png')">
+                            <div class="isometric-button-face">
+                                <div class="text">Add to Cart</div>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Women's Balance</h3>
+                            <div class="price">$29.99</div>
+                            <p style="font-size: 0.9rem;">Women's health support</p>
+                        </div>
+                    </div>
+
+                    <!-- Liver Cleanse -->
+                    <div class="isometric-button-wrapper">
+                        <div class="isometric-button liver" onclick="addToCart('10775-506', 'Liver Cleanse Premium Formula', 19.99, '/images/products/10775-506/01.png')">
+                            <div class="isometric-button-face">
+                                <div class="text">Add to Cart</div>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>Liver Cleanse</h3>
+                            <div class="price">$19.99</div>
+                            <p style="font-size: 0.9rem;">Detox & cleanse</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script>
+        // Cart Management Functions
+        function getCart() {
+            const cart = localStorage.getItem('successChemistryCart');
+            return cart ? JSON.parse(cart) : [];
+        }
+        
+        function saveCart(cart) {
+            localStorage.setItem('successChemistryCart', JSON.stringify(cart));
+            renderCart();
+        }
+        
+        function renderCart() {
+            const cart = getCart();
+            const cartContent = document.getElementById('cartContent');
+            
+            if (cart.length === 0) {
+                cartContent.innerHTML = '<p style="color: var(--text-muted);">Your cart is empty</p>';
+                return;
+            }
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            let html = `
+                <ul class="cart-items">
+                    ${cart.map(item => `
+                        <li class="cart-item">
+                            <span class="cart-item-name">${item.name}</span>
+                            <span class="cart-item-quantity">x${item.quantity}</span>
+                            <span class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</span>
+                        </li>
+                    `).join('')}
+                </ul>
+                <div class="cart-total">
+                    <span>Total (${itemCount} item${itemCount !== 1 ? 's' : ''}):</span>
+                    <span>$${total.toFixed(2)}</span>
+                </div>
+                <button class="clear-cart" onclick="clearCart()">Clear Cart</button>
+            `;
+            
+            cartContent.innerHTML = html;
+        }
+        
+        function clearCart() {
+            if (confirm('Are you sure you want to clear your cart?')) {
+                localStorage.removeItem('successChemistryCart');
+                renderCart();
+                showNotification('Cart cleared!');
+            }
+        }
+        
+        // Add to Cart Function
+        function addToCart(sku, name, price, image) {
+            const button = event.target.closest('.isometric-button');
+            
+            // Add animation
+            button.classList.add('adding');
+            setTimeout(() => button.classList.remove('adding'), 600);
+            
+            const cart = getCart();
+            const existingItem = cart.find(item => item.sku === sku);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    sku: sku,
+                    name: name,
+                    price: parseFloat(price),
+                    quantity: 1,
+                    image: image
+                });
+            }
+            
+            saveCart(cart);
+            
+            // Show success state
+            button.classList.add('success');
+            const text = button.querySelector('.text');
+            const originalText = text.textContent;
+            text.textContent = '✓ Added!';
+            
+            showNotification(`${name} added to cart!`);
+            
+            setTimeout(() => {
+                button.classList.remove('success');
+                text.textContent = originalText;
+            }, 2000);
+        }
+        
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Initialize cart display
+        renderCart();
+    </script>
+</body>
+</html>

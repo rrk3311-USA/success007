@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frosted Glass Components Demo - Success Chemistry</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070b18;
+            --card: rgba(255, 255, 255, 0.08);
+            --card-strong: rgba(255, 255, 255, 0.12);
+            --text: rgba(255, 255, 255, 0.92);
+            --muted: rgba(255, 255, 255, 0.72);
+            --ink: #0a234e;
+            --accent: #667eea;
+            --accent2: #764ba2;
+            --accent3: #00d2ff;
+            --radius: 18px;
+            --shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f5f9ff 50%, #e8f4f8 100%);
+            min-height: 100vh;
+            padding: 60px 20px;
+            color: #1a1a2e;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #2d3748 0%, #4299e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #4a5568;
+            margin-bottom: 60px;
+        }
+
+        .demo-section {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border-radius: 30px;
+            padding: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 60px rgba(66, 153, 225, 0.15),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            margin-bottom: 40px;
+        }
+
+        .demo-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #1a1a2e;
+        }
+
+        /* ============================================
+           FROSTED GLASS PRODUCT CARDS
+           ============================================ */
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent
+            );
+            transition: left 0.6s;
+            z-index: 1;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .product-card:hover::before {
+            left: 100%;
+        }
+
+        .product-image-container {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-image {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(66, 153, 225, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #1a1a2e;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.2);
+        }
+
+        .product-info {
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .product-category {
+            color: #667eea;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .product-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 12px;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #2854a6;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #fbbf24;
+            font-size: 0.9rem;
+        }
+
+        /* Product Card Variants */
+        .product-card.primary {
+            background: rgba(66, 153, 225, 0.2);
+            border-color: rgba(66, 153, 225, 0.4);
+        }
+
+        .product-card.accent {
+            background: rgba(102, 126, 234, 0.2);
+            border-color: rgba(102, 126, 234, 0.4);
+        }
+
+        /* ============================================
+           FROSTED GLASS PRODUCT PAGE GALLERY
+           ============================================ */
+
+        .product-gallery-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (min-width: 768px) {
+            .product-gallery-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .product-gallery {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .main-image-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .main-image {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .main-image-container:hover .main-image {
+            transform: scale(1.05);
+        }
+
+        .thumbnail-gallery {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 10px 0;
+            scroll-behavior: smooth;
+        }
+
+        .thumbnail-gallery::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .thumbnail-gallery::-webkit-scrollbar-thumb {
+            background: rgba(66, 153, 225, 0.3);
+            border-radius: 4px;
+        }
+
+        .thumbnail-item {
+            flex-shrink: 0;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .thumbnail-item:hover {
+            border-color: rgba(66, 153, 225, 0.6);
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+        }
+
+        .thumbnail-item.active {
+            border-color: rgba(66, 153, 225, 0.8);
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2),
+                        0 4px 12px rgba(66, 153, 225, 0.3);
+        }
+
+        .thumbnail-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 8px;
+        }
+
+        .product-info-panel {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .product-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin-bottom: 12px;
+        }
+
+        .product-subtitle {
+            font-size: 1.1rem;
+            color: #4a5568;
+            margin-bottom: 20px;
+        }
+
+        .product-price-large {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #2854a6;
+            margin-bottom: 20px;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Button Styles */
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 26px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.3rem;
+            transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .button.glass {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #1a1a2e;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .button.glass.primary {
+            background: rgba(66, 153, 225, 0.25);
+            border-color: rgba(66, 153, 225, 0.4);
+            color: #1a1a2e;
+        }
+
+        .button.glass:hover {
+            background: rgba(255, 255, 255, 0.35);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .button.glass.primary:hover {
+            background: rgba(66, 153, 225, 0.35);
+            border-color: rgba(66, 153, 225, 0.5);
+        }
+
+        .code-block code {
+            color: #1a1a2e;
+        }
+
+        @media (max-width: 768px) {
+            .demo-section {
+                padding: 30px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-gallery-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Frosted Glass Components</h1>
+        <p class="subtitle">Product cards and gallery with beautiful glassmorphism effects</p>
+
+        <!-- Product Cards Section -->
+        <div class="demo-section">
+            <h2>Frosted Glass Product Cards</h2>
+            <div class="products-grid">
+                <!-- Product Card 1 -->
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <div class="product-badge">Best Seller</div>
+                        <div class="product-image" style="width: 200px; height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">🧪</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Women's Health</div>
+                        <div class="product-name">Women's Balance Premium Supplement</div>
+                        <div class="product-meta">
+                            <div class="product-price">$29.99</div>
+                            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 - Primary Variant -->
+                <div class="product-card primary">
+                    <div class="product-image-container">
+                        <div class="product-badge">New</div>
+                        <div class="product-image" style="width: 200px; height: 200px; background: linear-gradient(135deg, #4299e1 0%, #667eea 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">💊</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Eye Health</div>
+                        <div class="product-name">Lutein Eye Health Support</div>
+                        <div class="product-meta">
+                            <div class="product-price">$24.99</div>
+                            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 - Accent Variant -->
+                <div class="product-card accent">
+                    <div class="product-image-container">
+                        <div class="product-badge">Sale</div>
+                        <div class="product-image" style="width: 200px; height: 200px; background: linear-gradient(135deg, #764ba2 0%, #f093fb 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">🌿</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Detox & Cleanse</div>
+                        <div class="product-name">Liver Cleanse Premium Formula</div>
+                        <div class="product-meta">
+                            <div class="product-price">$19.99</div>
+                            <div class="product-rating">⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <div class="product-badge">Featured</div>
+                        <div class="product-image" style="width: 200px; height: 200px; background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">⚡</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Energy & Vitality</div>
+                        <div class="product-name">Omega-3 Premium Fish Oil</div>
+                        <div class="product-meta">
+                            <div class="product-price">$34.99</div>
+                            <div class="product-rating">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block">
+                <code>
+&lt;div class="product-card"&gt;<br>
+&nbsp;&nbsp;&lt;div class="product-image-container"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="product-badge"&gt;Best Seller&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;img src="product.jpg" class="product-image"&gt;<br>
+&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;&lt;div class="product-info"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="product-category"&gt;Category&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="product-name"&gt;Product Name&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="product-meta"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="product-price"&gt;$29.99&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;&lt;/div&gt;<br>
+&lt;/div&gt;
+                </code>
+            </div>
+        </div>
+
+        <!-- Product Gallery Section -->
+        <div class="demo-section">
+            <h2>Frosted Glass Product Page Gallery</h2>
+            <div class="product-gallery-container">
+                <!-- Gallery -->
+                <div class="product-gallery">
+                    <div class="main-image-container" id="mainImageContainer">
+                        <div class="main-image" id="mainImage" style="width: 300px; height: 300px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 5rem;">🧪</div>
+                    </div>
+                    <div class="thumbnail-gallery" id="thumbnailGallery">
+                        <div class="thumbnail-item active" onclick="changeImage(0)">
+                            <div class="thumbnail-image" style="width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">🧪</div>
+                        </div>
+                        <div class="thumbnail-item" onclick="changeImage(1)">
+                            <div class="thumbnail-image" style="width: 100%; height: 100%; background: linear-gradient(135deg, #4299e1 0%, #667eea 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">💊</div>
+                        </div>
+                        <div class="thumbnail-item" onclick="changeImage(2)">
+                            <div class="thumbnail-image" style="width: 100%; height: 100%; background: linear-gradient(135deg, #764ba2 0%, #f093fb 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">🌿</div>
+                        </div>
+                        <div class="thumbnail-item" onclick="changeImage(3)">
+                            <div class="thumbnail-image" style="width: 100%; height: 100%; background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">⚡</div>
+                        </div>
+                        <div class="thumbnail-item" onclick="changeImage(4)">
+                            <div class="thumbnail-image" style="width: 100%; height: 100%; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">✨</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Info Panel -->
+                <div class="product-info-panel">
+                    <h3 class="product-title">Women's Balance Premium</h3>
+                    <p class="product-subtitle">Female Libido & Arousal Support with L-Arginine, Maca, Ashwagandha</p>
+                    <div class="product-price-large">$29.99</div>
+                    <p style="color: #4a5568; line-height: 1.8; margin-bottom: 20px;">
+                        Premium formula designed to support women's hormonal balance and overall wellness. 
+                        Made with natural ingredients and scientifically formulated for optimal results.
+                    </p>
+                    <button class="button glass primary" style="width: 100%; padding: 16px; font-size: 1.1rem; margin-top: 20px;">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <div class="code-block">
+                <code>
+&lt;div class="product-gallery"&gt;<br>
+&nbsp;&nbsp;&lt;div class="main-image-container"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;img id="mainImage" src="product-main.jpg" class="main-image"&gt;<br>
+&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;&lt;div class="thumbnail-gallery"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="thumbnail-item active" onclick="changeImage(0)"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img src="thumb1.jpg" class="thumbnail-image"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- More thumbnails --&gt;<br>
+&nbsp;&nbsp;&lt;/div&gt;<br>
+&lt;/div&gt;
+                </code>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="demo-section">
+            <h2>Features</h2>
+            <ul style="line-height: 2; font-size: 1.1rem; color: #4a5568;">
+                <li>✨ Backdrop blur effect (frosted glass)</li>
+                <li>✨ Smooth hover animations and transitions</li>
+                <li>✨ Shimmer effect on product cards</li>
+                <li>✨ Interactive thumbnail gallery</li>
+                <li>✨ Responsive design for all devices</li>
+                <li>✨ Multiple color variants available</li>
+                <li>✨ Badge overlays for special labels</li>
+                <li>✨ Image zoom on hover</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const images = [
+            { emoji: '🧪', gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
+            { emoji: '💊', gradient: 'linear-gradient(135deg, #4299e1 0%, #667eea 100%)' },
+            { emoji: '🌿', gradient: 'linear-gradient(135deg, #764ba2 0%, #f093fb 100%)' },
+            { emoji: '⚡', gradient: 'linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%)' },
+            { emoji: '✨', gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' }
+        ];
+
+        function changeImage(index) {
+            const mainImage = document.getElementById('mainImage');
+            const thumbnails = document.querySelectorAll('.thumbnail-item');
+            
+            // Update main image
+            mainImage.textContent = images[index].emoji;
+            mainImage.style.background = images[index].gradient;
+            
+            // Update active thumbnail
+            thumbnails.forEach((thumb, i) => {
+                if (i === index) {
+                    thumb.classList.add('active');
+                } else {
+                    thumb.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
