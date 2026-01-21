@@ -60,7 +60,6 @@
         .container {
             width: 100%;
             max-width: 100%;
-            margin: 0 auto;
             padding: 0 16px;
         }
         
@@ -81,87 +80,6 @@
             .container {
                 max-width: 1140px;
             }
-        }
-
-        .brand {
-            display: inline-flex;
-            align-items: center;
-            text-decoration: none;
-        }
-
-        .brand img {
-            height: 58px;
-        }
-
-        .topbar {
-            background: white;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: none;
-            padding: 22px 0;
-            margin-top: 8px;
-        }
-
-        .topbar-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            padding: 0;
-        }
-
-        .account-link {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #2854a6;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            padding: 8px 16px;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-        }
-
-        .account-link:hover {
-            background: rgba(40, 84, 166, 0.1);
-            color: #1e3f7a;
-        }
-
-        .header-divider {
-            height: 4px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #667eea 100%);
-            background-size: 200% 100%;
-            animation: gradientMove 8s linear infinite;
-        }
-
-        .blue-nav {
-            background: #2854a6;
-            padding: 18px 0;
-        }
-
-
-
-        .blue-nav .container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 48px;
-            flex-wrap: wrap;
-        }
-
-        .blue-nav a {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.56rem;
-            letter-spacing: 0.2px;
-            transition: opacity 0.3s;
-        }
-
-        .blue-nav a:hover {
-            opacity: 0.8;
         }
 
         /* HERO SECTION */
@@ -260,7 +178,6 @@
         }
 
         .category-overlay {
-            position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
@@ -300,7 +217,6 @@
             width: auto;
             box-shadow: 0 4px 12px rgba(80, 150, 220, 0.2);
         }
-
 
         .search-bar input {
             border: none;
@@ -354,10 +270,18 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            height: 280px;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
         }
 
         .product-price-overlay {
-            position: absolute;
             bottom: 12px;
             right: 12px;
             background: transparent;
@@ -371,7 +295,6 @@
         }
 
         .product-badge {
-            position: absolute;
             top: 10px;
             left: 10px;
             background: #ff6b6b;
@@ -487,7 +410,6 @@
             overflow: hidden;
         }
 
-
         .rating-count {
             color: #666;
             font-size: 0.85rem;
@@ -547,7 +469,6 @@
 
         .btn-add-cart::after {
             content: '';
-            position: absolute;
             inset: 0;
             background: rgba(255, 255, 255, 0);
             transition: background 0.2s ease;
@@ -644,7 +565,6 @@
 
         .btn-view-all::after {
             content: '';
-            position: absolute;
             inset: 0;
             background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
             transform: translateX(-100%);
@@ -686,25 +606,6 @@
         }
 
         @media (max-width: 768px) {
-            .topbar-inner {
-                padding: 12px 0;
-            }
-
-            .brand img {
-                height: 44px;
-            }
-
-            .blue-nav {
-                padding: 10px 0;
-            }
-
-            .blue-nav .container {
-                gap: 22px;
-            }
-
-            .blue-nav a {
-                font-size: 1.2rem;
-            }
 
             .shop-hero {
                 min-height: 250px;
@@ -731,13 +632,6 @@
         }
 
         @media (max-width: 520px) {
-            .blue-nav .container {
-                gap: 16px;
-            }
-
-            .blue-nav a {
-                font-size: 1.15rem;
-            }
 
             .shop-hero {
                 min-height: 200px;
@@ -757,8 +651,6 @@
             }
         }
 
-        @keyframes gradientMove {
-            0% { background-position: 200% 50%; }
             100% { background-position: -200% 50%; }
         }
 
@@ -766,7 +658,6 @@
             0% { background-position: 200% 50%; }
             100% { background-position: -200% 50%; }
         }
-    
 
 .footer {
             margin-top: 60px;
@@ -798,24 +689,174 @@
             }
         }
 
-</style>
+            100% { background-position: 200% 50%; }
+        }
+
+        @media (max-width: 768px) 
+
+        @media (max-width: 520px) 
+    
+        .topbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 0;
+        }
+
+        .header-divider {
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #667eea 100%);
+            background-size: 200% 100%;
+            animation: gradientMove 3s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .brand img {
+            height: 58px;
+        }
+
+        .topbar {
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: none;
+            padding: 22px 0;
+            margin-top: 8px;
+        }
+
+        .blue-nav {
+            background: #2854a6;
+            padding: 18px 0;
+        }
+
+        .blue-nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .blue-nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.56rem;
+            letter-spacing: 0.2px;
+            transition: opacity 0.3s;
+        }
+
+        .blue-nav a:hover {
+            opacity: 0.8;
+        }
+
+        .footer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .footer-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .topbar-inner {
+                padding: 12px 0;
+            }
+
+            .brand img {
+                height: 44px;
+            }
+
+            .blue-nav {
+                padding: 10px 0;
+            }
+
+            .blue-nav .container {
+                gap: 22px;
+            }
+
+            .blue-nav a {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .blue-nav .container {
+                gap: 16px;
+            }
+
+            .blue-nav a {
+                font-size: 1.15rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            
+
+            .brand img {
+                height: 44px;
+            }
+
+            .blue-nav .container {
+                gap: 22px;
+            }
+
+            .blue-nav a {
+                font-size: 1.2rem;
+            }
+        }
+
+            .blue-nav a {
+                font-size: 1.15rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .brand img {
+                height: 44px;
+            }
+
+            .blue-nav .container {
+                gap: 22px;
+            }
+
+            .blue-nav a {
+                font-size: 1.2rem;
+            }
+        }
+
+            .blue-nav a {
+                font-size: 1.15rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- HEADER -->
-    <div class="topbar">
+            <div class="topbar">
         <div class="container">
             <div class="topbar-inner">
                 <a class="brand" href="/">
                     <img src="/public/images/SC_logo_withR.png" alt="Success Chemistry">
                 </a>
-                <a href="/my-account-dashboard.html" class="account-link">
-                    <span>👤</span>
-                    <span>My Account</span>
-                </a>
             </div>
         </div>
     </div>
-
     <div class="header-divider"></div>
 
     <div class="blue-nav">
@@ -823,11 +864,10 @@
             <a href="/">Home</a>
             <a href="/blog">Articles</a>
             <a href="/shop">🧪 Shop</a>
-            <a href="/cart">🛒 Cart <span id="cart-count-nav">0</span></a>
+            <a href="/cart" id="cartLink">🛒 Cart 0</a>
             <a href="/contact">Contact</a>
         </div>
     </div>
-
     <div class="header-divider"></div>
 
     <!-- SHOP HERO -->
@@ -987,7 +1027,8 @@
             const grid = document.getElementById('productsGrid');
             if (!grid || allProductsCache.length === 0) return;
 
-            let sorted = [...allProductsCache];
+            // EXCLUDE BOOTY PRODUCT (21884-502) - HIDDEN/DRAFT
+            let sorted = [...allProductsCache].filter(p => p.sku !== '21884-502');
 
             switch(sortType) {
                 case 'sales':
@@ -1013,52 +1054,93 @@
 
         function filterByCategory(categoryFilter) {
             const grid = document.getElementById('productsGrid');
-            if (!grid || allProductsCache.length === 0) return;
+            if (!grid) {
+                console.error('Products grid not found');
+                return;
+            }
 
-            let filtered = [...allProductsCache];
+            // If products haven't loaded yet, wait for them
+            if (allProductsCache.length === 0) {
+                console.log('Products not loaded yet, waiting...');
+                // Try to load products first
+                if (typeof window.getAllProducts === 'function') {
+                    try {
+                        const products = window.getAllProducts().filter(p => p && p.sku && p.sku !== '21884-502');
+                        allProductsCache = products;
+                    } catch (e) {
+                        console.error('Error loading products:', e);
+                        grid.innerHTML = '<div class="loading-spinner">Loading products...</div>';
+                        // Retry after a short delay
+                        setTimeout(() => filterByCategory(categoryFilter), 500);
+                        return;
+                    }
+                } else {
+                    grid.innerHTML = '<div class="loading-spinner">Loading products...</div>';
+                    setTimeout(() => filterByCategory(categoryFilter), 500);
+                    return;
+                }
+            }
 
-            // Filter by category
+            // EXCLUDE BOOTY PRODUCT (21884-502) - HIDDEN/DRAFT
+            let filtered = [...allProductsCache].filter(p => p.sku !== '21884-502');
+
+            // Filter by category with improved mapping
             if (categoryFilter !== 'all') {
                 filtered = filtered.filter(product => {
-                    const category = (product.category || '').toLowerCase();
+                    const category = (product.category || '').toLowerCase().trim();
                     const name = (product.name || '').toLowerCase();
 
                     switch(categoryFilter) {
                         case 'bestsellers':
-                            return category.includes('best') || name.includes('best');
+                            return category === 'best sellers' || category.includes('best seller');
                         case 'mens':
-                            return category.includes('men') || name.includes('men');
+                            return category === 'men\'s health' || category.includes('men\'s') || category.includes('men\'s health');
                         case 'womens':
-                            return category.includes('women') || category.includes('female');
+                            return category === 'women\'s health' || category.includes('women\'s') || category.includes('women\'s health') || category.includes('female');
                         case 'bundles':
-                            return category.includes('bundle') || name.includes('bundle') || name.includes('pack');
+                            return category === 'bundle deals' || category.includes('bundle') || name.includes('bundle') || name.includes('pack') || name.includes('-2pack') || name.includes('-3pack') || name.includes('-4pack') || name.includes('-5pack');
                         case 'eye':
-                            return category.includes('eye') || name.includes('eye') || name.includes('vision') || name.includes('lutein');
+                            return category.includes('eye') || name.includes('eye') || name.includes('vision') || name.includes('lutein') || name.includes('zeaxanthin');
                         case 'weight':
-                            return category.includes('weight') || name.includes('weight') || name.includes('slim');
+                            return category === 'weight loss' || category.includes('weight') || name.includes('weight') || name.includes('slim') || name.includes('burn');
                         case 'unisex':
-                            return category.includes('unisex');
+                            return category === 'unisex' || category.includes('unisex');
                         case 'legacy':
-                            return category.includes('legacy');
+                            return category === 'legacy' || category.includes('legacy');
                         default:
                             return true;
                     }
                 });
             }
 
+            console.log(`Filtered ${filtered.length} products for category: ${categoryFilter}`);
+
             // Sort by sales
             filtered.sort((a, b) => getSalesRank(b) - getSalesRank(a));
 
-            // Render filtered products
-            grid.innerHTML = '';
-            filtered.forEach(product => {
-                const card = buildProductCard(product);
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                grid.appendChild(card);
-                observer.observe(card);
-            });
+            // Show loading state
+            grid.classList.add('loading');
+            grid.innerHTML = '<div class="loading-spinner">Loading...</div>';
+
+            // Render filtered products with animation
+            setTimeout(() => {
+                grid.classList.remove('loading');
+                grid.innerHTML = '';
+                
+                if (filtered.length === 0) {
+                    grid.innerHTML = '<div style="text-align: center; padding: 40px; color: #666;">No products found in this category.</div>';
+                    return;
+                }
+
+                filtered.forEach((product, index) => {
+                    const card = buildProductCard(product);
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = `opacity 0.6s ease ${index * 0.05}s, transform 0.6s ease ${index * 0.05}s`;
+                    grid.appendChild(card);
+                    observer.observe(card);
+                });
+            }, 100);
         }
 
         function normalizeCategory(product) {
@@ -1265,7 +1347,7 @@
             loadAllProducts.retryCount = 0;
 
             try {
-                const products = window.getAllProducts().filter(p => p && p.sku);
+                const products = window.getAllProducts().filter(p => p && p.sku && p.sku !== '21884-502');
                 allProductsCache = products;
             
                 // Sort by sales by default
@@ -1315,10 +1397,6 @@
             showNotification(`${productName} added to cart!`);
             
             // Update cart in navigation
-            document.querySelectorAll('.blue-nav a[href="/cart"]').forEach(link => {
-                link.innerHTML = `Cart ${cartCount}`;
-            });
-        }
 
         function updateCartDisplay() {
             // Update any cart displays
@@ -1408,6 +1486,20 @@
             setTimeout(() => {
                 loadAllProducts();
             }, 100);
+            
+            // Update category counts after products load
+            setTimeout(() => {
+                updateCategoryCounts();
+                
+                // Check for category parameter in URL and filter
+                const urlParams = new URLSearchParams(window.location.search);
+                const categoryParam = urlParams.get('category');
+                if (categoryParam) {
+                    setTimeout(() => {
+                        filterByCategory(categoryParam);
+                    }, 500);
+                }
+            }, 2000);
         });
         
         // Also try loading if products-data.js loads after DOMContentLoaded
@@ -1416,25 +1508,85 @@
                 document.getElementById('productsGrid').querySelector('.loading-spinner')) {
                 loadAllProducts();
             }
+            updateCategoryCounts();
+            
+            // Check for category parameter in URL and filter
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoryParam = urlParams.get('category');
+            if (categoryParam) {
+                setTimeout(() => {
+                    filterByCategory(categoryParam);
+                }, 500);
+            }
         });
+        
+        // Function to update category counts
+        function updateCategoryCounts() {
+            if (allProductsCache.length === 0) {
+                if (typeof window.getAllProducts === 'function') {
+                    try {
+                        allProductsCache = window.getAllProducts().filter(p => p && p.sku && p.sku !== '21884-502');
+                    } catch (e) {
+                        return;
+                    }
+                } else {
+                    return;
+                }
+            }
+            
+            const counts = {
+                'bestsellers': 0,
+                'mens': 0,
+                'womens': 0,
+                'bundles': 0,
+                'eye': 0,
+                'weight': 0,
+                'unisex': 0,
+                'legacy': 0
+            };
+            
+            allProductsCache.forEach(product => {
+                const category = (product.category || '').toLowerCase().trim();
+                const name = (product.name || '').toLowerCase();
+                
+                if (category === 'best sellers' || category.includes('best seller')) counts.bestsellers++;
+                if (category === 'men\'s health' || category.includes('men\'s')) counts.mens++;
+                if (category === 'women\'s health' || category.includes('women\'s') || category.includes('female')) counts.womens++;
+                if (category === 'bundle deals' || category.includes('bundle') || name.includes('pack')) counts.bundles++;
+                if (category.includes('eye') || name.includes('eye') || name.includes('vision') || name.includes('lutein')) counts.eye++;
+                if (category === 'weight loss' || category.includes('weight') || name.includes('weight') || name.includes('slim')) counts.weight++;
+                if (category === 'unisex') counts.unisex++;
+                if (category === 'legacy' || category.includes('legacy')) counts.legacy++;
+            });
+            
+            // Update count displays
+            const countElements = {
+                'bestsellers': document.getElementById('count-bestsellers'),
+                'mens': document.getElementById('count-mens'),
+                'womens': document.getElementById('count-womens'),
+                'bundles': document.getElementById('count-bundles'),
+                'eye': document.getElementById('count-eye'),
+                'weight': document.getElementById('count-weight'),
+                'unisex': document.getElementById('count-unisex'),
+                'legacy': document.getElementById('count-legacy')
+            };
+            
+            Object.keys(counts).forEach(key => {
+                if (countElements[key]) {
+                    countElements[key].textContent = `${counts[key]} Product${counts[key] !== 1 ? 's' : ''}`;
+                }
+            });
+        }
     </script>
-
 
 <!-- Footer -->
     <footer class="footer">
         <div style="background: #2854a6; padding: 20px; text-align: center;">
-            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-bottom: 10px;">
-                <a href="/shop" class="btn-view-all">
-                    <span class="star-icons">
-                        <span>✦</span>
-                        <span>✦</span>
-                        <span>✦</span>
-                    </span>
-                    View All
-                </a>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap;">
+                <a href="/shop" class="footer-btn" style="background: white; color: #2854a6; padding: 14px 32px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; border: 3px solid transparent; background-image: linear-gradient(white, white), linear-gradient(135deg, #5eead4 0%, #3b82f6 50%, #8b5cf6 100%); background-origin: border-box; background-clip: padding-box, border-box; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); cursor: pointer; text-decoration: none; transition: all 0.3s ease; display: inline-block;">VIEW ALL</a>
+                <a href="/cart" class="footer-btn" style="background: white; color: #2854a6; padding: 14px 32px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; border: 3px solid transparent; background-image: linear-gradient(white, white), linear-gradient(135deg, #5eead4 0%, #3b82f6 50%, #8b5cf6 100%); background-origin: border-box; background-clip: padding-box, border-box; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); cursor: pointer; text-decoration: none; transition: all 0.3s ease; display: inline-block;">VIEW CART</a>
             </div>
-            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 10px;">
-                <a href="/cart" style="display: inline-block; margin-bottom: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><img src="/public/images/view-cart-button.png" alt="View Cart" style="max-width: 150px; height: auto; cursor: pointer;"></a>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
                 <img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;">
             </div>
         </div>

@@ -1,0 +1,108 @@
+<!-- Universal Header CSS - Include this in <style> section of all pages -->
+.topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 0;
+}
+
+.header-divider {
+    height: 4px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #667eea 100%);
+    background-size: 200% 100%;
+    animation: gradientMove 3s linear infinite;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.brand img {
+    height: 58px;
+}
+
+.topbar {
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: none;
+    padding: 22px 0;
+    margin-top: 8px;
+}
+
+.blue-nav {
+    background: #2854a6;
+    padding: 18px 0;
+}
+
+.blue-nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+}
+
+.blue-nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.56rem;
+    letter-spacing: 0.2px;
+    transition: opacity 0.3s;
+}
+
+.blue-nav a:hover {
+    opacity: 0.8;
+}
+
+.footer-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+}
+
+.footer-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+}
+
+@media (max-width: 768px) {
+    .topbar-inner {
+        padding: 12px 0;
+    }
+
+    .brand img {
+        height: 44px;
+    }
+
+    .blue-nav {
+        padding: 10px 0;
+    }
+
+    .blue-nav .container {
+        gap: 22px;
+    }
+
+    .blue-nav a {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 520px) {
+    .blue-nav .container {
+        gap: 16px;
+    }
+
+    .blue-nav a {
+        font-size: 1.15rem;
+    }
+}

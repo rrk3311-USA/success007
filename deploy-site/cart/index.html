@@ -54,78 +54,8 @@
         }
 
         /* Header */
-        .topbar {
-            background: white;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: 22px 0;
-            margin-top: 8px;
-        }
 
-        .topbar-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .account-link {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #2854a6;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            padding: 8px 16px;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-        }
-
-        .account-link:hover {
-            background: rgba(40, 84, 166, 0.1);
-            color: #1e3f7a;
-        }
-
-        .brand img {
-            height: 58px;
-        }
-
-        .header-divider {
-            height: 4px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #667eea 100%);
-            background-size: 200% 100%;
-            animation: gradientMove 3s linear infinite;
-        }
-
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
             100% { background-position: 200% 50%; }
-        }
-
-        .blue-nav {
-            background: #2854a6;
-            padding: 18px 0;
-        }
-
-        .blue-nav .container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 48px;
-            flex-wrap: wrap;
-        }
-
-        .blue-nav a {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.56rem;
-            transition: opacity 0.3s;
-        }
-
-        .blue-nav a:hover {
-            opacity: 0.8;
         }
 
         /* Cart */
@@ -240,14 +170,18 @@
 
         .summary-row {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 16px;
+            padding: 0;
             margin-bottom: 12px;
             font-size: 1rem;
         }
 
         .summary-total {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 16px;
+            padding: 0;
             margin: 20px 0;
             padding-top: 20px;
             border-top: 2px solid #d1d5db;
@@ -290,6 +224,57 @@
             font-weight: 500;
             font-size: 0.875rem;
             letter-spacing: 1.5px;
+        }
+
+        .category-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            padding: 0 20px;
+        }
+
+        .category-btn-small {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 12px;
+            width: 100px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-btn-small:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-color: #2854a6;
+        }
+
+        .category-btn-small img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .category-btn-small span {
+            font-size: 0.75rem;
+            color: #4b5563;
+            font-weight: 600;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .category-btn-small:hover span {
+            color: #2854a6;
+        }
             text-transform: uppercase;
             border: none;
             position: relative;
@@ -346,19 +331,171 @@
                 position: static;
             }
         }
+
+            100% { background-position: 200% 50%; }
+        }
+
+        @media (max-width: 768px) 
+
+        @media (max-width: 520px) 
+    
+        .topbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 0;
+        }
+
+        .header-divider {
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #667eea 100%);
+            background-size: 200% 100%;
+            animation: gradientMove 3s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .brand img {
+            height: 58px;
+        }
+
+        .topbar {
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: none;
+            padding: 22px 0;
+            margin-top: 8px;
+        }
+
+        .blue-nav {
+            background: #2854a6;
+            padding: 18px 0;
+        }
+
+        .blue-nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .blue-nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.56rem;
+            letter-spacing: 0.2px;
+            transition: opacity 0.3s;
+        }
+
+        .blue-nav a:hover {
+            opacity: 0.8;
+        }
+
+        .footer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .footer-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .topbar-inner {
+                padding: 12px 0;
+            }
+
+            .brand img {
+                height: 44px;
+            }
+
+            .blue-nav {
+                padding: 10px 0;
+            }
+
+            .blue-nav .container {
+                gap: 22px;
+            }
+
+            .blue-nav a {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .blue-nav .container {
+                gap: 16px;
+            }
+
+            .blue-nav a {
+                font-size: 1.15rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            
+
+            .brand img {
+                height: 44px;
+            }
+
+            .blue-nav .container {
+                gap: 22px;
+            }
+
+            .blue-nav a {
+                font-size: 1.2rem;
+            }
+        }
+
+            .blue-nav a {
+                font-size: 1.15rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .brand img {
+                height: 44px;
+            }
+
+            .blue-nav .container {
+                gap: 22px;
+            }
+
+            .blue-nav a {
+                font-size: 1.2rem;
+            }
+        }
+
+            .blue-nav a {
+                font-size: 1.15rem;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Header -->
-    <div class="topbar">
+            <div class="topbar">
         <div class="container">
             <div class="topbar-inner">
                 <a class="brand" href="/">
                     <img src="/public/images/SC_logo_withR.png" alt="Success Chemistry">
-                </a>
-                <a href="/my-account-dashboard.html" class="account-link">
-                    <span>👤</span>
-                    <span>My Account</span>
                 </a>
             </div>
         </div>
@@ -370,11 +507,10 @@
             <a href="/">Home</a>
             <a href="/blog">Articles</a>
             <a href="/shop">🧪 Shop</a>
-            <a href="/cart">🛒 Cart <span id="cart-count">0</span></a>
+            <a href="/cart" id="cartLink">🛒 Cart 0</a>
             <a href="/contact">Contact</a>
         </div>
     </div>
-
     <div class="header-divider"></div>
 
     <script src="/products-data.js"></script>
@@ -388,6 +524,33 @@
             <h2>Your cart is empty</h2>
             <p>Add some amazing supplements to get started!</p>
             <a href="/shop" class="continue-shopping">Continue Shopping</a>
+            
+            <div class="category-buttons">
+                <a href="/shop?category=bestsellers" class="category-btn-small">
+                    <img src="/images/Catagory Thumbnail Images/Best sellers Catagory image.jpg" alt="Best Sellers">
+                    <span>Best Sellers</span>
+                </a>
+                <a href="/shop?category=womens" class="category-btn-small">
+                    <img src="/images/Catagory Thumbnail Images/womens health thumb.webp" alt="Women's Health">
+                    <span>Women's Health</span>
+                </a>
+                <a href="/shop?category=mens" class="category-btn-small">
+                    <img src="/images/Catagory Thumbnail Images/mens health catagory thumb.webp" alt="Men's Health">
+                    <span>Men's Health</span>
+                </a>
+                <a href="/shop?category=bundles" class="category-btn-small">
+                    <img src="/images/Catagory Thumbnail Images/Bundle Deals.webp" alt="Bundle Deals">
+                    <span>Bundle Deals</span>
+                </a>
+                <a href="/shop?category=eye" class="category-btn-small">
+                    <img src="/images/Catagory Thumbnail Images/OPZ-eyeBeautiful-lashes__94531.1721847264.jpg" alt="Eye Health">
+                    <span>Eye Health</span>
+                </a>
+                <a href="/shop?category=weight" class="category-btn-small">
+                    <img src="/images/Catagory Thumbnail Images/weight loss catagory thumb.webp" alt="Weight Loss">
+                    <span>Weight Loss</span>
+                </a>
+            </div>
         </div>
 
         <div id="cart-content" class="cart-layout">
@@ -478,6 +641,7 @@
             if (cart.length === 0) {
                 emptyState.style.display = 'block';
                 cartContent.style.display = 'none';
+                // Show category buttons when cart is empty
                 return;
             }
 
@@ -561,6 +725,11 @@
             saveCart(cart);
             renderCart();
             alert(`✅ ${name} added to cart!`);
+        }
+
+        function filterByCategory(category) {
+            // Navigate to shop page with category filter
+            window.location.href = `/shop?category=${category}`;
         }
 
         // Initialize PayPal Buttons
@@ -889,30 +1058,10 @@
 
     <footer class="footer">
         <div style="background: #2854a6; padding: 20px; text-align: center;">
-            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-bottom: 10px;">
-                <a href="/shop" style="display: inline-block; margin-bottom: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><img src="/public/images/home/view-all-products.png" alt="View All" style="max-width: 150px; height: auto; cursor: pointer;"></a>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap;">
+                <a href="/shop" class="footer-btn" style="background: white; color: #2854a6; padding: 14px 32px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; border: 3px solid transparent; background-image: linear-gradient(white, white), linear-gradient(135deg, #5eead4 0%, #3b82f6 50%, #8b5cf6 100%); background-origin: border-box; background-clip: padding-box, border-box; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); cursor: pointer; text-decoration: none; transition: all 0.3s ease; display: inline-block;">VIEW ALL</a>
+                <a href="/cart" class="footer-btn" style="background: white; color: #2854a6; padding: 14px 32px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; border: 3px solid transparent; background-image: linear-gradient(white, white), linear-gradient(135deg, #5eead4 0%, #3b82f6 50%, #8b5cf6 100%); background-origin: border-box; background-clip: padding-box, border-box; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); cursor: pointer; text-decoration: none; transition: all 0.3s ease; display: inline-block;">VIEW CART</a>
             </div>
-            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 10px;">
-                <a href="/cart" style="display: inline-block; margin-bottom: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><img src="/public/images/view-cart-button.png" alt="View Cart" style="max-width: 150px; height: auto; cursor: pointer;"></a>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
                 <img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;">
             </div>
-        </div>
-        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
-        <div style="background: #2854a6; padding: 15px 20px; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; font-size: 0.85rem;">
-            <a href="/terms-of-service.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Terms of Service</a>
-            <span style="color: rgba(255,255,255,0.3);">|</span>
-            <a href="/shipping-returns.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Shipping & Returns</a>
-            <span style="color: rgba(255,255,255,0.3);">|</span>
-            <a href="/payment-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Payment Policy</a>
-            <span style="color: rgba(255,255,255,0.3);">|</span>
-            <a href="/privacy-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Privacy Policy</a>
-            <span style="color: rgba(255,255,255,0.3);">|</span>
-            <a href="/contact" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Contact</a>
-            <span style="color: rgba(255,255,255,0.3);">|</span>
-            <a href="/shop" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">🧪 SHOP</a>
-        </div>
-        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
-        <div style="text-align: center; padding: 12px; background: #2854a6;"><p style="color: white; font-size: 0.85rem; margin: 0;">🗽 Copyright 2026 - Success Chemistry® | Powered by 🏄 WindSurf</p></div>
-    </footer>
-</body>
-</html>

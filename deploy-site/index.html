@@ -98,8 +98,8 @@
         .container {
             width: 100%;
             max-width: 100%;
-            margin: 0 auto;
             padding: 0 16px;
+            position: relative;
         }
         
         @media (min-width: 768px) {
@@ -121,145 +121,14 @@
             }
         }
 
-        .header-divider {
-            height: 4px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #667eea 100%);
-            background-size: 200% 100%;
-            animation: gradientMove 3s linear infinite;
-        }
-
-        @keyframes gradientMove {
-            0% {
-                background-position: 0% 50%;
-            }
             100% {
                 background-position: 200% 50%;
             }
         }
 
-        .brand {
-            display: inline-flex;
-            align-items: center;
-            text-decoration: none;
-        }
+        @media (max-width: 768px) 
 
-        .brand img {
-            height: 58px;
-        }
-
-        .topbar {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 22px 0;
-            margin-top: 8px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-        }
-
-        .topbar-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            padding: 0;
-        }
-
-        .account-link {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #2854a6;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            padding: 8px 16px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px) saturate(180%);
-            -webkit-backdrop-filter: blur(10px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-        }
-
-        .account-link:hover {
-            background: rgba(255, 255, 255, 0.25);
-            color: #1e3f7a;
-            border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.4);
-            transform: translateY(-1px);
-        }
-
-        .blue-nav {
-            background: rgba(40, 84, 166, 0.85);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            padding: 18px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
-        }
-
-
-
-        .blue-nav .container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 48px;
-            flex-wrap: wrap;
-        }
-
-        .blue-nav a {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.56rem;
-            letter-spacing: 0.2px;
-            transition: opacity 0.3s;
-        }
-
-        .blue-nav a:hover {
-            opacity: 0.8;
-        }
-
-        @media (max-width: 768px) {
-            .topbar-inner {
-                padding: 12px 0;
-            }
-
-            .brand img {
-                height: 44px;
-            }
-
-            .blue-nav {
-                padding: 10px 0;
-            }
-
-            .blue-nav .container {
-                gap: 22px;
-            }
-
-            .blue-nav a {
-                font-size: 1.06rem;
-            }
-        }
-
-        @media (max-width: 520px) {
-            .blue-nav .container {
-                gap: 16px;
-            }
-
-            .blue-nav a {
-                font-size: 1.01rem;
-            }
-        }
+        @media (max-width: 520px) 
 
         .hero {
             position: relative;
@@ -377,7 +246,6 @@
 
         .button.glass::before {
             content: '';
-            position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
@@ -455,7 +323,6 @@
 
         .hero-media:after {
             content: "";
-            position: absolute;
             inset: 0;
             background: radial-gradient(500px 220px at 30% 10%, rgba(0, 210, 255, 0.18), transparent 55%),
                         radial-gradient(420px 240px at 80% 70%, rgba(102, 126, 234, 0.16), transparent 60%);
@@ -463,7 +330,6 @@
         }
 
         .stack {
-            position: absolute;
             inset: 12px;
             display: grid;
             grid-template-columns: 1fr;
@@ -547,7 +413,6 @@
         }
 
         .media-tile .bg {
-            position: absolute;
             inset: 0;
             background-position: center;
             background-size: cover;
@@ -557,13 +422,11 @@
         }
 
         .media-tile .overlay {
-            position: absolute;
             inset: 0;
             background: linear-gradient(180deg, rgba(7, 11, 24, 0.05), rgba(7, 11, 24, 0.78));
         }
 
         .media-tile .content {
-            position: absolute;
             inset: auto 0 0 0;
             padding: 18px;
         }
@@ -936,18 +799,170 @@
                 grid-template-columns: 1fr;
             }
         }
+
+            100% { background-position: 200% 50%; }
+        }
+
+        @media (max-width: 768px) 
+
+        @media (max-width: 520px) 
+    
+        .topbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 0;
+        }
+
+        .header-divider {
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #667eea 100%);
+            background-size: 200% 100%;
+            animation: gradientMove 3s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .brand img {
+            height: 58px;
+        }
+
+        .topbar {
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: none;
+            padding: 22px 0;
+            margin-top: 8px;
+        }
+
+        .blue-nav {
+            background: #2854a6;
+            padding: 18px 0;
+        }
+
+        .blue-nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .blue-nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.56rem;
+            letter-spacing: 0.2px;
+            transition: opacity 0.3s;
+        }
+
+        .blue-nav a:hover {
+            opacity: 0.8;
+        }
+
+        .footer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .footer-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .topbar-inner {
+                padding: 12px 0;
+            }
+
+            .brand img {
+                height: 44px;
+            }
+
+            .blue-nav {
+                padding: 10px 0;
+            }
+
+            .blue-nav .container {
+                gap: 22px;
+            }
+
+            .blue-nav a {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .blue-nav .container {
+                gap: 16px;
+            }
+
+            .blue-nav a {
+                font-size: 1.15rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            
+
+            .brand img {
+                height: 44px;
+            }
+
+            .blue-nav .container {
+                gap: 22px;
+            }
+
+            .blue-nav a {
+                font-size: 1.2rem;
+            }
+        }
+
+            .blue-nav a {
+                font-size: 1.15rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .brand img {
+                height: 44px;
+            }
+
+            .blue-nav .container {
+                gap: 22px;
+            }
+
+            .blue-nav a {
+                font-size: 1.2rem;
+            }
+        }
+
+            .blue-nav a {
+                font-size: 1.15rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="topbar">
+            <div class="topbar">
         <div class="container">
             <div class="topbar-inner">
                 <a class="brand" href="/">
                     <img src="/public/images/SC_logo_withR.png" alt="Success Chemistry">
-                </a>
-                <a href="/my-account-dashboard.html" class="account-link">
-                    <span>👤</span>
-                    <span>My Account</span>
                 </a>
             </div>
         </div>
@@ -959,16 +974,14 @@
             <a href="/">Home</a>
             <a href="/blog">Articles</a>
             <a href="/shop">🧪 Shop</a>
-            <a href="/cart">🛒 Cart 0</a>
+            <a href="/cart" id="cartLink">🛒 Cart 0</a>
             <a href="/contact">Contact</a>
         </div>
     </div>
-
     <div class="header-divider"></div>
 
     <!-- Below Header Banner -->
     <div style="width: 100%; background: #001f34; padding: 0; text-align: center;">
-        <img src="/public/images/BlendedHomeheader.png" alt="Success Chemistry Premium Supplements - Nature's Nutrients, Scientifically Formulated" style="width: 100%; max-width: 1200px; height: auto; display: block; margin: 0 auto;">
     </div>
 
     <section class="hero">
@@ -1002,7 +1015,6 @@
 
     <section class="section" style="padding: 60px 0;">
         <div class="container">
-            <img src="/public/images/home/LLEand2x.png" alt="Quality Features - LLE Extraction, 2x Fine Grind, Made to Order Fresh" style="width: 100%; max-width: 1200px; height: auto; display: block; margin: 0 auto; border-radius: 20px; box-shadow: 0 10px 40px rgba(66, 153, 225, 0.15);">
         </div>
     </section>
 
@@ -1075,8 +1087,6 @@
     <section class="section">
         <div class="container">
             <div class="ai-consultation-banner" style="position: relative; border-radius: 30px; overflow: hidden; min-height: 500px; display: flex; align-items: center; justify-content: center; box-shadow: 0 20px 60px rgba(66, 153, 225, 0.2);">
-                <img src="/public/images/CTA_chatbot image.png" alt="AI Consultation" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center;">
-                <div style="position: absolute; inset: 0; background: linear-gradient(340.1deg, rgba(40, 84, 166, 0.85) 0%, rgba(66, 153, 225, 0.75) 100%);"></div>
                 <div style="position: relative; z-index: 2; text-align: center; padding: 60px 40px; max-width: 800px;">
                     <div style="display: inline-block; padding: 10px 20px; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(15px) saturate(180%); -webkit-backdrop-filter: blur(15px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 999px; margin-bottom: 20px; font-size: 0.9rem; font-weight: 600; color: white; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);">
                         🤖 AI-Powered Wellness
@@ -1100,11 +1110,11 @@
 
     <footer class="footer">
         <div style="background: #2854a6; padding: 20px; text-align: center;">
-            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-bottom: 10px;">
-                <a href="/shop" style="display: inline-block; margin-bottom: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><img src="/public/images/home/view-all-products.png" alt="View All" style="max-width: 150px; height: auto; cursor: pointer;"></a>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap;">
+                <a href="/shop" class="footer-btn" style="background: white; color: #2854a6; padding: 14px 32px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; border: 3px solid transparent; background-image: linear-gradient(white, white), linear-gradient(135deg, #5eead4 0%, #3b82f6 50%, #8b5cf6 100%); background-origin: border-box; background-clip: padding-box, border-box; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); cursor: pointer; text-decoration: none; transition: all 0.3s ease; display: inline-block;">VIEW ALL</a>
+                <a href="/cart" class="footer-btn" style="background: white; color: #2854a6; padding: 14px 32px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; border: 3px solid transparent; background-image: linear-gradient(white, white), linear-gradient(135deg, #5eead4 0%, #3b82f6 50%, #8b5cf6 100%); background-origin: border-box; background-clip: padding-box, border-box; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); cursor: pointer; text-decoration: none; transition: all 0.3s ease; display: inline-block;">VIEW CART</a>
             </div>
-            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 10px;">
-                <a href="/cart" style="display: inline-block; margin-bottom: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><img src="/public/images/view-cart-button.png" alt="View Cart" style="max-width: 150px; height: auto; cursor: pointer;"></a>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
                 <img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;">
             </div>
         </div>

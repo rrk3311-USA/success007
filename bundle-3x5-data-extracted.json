@@ -1,0 +1,109 @@
+{
+  "Bundles SEO Variants": [
+    {
+      "SEO Version": "SEO Set A",
+      "Pack Size": 1,
+      "Selling Price (USD)": 28,
+      "Shipping Weight (lbs)": 0.31,
+      "SEO Angle": "Female Balance & Wellness"
+    },
+    {
+      "SEO Version": "SEO Set A",
+      "Pack Size": 2,
+      "Selling Price (USD)": 42,
+      "Shipping Weight (lbs)": 0.63,
+      "SEO Angle": "Female Balance & Wellness"
+    },
+    {
+      "SEO Version": "SEO Set A",
+      "Pack Size": 3,
+      "Selling Price (USD)": 50,
+      "Shipping Weight (lbs)": 0.88,
+      "SEO Angle": "Female Balance & Wellness"
+    },
+    {
+      "SEO Version": "SEO Set A",
+      "Pack Size": 4,
+      "Selling Price (USD)": 64,
+      "Shipping Weight (lbs)": 1.13,
+      "SEO Angle": "Female Balance & Wellness"
+    },
+    {
+      "SEO Version": "SEO Set A",
+      "Pack Size": 5,
+      "Selling Price (USD)": 78,
+      "Shipping Weight (lbs)": 1.38,
+      "SEO Angle": "Female Balance & Wellness"
+    },
+    {
+      "SEO Version": "SEO Set B",
+      "Pack Size": 1,
+      "Selling Price (USD)": 28,
+      "Shipping Weight (lbs)": 0.31,
+      "SEO Angle": "Circulation & Vitality"
+    },
+    {
+      "SEO Version": "SEO Set B",
+      "Pack Size": 2,
+      "Selling Price (USD)": 42,
+      "Shipping Weight (lbs)": 0.63,
+      "SEO Angle": "Circulation & Vitality"
+    },
+    {
+      "SEO Version": "SEO Set B",
+      "Pack Size": 3,
+      "Selling Price (USD)": 50,
+      "Shipping Weight (lbs)": 0.88,
+      "SEO Angle": "Circulation & Vitality"
+    },
+    {
+      "SEO Version": "SEO Set B",
+      "Pack Size": 4,
+      "Selling Price (USD)": 64,
+      "Shipping Weight (lbs)": 1.13,
+      "SEO Angle": "Circulation & Vitality"
+    },
+    {
+      "SEO Version": "SEO Set B",
+      "Pack Size": 5,
+      "Selling Price (USD)": 78,
+      "Shipping Weight (lbs)": 1.38,
+      "SEO Angle": "Circulation & Vitality"
+    },
+    {
+      "SEO Version": "SEO Set C",
+      "Pack Size": 1,
+      "Selling Price (USD)": 28,
+      "Shipping Weight (lbs)": 0.31,
+      "SEO Angle": "Intimate Wellness & Confidence"
+    },
+    {
+      "SEO Version": "SEO Set C",
+      "Pack Size": 2,
+      "Selling Price (USD)": 42,
+      "Shipping Weight (lbs)": 0.63,
+      "SEO Angle": "Intimate Wellness & Confidence"
+    },
+    {
+      "SEO Version": "SEO Set C",
+      "Pack Size": 3,
+      "Selling Price (USD)": 50,
+      "Shipping Weight (lbs)": 0.88,
+      "SEO Angle": "Intimate Wellness & Confidence"
+    },
+    {
+      "SEO Version": "SEO Set C",
+      "Pack Size": 4,
+      "Selling Price (USD)": 64,
+      "Shipping Weight (lbs)": 1.13,
+      "SEO Angle": "Intimate Wellness & Confidence"
+    },
+    {
+      "SEO Version": "SEO Set C",
+      "Pack Size": 5,
+      "Selling Price (USD)": 78,
+      "Shipping Weight (lbs)": 1.38,
+      "SEO Angle": "Intimate Wellness & Confidence"
+    }
+  ]
+}

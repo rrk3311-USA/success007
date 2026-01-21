@@ -356,6 +356,7 @@
                 <button class="tab-btn" onclick="switchTab('products', event)">Products</button>
                 <button class="tab-btn" onclick="switchTab('customers', event)">Customers</button>
                 <button class="tab-btn" onclick="switchTab('analytics', event)">Analytics</button>
+                <button class="tab-btn" onclick="switchTab('links', event)">🔗 Links</button>
             </div>
 
             <!-- Overview Tab -->
@@ -401,7 +402,9 @@
                         ➕ Add Order Manually
                     </button>
                 </div>
-                ${WOOCOMMERCE_CONFIG.consumerKey ? '<div style="padding: 10px; background: #C6F6D5; border-radius: 6px; margin-bottom: 20px; color: #22543D;"><strong>✅ WooCommerce API Configured</strong> - Orders from new site will push to WooCommerce</div>' : '<div style="padding: 10px; background: #FED7D7; border-radius: 6px; margin-bottom: 20px; color: #742A2A;"><strong>⚠️ WooCommerce API Not Configured</strong> - Click "Configure WooCommerce API" to enable order pushing</div>'}
+                <div id="woocommerceStatus" style="padding: 10px; background: #FED7D7; border-radius: 6px; margin-bottom: 20px; color: #742A2A;">
+                    <strong>⚠️ WooCommerce API Not Configured</strong> - Click "Configure WooCommerce API" to enable order pushing
+                </div>
                 <div class="data-table">
                     <div class="table-header">
                         <h2>All Orders</h2>
@@ -473,11 +476,125 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Links Tab -->
+            <div id="links" class="tab-content">
+                <div class="data-table">
+                    <div class="table-header">
+                        <h2>Complete Site Links Reference</h2>
+                        <button onclick="copyAllLinks()" class="action-btn" style="background: #48BB78;">📋 Copy All Links</button>
+                    </div>
+                    <div style="padding: 24px;">
+                        <div style="margin-bottom: 30px;">
+                            <h3 style="color: #2D3748; margin-bottom: 15px; font-size: 1.1rem;">🌐 Production URLs (successchemistry.com)</h3>
+                            
+                            <h4 style="color: #4A5568; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem;">Main Pages</h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">
+                                <div style="padding: 10px; background: #F7FAFC; border-radius: 6px; border-left: 3px solid #3E4C7A;">
+                                    <a href="https://successchemistry.com/" target="_blank" style="color: #667eea; text-decoration: none; font-weight: 600;">/</a>
+                                    <span style="color: #718096; font-size: 0.85rem; margin-left: 8px;">Homepage</span>
+                                </div>
+                                <div style="padding: 10px; background: #F7FAFC; border-radius: 6px; border-left: 3px solid #3E4C7A;">
+                                    <a href="https://successchemistry.com/shop" target="_blank" style="color: #667eea; text-decoration: none; font-weight: 600;">/shop</a>
+                                    <span style="color: #718096; font-size: 0.85rem; margin-left: 8px;">Shop/Product Catalog</span>
+                                </div>
+                                <div style="padding: 10px; background: #F7FAFC; border-radius: 6px; border-left: 3px solid #3E4C7A;">
+                                    <a href="https://successchemistry.com/cart" target="_blank" style="color: #667eea; text-decoration: none; font-weight: 600;">/cart</a>
+                                    <span style="color: #718096; font-size: 0.85rem; margin-left: 8px;">Shopping Cart</span>
+                                </div>
+                                <div style="padding: 10px; background: #F7FAFC; border-radius: 6px; border-left: 3px solid #3E4C7A;">
+                                    <a href="https://successchemistry.com/blog" target="_blank" style="color: #667eea; text-decoration: none; font-weight: 600;">/blog</a>
+                                    <span style="color: #718096; font-size: 0.85rem; margin-left: 8px;">Blog/Articles</span>
+                                </div>
+                                <div style="padding: 10px; background: #F7FAFC; border-radius: 6px; border-left: 3px solid #3E4C7A;">
+                                    <a href="https://successchemistry.com/contact" target="_blank" style="color: #667eea; text-decoration: none; font-weight: 600;">/contact</a>
+                                    <span style="color: #718096; font-size: 0.85rem; margin-left: 8px;">Contact Page</span>
+                                </div>
+                                <div style="padding: 10px; background: #F7FAFC; border-radius: 6px; border-left: 3px solid #3E4C7A;">
+                                    <a href="https://successchemistry.com/subscribe.html" target="_blank" style="color: #667eea; text-decoration: none; font-weight: 600;">/subscribe.html</a>
+                                    <span style="color: #718096; font-size: 0.85rem; margin-left: 8px;">Subscription Page</span>
+                                </div>
+                                <div style="padding: 10px; background: #F7FAFC; border-radius: 6px; border-left: 3px solid #3E4C7A;">
+                                    <a href="https://successchemistry.com/thank-you.html" target="_blank" style="color: #667eea; text-decoration: none; font-weight: 600;">/thank-you.html</a>
+                                    <span style="color: #718096; font-size: 0.85rem; margin-left: 8px;">Thank You Page</span>
+                                </div>
+                            </div>
+
+                            <h4 style="color: #4A5568; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem;">Policy Pages</h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">
+                                <div style="padding: 10px; background: #F7FAFC; border-radius: 6px; border-left: 3px solid #48BB78;">
+                                    <a href="https://successchemistry.com/terms-of-service.html" target="_blank" style="color: #667eea; text-decoration: none; font-weight: 600;">/terms-of-service.html</a>
+                                    <span style="color: #718096; font-size: 0.85rem; margin-left: 8px;">Terms of Service</span>
+                                </div>
+                                <div style="padding: 10px; background: #F7FAFC; border-radius: 6px; border-left: 3px solid #48BB78;">
+                                    <a href="https://successchemistry.com/shipping-returns.html" target="_blank" style="color: #667eea; text-decoration: none; font-weight: 600;">/shipping-returns.html</a>
+                                    <span style="color: #718096; font-size: 0.85rem; margin-left: 8px;">Shipping & Returns</span>
+                                </div>
+                                <div style="padding: 10px; background: #F7FAFC; border-radius: 6px; border-left: 3px solid #48BB78;">
+                                    <a href="https://successchemistry.com/payment-policy.html" target="_blank" style="color: #667eea; text-decoration: none; font-weight: 600;">/payment-policy.html</a>
+                                    <span style="color: #718096; font-size: 0.85rem; margin-left: 8px;">Payment Policy</span>
+                                </div>
+                                <div style="padding: 10px; background: #F7FAFC; border-radius: 6px; border-left: 3px solid #48BB78;">
+                                    <a href="https://successchemistry.com/privacy-policy.html" target="_blank" style="color: #667eea; text-decoration: none; font-weight: 600;">/privacy-policy.html</a>
+                                    <span style="color: #718096; font-size: 0.85rem; margin-left: 8px;">Privacy Policy</span>
+                                </div>
+                            </div>
+
+                            <h4 style="color: #4A5568; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem;">Admin & Dashboard</h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">
+                                <div style="padding: 10px; background: #F7FAFC; border-radius: 6px; border-left: 3px solid #ED8936;">
+                                    <a href="https://successchemistry.com/admin/" target="_blank" style="color: #667eea; text-decoration: none; font-weight: 600;">/admin/</a>
+                                    <span style="color: #718096; font-size: 0.85rem; margin-left: 8px;">Admin Dashboard</span>
+                                </div>
+                                <div style="padding: 10px; background: #F7FAFC; border-radius: 6px; border-left: 3px solid #ED8936;">
+                                    <a href="https://successchemistry.com/my-account-dashboard.html" target="_blank" style="color: #667eea; text-decoration: none; font-weight: 600;">/my-account-dashboard.html</a>
+                                    <span style="color: #718096; font-size: 0.85rem; margin-left: 8px;">My Account Dashboard</span>
+                                </div>
+                                <div style="padding: 10px; background: #F7FAFC; border-radius: 6px; border-left: 3px solid #ED8936;">
+                                    <a href="https://successchemistry.com/command-center/" target="_blank" style="color: #667eea; text-decoration: none; font-weight: 600;">/command-center/</a>
+                                    <span style="color: #718096; font-size: 0.85rem; margin-left: 8px;">Command Center</span>
+                                </div>
+                            </div>
+
+                            <h4 style="color: #4A5568; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem;">Tools & Utilities</h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">
+                                <div style="padding: 10px; background: #F7FAFC; border-radius: 6px; border-left: 3px solid #9F7AEA;">
+                                    <a href="https://successchemistry.com/faq/" target="_blank" style="color: #667eea; text-decoration: none; font-weight: 600;">/faq/</a>
+                                    <span style="color: #718096; font-size: 0.85rem; margin-left: 8px;">FAQ Page</span>
+                                </div>
+                                <div style="padding: 10px; background: #F7FAFC; border-radius: 6px; border-left: 3px solid #9F7AEA;">
+                                    <a href="https://successchemistry.com/feeds/generate-bing-feed.html" target="_blank" style="color: #667eea; text-decoration: none; font-weight: 600;">/feeds/generate-bing-feed.html</a>
+                                    <span style="color: #718096; font-size: 0.85rem; margin-left: 8px;">Bing Feed Generator</span>
+                                </div>
+                                <div style="padding: 10px; background: #F7FAFC; border-radius: 6px; border-left: 3px solid #9F7AEA;">
+                                    <a href="https://successchemistry.com/feeds/google-merchant-feed.xml" target="_blank" style="color: #667eea; text-decoration: none; font-weight: 600;">/feeds/google-merchant-feed.xml</a>
+                                    <span style="color: #718096; font-size: 0.85rem; margin-left: 8px;">Google Merchant Feed</span>
+                                </div>
+                                <div style="padding: 10px; background: #F7FAFC; border-radius: 6px; border-left: 3px solid #9F7AEA;">
+                                    <a href="https://successchemistry.com/feeds/bing-shopping-feed.xml" target="_blank" style="color: #667eea; text-decoration: none; font-weight: 600;">/feeds/bing-shopping-feed.xml</a>
+                                    <span style="color: #718096; font-size: 0.85rem; margin-left: 8px;">Bing Shopping Feed</span>
+                                </div>
+                            </div>
+
+                            <h4 style="color: #4A5568; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem;">🏠 Local Development URLs (localhost:8080)</h4>
+                            <div style="padding: 15px; background: #EDF2F7; border-radius: 6px; margin-bottom: 20px;">
+                                <p style="color: #4A5568; margin: 0; font-size: 0.9rem;">
+                                    All the same paths as above, but accessed via: <code style="background: white; padding: 2px 6px; border-radius: 3px;">http://localhost:8080/</code>
+                                </p>
+                                <p style="color: #718096; margin: 10px 0 0 0; font-size: 0.85rem;">
+                                    Examples: <code style="background: white; padding: 2px 6px; border-radius: 3px;">http://localhost:8080/shop</code>, <code style="background: white; padding: 2px 6px; border-radius: 3px;">http://localhost:8080/admin/</code>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script src="/products-data.js"></script>
     <script src="/woocommerce-order-integration.js"></script>
+    <!-- Note: admin.js is NOT loaded here to prevent conflicts with inline script -->
     <script>
         console.log('🔵 Admin dashboard script loaded!');
         console.log('🔵 Current URL:', window.location.href);
@@ -494,24 +611,27 @@
             loadDashboardData();
         }
 
-        // Make functions globally accessible
-        window.logout = logout;
-        window.showDashboard = showDashboard;
-        window.switchTab = switchTab;
-        window.configureWooCommerceAPI = configureWooCommerceAPI;
-        window.showManualOrderEntry = showManualOrderEntry;
-        window.loadOrders = loadOrders;
-        window.viewOrder = viewOrder;
-        window.viewOrderDetails = viewOrderDetails;
+        // Update WooCommerce status display
+        function updateWooCommerceStatus() {
+            const statusEl = document.getElementById('woocommerceStatus');
+            if (!statusEl) return;
+            
+            const key = localStorage.getItem('wooCommerceConsumerKey');
+            if (key) {
+                statusEl.style.background = '#C6F6D5';
+                statusEl.style.color = '#22543D';
+                statusEl.innerHTML = '<strong>✅ WooCommerce API Configured</strong> - Orders from new site will push to WooCommerce';
+            } else {
+                statusEl.style.background = '#FED7D7';
+                statusEl.style.color = '#742A2A';
+                statusEl.innerHTML = '<strong>⚠️ WooCommerce API Not Configured</strong> - Click "Configure WooCommerce API" to enable order pushing';
+            }
+        }
 
-        // Load dashboard immediately - no login needed
-        window.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, showing dashboard...');
-            showDashboard();
-        });
-
-        // Tab switching
+        // Tab switching - MUST be defined before assigning to window
         function switchTab(tabName, event) {
+            console.log('Switching to tab:', tabName);
+            
             // Remove active from all tabs
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
@@ -532,14 +652,51 @@
             const tabContent = document.getElementById(tabName);
             if (tabContent) {
                 tabContent.classList.add('active');
+                console.log('Tab content shown:', tabName);
+            } else {
+                console.error('Tab content not found:', tabName);
             }
             
-            // Load data when switching to Orders tab
+            // Load data when switching tabs
             if (tabName === 'orders') {
+                console.log('Loading orders...');
                 loadOrders();
             } else if (tabName === 'products') {
+                console.log('Loading products...');
                 loadProducts();
+            } else if (tabName === 'customers') {
+                console.log('Loading customers...');
+                if (window.loadCustomers) {
+                    loadCustomers();
+                }
+            } else if (tabName === 'analytics') {
+                console.log('Analytics tab active');
+            } else if (tabName === 'links') {
+                console.log('Links tab active');
+            } else if (tabName === 'overview') {
+                console.log('Overview tab active');
+                loadDashboardData();
             }
+        }
+
+        // Make functions globally accessible - AFTER they're defined
+        window.logout = logout;
+        window.showDashboard = showDashboard;
+        window.switchTab = switchTab;
+        window.updateWooCommerceStatus = updateWooCommerceStatus;
+
+        // Load dashboard immediately - no login needed
+        if (document.readyState === 'loading') {
+            window.addEventListener('DOMContentLoaded', function() {
+                console.log('DOM loaded, showing dashboard...');
+                showDashboard();
+                updateWooCommerceStatus();
+            });
+        } else {
+            // DOM already loaded
+            console.log('DOM already loaded, showing dashboard...');
+            showDashboard();
+            updateWooCommerceStatus();
         }
 
         // Load dashboard data
@@ -817,15 +974,42 @@
         window.viewOrderDetails = viewOrderDetails;
         
         function searchOrders(query) {
-            // Implement order search
+            const tableBody = document.getElementById('ordersTableBody');
+            if (!tableBody) return;
+            
+            const rows = tableBody.querySelectorAll('tr');
+            const searchTerm = query.toLowerCase();
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
         }
 
         function searchProducts(query) {
-            // Implement product search
+            const productsTable = document.getElementById('productsTable');
+            if (!productsTable) return;
+            
+            const rows = productsTable.querySelectorAll('tbody tr');
+            const searchTerm = query.toLowerCase();
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
         }
 
         function searchCustomers(query) {
-            // Implement customer search
+            const customersTable = document.getElementById('customersTable');
+            if (!customersTable) return;
+            
+            const rows = customersTable.querySelectorAll('tbody tr');
+            const searchTerm = query.toLowerCase();
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
         }
 
         // Configure WooCommerce API
@@ -849,7 +1033,7 @@
                 }
                 
                 alert('✅ WooCommerce API configured! Orders will now push to WooCommerce.');
-                location.reload(); // Reload to show updated status
+                updateWooCommerceStatus(); // Update status without reload
             } else {
                 alert('❌ Both Consumer Key and Secret are required!');
             }
@@ -1012,19 +1196,129 @@
             }
         }
 
-        // Make functions globally accessible
+        // Make functions globally accessible - AFTER they're all defined
         window.configureWooCommerceAPI = configureWooCommerceAPI;
         window.showManualOrderEntry = showManualOrderEntry;
+        window.loadOrders = loadOrders;
+        window.loadProducts = loadProducts;
+        window.viewOrder = viewOrder;
+        window.viewOrderDetails = viewOrderDetails;
+        window.searchOrders = searchOrders;
+        window.searchProducts = searchProducts;
+        window.searchCustomers = searchCustomers;
 
         // Load customers table
-        document.getElementById('customersTable').innerHTML = `
-            <div class="empty-state">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                </svg>
-                <h3>Customer data will appear here</h3>
-                <p>Customer information from completed orders will be displayed in this section.</p>
-            </div>
-        `;
+        function loadCustomers() {
+            const customersTable = document.getElementById('customersTable');
+            if (customersTable) {
+                // Extract unique customers from orders
+                const customers = [];
+                const customerMap = new Map();
+                
+                ordersData.forEach(order => {
+                    const email = order.customerEmail || order.customerData?.email;
+                    if (email && !customerMap.has(email)) {
+                        customerMap.set(email, true);
+                        customers.push({
+                            email: email,
+                            name: order.customerName || (order.customerData?.firstName && order.customerData?.lastName ? `${order.customerData.firstName} ${order.customerData.lastName}` : 'N/A'),
+                            orders: ordersData.filter(o => (o.customerEmail || o.customerData?.email) === email).length,
+                            totalSpent: ordersData.filter(o => (o.customerEmail || o.customerData?.email) === email).reduce((sum, o) => sum + parseFloat(o.total || 0), 0)
+                        });
+                    }
+                });
+                
+                if (customers.length === 0) {
+                    customersTable.innerHTML = `
+                        <div class="empty-state">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                            <h3>No customers found</h3>
+                            <p>Customer information from completed orders will be displayed here.</p>
+                        </div>
+                    `;
+                } else {
+                    const table = `
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th>Name</th>
+                                    <th>Orders</th>
+                                    <th>Total Spent</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${customers.map(customer => `
+                                    <tr>
+                                        <td>${customer.email}</td>
+                                        <td>${customer.name}</td>
+                                        <td>${customer.orders}</td>
+                                        <td>$${customer.totalSpent.toFixed(2)}</td>
+                                        <td><button class="action-btn" onclick="viewCustomer('${customer.email}')">View</button></td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    `;
+                    customersTable.innerHTML = table;
+                }
+            }
+        }
+        
+        function viewCustomer(email) {
+            const customerOrders = ordersData.filter(o => (o.customerEmail || o.customerData?.email) === email);
+            const totalSpent = customerOrders.reduce((sum, o) => sum + parseFloat(o.total || 0), 0);
+            alert(`Customer: ${email}\n\nOrders: ${customerOrders.length}\nTotal Spent: $${totalSpent.toFixed(2)}`);
+        }
+        
+        window.loadCustomers = loadCustomers;
+        window.viewCustomer = viewCustomer;
+        
+        // Initialize customers table
+        if (document.getElementById('customersTable')) {
+            loadCustomers();
+        }
+
+        // Copy all links function
+        function copyAllLinks() {
+            const links = [
+                'https://successchemistry.com/',
+                'https://successchemistry.com/shop',
+                'https://successchemistry.com/cart',
+                'https://successchemistry.com/blog',
+                'https://successchemistry.com/contact',
+                'https://successchemistry.com/subscribe.html',
+                'https://successchemistry.com/thank-you.html',
+                'https://successchemistry.com/terms-of-service.html',
+                'https://successchemistry.com/shipping-returns.html',
+                'https://successchemistry.com/payment-policy.html',
+                'https://successchemistry.com/privacy-policy.html',
+                'https://successchemistry.com/admin/',
+                'https://successchemistry.com/my-account-dashboard.html',
+                'https://successchemistry.com/command-center/',
+                'https://successchemistry.com/faq/',
+                'https://successchemistry.com/feeds/generate-bing-feed.html',
+                'https://successchemistry.com/feeds/google-merchant-feed.xml',
+                'https://successchemistry.com/feeds/bing-shopping-feed.xml'
+            ].join('\n');
+            
+            navigator.clipboard.writeText(links).then(() => {
+                alert('✅ All links copied to clipboard!');
+            }).catch(() => {
+                // Fallback for older browsers
+                const textarea = document.createElement('textarea');
+                textarea.value = links;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert('✅ All links copied to clipboard!');
+            });
+        }
+        
+        window.copyAllLinks = copyAllLinks;
 </body>
 </html>
