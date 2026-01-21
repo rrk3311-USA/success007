@@ -460,7 +460,7 @@
         // Save goals to localStorage
         function saveGoals() {
             const checkboxes = document.querySelectorAll('.vision-item input[type="checkbox"]');
-            const goals = ;
+            const goals = {};
             checkboxes.forEach(cb => {
                 goals[cb.id] = cb.checked;
             });
