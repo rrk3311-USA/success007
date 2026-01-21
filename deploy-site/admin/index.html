@@ -111,6 +111,20 @@
         .login-container.hidden {
             display: none !important;
         }
+        
+        /* Fix pointer events - ensure nothing blocks clicks */
+        body {
+            pointer-events: auto !important;
+        }
+        
+        .dashboard.active {
+            pointer-events: auto !important;
+        }
+        
+        /* Remove any invisible overlays */
+        body > div[style*="position: fixed"][style*="z-index"]:not([style*="display: none"]) {
+            pointer-events: auto !important;
+        }
 
         .header {
             background: white;
