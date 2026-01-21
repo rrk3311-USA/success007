@@ -18,6 +18,8 @@
             font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: #F5F7FA;
             color: #2D3748;
+            pointer-events: auto !important;
+            user-select: auto !important;
         }
 
         /* Login Screen */
@@ -124,6 +126,20 @@
         /* Remove any invisible overlays */
         body > div[style*="position: fixed"][style*="z-index"]:not([style*="display: none"]) {
             pointer-events: auto !important;
+        }
+        
+        /* Force all interactive elements to be clickable */
+        button, a, input, select, textarea, [onclick], [role="button"] {
+            pointer-events: auto !important;
+            cursor: pointer !important;
+            z-index: 9999 !important;
+        }
+        
+        /* Hide login container if dashboard is active */
+        .dashboard.active ~ .login-container,
+        body:has(.dashboard.active) .login-container {
+            display: none !important;
+            pointer-events: none !important;
         }
 
         .header {
@@ -1334,5 +1350,69 @@
         }
         
         window.copyAllLinks = copyAllLinks;
+        
+        // FORCE ALL ELEMENTS TO BE CLICKABLE - EMERGENCY FIX
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔧 Applying clickability fix...');
+            
+            // Remove any blocking overlays
+            const overlays = document.querySelectorAll('div[style*="position: fixed"][style*="z-index"]');
+            overlays.forEach(overlay => {
+                if (!overlay.querySelector('button, a, input')) {
+                    overlay.style.pointerEvents = 'none';
+                    overlay.style.display = 'none';
+                }
+            });
+            
+            // Force all buttons and links to be clickable
+            const allClickable = document.querySelectorAll('button, a, [onclick], [role="button"]');
+            allClickable.forEach(el => {
+                el.style.pointerEvents = 'auto';
+                el.style.cursor = 'pointer';
+                el.style.zIndex = '9999';
+                el.style.position = 'relative';
+            });
+            
+            // Ensure dashboard is visible and clickable
+            const dashboard = document.getElementById('dashboard');
+            if (dashboard) {
+                dashboard.style.display = 'block';
+                dashboard.style.pointerEvents = 'auto';
+                dashboard.classList.add('active');
+            }
+            
+            // Hide login container if it exists
+            const loginContainer = document.querySelector('.login-container');
+            if (loginContainer) {
+                loginContainer.style.display = 'none';
+                loginContainer.style.pointerEvents = 'none';
+            }
+            
+            console.log('✅ Clickability fix applied!', {
+                buttons: allClickable.length,
+                dashboard: dashboard ? 'visible' : 'missing',
+                loginContainer: loginContainer ? 'hidden' : 'none'
+            });
+        });
+        
+        // Also run immediately if DOM is already loaded
+        if (document.readyState !== 'loading') {
+            const script = document.createElement('script');
+            script.textContent = `
+                const overlays = document.querySelectorAll('div[style*="position: fixed"][style*="z-index"]');
+                overlays.forEach(overlay => {
+                    if (!overlay.querySelector('button, a, input')) {
+                        overlay.style.pointerEvents = 'none';
+                        overlay.style.display = 'none';
+                    }
+                });
+                document.querySelectorAll('button, a, [onclick]').forEach(el => {
+                    el.style.pointerEvents = 'auto';
+                    el.style.cursor = 'pointer';
+                    el.style.zIndex = '9999';
+                });
+            `;
+            document.head.appendChild(script);
+        }
 </body>
 </html>
