@@ -9,8 +9,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Preload products data for faster loading -->
-    <link rel="preload" href="/products-data.js?v=3" as="script">
+    <!-- Preload products data for faster loading - MUST match script src version -->
+    <link rel="preload" href="/products-data.js?v=19" as="script" crossorigin="anonymous">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/public/images/SC_logo_withR.png">
+    <link rel="shortcut icon" type="image/png" href="/public/images/SC_logo_withR.png">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -2644,13 +2647,128 @@
         <div class="recently-viewed-grid" id="recentlyViewedGrid"></div>
     </div>
 
-    <!-- Footer -->
+    <!-- UNIVERSAL FOOTER - Use this on ALL pages -->
+    <!-- This footer is 100% consistent across all pages -->
+
     <footer class="footer">
         <div style="background: #2854a6; padding: 20px; text-align: center;">
             <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap;">
-                <a href="/shop" class="footer-btn" style="background: white; color: #2854a6; padding: 14px 32px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; border: 3px solid transparent; background-image: linear-gradient(white, white), linear-gradient(135deg, #5eead4 0%, #3b82f6 50%, #8b5cf6 100%); background-origin: border-box; background-clip: padding-box, border-box; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); cursor: pointer; text-decoration: none; transition: all 0.3s ease; display: inline-block;">VIEW ALL</a>
-                <a href="/cart" class="footer-btn" style="background: white; color: #2854a6; padding: 14px 32px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; border: 3px solid transparent; background-image: linear-gradient(white, white), linear-gradient(135deg, #5eead4 0%, #3b82f6 50%, #8b5cf6 100%); background-origin: border-box; background-clip: padding-box, border-box; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); cursor: pointer; text-decoration: none; transition: all 0.3s ease; display: inline-block;">VIEW CART</a>
+                <a href="/shop" class="footer-btn" style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px) saturate(180%); color: #2854a6; padding: 14px 32px; font-size: 0.9rem !important; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; border: 3px solid transparent; background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), linear-gradient(135deg, #5eead4 0%, #3b82f6 50%, #8b5cf6 100%); background-origin: border-box; background-clip: padding-box, border-box; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); cursor: pointer; text-decoration: none; transition: all 0.3s ease; display: inline-block;">VIEW ALL</a>
+                <a href="/cart" class="footer-btn" style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px) saturate(180%); color: #2854a6; padding: 14px 32px; font-size: 0.9rem !important; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; border: 3px solid transparent; background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), linear-gradient(135deg, #5eead4 0%, #3b82f6 50%, #8b5cf6 100%); background-origin: border-box; background-clip: padding-box, border-box; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); cursor: pointer; text-decoration: none; transition: all 0.3s ease; display: inline-block;">VIEW CART</a>
             </div>
             <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
                 <img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;">
             </div>
+        </div>
+        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
+        <div style="background: #2854a6; padding: 15px 20px; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; font-size: 0.85rem !important;">
+            <a href="/terms-of-service.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s; font-size: 0.85rem !important;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Terms of Service</a>
+            <span style="color: rgba(255,255,255,0.3); font-size: 0.85rem !important;">|</span>
+            <a href="/shipping-returns.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s; font-size: 0.85rem !important;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Shipping & Returns</a>
+            <span style="color: rgba(255,255,255,0.3); font-size: 0.85rem !important;">|</span>
+            <a href="/payment-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s; font-size: 0.85rem !important;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Payment Policy</a>
+            <span style="color: rgba(255,255,255,0.3); font-size: 0.85rem !important;">|</span>
+            <a href="/privacy-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s; font-size: 0.85rem !important;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Privacy Policy</a>
+            <span style="color: rgba(255,255,255,0.3); font-size: 0.85rem !important;">|</span>
+            <a href="/contact" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s; font-size: 0.85rem !important;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Contact</a>
+            <span style="color: rgba(255,255,255,0.3); font-size: 0.85rem !important;">|</span>
+            <a href="/shop" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s; font-size: 0.85rem !important;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">🧪 SHOP</a>
+        </div>
+        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
+        <div style="text-align: center; padding: 16px; background: #2854a6;">
+            <p style="color: white; font-size: 0.85rem !important; margin: 0 0 12px 0; font-weight: 500;">🗽 Copyright 2026 - Success Chemistry®</p>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 12px;">
+                <a href="https://www.successchemistry.com" target="_blank" rel="noopener" style="color: white; text-decoration: none; font-size: 0.9rem !important; font-weight: 600; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'; this.style.textDecoration='underline'" onmouseout="this.style.opacity='1'; this.style.textDecoration='none'">www.SuccessChemistry.com</a>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Load products data - MUST match preload version -->
+    <script src="/products-data.js?v=19" type="text/javascript" crossorigin="anonymous"></script>
+    
+    <script>
+        // #region agent log
+        fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'product/index.html:script_start',message:'Product page script started',data:{readyState:document.readyState,sku:new URLSearchParams(window.location.search).get('sku'),timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H1'})}).catch(()=>{});
+        // #endregion
+        
+        // Product page initialization
+        (function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const sku = urlParams.get('sku');
+            
+            // #region agent log
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'product/index.html:init',message:'Product page init',data:{sku:sku,getAllProductsType:typeof window.getAllProducts,productsDataLoaded:!!window.productsDataLoaded,timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H1'})}).catch(()=>{});
+            // #endregion
+            
+            if (!sku) {
+                document.getElementById('productContent').innerHTML = '<div style="text-align: center; padding: 2rem; color: #f44336;">Error: No product SKU specified</div>';
+                // #region agent log
+                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'product/index.html:no_sku',message:'No SKU in URL',data:{timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H1'})}).catch(()=>{});
+                // #endregion
+                return;
+            }
+            
+            let retryCount = 0;
+            const maxRetries = 50;
+            
+            // Wait for products data to load
+            function loadProduct() {
+                retryCount++;
+                
+                // #region agent log
+                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'product/index.html:loadProduct_attempt',message:'Attempting to load product',data:{sku:sku,retryCount:retryCount,getAllProductsType:typeof window.getAllProducts,productsDataLoaded:!!window.productsDataLoaded,timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H1'})}).catch(()=>{});
+                // #endregion
+                
+                if (typeof window.getAllProducts !== 'function') {
+                    if (retryCount < maxRetries) {
+                        setTimeout(loadProduct, 100);
+                    } else {
+                        // #region agent log
+                        fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'product/index.html:loadProduct_timeout',message:'getAllProducts not available after max retries',data:{sku:sku,retryCount:retryCount,timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H1'})}).catch(()=>{});
+                        // #endregion
+                        document.getElementById('productContent').innerHTML = '<div style="text-align: center; padding: 2rem; color: #f44336;">Error: Products data failed to load</div>';
+                    }
+                    return;
+                }
+                
+                try {
+                    const products = window.getAllProducts();
+                    // #region agent log
+                    fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'product/index.html:getAllProducts_success',message:'getAllProducts called successfully',data:{sku:sku,productsCount:products.length,timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H1'})}).catch(()=>{});
+                    // #endregion
+                    
+                    const product = products.find(p => p.sku === sku);
+                    
+                    if (!product) {
+                        // #region agent log
+                        fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'product/index.html:product_not_found',message:'Product not found in data',data:{sku:sku,productsCount:products.length,timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H1'})}).catch(()=>{});
+                        // #endregion
+                        document.getElementById('productContent').innerHTML = '<div style="text-align: center; padding: 2rem; color: #f44336;">Product not found: ' + sku + '</div>';
+                        return;
+                    }
+                    
+                    // #region agent log
+                    fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'product/index.html:product_found',message:'Product found',data:{sku:sku,productName:product.name,timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H1'})}).catch(()=>{});
+                    // #endregion
+                    
+                    // Product found - render it (existing product rendering code should handle this)
+                    console.log('✅ Product loaded:', product.name);
+                } catch (error) {
+                    // #region agent log
+                    fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'product/index.html:loadProduct_error',message:'Error loading product',data:{sku:sku,error:error.message,stack:error.stack,timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H1'})}).catch(()=>{});
+                    // #endregion
+                    console.error('❌ Error loading product:', error);
+                    document.getElementById('productContent').innerHTML = '<div style="text-align: center; padding: 2rem; color: #f44336;">Error loading product: ' + error.message + '</div>';
+                }
+            }
+            
+            // Start loading after DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', loadProduct);
+            } else {
+                loadProduct();
+            }
+        })();
+    </script>
+</body>
+</html>

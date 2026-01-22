@@ -30,13 +30,16 @@
 }
 
 .topbar {
-    background: white;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     position: sticky;
     top: 0;
     z-index: 100;
-    border-bottom: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.8);
     padding: 22px 0;
     margin-top: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .blue-nav {
@@ -76,8 +79,12 @@
 }
 
 @media (max-width: 768px) {
+    .topbar {
+        padding: 16px 0;
+    }
+    
     .topbar-inner {
-        padding: 12px 0;
+        padding: 0;
     }
 
     .brand img {

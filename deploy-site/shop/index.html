@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Shop Supplements - Success Chemistry | Premium Vitamins & Health Supplements</title>
+    <!-- Page version: 2026-01-21-v2-frosted-glass-enhanced -->
     <meta name="description" content="Shop premium quality supplements and vitamins from Success Chemistry. Women's health, men's health, eye health, weight loss, and immune support supplements. Fast shipping, satisfaction guaranteed.">
     <meta name="keywords" content="buy supplements, shop vitamins, health supplements, dietary supplements, women's supplements, men's supplements, eye health supplements, weight loss supplements, immune support, Success Chemistry">
     <meta name="robots" content="index, follow">
@@ -178,29 +182,38 @@
         }
 
         .category-overlay {
+            position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.3));
-            backdrop-filter: blur(12px) saturate(180%);
-            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            background: linear-gradient(to top, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.4));
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             padding: 20px;
             color: #2D3748;
-            border-top: 1px solid rgba(255, 255, 255, 0.5);
+            border-top: 2px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.5);
             transition: all 0.3s ease;
+            z-index: 2;
         }
 
         .category-name {
-            font-size: 1.1rem;
-            font-weight: 700;
+            font-size: 1.2rem;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            color: #1a1a2e;
         }
 
         .category-count {
-            font-size: 0.85rem;
-            opacity: 0.9;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0.95;
+            color: #4a5568;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
         }
 
         .search-bar {
@@ -689,28 +702,191 @@
             }
         }
 
-            100% { background-position: 200% 50%; }
+        /* ============================================
+           FIXED HEADER SYSTEM - Consistent across all pages
+           ============================================ */
+
+        /* ============================================
+           /* ============================================
+           UNIVERSAL HEADER CSS - 100% STATIC
+           Use this on ALL pages for consistent header
+           NO SIZE CHANGES - NO HOVER GROWTH - COMPLETELY STATIC
+           ============================================ */
+
+        /* ============================================
+           UNIVERSAL HEADER CSS - 100% STATIC
+           Use this on ALL pages for consistent header
+           NO SIZE CHANGES - NO HOVER GROWTH - COMPLETELY STATIC
+           ============================================ */
+
+        /* Header wrapper for top spacing */
+        .header-wrapper {
+            margin-top: 0;
+            width: 100%;
+            background: white;
         }
 
-        @media (max-width: 768px) 
+        /* Container - Fixed width system */
+        .container {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
 
-        @media (max-width: 520px) 
-    
+        @media (min-width: 768px) {
+            .container {
+                max-width: 720px;
+                padding: 0 20px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 960px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1140px;
+            }
+        }
+
+        /* Topbar - FIXED SIZE - NO CHANGES */
+        .topbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+            padding: 20px 0;
+            margin-top: 0;
+            width: 100%;
+            left: 0;
+            right: 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            /* FIXED HEIGHT - NEVER CHANGES */
+            min-height: 98px;
+            max-height: 98px;
+            height: 98px;
+            box-sizing: border-box;
+        }
+
+        .topbar .container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+        }
+
         .topbar-inner {
             display: flex;
             align-items: center;
-            justify-content: center !important;
+            justify-content: center;
             gap: 16px;
-            padding: 0;
+            padding: 12px 0;
             position: relative;
             width: 100%;
+            /* FIXED HEIGHT - NEVER CHANGES */
+            min-height: 58px;
+            max-height: 58px;
+            height: 58px;
+            box-sizing: border-box;
         }
 
+        /* Account Link - FIXED SIZE */
+        .account-link {
+            position: absolute;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #2854a6;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            /* NO SIZE CHANGES */
+            transform: none !important;
+            scale: 1 !important;
+        }
+
+        .account-link:hover {
+            background: rgba(40, 84, 166, 0.1);
+            color: #1e3f7a;
+            /* NO SIZE CHANGES */
+            transform: none !important;
+            scale: 1 !important;
+        }
+
+        .account-link:active,
+        .account-link:focus {
+            background: rgba(40, 84, 166, 0.1);
+            color: #1e3f7a;
+            /* NO SIZE CHANGES */
+            transform: none !important;
+            scale: 1 !important;
+            font-size: 1rem !important;
+        }
+
+        /* Brand Logo - FIXED SIZE - NEVER CHANGES - PERFECTLY CENTERED */
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            flex-shrink: 0;
+            margin: 0 auto;
+            position: absolute;
+            left: 50%;
+            /* NO SIZE CHANGES */
+            transform: translateX(-50%) !important;
+            scale: 1 !important;
+        }
+
+        .brand:hover,
+        .brand:active,
+        .brand:focus {
+            /* NO SIZE CHANGES - Keep centered */
+            transform: translateX(-50%) !important;
+            scale: 1 !important;
+        }
+
+        .brand img {
+            height: 58px;
+            width: auto;
+            /* FIXED DIMENSIONS - NEVER CHANGES */
+            min-height: 58px;
+            max-height: 58px;
+            height: 58px;
+            display: block;
+            /* NO SIZE CHANGES */
+            transform: none !important;
+            scale: 1 !important;
+        }
+
+        .brand img:hover,
+        .brand img:active {
+            /* NO SIZE CHANGES */
+            transform: none !important;
+            scale: 1 !important;
+        }
+
+        /* Header Divider - PURPLE GRADIENT LINES */
         .header-divider {
             height: 4px;
+            width: 100%;
             background: linear-gradient(90deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #667eea 100%);
             background-size: 200% 100%;
             animation: gradientMove 3s linear infinite;
+            flex-shrink: 0;
+            display: block;
+            position: relative;
+            z-index: 1;
         }
 
         @keyframes gradientMove {
@@ -718,55 +894,292 @@
             100% { background-position: 200% 50%; }
         }
 
-        .brand {
-            display: inline-flex;
-            align-items: center;
-            text-decoration: none;
-        }
+        /* Blue Navigation - SOLID BLUE */
+.blue-nav {
+    background: #2854a6;
+    padding: 0;
+    width: 100%;
+    /* FIXED HEIGHT - NEVER CHANGES */
+    min-height: 54px;
+    max-height: 54px;
+    height: 54px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+    border-top: none;
+    border-bottom: none;
+    display: flex;
+    align-items: center;
+}
 
-        .brand img {
-            height: 58px;
-        }
+.blue-nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    /* FIXED HEIGHT - Match parent */
+    height: 100%;
+    min-height: 54px;
+    max-height: 54px;
+    text-align: center;
+    /* Ensure perfect centering */
+    left: 0;
+    right: 0;
+}
 
-        .topbar {
-            background: white;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: none;
-            padding: 22px 0;
-            margin-top: 8px;
-            width: 100%;
-            left: 0;
-            right: 0;
-        }
+/* Navigation Links - FIXED SIZE - NO CHANGES ON HOVER/CLICK */
+.blue-nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.56rem;
+    letter-spacing: 0.2px;
+    transition: opacity 0.3s;
+    /* FIXED LINE-HEIGHT - NEVER CHANGES */
+    line-height: 54px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    /* NO SIZE CHANGES */
+    transform: none !important;
+    scale: 1 !important;
+    font-size: 1.56rem !important;
+    /* Vertical centering */
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+}
 
-        .blue-nav {
-            background: #2854a6;
-            padding: 18px 0;
-        }
-
-        .blue-nav .container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 48px;
-            flex-wrap: wrap;
-            position: relative;
-            width: 100%;
-        }
-
-        .blue-nav a {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.56rem;
-            letter-spacing: 0.2px;
-            transition: opacity 0.3s;
-        }
-
-        .blue-nav a:hover {
+        .blue-nav a:hover,
+        .blue-nav a:active,
+        .blue-nav a:focus,
+        .blue-nav a:visited {
             opacity: 0.8;
+            /* FIXED SIZE - NEVER CHANGES */
+            font-size: 1.56rem !important;
+            font-weight: 500 !important;
+            text-decoration: none !important;
+            transform: none !important;
+            scale: 1 !important;
+            line-height: 54px !important;
+        }
+
+        /* Prevent layout shift */
+        .topbar,
+        .blue-nav,
+        .header-divider {
+            will-change: auto;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+
+        /* ============================================
+           MOBILE RESPONSIVE - Fixed sizes
+           ============================================ */
+
+        @media (max-width: 768px) {
+            /* Topbar - FIXED mobile height */
+            .topbar {
+                padding: 8px 0;
+                min-height: 68px;
+                max-height: 68px;
+                height: 68px;
+            }
+
+            .topbar-inner {
+                padding: 0 16px;
+                min-height: 52px;
+                max-height: 52px;
+                height: 52px;
+            }
+
+            /* Logo - FIXED mobile size */
+            .brand img {
+                height: 44px;
+                min-height: 44px;
+                max-height: 44px;
+            }
+
+            /* Account Link - FIXED mobile size */
+            .account-link {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+
+            /* Navigation - FIXED mobile height */
+            .blue-nav {
+                padding: 10px 0;
+                min-height: 50px;
+                max-height: 50px;
+                height: 50px;
+            }
+
+            .blue-nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    /* FIXED HEIGHT */
+    height: 54px;
+    text-align: center;
+    /* Ensure perfect centering */
+    left: 0;
+    right: 0;
+}
+
+            .blue-nav a {
+                font-size: 1.2rem;
+                line-height: 1.2;
+            }
+        }
+
+        @media (max-width: 520px) {
+            /* Navigation - FIXED small mobile */
+            .blue-nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    /* FIXED HEIGHT */
+    height: 54px;
+    text-align: center;
+    /* Ensure perfect centering */
+    left: 0;
+    right: 0;
+}
+
+            .blue-nav a {
+                font-size: 1.15rem;
+                line-height: 1.2;
+            }
+
+            .account-link {
+                font-size: 0.85rem;
+                padding: 5px 10px;
+            }
+
+            .account-link span:last-child {
+                display: none;
+            }
+        }
+
+        /* ============================================
+           MOBILE RESPONSIVE - Fixed sizes
+           ============================================ */
+        
+        @media (max-width: 768px) {
+            /* Topbar - FIXED mobile height */
+            .topbar {
+                padding: 8px 0;
+                min-height: 68px;
+                max-height: 68px;
+                height: 68px;
+            }
+            
+            .topbar-inner {
+                padding: 0 16px;
+                min-height: 52px;
+                max-height: 52px;
+                height: 52px;
+            }
+        
+            /* Logo - FIXED mobile size */
+            .brand img {
+                height: 44px;
+                min-height: 44px;
+                max-height: 44px;
+            }
+        
+            /* Account Link - FIXED mobile size */
+            .account-link {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+        
+            /* Navigation - FIXED mobile height */
+            .blue-nav {
+                padding: 10px 0;
+                min-height: 50px;
+                max-height: 50px;
+                height: 50px;
+            }
+        
+            .blue-nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    /* FIXED HEIGHT */
+    height: 54px;
+    text-align: center;
+    /* Ensure perfect centering */
+    left: 0;
+    right: 0;
+}
+        
+            .blue-nav a {
+                font-size: 1.2rem;
+                line-height: 1.2;
+            }
+        }
+        
+        @media (max-width: 520px) {
+            /* Navigation - FIXED small mobile */
+            .blue-nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    /* FIXED HEIGHT */
+    height: 54px;
+    text-align: center;
+    /* Ensure perfect centering */
+    left: 0;
+    right: 0;
+}
+        
+            .blue-nav a {
+                font-size: 1.15rem;
+                line-height: 1.2;
+            }
+        
+            .account-link {
+                font-size: 0.85rem;
+                padding: 5px 10px;
+            }
+        
+            .account-link span:last-child {
+                display: none;
+            }
         }
 
         .footer-btn:hover {
@@ -779,68 +1192,147 @@
             box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
         }
 
+        /* Prevent layout shift */
+        .topbar,
+        .blue-nav,
+        .header-divider {
+            will-change: auto;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+        /* Mobile Responsive - Fixed sizes */
         @media (max-width: 768px) {
+            /* Topbar - FIXED mobile height */
+            .topbar {
+                padding: 20px 0;
+                min-height: 98px;
+                max-height: 98px;
+                height: 98px;
+            }
+            
             .topbar-inner {
                 padding: 12px 0;
+                min-height: 58px;
+                max-height: 58px;
+                height: 58px;
             }
 
+            /* Logo - FIXED mobile size */
             .brand img {
                 height: 44px;
+                min-height: 44px;
+                max-height: 44px;
             }
 
+            /* Account Link - FIXED mobile size */
+            .account-link {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+
+            /* Navigation - FIXED mobile height */
             .blue-nav {
                 padding: 10px 0;
-            }
+                min-height: 50px;
+                max-height: 50px;
+                height: 50px;
+            
+    border-top: none;
+    border-bottom: none;
+    position: relative;
+    z-index: 1;
+}
 
             .blue-nav .container {
-                gap: 22px;
-            }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    /* FIXED HEIGHT */
+    height: 54px;
+    text-align: center;
+    /* Ensure perfect centering */
+    left: 0;
+    right: 0;
+}
 
             .blue-nav a {
                 font-size: 1.2rem;
+                line-height: 1.2;
             }
         }
 
         @media (max-width: 520px) {
+            /* Navigation - FIXED small mobile */
             .blue-nav .container {
-                gap: 16px;
-            }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    /* FIXED HEIGHT */
+    height: 54px;
+    text-align: center;
+    /* Ensure perfect centering */
+    left: 0;
+    right: 0;
+}
 
             .blue-nav a {
                 font-size: 1.15rem;
+                line-height: 1.2;
+            }
+
+            .account-link {
+                font-size: 0.85rem;
+                padding: 5px 10px;
+            }
+
+            .account-link span:last-child {
+                display: none;
             }
         }
 
         @media (max-width: 768px) {
-            
 
             .brand img {
                 height: 44px;
             }
 
             .blue-nav .container {
-                gap: 22px;
-            }
-
-            .blue-nav a {
-                font-size: 1.2rem;
-            }
-        }
-
-            .blue-nav a {
-                font-size: 1.15rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-
-            .brand img {
-                height: 44px;
-            }
-
-            .blue-nav .container {
-                gap: 22px;
-            }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    /* FIXED HEIGHT */
+    height: 54px;
+    text-align: center;
+    /* Ensure perfect centering */
+    left: 0;
+    right: 0;
+}
 
             .blue-nav a {
                 font-size: 1.2rem;
@@ -854,89 +1346,99 @@
     </style>
 </head>
 <body>
-    <!-- HEADER -->
-            <div class="topbar">
+    <!-- UNIVERSAL HEADER - 100% STATIC -->
+    <!-- UNIVERSAL HEADER - Use this on ALL pages -->
+<!-- This header is 100% static - no size changes, no hover growth, completely consistent -->
+
+<!-- UNIVERSAL HEADER - Use this on ALL pages -->
+<!-- This header is 100% static - no size changes, no hover growth, completely consistent -->
+
+<div class="header-wrapper">
+    <div class="topbar">
         <div class="container">
             <div class="topbar-inner">
                 <a class="brand" href="/">
                     <img src="/public/images/SC_logo_withR.png" alt="Success Chemistry">
                 </a>
+                <a href="/my-account-dashboard.html" class="account-link">
+                    <span>👤</span>
+                    <span>My Account</span>
+                </a>
             </div>
         </div>
     </div>
     <div class="header-divider"></div>
-
     <div class="blue-nav">
         <div class="container">
             <a href="/">Home</a>
             <a href="/blog">Articles</a>
             <a href="/shop">🧪 Shop</a>
-            <a href="/cart" id="cartLink">🛒 Cart 0</a>
+            <a href="/cart" id="cartLink">Cart 🛒 <span id="navCartCount">0</span></a>
             <a href="/contact">Contact</a>
         </div>
     </div>
     <div class="header-divider"></div>
+</div>
+
 
     <!-- SHOP HERO -->
     <section class="shop-hero" aria-label="Shop banner"></section>
-
-    </section>
 
     <!-- FILTERS -->
     <section class="shop-filters">
         <div class="container">
             <div class="filter-container">
                 <div class="category-grid">
-                    <div class="category-card" onclick="filterByCategory('bestsellers')">
+                    <div class="category-card" onclick="if(typeof filterByCategory==='function'){filterByCategory('bestsellers');}else{console.error('filterByCategory not defined');}">
                         <img src="/images/Catagory Thumbnail Images/Best sellers Catagory image.jpg" alt="Best Sellers Supplements">
                         <div class="category-overlay">
                             <div class="category-name">Best Sellers</div>
                             <div class="category-count" id="count-bestsellers">15 Products</div>
                         </div>
                     </div>
-                    <div class="category-card" onclick="filterByCategory('mens')">
+                    <div class="category-card" onclick="if(typeof filterByCategory==='function'){filterByCategory('mens');}else{console.error('filterByCategory not defined');}">
                         <img src="/images/Catagory Thumbnail Images/mens health catagory thumb.webp" alt="Men's Health Supplements">
                         <div class="category-overlay">
                             <div class="category-name">Men's Health</div>
                             <div class="category-count" id="count-mens">8 Products</div>
                         </div>
                     </div>
-                    <div class="category-card" onclick="filterByCategory('womens')">
+                    <div class="category-card" onclick="if(typeof filterByCategory==='function'){filterByCategory('womens');}else{console.error('filterByCategory not defined');}">
                         <img src="/images/Catagory Thumbnail Images/womens health thumb.webp" alt="Women's Health Supplements">
                         <div class="category-overlay">
                             <div class="category-name">Women's Health</div>
                             <div class="category-count" id="count-womens">11 Products</div>
                         </div>
                     </div>
-                    <div class="category-card" onclick="filterByCategory('eye')">
+                    <div class="category-card" onclick="if(typeof filterByCategory==='function'){filterByCategory('eye');}else{console.error('filterByCategory not defined');}">
                         <img src="/images/Catagory Thumbnail Images/OPZ-eyeBeautiful-lashes__94531.1721847264.jpg" alt="Eye Health Supplements">
                         <div class="category-overlay">
                             <div class="category-name">Eye Health</div>
                             <div class="category-count" id="count-eye">3 Products</div>
                         </div>
                     </div>
-                    <div class="category-card" onclick="filterByCategory('weight')">
+                    <div class="category-card" onclick="if(typeof filterByCategory==='function'){filterByCategory('weight');}else{console.error('filterByCategory not defined');}">
                         <img src="/images/Catagory Thumbnail Images/weight loss catagory thumb.webp" alt="Weight Loss Supplements">
                         <div class="category-overlay">
                             <div class="category-name">Weight Loss</div>
                             <div class="category-count" id="count-weight">7 Products</div>
                         </div>
                     </div>
-                    <div class="category-card" onclick="filterByCategory('bundles')">
+                    <div class="category-card" onclick="if(typeof filterByCategory==='function'){filterByCategory('bundles');}else{console.error('filterByCategory not defined');}">
                         <img src="/images/Catagory Thumbnail Images/Bundle Deals.webp" alt="Bundle Deals Supplements">
                         <div class="category-overlay">
                             <div class="category-name">Bundle Deals</div>
                             <div class="category-count" id="count-bundles">20 Products</div>
                         </div>
                     </div>
-                    <div class="category-card" onclick="filterByCategory('unisex')">
+                    <div class="category-card" onclick="if(typeof filterByCategory==='function'){filterByCategory('unisex');}else{console.error('filterByCategory not defined');}">
                         <img src="/images/Catagory Thumbnail Images/unisex thumb.webp" alt="Unisex Supplements">
                         <div class="category-overlay">
                             <div class="category-name">Unisex</div>
                             <div class="category-count" id="count-unisex">28 Products</div>
                         </div>
                     </div>
-                    <div class="category-card" onclick="filterByCategory('legacy')">
+                    <div class="category-card" onclick="if(typeof filterByCategory==='function'){filterByCategory('legacy');}else{console.error('filterByCategory not defined');}">
                         <img src="/images/Catagory Thumbnail Images/legacy cat thumb.jpg" alt="Legacy Supplements">
                         <div class="category-overlay">
                             <div class="category-name">Legacy</div>
@@ -956,9 +1458,29 @@
     <!-- PRODUCTS GRID -->
     <section class="shop-content">
         <div class="container">
-            <div id="debugOutput" style="background: #ffeb3b; padding: 10px; margin-bottom: 20px; display: none;"></div>
+            <div id="debugOutput" style="background: #ffeb3b; padding: 10px; margin-bottom: 20px; display: block; font-family: monospace; font-size: 12px; border: 2px solid red; min-height: 50px;">
+                <div style="color: red; font-weight: bold;">DEBUG PANEL - Waiting for script...</div>
+            </div>
+            <script>
+                // INLINE SCRIPT TEST - This should execute immediately when HTML is parsed
+                (function() {
+                    var div = document.getElementById('debugOutput');
+                    if (div) {
+                        div.innerHTML = '<div style="color: green; font-weight: bold; font-size: 20px;">✅ INLINE SCRIPT EXECUTED!</div>';
+                    }
+                    console.log('✅ Inline script executed');
+                })();
+            </script>
             <div class="products-grid loading" id="productsGrid">
                 <div class="loading-spinner">Loading products...</div>
+            </div>
+            <!-- Pagination -->
+            <div id="pagination" style="display: none; margin-top: 40px; text-align: center; padding: 20px 0;">
+                <div style="display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap;">
+                    <button id="prevPage" onclick="changePage(-1)" style="padding: 10px 20px; background: #2854a6; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;" onmouseover="this.style.background='#1e3f73'" onmouseout="this.style.background='#2854a6'">← Previous</button>
+                    <span id="pageInfo" style="padding: 10px 20px; color: #333; font-weight: 600;">Page 1 of 1</span>
+                    <button id="nextPage" onclick="changePage(1)" style="padding: 10px 20px; background: #2854a6; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;" onmouseover="this.style.background='#1e3f73'" onmouseout="this.style.background='#2854a6'">Next →</button>
+                </div>
             </div>
         </div>
     </section>
@@ -972,19 +1494,380 @@
         </div>
     </section>
 
-    <link rel="preload" href="/products-data.js" as="script" crossorigin>
-    <script src="/products-data.js?v=5" onerror="console.error('Failed to load products-data.js');" onload="console.log('products-data.js loaded successfully');"></script>
+    <script src="/products-data.js?v=19" type="text/javascript" onload="window.productsDataLoaded = true; console.log('✅ products-data.js loaded');" onerror="console.error('❌ products-data.js failed to load'); window.productsDataLoaded = false;"></script>
     <script>
-        // Test if products data loaded
-        console.log('Shop page script loaded');
-        console.log('window.getAllProducts available:', typeof window.getAllProducts);
-        if (typeof window.getAllProducts === 'function') {
-            console.log('Products count:', window.getAllProducts().length);
-        } else {
-            console.warn('getAllProducts not yet available, will retry...');
+        // #region agent log
+        fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:script_start',message:'Script block started',data:{readyState:document.readyState,timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H1'})}).catch(()=>{});
+        // #endregion
+        
+        // SIMPLEST POSSIBLE TEST - Execute immediately, no wrapper
+        try {
+            var debugDiv = document.getElementById('debugOutput');
+            if (debugDiv) {
+                debugDiv.innerHTML = '<div style="color: red; font-weight: bold; font-size: 20px;">✅ SCRIPT IS RUNNING!</div>';
+            }
+            console.log('✅ Script tag executed - line 1');
+            // #region agent log
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:script_init',message:'Initial script test executed',data:{debugDivFound:!!debugDiv,timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H1'})}).catch(()=>{});
+            // #endregion
+        } catch(e) {
+            console.error('❌ Error in immediate script:', e);
+            alert('SCRIPT ERROR: ' + e.message);
+            // #region agent log
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:script_init_error',message:'Error in initial script',data:{error:e.message,stack:e.stack,timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H1'})}).catch(()=>{});
+            // #endregion
         }
+        
+        // ULTRA-AGGRESSIVE TEST - Multiple methods to ensure we see output
+        (function() {
+            var testMsg = '✅ SCRIPT EXECUTING! Time: ' + new Date().toLocaleTimeString();
+            
+            // Method 1: Write to debug panel
+            try {
+                var debugDiv = document.getElementById('debugOutput');
+                if (debugDiv) {
+                    debugDiv.innerHTML = '<div style="color: red; font-weight: bold; font-size: 16px;">' + testMsg + '</div>';
+                }
+            } catch(e) {
+                console.error('Error writing to debug panel:', e);
+            }
+            
+            // Method 2: Write to console
+            console.log('=== SHOP SCRIPT STARTED ===');
+            console.log(testMsg);
+            
+            // Method 3: Write to page title
+            try {
+                document.title = 'DEBUG: ' + testMsg;
+            } catch(e) {}
+            
+            // Method 4: Create visible banner at top of page
+            try {
+                var banner = document.createElement('div');
+                banner.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; background: red; color: white; padding: 10px; z-index: 999999; font-weight: bold; text-align: center;';
+                banner.textContent = testMsg;
+                document.body.appendChild(banner);
+                setTimeout(function() { banner.style.display = 'none'; }, 5000);
+            } catch(e) {
+                console.error('Error creating banner:', e);
+            }
+            
+            // Method 5: Write to productsGrid as test
+            try {
+                var grid = document.getElementById('productsGrid');
+                if (grid) {
+                    var testDiv = document.createElement('div');
+                    testDiv.style.cssText = 'background: yellow; padding: 10px; margin: 10px; border: 2px solid red;';
+                    testDiv.textContent = 'SCRIPT TEST: ' + testMsg;
+                    grid.appendChild(testDiv);
+                }
+            } catch(e) {
+                console.error('Error writing to grid:', e);
+            }
+        })();
+        
+        // #region agent log
+        fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:init',message:'Shop script initialized',data:{readyState:document.readyState,productsGridExists:!!document.getElementById('productsGrid')},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H1_H2_H3_H4_H5_H6'})}).catch(()=>{});
+        window.addEventListener('error', function(e) {
+            var debugDiv = document.getElementById('debugOutput');
+            if (debugDiv) {
+                debugDiv.innerHTML += '<div style="color: red;">JS ERROR: ' + e.message + ' at ' + e.filename + ':' + e.lineno + '</div>';
+            }
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:global_error',message:'JavaScript error',data:{error:e.message,filename:e.filename,lineno:e.lineno,stack:e.error?e.error.stack:''},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H4'})}).catch(()=>{});
+        });
+        // #endregion
+        
+        // Initialize variables FIRST
         let currentSort = 'sales';
         let allProductsCache = [];
+        let currentPage = 1;
+        const productsPerPage = 20;
+        
+        // Debug output function
+        function debugLog(msg) {
+            const debug = document.getElementById('debugOutput');
+            if (debug) {
+                debug.innerHTML += '<div>' + new Date().toLocaleTimeString() + ': ' + msg + '</div>';
+                console.log('DEBUG:', msg);
+            }
+        }
+        
+        // FORCE LOAD PRODUCTS - More aggressive loading
+        debugLog('🛍️ Shop page script loaded');
+        console.log('🛍️ Shop page script loaded');
+        
+        // Global flag to prevent duplicate loads
+        window.productsLoading = false;
+        window.productsLoaded = false;
+        
+        // Define loadAllProducts EARLY so it's available when checkProductsData tries to call it
+        // This function will be called to load and render products
+        window.loadAllProducts = function loadAllProducts() {
+            debugLog('🚀 loadAllProducts() ENTRY');
+            const grid = document.getElementById('productsGrid');
+            
+            if (!grid) {
+                debugLog('❌ productsGrid element not found');
+                console.error('productsGrid not found');
+                return;
+            }
+
+            // Check if products data is loaded
+            if (typeof window.getAllProducts !== 'function') {
+                debugLog('⏳ getAllProducts not available, retrying... (attempt ' + ((loadAllProducts.retryCount || 0) + 1) + ')');
+                // Faster retry with exponential backoff
+                loadAllProducts.retryCount = (loadAllProducts.retryCount || 0) + 1;
+                const maxRetries = 50;
+                const delay = Math.min(loadAllProducts.retryCount * 50, 500);
+                
+                if (loadAllProducts.retryCount > maxRetries) {
+                    grid.innerHTML = '<div class="loading-spinner" style="color: #f44336;">Error loading products. Please refresh the page.</div>';
+                    debugLog('❌ Failed after ' + maxRetries + ' retries');
+                    console.error('Failed to load products-data.js after', maxRetries, 'attempts');
+                    return;
+                }
+                setTimeout(loadAllProducts, delay);
+                return;
+            }
+            
+            // Reset retry count on success
+            loadAllProducts.retryCount = 0;
+
+            try {
+                debugLog('📦 Getting products from getAllProducts()...');
+                const products = window.getAllProducts().filter(p => p && p.sku && p.sku !== '21884-502');
+                debugLog('✅ Filtered products: ' + products.length);
+                allProductsCache = products;
+            
+                // Sort with best sellers always at top, then by sales
+                debugLog('🔄 Sorting products...');
+                let sorted;
+                if (typeof sortWithBestSellersFirst !== 'function') {
+                    debugLog('❌ sortWithBestSellersFirst not defined! Using default sort...');
+                    sorted = [...products].sort((a, b) => (b.sales || 0) - (a.sales || 0));
+                    debugLog('✅ Default sorted products: ' + sorted.length);
+                } else {
+                    sorted = sortWithBestSellersFirst([...products]);
+                    debugLog('✅ Sorted products: ' + sorted.length);
+                }
+                
+                // Store sorted products for pagination
+                window.sortedProducts = sorted;
+                
+                // Render current page
+                debugLog('🎨 Calling renderPage(' + currentPage + ', ' + sorted.length + ' products)...');
+                if (typeof renderPage !== 'function') {
+                    debugLog('❌ renderPage not defined! Cannot render products.');
+                    grid.innerHTML = '<div class="loading-spinner" style="color: #f44336;">Error: renderPage function not found.</div>';
+                } else {
+                    renderPage(currentPage, sorted);
+                    debugLog('✅ renderPage completed!');
+                    // Verify cards were created and have click handlers
+                    setTimeout(() => {
+                        const cards = grid.querySelectorAll('.product-card');
+                        console.log('✅ Rendered', cards.length, 'product cards');
+                        cards.forEach((card, idx) => {
+                            const sku = card.dataset.sku;
+                            console.log(`  Card ${idx + 1}: SKU=${sku}, has click handler=${card.onclick !== null || card.getAttribute('onclick') !== null}`);
+                        });
+                    }, 100);
+                }
+                window.productsLoaded = true;
+                
+            } catch (error) {
+                debugLog('❌ ERROR in loadAllProducts: ' + error.message);
+                grid.innerHTML = '<div class="loading-spinner" style="color: #f44336;">Error: ' + error.message + '</div>';
+                console.error('Error loading products:', error);
+            }
+        };
+        
+        // Wait for products-data.js to load
+        function checkProductsData() {
+            // #region agent log
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:checkProductsData',message:'Checking getAllProducts',data:{getAllProductsType:typeof window.getAllProducts,retryCount:checkProductsData.retryCount||0},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H1_H2'})}).catch(()=>{});
+            // #endregion
+            const getAllProductsType = typeof window.getAllProducts;
+            debugLog('🔍 Checking getAllProducts: ' + getAllProductsType + ' (retry ' + (checkProductsData.retryCount || 0) + ')');
+            console.log('🔍 Checking for getAllProducts...', getAllProductsType);
+            
+            if (typeof window.getAllProducts === 'function') {
+                // #region agent log
+                const productCount = window.getAllProducts().length;
+                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:getAllProducts_found',message:'getAllProducts function found',data:{productCount:productCount,productsLoaded:window.productsLoaded,productsLoading:window.productsLoading},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H1'})}).catch(()=>{});
+                // #endregion
+                debugLog('✅ getAllProducts found! Product count: ' + productCount);
+                console.log('✅ products-data.js loaded successfully');
+                console.log(`📦 Products count: ${productCount}`);
+                
+                if (productCount > 0 && !window.productsLoaded) {
+                    window.productsLoading = true;
+                    console.log('🚀 Starting product load...');
+                    
+                    // Wait for loadAllProducts to be defined (it's defined later in the script)
+                    function tryLoadProducts() {
+                        // #region agent log
+                        fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:tryLoadProducts',message:'Checking loadAllProducts',data:{loadAllProductsType:typeof loadAllProducts,retryCount:tryLoadProducts.retryCount||0},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H3'})}).catch(()=>{});
+                        // #endregion
+                        const loadAllProductsType = typeof loadAllProducts;
+                        debugLog('⏳ Checking loadAllProducts: ' + loadAllProductsType + ' (retry ' + (tryLoadProducts.retryCount || 0) + ')');
+                        if (typeof loadAllProducts === 'function') {
+                            debugLog('✅ loadAllProducts found! Calling now...');
+                            console.log('✅ loadAllProducts function found, calling it NOW...');
+                            try {
+                                // #region agent log
+                                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:loadAllProducts_call',message:'Calling loadAllProducts',timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H3'})}).catch(()=>{});
+                                // #endregion
+                                loadAllProducts();
+                                window.productsLoaded = true;
+                                debugLog('✅ loadAllProducts called successfully');
+                                console.log('✅ loadAllProducts called successfully');
+                            } catch (e) {
+                                // #region agent log
+                                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:loadAllProducts_error',message:'Error calling loadAllProducts',data:{error:e.message,stack:e.stack},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H4'})}).catch(()=>{});
+                                // #endregion
+                                debugLog('❌ ERROR calling loadAllProducts: ' + e.message);
+                                console.error('❌ Error calling loadAllProducts:', e);
+                                const grid = document.getElementById('productsGrid');
+                                if (grid) {
+                                    grid.innerHTML = '<div class="loading-spinner" style="color: #f44336;">Error loading products: ' + e.message + '</div>';
+                                }
+                            }
+                        } else {
+                            debugLog('⏳ loadAllProducts not defined yet (type: ' + loadAllProductsType + '), retrying...');
+                            console.log('⏳ loadAllProducts not defined yet, retrying...', (tryLoadProducts.retryCount || 0) + 1);
+                            tryLoadProducts.retryCount = (tryLoadProducts.retryCount || 0) + 1;
+                            if (tryLoadProducts.retryCount < 200) {
+                                setTimeout(tryLoadProducts, 50);
+                            } else {
+                                console.error('❌ loadAllProducts never became available after 200 retries');
+                                const grid = document.getElementById('productsGrid');
+                                if (grid) {
+                                    grid.innerHTML = '<div class="loading-spinner" style="color: #f44336;">Error: loadAllProducts function not found. Check console.</div>';
+                                }
+                            }
+                        }
+                    }
+                    
+                    // Start trying to load immediately - but also set a longer timeout as fallback
+                    tryLoadProducts();
+                    
+                    // Fallback: If loadAllProducts still isn't available after 3 seconds, try direct load
+                    setTimeout(() => {
+                        if (!window.productsLoaded && typeof window.getAllProducts === 'function') {
+                            console.log('🔄 Fallback: Attempting direct product load');
+                            const products = window.getAllProducts().filter(p => p && p.sku && p.sku !== '21884-502');
+                            if (products.length > 0 && typeof loadAllProducts === 'function') {
+                                console.log('🔄 Fallback: Calling loadAllProducts directly');
+                                loadAllProducts();
+                            } else if (products.length > 0) {
+                                console.error('🔄 Fallback: loadAllProducts still not available, products available:', products.length);
+                            }
+                        }
+                    }, 3000);
+                } else if (productCount === 0) {
+                    console.error('❌ No products found in getAllProducts()');
+                    const grid = document.getElementById('productsGrid');
+                    if (grid) {
+                        grid.innerHTML = '<div class="loading-spinner" style="color: #f44336;">No products found. Please check products-data.js</div>';
+                    }
+                }
+            } else {
+                console.warn('⏳ getAllProducts not yet available, retry', (checkProductsData.retryCount || 0) + 1);
+                checkProductsData.retryCount = (checkProductsData.retryCount || 0) + 1;
+                if (checkProductsData.retryCount < 200) {
+                    setTimeout(checkProductsData, 50);
+                } else {
+                    console.error('❌ Failed to load products-data.js after 200 attempts');
+                    const grid = document.getElementById('productsGrid');
+                    if (grid) {
+                        grid.innerHTML = '<div class="loading-spinner" style="color: #f44336;">Error: products-data.js failed to load. Check console and Network tab.</div>';
+                    }
+                }
+            }
+        }
+        
+        // Start checking immediately - multiple triggers
+        setTimeout(checkProductsData, 100);
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                console.log('📄 DOM Content Loaded - checking products again');
+                setTimeout(checkProductsData, 100);
+            });
+        } else {
+            console.log('📄 DOM already ready - checking products');
+            setTimeout(checkProductsData, 100);
+        }
+        
+        // DIRECT LOADING - Try to load products directly after script loads
+        // This bypasses all the retry logic and just tries to load immediately
+        function directLoadProducts() {
+            debugLog('🔄 DIRECT LOAD: Attempting direct product load...');
+            debugLog('🔄 getAllProducts type: ' + typeof window.getAllProducts);
+            debugLog('🔄 loadAllProducts type: ' + typeof loadAllProducts);
+            
+            if (typeof window.getAllProducts === 'function') {
+                try {
+                    const products = window.getAllProducts();
+                    debugLog('🔄 Direct getAllProducts() returned: ' + products.length + ' products');
+                    
+                    if (products.length > 0 && typeof loadAllProducts === 'function') {
+                        debugLog('🔄 Calling loadAllProducts() directly...');
+                        loadAllProducts();
+                        return true;
+                    } else if (products.length > 0) {
+                        debugLog('❌ Products available but loadAllProducts not defined yet');
+                        // Try again in 500ms
+                        setTimeout(directLoadProducts, 500);
+                        return false;
+                    } else {
+                        debugLog('❌ getAllProducts() returned 0 products');
+                        return false;
+                    }
+                } catch(e) {
+                    debugLog('❌ Error in directLoadProducts: ' + e.message);
+                    console.error('Direct load error:', e);
+                    return false;
+                }
+            } else {
+                debugLog('❌ getAllProducts not available yet');
+                return false;
+            }
+        }
+        
+        // Try direct load immediately, then after delays
+        setTimeout(directLoadProducts, 100);
+        setTimeout(directLoadProducts, 500);
+        setTimeout(directLoadProducts, 1000);
+        setTimeout(directLoadProducts, 2000);
+        setTimeout(directLoadProducts, 3000);
+        
+        // ULTIMATE FALLBACK - Force load after 5 seconds regardless
+        setTimeout(() => {
+            if (!window.productsLoaded) {
+                debugLog('🔄 ULTIMATE FALLBACK: Forcing product load...');
+                if (typeof window.getAllProducts === 'function') {
+                    const products = window.getAllProducts();
+                    debugLog('🔄 ULTIMATE FALLBACK: Found ' + products.length + ' products');
+                    if (products.length > 0) {
+                        debugLog('🔄 ULTIMATE FALLBACK: Calling loadAllProducts...');
+                        if (typeof window.loadAllProducts === 'function') {
+                            window.loadAllProducts();
+                        } else {
+                            debugLog('❌ ULTIMATE FALLBACK: loadAllProducts still not available!');
+                        }
+                    }
+                }
+            }
+        }, 5000);
+        
+        // Also try on window load
+        window.addEventListener('load', () => {
+            console.log('🌐 Window loaded - final check for products');
+            if (!window.productsLoaded && typeof window.getAllProducts === 'function') {
+                setTimeout(checkProductsData, 100);
+            }
+        });
 
         // Top sellers based on actual WooCommerce sales data
         const topSellerSKUs = [
@@ -1001,6 +1884,15 @@
 
         function isTopSeller(sku) {
             return topSellerSKUs.includes(sku);
+        }
+        
+        function isBestSeller(product) {
+            const category = (product.category || '').toLowerCase().trim();
+            const name = (product.name || '').toLowerCase();
+            return category === 'best sellers' || 
+                   category.includes('best seller') || 
+                   topSellerSKUs.includes(product.sku) ||
+                   name.includes('best seller');
         }
 
         function getSalesRank(product) {
@@ -1028,6 +1920,20 @@
             };
             return salesData[sku] || 0;
         }
+        
+        function sortWithBestSellersFirst(products) {
+            return products.sort((a, b) => {
+                // Best sellers always come first
+                const aIsBestSeller = isBestSeller(a);
+                const bIsBestSeller = isBestSeller(b);
+                
+                if (aIsBestSeller && !bIsBestSeller) return -1;
+                if (!aIsBestSeller && bIsBestSeller) return 1;
+                
+                // If both are best sellers or both are not, sort by sales rank
+                return getSalesRank(b) - getSalesRank(a);
+            });
+        }
 
         function sortProducts(sortType) {
             currentSort = sortType;
@@ -1039,32 +1945,84 @@
 
             switch(sortType) {
                 case 'sales':
-                    sorted.sort((a, b) => getSalesRank(b) - getSalesRank(a));
+                    sorted = sortWithBestSellersFirst(sorted);
                     break;
                 case 'price-low':
-                    sorted.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+                    // Best sellers first, then by price
+                    sorted.sort((a, b) => {
+                        const aIsBestSeller = isBestSeller(a);
+                        const bIsBestSeller = isBestSeller(b);
+                        if (aIsBestSeller && !bIsBestSeller) return -1;
+                        if (!aIsBestSeller && bIsBestSeller) return 1;
+                        return parseFloat(a.price) - parseFloat(b.price);
+                    });
                     break;
                 case 'price-high':
-                    sorted.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+                    // Best sellers first, then by price
+                    sorted.sort((a, b) => {
+                        const aIsBestSeller = isBestSeller(a);
+                        const bIsBestSeller = isBestSeller(b);
+                        if (aIsBestSeller && !bIsBestSeller) return -1;
+                        if (!aIsBestSeller && bIsBestSeller) return 1;
+                        return parseFloat(b.price) - parseFloat(a.price);
+                    });
                     break;
                 case 'name':
-                    sorted.sort((a, b) => a.name.localeCompare(b.name));
+                    // Best sellers first, then by name
+                    sorted.sort((a, b) => {
+                        const aIsBestSeller = isBestSeller(a);
+                        const bIsBestSeller = isBestSeller(b);
+                        if (aIsBestSeller && !bIsBestSeller) return -1;
+                        if (!aIsBestSeller && bIsBestSeller) return 1;
+                        return a.name.localeCompare(b.name);
+                    });
                     break;
             }
 
             grid.innerHTML = '';
-            sorted.forEach(product => {
+            sorted.forEach((product, index) => {
                 const card = buildProductCard(product);
+                if (!card) {
+                    console.error('❌ buildProductCard returned null for product:', product.sku);
+                    return;
+                }
                 grid.appendChild(card);
             });
         }
 
-        function filterByCategory(categoryFilter) {
+        // Create observer early so it's available for filterByCategory
+        // Add some animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        // Make observer globally accessible so filterByCategory can use it
+        window.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        const observer = window.observer; // Keep local reference for backward compatibility
+
+        // Make filterByCategory globally accessible
+        window.filterByCategory = function filterByCategory(categoryFilter) {
+            // #region agent log
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:filterByCategory',message:'Category filter clicked',data:{category:categoryFilter,timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H4'})}).catch(()=>{});
+            // #endregion
+            
+            console.log('🔍 Filtering by category:', categoryFilter);
             const grid = document.getElementById('productsGrid');
             if (!grid) {
                 console.error('Products grid not found');
                 return;
             }
+
+            // Reset to page 1 when filtering
+            currentPage = 1;
 
             // If products haven't loaded yet, wait for them
             if (allProductsCache.length === 0) {
@@ -1122,8 +2080,8 @@
 
             console.log(`Filtered ${filtered.length} products for category: ${categoryFilter}`);
 
-            // Sort by sales
-            filtered.sort((a, b) => getSalesRank(b) - getSalesRank(a));
+            // Sort with best sellers always at top
+            filtered = sortWithBestSellersFirst(filtered);
 
             // Show loading state
             grid.classList.add('loading');
@@ -1131,22 +2089,64 @@
 
             // Render filtered products with animation
             setTimeout(() => {
+                // #region agent log
+                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:filterByCategory_render_start',message:'Starting to render filtered products',data:{category:categoryFilter,filteredCount:filtered.length,gridExists:!!grid,timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H4'})}).catch(()=>{});
+                // #endregion
+                
                 grid.classList.remove('loading');
                 grid.innerHTML = '';
                 
                 if (filtered.length === 0) {
                     grid.innerHTML = '<div style="text-align: center; padding: 40px; color: #666;">No products found in this category.</div>';
+                    // #region agent log
+                    fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:filterByCategory_no_products',message:'No products found for category',data:{category:categoryFilter,timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H4'})}).catch(()=>{});
+                    // #endregion
                     return;
                 }
 
+                console.log(`🎨 Rendering ${filtered.length} filtered products for category: ${categoryFilter}`);
                 filtered.forEach((product, index) => {
                     const card = buildProductCard(product);
+                    if (!card) {
+                        console.error('❌ buildProductCard returned null for product:', product.sku);
+                        // #region agent log
+                        fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:filterByCategory_card_null',message:'buildProductCard returned null',data:{sku:product.sku,index:index,timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H4'})}).catch(()=>{});
+                        // #endregion
+                        return;
+                    }
                     card.style.opacity = '0';
                     card.style.transform = 'translateY(20px)';
                     card.style.transition = `opacity 0.6s ease ${index * 0.05}s, transform 0.6s ease ${index * 0.05}s`;
+                    card.style.pointerEvents = 'auto'; // Ensure cards are clickable
+                    card.style.zIndex = '1'; // Ensure cards are above other elements
                     grid.appendChild(card);
-                    observer.observe(card);
+                    // #region agent log
+                    fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:product_card_rendered',message:'Product card rendered',data:{sku:product.sku,index:index,opacity:card.style.opacity,pointerEvents:card.style.pointerEvents,timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H5'})}).catch(()=>{});
+                    // #endregion
+                    // Only observe if observer is defined (for animation on scroll)
+                    if (typeof window.observer !== 'undefined' && window.observer) {
+                        window.observer.observe(card);
+                    } else if (typeof observer !== 'undefined' && observer) {
+                        observer.observe(card);
+                    }
+                    
+                    // Force opacity to 1 after a short delay to ensure visibility
+                    setTimeout(() => {
+                        if (card.style.opacity === '0') {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }
+                    }, 100 + (index * 50));
                 });
+                
+                // Verify cards were added
+                setTimeout(() => {
+                    const renderedCards = grid.querySelectorAll('.product-card');
+                    console.log(`✅ Rendered ${renderedCards.length} cards to grid (expected ${filtered.length})`);
+                    // #region agent log
+                    fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:filterByCategory_render_complete',message:'Filter rendering complete',data:{category:categoryFilter,expected:filtered.length,rendered:renderedCards.length,timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H4'})}).catch(()=>{});
+                    // #endregion
+                }, 200);
             }, 100);
         }
 
@@ -1288,9 +2288,13 @@
             const card = document.createElement('div');
             card.className = 'product-card';
             card.dataset.category = category;
+            card.dataset.sku = product.sku;
             card.style.cursor = 'pointer';
             
-            const stopClick = (event) => event.stopPropagation();
+            const stopClick = (event) => {
+                event.stopPropagation();
+                event.preventDefault();
+            };
             const topSellerBadge = isTopSeller(product.sku) ? '<div class="product-badge top-seller">TOP SELLER</div>' : '';
             
             // Set innerHTML first
@@ -1303,94 +2307,153 @@
                 <div class="product-info">
                     <h3 class="product-name">${displayName}</h3>
                     <div class="product-actions">
-                        <button class="btn-add-cart" onclick="addToCart('${product.name.replace(/'/g, "&#39;")}', ${price})">Add to Cart</button>
+                        <button class="btn-add-cart" onclick="event.stopPropagation(); event.preventDefault(); if(typeof addToCart==='function'){addToCart('${product.name.replace(/'/g, "&#39;")}', ${price});}else{console.error('addToCart not defined');}">Add to Cart</button>
                     </div>
                 </div>
             `;
             
             // Now add event listeners after innerHTML is set
             card.addEventListener('click', (e) => {
-                // Don't navigate if clicking the button
-                if (e.target.closest('.btn-add-cart')) {
+                // Don't navigate if clicking the button or its children
+                if (e.target.closest('.btn-add-cart') || e.target.classList.contains('btn-add-cart')) {
+                    // #region agent log
+                    fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:product_card_button_click',message:'Add to cart button clicked',data:{sku:product.sku,timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H5'})}).catch(()=>{});
+                    // #endregion
                     return;
                 }
-                window.location.href = `/product/?sku=${skuParam}`;
+                // #region agent log
+                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:product_card_click',message:'Product card clicked',data:{sku:product.sku,name:product.name,url:`/product/?sku=${skuParam}`,timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H5'})}).catch(()=>{});
+                // #endregion
+                console.log('🛍️ Navigating to product page:', product.sku, 'URL:', `/product/?sku=${skuParam}`);
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // #region agent log
+                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:product_card_navigation',message:'Attempting navigation',data:{sku:product.sku,url:`/product/?sku=${skuParam}`,timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H5'})}).catch(()=>{});
+                // #endregion
+                
+                try {
+                    window.location.href = `/product/?sku=${skuParam}`;
+                } catch(err) {
+                    console.error('❌ Navigation error:', err);
+                    // #region agent log
+                    fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:product_card_navigation_error',message:'Navigation failed',data:{sku:product.sku,error:err.message,timestamp:Date.now()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H5'})}).catch(()=>{});
+                    // #endregion
+                }
             });
             
             // Prevent button clicks from triggering card navigation
-            card.querySelectorAll('.btn-add-cart').forEach((btn) => {
+            const buttons = card.querySelectorAll('.btn-add-cart');
+            buttons.forEach((btn) => {
                 btn.addEventListener('click', stopClick);
             });
             
             return card;
         }
 
-        function loadAllProducts() {
-            const debug = document.getElementById('debugOutput');
+        // Define loadAllProducts BEFORE it's called - move it earlier in the script
+        // This ensures it's available when checkProductsData tries to call it
+        // Duplicate definition removed - loadAllProducts is now defined earlier in the script
+        
+        // Pagination functions
+        function renderPage(page, sortedProducts) {
+            // #region agent log
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:renderPage_entry',message:'renderPage called',data:{page:page,productCount:sortedProducts?sortedProducts.length:0},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H6'})}).catch(()=>{});
+            // #endregion
+            debugLog('🎨 renderPage(' + page + ', ' + (sortedProducts ? sortedProducts.length : 0) + ' products)');
             const grid = document.getElementById('productsGrid');
+            const pagination = document.getElementById('pagination');
             
             if (!grid) {
-                console.error('productsGrid not found');
-                return;
-            }
-
-            // Check if products data is loaded
-            if (typeof window.getAllProducts !== 'function') {
-                // Faster retry with exponential backoff
-                loadAllProducts.retryCount = (loadAllProducts.retryCount || 0) + 1;
-                const maxRetries = 50; // Reduced from 100
-                const delay = Math.min(loadAllProducts.retryCount * 50, 500); // Cap at 500ms
-                
-                if (loadAllProducts.retryCount > maxRetries) {
-                    grid.innerHTML = '<div class="loading-spinner" style="color: #f44336;">Error loading products. Please refresh the page.</div>';
-                    console.error('Failed to load products-data.js after', maxRetries, 'attempts');
-                    return;
-                }
-                setTimeout(loadAllProducts, delay);
+                debugLog('❌ productsGrid not found in renderPage!');
+                // #region agent log
+                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:renderPage_no_grid',message:'productsGrid not found in renderPage',timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H5'})}).catch(()=>{});
+                // #endregion
                 return;
             }
             
-            // Reset retry count on success
-            loadAllProducts.retryCount = 0;
-
-            try {
-                const products = window.getAllProducts().filter(p => p && p.sku && p.sku !== '21884-502');
-                allProductsCache = products;
+            // Calculate pagination
+            const totalPages = Math.ceil(sortedProducts.length / productsPerPage);
+            const startIndex = (page - 1) * productsPerPage;
+            const endIndex = Math.min(startIndex + productsPerPage, sortedProducts.length);
+            const productsToShow = sortedProducts.slice(startIndex, endIndex);
             
-                // Sort by sales by default
-                const sorted = [...products].sort((a, b) => getSalesRank(b) - getSalesRank(a));
-                
-                // Remove loading indicator
-                grid.classList.remove('loading');
-                grid.innerHTML = '';
-                
-                // Render products with requestAnimationFrame for better performance
-                let index = 0;
-                const renderBatch = () => {
-                    const batchSize = 20; // Render 20 at a time
-                    const end = Math.min(index + batchSize, sorted.length);
-                    
-                    for (let i = index; i < end; i++) {
-                        const card = buildProductCard(sorted[i]);
+            // Remove loading indicator
+            grid.classList.remove('loading');
+            grid.innerHTML = '';
+            
+            // Render products for current page
+            debugLog('🎨 Rendering ' + productsToShow.length + ' products (page ' + page + ' of ' + totalPages + ')');
+            // #region agent log
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:renderPage_before_loop',message:'About to render products',data:{productsToShowCount:productsToShow.length,totalPages:totalPages},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H6'})}).catch(()=>{});
+            // #endregion
+            productsToShow.forEach((product, index) => {
+                try {
+                    if (typeof buildProductCard !== 'function') {
+                        debugLog('❌ buildProductCard not defined for product ' + index);
+                        if (index === 0) {
+                            grid.innerHTML = '<div class="loading-spinner" style="color: #f44336;">Error: buildProductCard function not found.</div>';
+                        }
+                        return;
+                    }
+                    const card = buildProductCard(product);
+                    if (card) {
                         grid.appendChild(card);
-                    }
-                    
-                    index = end;
-                    
-                    if (index < sorted.length) {
-                        requestAnimationFrame(renderBatch);
+                        if (index === 0) {
+                            debugLog('✅ First product card built and appended: ' + (product.name || product.sku));
+                        }
+                        // #region agent log
+                        if (index === 0) {
+                            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:renderPage_card',message:'First product card rendered',data:{productSku:product.sku,productName:product.name},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H6'})}).catch(()=>{});
+                        }
+                        // #endregion
                     } else {
-                        console.log('Rendered', sorted.length, 'products successfully!');
+                        debugLog('❌ buildProductCard returned null for product ' + index);
                     }
-                };
-                
-                renderBatch();
-                
-            } catch (error) {
-                grid.innerHTML = '<div class="loading-spinner" style="color: #f44336;">Error: ' + error.message + '</div>';
-                console.error('Error loading products:', error);
+                } catch (e) {
+                    debugLog('❌ Error building product card ' + index + ': ' + e.message + ' - ' + e.stack);
+                    // #region agent log
+                    fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:renderPage_card_error',message:'Error building product card',data:{error:e.message,productSku:product?.sku},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H4'})}).catch(()=>{});
+                    // #endregion
+                }
+            });
+            debugLog('✅ Rendered ' + grid.children.length + ' product cards');
+            // #region agent log
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'shop/index.html:renderPage_after_loop',message:'Products rendered',data:{cardsRendered:grid.children.length},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H6'})}).catch(()=>{});
+            // #endregion
+            
+            // Update pagination controls
+            if (totalPages > 1) {
+                pagination.style.display = 'block';
+                document.getElementById('pageInfo').textContent = `Page ${page} of ${totalPages}`;
+                document.getElementById('prevPage').disabled = page === 1;
+                document.getElementById('prevPage').style.opacity = page === 1 ? '0.5' : '1';
+                document.getElementById('prevPage').style.cursor = page === 1 ? 'not-allowed' : 'pointer';
+                document.getElementById('nextPage').disabled = page === totalPages;
+                document.getElementById('nextPage').style.opacity = page === totalPages ? '0.5' : '1';
+                document.getElementById('nextPage').style.cursor = page === totalPages ? 'not-allowed' : 'pointer';
+            } else {
+                pagination.style.display = 'none';
+            }
+            
+            // Scroll to top of products grid
+            grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            console.log(`Rendered page ${page}: ${productsToShow.length} products (${startIndex + 1}-${endIndex} of ${sortedProducts.length})`);
+        }
+        
+        function changePage(direction) {
+            if (!window.sortedProducts) return;
+            
+            const totalPages = Math.ceil(window.sortedProducts.length / productsPerPage);
+            const newPage = currentPage + direction;
+            
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage = newPage;
+                renderPage(currentPage, window.sortedProducts);
             }
         }
+        
         // Cart functionality
         let cartCount = 0;
         let cartTotal = 0;
@@ -1472,58 +2535,94 @@
             // Here you could open a modal with product details
         }
 
-        // Add some animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
+        // Observer is already defined earlier (moved before filterByCategory)
         // Observe product cards
         document.addEventListener('DOMContentLoaded', () => {
-            // Start loading products immediately (reduced delay)
-            setTimeout(() => {
-                loadAllProducts();
-            }, 100);
+            console.log('DOM Content Loaded - checking for products...');
             
-            // Update category counts after products load
-            setTimeout(() => {
-                updateCategoryCounts();
-                
-                // Check for category parameter in URL and filter
-                const urlParams = new URLSearchParams(window.location.search);
-                const categoryParam = urlParams.get('category');
-                if (categoryParam) {
-                    setTimeout(() => {
-                        filterByCategory(categoryParam);
-                    }, 500);
+            // Only load if products haven't been loaded yet
+            const grid = document.getElementById('productsGrid');
+            if (grid && (grid.children.length === 0 || grid.querySelector('.loading-spinner'))) {
+                // Wait for products-data.js to be available
+                function waitForProducts() {
+                    if (typeof window.getAllProducts === 'function') {
+                        console.log('✅ Products data available, loading products...');
+                        const productCount = window.getAllProducts().length;
+                        console.log(`Found ${productCount} products`);
+                        
+                        if (productCount > 0) {
+                            loadAllProducts();
+                            
+                            // Update category counts after products load
+                            setTimeout(() => {
+                                updateCategoryCounts();
+                                
+                                // Check for category parameter in URL and filter
+                                const urlParams = new URLSearchParams(window.location.search);
+                                const categoryParam = urlParams.get('category');
+                                if (categoryParam) {
+                                    setTimeout(() => {
+                                        filterByCategory(categoryParam);
+                                    }, 500);
+                                }
+                            }, 500);
+                        } else {
+                            console.error('❌ No products found in getAllProducts()');
+                            if (grid) {
+                                grid.innerHTML = '<div class="loading-spinner" style="color: #f44336;">No products found. Please check products-data.js</div>';
+                            }
+                        }
+                    } else {
+                        console.log('⏳ Waiting for products-data.js...');
+                        waitForProducts.retryCount = (waitForProducts.retryCount || 0) + 1;
+                        if (waitForProducts.retryCount < 100) {
+                            setTimeout(waitForProducts, 100);
+                        } else {
+                            console.error('❌ Failed to load products-data.js after 100 attempts');
+                            if (grid) {
+                                grid.innerHTML = '<div class="loading-spinner" style="color: #f44336;">Error: products-data.js failed to load. Please refresh the page.</div>';
+                            }
+                        }
+                    }
                 }
-            }, 2000);
+                
+                waitForProducts();
+            } else {
+                console.log('Products already loaded, skipping...');
+            }
         });
         
         // Also try loading if products-data.js loads after DOMContentLoaded
         window.addEventListener('load', () => {
-            if (document.getElementById('productsGrid').children.length === 0 || 
-                document.getElementById('productsGrid').querySelector('.loading-spinner')) {
-                loadAllProducts();
-            }
-            updateCategoryCounts();
-            
-            // Check for category parameter in URL and filter
-            const urlParams = new URLSearchParams(window.location.search);
-            const categoryParam = urlParams.get('category');
-            if (categoryParam) {
-                setTimeout(() => {
-                    filterByCategory(categoryParam);
-                }, 500);
+            console.log('Window loaded');
+            const grid = document.getElementById('productsGrid');
+            if (grid && (grid.children.length === 0 || grid.querySelector('.loading-spinner'))) {
+                if (typeof window.getAllProducts === 'function') {
+                    console.log('✅ Loading products on window.load event');
+                    const productCount = window.getAllProducts().length;
+                    console.log(`Found ${productCount} products`);
+                    
+                    if (productCount > 0) {
+                        loadAllProducts();
+                        updateCategoryCounts();
+                        
+                        // Check for category parameter in URL and filter
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const categoryParam = urlParams.get('category');
+                        if (categoryParam) {
+                            setTimeout(() => {
+                                filterByCategory(categoryParam);
+                            }, 500);
+                        }
+                    } else {
+                        console.error('❌ No products found');
+                        if (grid) {
+                            grid.innerHTML = '<div class="loading-spinner" style="color: #f44336;">No products found. Please check products-data.js</div>';
+                        }
+                    }
+                } else {
+                    console.warn('❌ getAllProducts still not available on window.load');
+                }
             }
         });
         
@@ -1584,36 +2683,61 @@
                 }
             });
         }
+    }  // Added missing closing brace to fix syntax error
     </script>
 
 <!-- Footer -->
-    <footer class="footer">
-        <div style="background: #2854a6; padding: 20px; text-align: center;">
-            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap;">
-                <a href="/shop" class="footer-btn" style="background: white; color: #2854a6; padding: 14px 32px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; border: 3px solid transparent; background-image: linear-gradient(white, white), linear-gradient(135deg, #5eead4 0%, #3b82f6 50%, #8b5cf6 100%); background-origin: border-box; background-clip: padding-box, border-box; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); cursor: pointer; text-decoration: none; transition: all 0.3s ease; display: inline-block;">VIEW ALL</a>
-                <a href="/cart" class="footer-btn" style="background: white; color: #2854a6; padding: 14px 32px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; border: 3px solid transparent; background-image: linear-gradient(white, white), linear-gradient(135deg, #5eead4 0%, #3b82f6 50%, #8b5cf6 100%); background-origin: border-box; background-clip: padding-box, border-box; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); cursor: pointer; text-decoration: none; transition: all 0.3s ease; display: inline-block;">VIEW CART</a>
-            </div>
-            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
-                <img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;">
-            </div>
-        </div>
-        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
-        <div style="background: #2854a6; padding: 15px 20px; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; font-size: 0.85rem;">
-            <a href="/terms-of-service.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Terms of Service</a>
-            <span style="color: rgba(255,255,255,0.3);">|</span>
-            <a href="/shipping-returns.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Shipping & Returns</a>
-            <span style="color: rgba(255,255,255,0.3);">|</span>
-            <a href="/payment-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Payment Policy</a>
-            <span style="color: rgba(255,255,255,0.3);">|</span>
-            <a href="/privacy-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Privacy Policy</a>
-            <span style="color: rgba(255,255,255,0.3);">|</span>
-            <a href="/contact" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Contact</a>
-            <span style="color: rgba(255,255,255,0.3);">|</span>
-            <a href="/shop" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">🧪 SHOP</a>
-        </div>
-        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
-        <div style="text-align: center; padding: 12px; background: #2854a6;"><p style="color: white; font-size: 0.85rem; margin: 0;">🗽 Copyright 2026 - Success Chemistry® | Powered by 🏄 WindSurf</p></div>
-    </footer>
+    <!-- UNIVERSAL FOOTER - Use this on ALL pages -->
+<!-- This footer is 100% consistent across all pages -->
 
-</body>
+<footer class="footer">
+    <div style="background: #2854a6; padding: 20px; text-align: center;">
+        <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap;">
+            <a href="/shop" class="footer-btn" style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px) saturate(180%); color: #2854a6; padding: 14px 32px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; border: 3px solid transparent; background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), linear-gradient(135deg, #5eead4 0%, #3b82f6 50%, #8b5cf6 100%); background-origin: border-box; background-clip: padding-box, border-box; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); cursor: pointer; text-decoration: none; transition: all 0.3s ease; display: inline-block;">VIEW ALL</a>
+            <a href="/cart" class="footer-btn" style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px) saturate(180%); color: #2854a6; padding: 14px 32px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; border: 3px solid transparent; background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), linear-gradient(135deg, #5eead4 0%, #3b82f6 50%, #8b5cf6 100%); background-origin: border-box; background-clip: padding-box, border-box; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); cursor: pointer; text-decoration: none; transition: all 0.3s ease; display: inline-block;">VIEW CART</a>
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
+            <img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;">
+        </div>
+    </div>
+    <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
+    <div style="background: #2854a6; padding: 15px 20px; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; font-size: 0.85rem !important;">
+        <a href="/terms-of-service.html" style="color: white; text-decoration: none; font-weight: 500; font-size: 0.85rem !important; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Terms of Service</a>
+        <span style="color: rgba(255,255,255,0.3); font-size: 0.85rem !important;">|</span>
+        <a href="/shipping-returns.html" style="color: white; text-decoration: none; font-weight: 500; font-size: 0.85rem !important; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Shipping & Returns</a>
+        <span style="color: rgba(255,255,255,0.3); font-size: 0.85rem !important;">|</span>
+        <a href="/payment-policy.html" style="color: white; text-decoration: none; font-weight: 500; font-size: 0.85rem !important; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Payment Policy</a>
+        <span style="color: rgba(255,255,255,0.3); font-size: 0.85rem !important;">|</span>
+        <a href="/privacy-policy.html" style="color: white; text-decoration: none; font-weight: 500; font-size: 0.85rem !important; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Privacy Policy</a>
+        <span style="color: rgba(255,255,255,0.3); font-size: 0.85rem !important;">|</span>
+        <a href="/contact" style="color: white; text-decoration: none; font-weight: 500; font-size: 0.85rem !important; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Contact</a>
+        <span style="color: rgba(255,255,255,0.3); font-size: 0.85rem !important;">|</span>
+        <a href="/shop" style="color: white; text-decoration: none; font-weight: 500; font-size: 0.85rem !important; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">🧪 SHOP</a>
+    </div>
+    <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
+    <div style="text-align: center; padding: 16px; background: #2854a6;">
+        <p style="color: white; font-size: 0.85rem !important; margin: 0 0 12px 0; font-weight: 500;">🗽 Copyright 2026 - Success Chemistry®</p>
+        <div style="display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 12px;">
+            <a href="https://www.successchemistry.com" target="_blank" rel="noopener" style="color: white; text-decoration: none; font-size: 0.9rem !important; font-weight: 600; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'; this.style.textDecoration='underline'" onmouseout="this.style.opacity='1'; this.style.textDecoration='none'">www.SuccessChemistry.com</a>
+        </div>
+    </div>
+</footer>
+
+
+
+        <script>
+            function updateCartBadge() {
+                const el = document.getElementById('navCartCount');
+                if (!el) return;
+                const cart = localStorage.getItem('successChemistryCart');
+                const cartData = cart ? JSON.parse(cart) : [];
+                const count = cartData.reduce((sum, item) => sum + (parseInt(item.quantity) || 0), 0);
+                el.textContent = String(count);
+            }
+            document.addEventListener('DOMContentLoaded', updateCartBadge);
+            window.addEventListener('storage', (e) => {
+                if (e.key === 'successChemistryCart') updateCartBadge();
+            });
+        </script>
+        </body>
 </html>

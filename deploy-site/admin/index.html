@@ -98,11 +98,13 @@
 
         /* Dashboard */
         .dashboard {
-            display: none !important;
+            display: block !important;
+            pointer-events: auto !important;
         }
 
         .dashboard.active {
             display: block !important;
+            pointer-events: auto !important;
         }
         
         /* Ensure login screen can be hidden */
@@ -115,24 +117,64 @@
         }
         
         /* Fix pointer events - ensure nothing blocks clicks */
+        * {
+            pointer-events: auto !important;
+        }
+        
         body {
             pointer-events: auto !important;
+            overflow: visible !important;
         }
         
+        .dashboard,
         .dashboard.active {
             pointer-events: auto !important;
+            display: block !important;
         }
         
-        /* Remove any invisible overlays */
-        body > div[style*="position: fixed"][style*="z-index"]:not([style*="display: none"]) {
-            pointer-events: auto !important;
+        /* Remove any invisible overlays - but allow dashboard */
+        body > div[style*="position: fixed"]:not([id="dashboard"]) {
+            display: none !important;
+            pointer-events: none !important;
+        }
+        
+        /* Ensure login container is always hidden */
+        .login-container {
+            display: none !important;
+            pointer-events: none !important;
+            visibility: hidden !important;
         }
         
         /* Force all interactive elements to be clickable */
-        button, a, input, select, textarea, [onclick], [role="button"] {
+        button, a, input, select, textarea, [onclick], [role="button"], .tab-btn, .action-btn, .btn-primary, .logout-btn {
             pointer-events: auto !important;
             cursor: pointer !important;
-            z-index: 9999 !important;
+            z-index: 99999 !important;
+            position: relative !important;
+            user-select: auto !important;
+            -webkit-user-select: auto !important;
+        }
+        
+        /* Ensure tab buttons work */
+        .tab-btn {
+            pointer-events: auto !important;
+            cursor: pointer !important;
+            z-index: 99999 !important;
+            position: relative !important;
+        }
+        
+        /* Ensure action buttons work */
+        .action-btn {
+            pointer-events: auto !important;
+            cursor: pointer !important;
+            z-index: 99999 !important;
+            position: relative !important;
+        }
+        
+        /* Remove any blocking pseudo-elements */
+        *::before,
+        *::after {
+            pointer-events: none !important;
         }
         
         /* Hide login container if dashboard is active */
@@ -213,11 +255,11 @@
         }
 
         .tab-content {
-            display: none;
+            display: none !important;
         }
 
         .tab-content.active {
-            display: block;
+            display: block !important;
         }
 
         /* Stats Cards */
@@ -381,12 +423,12 @@
         <div class="container">
             <!-- Tabs -->
             <div class="tabs">
-                <button class="tab-btn active" onclick="switchTab('overview', event)">Overview</button>
-                <button class="tab-btn" onclick="switchTab('orders', event)">Orders</button>
-                <button class="tab-btn" onclick="switchTab('products', event)">Products</button>
-                <button class="tab-btn" onclick="switchTab('customers', event)">Customers</button>
-                <button class="tab-btn" onclick="switchTab('analytics', event)">Analytics</button>
-                <button class="tab-btn" onclick="switchTab('links', event)">🔗 Links</button>
+                <button class="tab-btn active" data-tab="overview">Overview</button>
+                <button class="tab-btn" data-tab="orders">Orders</button>
+                <button class="tab-btn" data-tab="products">Products</button>
+                <button class="tab-btn" data-tab="customers">Customers</button>
+                <button class="tab-btn" data-tab="analytics">Analytics</button>
+                <button class="tab-btn" data-tab="links">🔗 Links</button>
             </div>
 
             <!-- Overview Tab -->
@@ -624,8 +666,10 @@
 
     <script src="/products-data.js"></script>
     <script src="/woocommerce-order-integration.js"></script>
-    <!-- Note: admin.js is NOT loaded here to prevent conflicts with inline script -->
     <script>
+        // #region agent log
+        fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:645',message:'Admin script starting',data:{url:window.location.href,readyState:document.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+        // #endregion agent log
         console.log('🔵 Admin dashboard script loaded!');
         console.log('🔵 Current URL:', window.location.href);
         console.log('🔵 Document ready state:', document.readyState);
@@ -660,28 +704,59 @@
 
         // Tab switching - MUST be defined before assigning to window
         function switchTab(tabName, event) {
+            // #region agent log
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:678',message:'switchTab called',data:{tabName,hasEvent:!!event,eventTarget:event?.target?.tagName},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'B'})}).catch(()=>{});
+            // #endregion agent log
             console.log('Switching to tab:', tabName);
             
+            // Use window.event if event not passed
+            if (!event && window.event) {
+                event = window.event;
+            }
+            
+            // Prevent default if event exists
+            if (event) {
+                if (event.preventDefault) event.preventDefault();
+                if (event.stopPropagation) event.stopPropagation();
+            }
+            
             // Remove active from all tabs
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            // #region agent log
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:682',message:'Before tab switch',data:{tabButtonsCount:tabButtons.length,tabContentsCount:tabContents.length},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'B'})}).catch(()=>{});
+            // #endregion agent log
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+                content.style.display = 'none';
+            });
             
             // Add active to clicked tab button
+            let clickedButton = null;
             if (event && event.target) {
-                event.target.classList.add('active');
-            } else {
-                // Fallback: find button by text
+                clickedButton = event.target.closest('.tab-btn') || event.target;
+                if (clickedButton) clickedButton.classList.add('active');
+            }
+            
+            // If no button found, find by text
+            if (!clickedButton) {
                 document.querySelectorAll('.tab-btn').forEach(btn => {
                     if (btn.textContent.toLowerCase().includes(tabName.toLowerCase())) {
                         btn.classList.add('active');
+                        clickedButton = btn;
                     }
                 });
             }
             
             // Show the tab content
             const tabContent = document.getElementById(tabName);
+            // #region agent log
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:698',message:'Tab content lookup',data:{tabName,found:!!tabContent,tabContentId:tabContent?.id,tabContentDisplay:tabContent?.style?.display},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'B'})}).catch(()=>{});
+            // #endregion agent log
             if (tabContent) {
                 tabContent.classList.add('active');
+                tabContent.style.display = 'block';
                 console.log('Tab content shown:', tabName);
             } else {
                 console.error('Tab content not found:', tabName);
@@ -707,6 +782,8 @@
                 console.log('Overview tab active');
                 loadDashboardData();
             }
+            
+            return false;
         }
 
         // Make functions globally accessible - AFTER they're defined
@@ -716,18 +793,85 @@
         window.updateWooCommerceStatus = updateWooCommerceStatus;
 
         // Load dashboard immediately - no login needed
-        if (document.readyState === 'loading') {
-            window.addEventListener('DOMContentLoaded', function() {
-                console.log('DOM loaded, showing dashboard...');
-                showDashboard();
-                updateWooCommerceStatus();
-            });
-        } else {
-            // DOM already loaded
-            console.log('DOM already loaded, showing dashboard...');
+        function initDashboard() {
+            console.log('🔧 Initializing dashboard...');
+            
+            // Hide login container immediately
+            const loginContainer = document.querySelector('.login-container');
+            if (loginContainer) {
+                loginContainer.style.display = 'none';
+                loginContainer.style.pointerEvents = 'none';
+                loginContainer.style.visibility = 'hidden';
+                loginContainer.style.opacity = '0';
+                loginContainer.classList.add('hidden');
+            }
+            
+            // Show dashboard
+            const dashboard = document.getElementById('dashboard');
+            if (dashboard) {
+                dashboard.style.display = 'block';
+                dashboard.style.pointerEvents = 'auto';
+                dashboard.classList.add('active');
+            }
+            
             showDashboard();
             updateWooCommerceStatus();
+            
+            // Attach tab button listeners DIRECTLY - no cloning
+            function attachTabListeners() {
+                const tabButtons = document.querySelectorAll('.tab-btn[data-tab]');
+                console.log('🔘 Found tab buttons:', tabButtons.length);
+                
+                tabButtons.forEach(function(btn, index) {
+                    // Remove ALL existing listeners by replacing the element
+                    const parent = btn.parentNode;
+                    const newBtn = btn.cloneNode(true);
+                    parent.replaceChild(newBtn, btn);
+                    
+                    // Attach NEW listener
+                    newBtn.addEventListener('click', function(e) {
+                        console.log('✅ Tab clicked:', this.getAttribute('data-tab'));
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const tabName = this.getAttribute('data-tab');
+                        console.log('📋 Calling switchTab with:', tabName);
+                        if (typeof window.switchTab === 'function') {
+                            window.switchTab(tabName, e);
+                        } else {
+                            console.error('❌ switchTab function not found on window!');
+                        }
+                        return false;
+                    });
+                    
+                    // Force styles
+                    newBtn.style.pointerEvents = 'auto';
+                    newBtn.style.cursor = 'pointer';
+                    newBtn.style.zIndex = '99999';
+                    newBtn.style.position = 'relative';
+                    newBtn.style.userSelect = 'auto';
+                });
+            }
+            
+            // Attach listeners immediately and after a delay
+            attachTabListeners();
+            setTimeout(attachTabListeners, 100);
+            setTimeout(attachTabListeners, 500);
         }
+        
+        // Run immediately if possible
+        if (document.body) {
+            initDashboard();
+        }
+        
+        // Also run on DOMContentLoaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initDashboard);
+        } else {
+            initDashboard();
+        }
+        
+        // And on window load
+        window.addEventListener('load', initDashboard);
 
         // Load dashboard data
         async function loadDashboardData() {
@@ -1351,12 +1495,32 @@
         
         window.copyAllLinks = copyAllLinks;
         
+        // GLOBAL CLICK TRACKER - Track ALL clicks
+        document.addEventListener('click', function(e) {
+            // #region agent log
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1408',message:'Global click detected',data:{targetTag:e.target.tagName,targetId:e.target.id,targetClass:e.target.className,pointerEvents:e.target.style.pointerEvents,zIndex:e.target.style.zIndex,isButton:e.target.tagName==='BUTTON',isClickable:e.target.style.pointerEvents!=='none'},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'A'})}).catch(()=>{});
+            // #endregion agent log
+        }, true); // Use capture phase
+        
+        // GLOBAL ERROR TRACKER
+        window.addEventListener('error', function(e) {
+            // #region agent log
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1410',message:'JavaScript error',data:{message:e.message,filename:e.filename,lineno:e.lineno,error:e.error?.toString()},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'E'})}).catch(()=>{});
+            // #endregion agent log
+        });
+        
         // FORCE ALL ELEMENTS TO BE CLICKABLE - EMERGENCY FIX
         document.addEventListener('DOMContentLoaded', function() {
+            // #region agent log
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1412',message:'DOMContentLoaded fired',data:{readyState:document.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'C'})}).catch(()=>{});
+            // #endregion agent log
             console.log('🔧 Applying clickability fix...');
             
             // Remove any blocking overlays
             const overlays = document.querySelectorAll('div[style*="position: fixed"][style*="z-index"]');
+            // #region agent log
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1415',message:'Checking overlays',data:{overlayCount:overlays.length},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'A'})}).catch(()=>{});
+            // #endregion agent log
             overlays.forEach(overlay => {
                 if (!overlay.querySelector('button, a, input')) {
                     overlay.style.pointerEvents = 'none';
@@ -1366,11 +1530,19 @@
             
             // Force all buttons and links to be clickable
             const allClickable = document.querySelectorAll('button, a, [onclick], [role="button"]');
-            allClickable.forEach(el => {
+            // #region agent log
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1425',message:'Found clickable elements',data:{count:allClickable.length},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'D'})}).catch(()=>{});
+            // #endregion agent log
+            allClickable.forEach((el, idx) => {
                 el.style.pointerEvents = 'auto';
                 el.style.cursor = 'pointer';
                 el.style.zIndex = '9999';
                 el.style.position = 'relative';
+                // #region agent log
+                if (idx < 5) { // Log first 5
+                    fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1430',message:'Element made clickable',data:{tag:el.tagName,id:el.id,class:el.className,hasOnclick:!!el.onclick},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'D'})}).catch(()=>{});
+                }
+                // #endregion agent log
             });
             
             // Ensure dashboard is visible and clickable
@@ -1388,10 +1560,43 @@
                 loginContainer.style.pointerEvents = 'none';
             }
             
+            // Attach event listeners to tab buttons
+            const tabButtons = document.querySelectorAll('.tab-btn[data-tab]');
+            // #region agent log
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1449',message:'Attaching tab listeners',data:{tabButtonsCount:tabButtons.length,tabNames:Array.from(tabButtons).map(b=>b.getAttribute('data-tab'))},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'D'})}).catch(()=>{});
+            // #endregion agent log
+            tabButtons.forEach((btn, idx) => {
+                const tabName = btn.getAttribute('data-tab');
+                // #region agent log
+                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1453',message:'Attaching listener to tab button',data:{tabName,buttonText:btn.textContent,hasListener:true},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'D'})}).catch(()=>{});
+                // #endregion agent log
+                btn.addEventListener('click', function(e) {
+                    // #region agent log
+                    fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1455',message:'Tab button click handler fired',data:{tabName,buttonText:this.textContent,defaultPrevented:e.defaultPrevented},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'D'})}).catch(()=>{});
+                    // #endregion agent log
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const tabName = this.getAttribute('data-tab');
+                    // #region agent log
+                    fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1460',message:'Calling switchTab',data:{tabName,switchTabExists:typeof switchTab==='function'},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'D'})}).catch(()=>{});
+                    // #endregion agent log
+                    if (typeof switchTab === 'function') {
+                        switchTab(tabName, e);
+                    } else {
+                        // #region agent log
+                        fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1463',message:'switchTab function not found',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'E'})}).catch(()=>{});
+                        // #endregion agent log
+                        console.error('switchTab function not found!');
+                    }
+                });
+                btn.style.pointerEvents = 'auto';
+                btn.style.cursor = 'pointer';
+            });
+            
             console.log('✅ Clickability fix applied!', {
                 buttons: allClickable.length,
-                dashboard: dashboard ? 'visible' : 'missing',
-                loginContainer: loginContainer ? 'hidden' : 'none'
+                tabButtons: tabButtons.length,
+                dashboard: dashboard ? 'visible' : 'missing'
             });
         });
         

@@ -98,8 +98,8 @@
         .container {
             width: 100%;
             max-width: 100%;
+            margin: 0 auto;
             padding: 0 16px;
-            position: relative;
         }
         
         @media (min-width: 768px) {
@@ -119,16 +119,7 @@
             .container {
                 max-width: 1140px;
             }
-        }
-
-            100% {
-                background-position: 200% 50%;
-            }
-        }
-
-        @media (max-width: 768px) 
-
-        @media (max-width: 520px) 
+        } 
 
         .hero {
             position: relative;
@@ -172,10 +163,9 @@
             gap: 10px;
             padding: 10px 20px;
             border-radius: 999px;
-            background: rgba(66, 153, 225, 0.2);
-            backdrop-filter: blur(15px) saturate(180%);
-            -webkit-backdrop-filter: blur(15px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(40, 84, 166, 0.1);
+            color: #2854a6;
+            border: 1px solid rgba(40, 84, 166, 0.2);
             width: fit-content;
             font-weight: 600;
             letter-spacing: 0.5px;
@@ -413,6 +403,7 @@
             position: relative;
             overflow: hidden;
             min-height: 240px;
+            max-height: 300px;
             border-radius: var(--radius);
             border: 1px solid rgba(255, 255, 255, 0.2);
             background: rgba(255, 255, 255, 0.12);
@@ -423,12 +414,16 @@
         }
 
         .media-tile .bg {
+            position: absolute;
             inset: 0;
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
             transform: scale(1.02);
             filter: saturate(1.08) contrast(1.05);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .media-tile .overlay {
@@ -810,28 +805,186 @@
             }
         }
 
-            100% { background-position: 200% 50%; }
+        /* ============================================
+           UNIVERSAL HEADER CSS - 100% STATIC
+           Use this on ALL pages for consistent header
+           NO SIZE CHANGES - NO HOVER GROWTH - COMPLETELY STATIC
+           ============================================ */
+
+        /* ============================================
+           UNIVERSAL HEADER CSS - 100% STATIC
+           Use this on ALL pages for consistent header
+           NO SIZE CHANGES - NO HOVER GROWTH - COMPLETELY STATIC
+           ============================================ */
+
+        /* Header wrapper for top spacing */
+        .header-wrapper {
+            margin-top: 0;
+            width: 100%;
+            background: white;
         }
 
-        @media (max-width: 768px) 
+        /* Container - Fixed width system */
+        .container {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
 
-        @media (max-width: 520px) 
-    
+        @media (min-width: 768px) {
+            .container {
+                max-width: 720px;
+                padding: 0 20px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 960px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1140px;
+            }
+        }
+
+        /* Topbar - FIXED SIZE - NO CHANGES */
+        .topbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+            padding: 20px 0;
+            margin-top: 0;
+            width: 100%;
+            left: 0;
+            right: 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            /* FIXED HEIGHT - NEVER CHANGES */
+            min-height: 98px;
+            max-height: 98px;
+            height: 98px;
+            box-sizing: border-box;
+        }
+
+        .topbar .container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+        }
+
         .topbar-inner {
             display: flex;
             align-items: center;
-            justify-content: center !important;
+            justify-content: center;
             gap: 16px;
-            padding: 0;
+            padding: 12px 0;
             position: relative;
             width: 100%;
+            /* FIXED HEIGHT - NEVER CHANGES */
+            min-height: 58px;
+            max-height: 58px;
+            height: 58px;
+            box-sizing: border-box;
         }
 
+        /* Account Link - FIXED SIZE */
+        .account-link {
+            position: absolute;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #2854a6;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            /* NO SIZE CHANGES */
+            transform: none !important;
+            scale: 1 !important;
+        }
+
+        .account-link:hover {
+            background: rgba(40, 84, 166, 0.1);
+            color: #1e3f7a;
+            /* NO SIZE CHANGES */
+            transform: none !important;
+            scale: 1 !important;
+        }
+
+        .account-link:active,
+        .account-link:focus {
+            background: rgba(40, 84, 166, 0.1);
+            color: #1e3f7a;
+            /* NO SIZE CHANGES */
+            transform: none !important;
+            scale: 1 !important;
+            font-size: 1rem !important;
+        }
+
+        /* Brand Logo - FIXED SIZE - NEVER CHANGES - PERFECTLY CENTERED */
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            flex-shrink: 0;
+            margin: 0 auto;
+            position: absolute;
+            left: 50%;
+            /* NO SIZE CHANGES */
+            transform: translateX(-50%) !important;
+            scale: 1 !important;
+        }
+
+        .brand:hover,
+        .brand:active,
+        .brand:focus {
+            /* NO SIZE CHANGES - Keep centered */
+            transform: translateX(-50%) !important;
+            scale: 1 !important;
+        }
+
+        .brand img {
+            height: 58px;
+            width: auto;
+            /* FIXED DIMENSIONS - NEVER CHANGES */
+            min-height: 58px;
+            max-height: 58px;
+            height: 58px;
+            display: block;
+            /* NO SIZE CHANGES */
+            transform: none !important;
+            scale: 1 !important;
+        }
+
+        .brand img:hover,
+        .brand img:active {
+            /* NO SIZE CHANGES */
+            transform: none !important;
+            scale: 1 !important;
+        }
+
+        /* Header Divider - PURPLE GRADIENT LINES */
         .header-divider {
             height: 4px;
+            width: 100%;
             background: linear-gradient(90deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #667eea 100%);
             background-size: 200% 100%;
             animation: gradientMove 3s linear infinite;
+            flex-shrink: 0;
+            display: block;
+            position: relative;
+            z-index: 1;
         }
 
         @keyframes gradientMove {
@@ -839,63 +992,292 @@
             100% { background-position: 200% 50%; }
         }
 
-        .brand {
-            display: inline-flex;
-            align-items: center;
-            text-decoration: none;
-        }
+        /* Blue Navigation - SOLID BLUE */
+.blue-nav {
+    background: #2854a6;
+    padding: 0;
+    width: 100%;
+    /* FIXED HEIGHT - NEVER CHANGES */
+    min-height: 54px;
+    max-height: 54px;
+    height: 54px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+    border-top: none;
+    border-bottom: none;
+    display: flex;
+    align-items: center;
+}
 
-        .brand img {
-            height: 58px;
-        }
+.blue-nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    /* FIXED HEIGHT - Match parent */
+    height: 100%;
+    min-height: 54px;
+    max-height: 54px;
+    text-align: center;
+    /* Ensure perfect centering */
+    left: 0;
+    right: 0;
+}
 
-        .topbar {
-            background: white;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: none;
-            padding: 22px 0;
-            margin-top: 8px;
-            width: 100%;
-            left: 0;
-            right: 0;
-        }
-        
-        .topbar .container {
-            position: relative;
-        }
-        
-        .topbar-inner {
-            position: relative;
-        }
+/* Navigation Links - FIXED SIZE - NO CHANGES ON HOVER/CLICK */
+.blue-nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.56rem;
+    letter-spacing: 0.2px;
+    transition: opacity 0.3s;
+    /* FIXED LINE-HEIGHT - NEVER CHANGES */
+    line-height: 54px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    /* NO SIZE CHANGES */
+    transform: none !important;
+    scale: 1 !important;
+    font-size: 1.56rem !important;
+    /* Vertical centering */
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+}
 
-        .blue-nav {
-            background: #2854a6;
-            padding: 18px 0;
-        }
-
-        .blue-nav .container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 48px;
-            flex-wrap: wrap;
-            position: relative;
-            width: 100%;
-        }
-
-        .blue-nav a {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.56rem;
-            letter-spacing: 0.2px;
-            transition: opacity 0.3s;
-        }
-
-        .blue-nav a:hover {
+        .blue-nav a:hover,
+        .blue-nav a:active,
+        .blue-nav a:focus,
+        .blue-nav a:visited {
             opacity: 0.8;
+            /* FIXED SIZE - NEVER CHANGES */
+            font-size: 1.56rem !important;
+            font-weight: 500 !important;
+            text-decoration: none !important;
+            transform: none !important;
+            scale: 1 !important;
+            line-height: 54px !important;
+        }
+
+        /* Prevent layout shift */
+        .topbar,
+        .blue-nav,
+        .header-divider {
+            will-change: auto;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+
+        /* ============================================
+           MOBILE RESPONSIVE - Fixed sizes
+           ============================================ */
+
+        @media (max-width: 768px) {
+            /* Topbar - FIXED mobile height */
+            .topbar {
+                padding: 8px 0;
+                min-height: 68px;
+                max-height: 68px;
+                height: 68px;
+            }
+
+            .topbar-inner {
+                padding: 0 16px;
+                min-height: 52px;
+                max-height: 52px;
+                height: 52px;
+            }
+
+            /* Logo - FIXED mobile size */
+            .brand img {
+                height: 44px;
+                min-height: 44px;
+                max-height: 44px;
+            }
+
+            /* Account Link - FIXED mobile size */
+            .account-link {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+
+            /* Navigation - FIXED mobile height */
+            .blue-nav {
+                padding: 10px 0;
+                min-height: 50px;
+                max-height: 50px;
+                height: 50px;
+            }
+
+            .blue-nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    /* FIXED HEIGHT */
+    height: 54px;
+    text-align: center;
+    /* Ensure perfect centering */
+    left: 0;
+    right: 0;
+}
+
+            .blue-nav a {
+                font-size: 1.2rem;
+                line-height: 1.2;
+            }
+        }
+
+        @media (max-width: 520px) {
+            /* Navigation - FIXED small mobile */
+            .blue-nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    /* FIXED HEIGHT */
+    height: 54px;
+    text-align: center;
+    /* Ensure perfect centering */
+    left: 0;
+    right: 0;
+}
+
+            .blue-nav a {
+                font-size: 1.15rem;
+                line-height: 1.2;
+            }
+
+            .account-link {
+                font-size: 0.85rem;
+                padding: 5px 10px;
+            }
+
+            .account-link span:last-child {
+                display: none;
+            }
+        }
+
+        /* ============================================
+           MOBILE RESPONSIVE - Fixed sizes
+           ============================================ */
+        
+        @media (max-width: 768px) {
+            /* Topbar - FIXED mobile height */
+            .topbar {
+                padding: 8px 0;
+                min-height: 68px;
+                max-height: 68px;
+                height: 68px;
+            }
+            
+            .topbar-inner {
+                padding: 0 16px;
+                min-height: 52px;
+                max-height: 52px;
+                height: 52px;
+            }
+        
+            /* Logo - FIXED mobile size */
+            .brand img {
+                height: 44px;
+                min-height: 44px;
+                max-height: 44px;
+            }
+        
+            /* Account Link - FIXED mobile size */
+            .account-link {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+        
+            /* Navigation - FIXED mobile height */
+            .blue-nav {
+                padding: 10px 0;
+                min-height: 50px;
+                max-height: 50px;
+                height: 50px;
+            }
+        
+            .blue-nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    /* FIXED HEIGHT */
+    height: 54px;
+    text-align: center;
+    /* Ensure perfect centering */
+    left: 0;
+    right: 0;
+}
+        
+            .blue-nav a {
+                font-size: 1.2rem;
+                line-height: 1.2;
+            }
+        }
+        
+        @media (max-width: 520px) {
+            /* Navigation - FIXED small mobile */
+            .blue-nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    /* FIXED HEIGHT */
+    height: 54px;
+    text-align: center;
+    /* Ensure perfect centering */
+    left: 0;
+    right: 0;
+}
+        
+            .blue-nav a {
+                font-size: 1.15rem;
+                line-height: 1.2;
+            }
+        
+            .account-link {
+                font-size: 0.85rem;
+                padding: 5px 10px;
+            }
+        
+            .account-link span:last-child {
+                display: none;
+            }
         }
 
         .footer-btn:hover {
@@ -908,138 +1290,229 @@
             box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
         }
 
+        /* Prevent layout shift */
+        .topbar,
+        .blue-nav,
+        .header-divider {
+            will-change: auto;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+
+        /* Mobile Responsive - Fixed sizes */
         @media (max-width: 768px) {
+            /* Topbar - FIXED mobile height */
+            .topbar {
+                padding: 20px 0;
+                min-height: 98px;
+                max-height: 98px;
+                height: 98px;
+            }
+            
             .topbar-inner {
                 padding: 12px 0;
+                min-height: 58px;
+                max-height: 58px;
+                height: 58px;
             }
 
+            /* Logo - FIXED mobile size */
             .brand img {
                 height: 44px;
+                min-height: 44px;
+                max-height: 44px;
             }
 
+            /* Account Link - FIXED mobile size */
+            .account-link {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+
+            /* Navigation - FIXED mobile height */
             .blue-nav {
                 padding: 10px 0;
-            }
+                min-height: 50px;
+                max-height: 50px;
+                height: 50px;
+            
+    border-top: none;
+    border-bottom: none;
+    position: relative;
+    z-index: 1;
+}
 
             .blue-nav .container {
-                gap: 22px;
-            }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    /* FIXED HEIGHT */
+    height: 54px;
+    text-align: center;
+    /* Ensure perfect centering */
+    left: 0;
+    right: 0;
+}
 
             .blue-nav a {
                 font-size: 1.2rem;
+                line-height: 1.2;
+            }
+            
+            /* Make banner more compact on mobile only */
+            section[style*="min-height: 500px"] {
+                min-height: 250px !important;
+            }
+            
+            section[style*="min-height: 500px"] div[style*="padding: 40px"] {
+                padding: 20px 15px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* Make banner even more compact on small mobile */
+            section[style*="min-height: 500px"] {
+                min-height: 200px !important;
+            }
+            
+            section[style*="min-height: 500px"] div[style*="padding: 40px"] {
+                padding: 15px 12px !important;
             }
         }
 
         @media (max-width: 520px) {
+            /* Navigation - FIXED small mobile */
             .blue-nav .container {
-                gap: 16px;
-            }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    /* FIXED HEIGHT */
+    height: 54px;
+    text-align: center;
+    /* Ensure perfect centering */
+    left: 0;
+    right: 0;
+}
 
             .blue-nav a {
                 font-size: 1.15rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            
-
-            .brand img {
-                height: 44px;
+                line-height: 1.2;
             }
 
-            .blue-nav .container {
-                gap: 22px;
+            .account-link {
+                font-size: 0.85rem;
+                padding: 5px 10px;
             }
 
-            .blue-nav a {
-                font-size: 1.2rem;
-            }
-        }
-
-            .blue-nav a {
-                font-size: 1.15rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-
-            .brand img {
-                height: 44px;
-            }
-
-            .blue-nav .container {
-                gap: 22px;
-            }
-
-            .blue-nav a {
-                font-size: 1.2rem;
-            }
-        }
-
-            .blue-nav a {
-                font-size: 1.15rem;
+            .account-link span:last-child {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
+    <!-- UNIVERSAL HEADER - 100% STATIC -->
+    <!-- UNIVERSAL HEADER - Use this on ALL pages -->
+<!-- This header is 100% static - no size changes, no hover growth, completely consistent -->
+<script>
+// #region agent log
+fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'index.html:1140',message:'Header HTML rendering',data:{page:'homepage',hasHeaderWrapper:true},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+// #endregion agent log
+</script>
+<div class="header-wrapper">
     <div class="topbar">
         <div class="container">
             <div class="topbar-inner">
                 <a class="brand" href="/">
                     <img src="/public/images/SC_logo_withR.png" alt="Success Chemistry">
                 </a>
+                <a href="/my-account-dashboard.html" class="account-link">
+                    <span>👤</span>
+                    <span>My Account</span>
+                </a>
             </div>
         </div>
     </div>
     <div class="header-divider"></div>
-
     <div class="blue-nav">
         <div class="container">
             <a href="/">Home</a>
             <a href="/blog">Articles</a>
             <a href="/shop">🧪 Shop</a>
-            <a href="/cart" id="cartLink">🛒 Cart 0</a>
+            <a href="/cart" id="cartLink">Cart 🛒 <span id="navCartCount">0</span></a>
             <a href="/contact">Contact</a>
         </div>
     </div>
     <div class="header-divider"></div>
+</div>
 
-    <!-- Below Header Banner -->
-    <div style="width: 100%; padding: 0; text-align: center; background-image: url('/public/images/home/Below Header Banner 2026.png'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 200px; display: flex; align-items: center; justify-content: center;">
-    </div>
+    <!-- TOP BANNER SECTION (Glassy Overlapping Effect) -->
+    <section style="width: 100%; padding: 0; text-align: center; background-image: url('/public/images/home/BannerTOP.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 500px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+        <!-- Background image layer -->
+        <div style="position: absolute; inset: 0; background-image: url('/public/images/home/BannerTOP.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; opacity: 0.4; z-index: 0;"></div>
+        
+        <!-- Overlapping glassy banner image -->
+        <div style="position: absolute; inset: 0; z-index: 1; display: flex; align-items: center; justify-content: center; background: rgba(0, 31, 52, 0.3);">
+            <img src="/public/images/BlendedHomeheader.png" alt="Success Chemistry Banner" style="width: 100%; max-width: 1200px; height: auto; object-fit: contain; opacity: 0.9; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));">
+        </div>
+        
+        <!-- Glassy frosted overlay for text readability -->
+        <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 40px 20px; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-top: 1px solid rgba(255, 255, 255, 0.2); z-index: 2;">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <h1 style="font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800; color: white; text-shadow: 0 4px 20px rgba(0,0,0,0.7), 0 2px 10px rgba(0,0,0,0.5); margin-bottom: 15px; line-height: 1.2;">
+                    FROM EARTH TO FORMULA
+                </h1>
+                <p style="font-size: clamp(1rem, 2vw, 1.3rem); color: white; text-shadow: 0 3px 15px rgba(0,0,0,0.7), 0 2px 8px rgba(0,0,0,0.5); max-width: 800px; margin: 0 auto; font-weight: 500; line-height: 1.6;">
+                    Formulated With The Freshest Nutrients
+                </p>
+            </div>
+        </div>
+    </section>
 
-    <section class="hero">
-        <div class="hero-bg"></div>
+    <!-- PRODUCT PITCH SECTION (Below Banner) -->
+    <section class="section" style="padding: 60px 0; background: linear-gradient(135deg, #e3f2fd 0%, #f5f9ff 50%, #e8f4f8 100%);">
         <div class="container">
-            <div class="hero-inner">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
                 <div>
-                    <div class="kicker">🌍 EARTH + Science = Your Success</div>
-                    <h1>Nature’s nutrients, scientifically formulated — for results you can feel.</h1>
-                    <p>High-impact blends with clean ingredients. Crafted for daily consistency, verified with quality-focused standards, and built to fit real life.</p>
+                    <div class="kicker" style="background: rgba(40, 84, 166, 0.1); color: #2854a6; border: 1px solid rgba(40, 84, 166, 0.2);">🌍 EARTH + Science = Your Success</div>
+                    <h2 style="font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.2; margin: 20px 0; color: #1a1a2e; font-weight: 800;">
+                        High-impact blends with clean ingredients
+                    </h2>
+                    <p style="font-size: 1.1rem; color: #4a5568; font-weight: 400; line-height: 1.8; margin-bottom: 30px;">
+                        Crafted for daily consistency, verified with quality-focused standards, and built to fit real life.
+                    </p>
                     <div class="hero-actions">
                         <a href="/shop" class="button primary">Shop Best Sellers</a>
                         <a href="/product?sku=52274-401" class="button glass">Women's Balance Spotlight</a>
                     </div>
                 </div>
-                <div class="hero-media" aria-hidden="true">
+                <div class="hero-media" aria-hidden="true" style="min-height: 420px;">
                     <div class="stack">
-                        <img id="heroMain" class="product-float" src="/images/products/52274-401/01.png" alt="Success Chemistry Women's Balance Supplement - Female Libido & Arousal Support with L-Arginine, Maca, Ashwagandha, Ginseng & Zinc - 60 Capsules">
+                        <img id="heroMain" class="product-float" src="/images/products/52274-401/01.png" alt="Success Chemistry Women's Balance Supplement">
                         <div class="thumb-row">
-                            <img class="thumb" src="/images/products/52274-401/01.png" alt="Women's Balance Supplement - Front View" data-hero="/images/products/52274-401/01.png">
-                            <img class="thumb" src="/images/products/52274-401/02.png" alt="Women's Balance Supplement - Side View" data-hero="/images/products/52274-401/02.png">
-                            <img class="thumb" src="/images/products/52274-401/03.png" alt="Women's Balance Supplement - Back View" data-hero="/images/products/52274-401/03.png">
-                            <img class="thumb" src="/images/products/52274-401/04.png" alt="Women's Balance Supplement - Detail View" data-hero="/images/products/52274-401/04.png">
-                            <img class="thumb" src="/images/products/52274-401/05.png" alt="Women's Balance Supplement - Additional View" data-hero="/images/products/52274-401/05.png">
+                            <img class="thumb" src="/images/products/52274-401/01.png" alt="Women's Balance - Front" data-hero="/images/products/52274-401/01.png">
+                            <img class="thumb" src="/images/products/52274-401/02.png" alt="Women's Balance - Side" data-hero="/images/products/52274-401/02.png">
+                            <img class="thumb" src="/images/products/52274-401/03.png" alt="Women's Balance - Back" data-hero="/images/products/52274-401/03.png">
+                            <img class="thumb" src="/images/products/52274-401/04.png" alt="Women's Balance - Detail" data-hero="/images/products/52274-401/04.png">
+                            <img class="thumb" src="/images/products/52274-401/05.png" alt="Women's Balance - Additional" data-hero="/images/products/52274-401/05.png">
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section class="section" style="padding: 60px 0;">
-        <div class="container">
         </div>
     </section>
 
@@ -1055,19 +1528,19 @@
 
             <div class="media-grid">
                 <div class="media-tile">
-                    <div class="bg" style="background-image: url('/public/images/home/lab.jpg');"></div>
+                    <div class="bg" style="background-image: url('/public/images/real-factory-images/manufacturing-line.jpg'); background-size: cover; background-position: center;"></div>
                     <div class="overlay"></div>
                     <div class="content">
                         <strong>Built with a quality-first mindset</strong>
-                        <span>Clean ingredients, clear product pages, and a focus on repeatable routines.</span>
+                        <span>Clean ingredients, clear product pages, and a focus on repeatable routines. Success Chemistry® products are manufactured in FDA-registered facilities.</span>
                     </div>
                 </div>
                 <div class="media-tile">
-                    <div class="bg" style="background-image: url('/public/images/home/fda-compliant.png');"></div>
+                    <div class="bg" style="background-image: url('/public/images/real-factory-images/fda-compliant-facility.jpg'); background-size: cover; background-position: center;"></div>
                     <div class="overlay"></div>
                     <div class="content">
                         <strong>Facility standards you can trust</strong>
-                        <span>Designed to align with responsible manufacturing practices.</span>
+                        <span>Designed to align with responsible manufacturing practices. Success Chemistry® maintains strict quality control and sustainability standards.</span>
                     </div>
                 </div>
             </div>
@@ -1109,57 +1582,84 @@
         </div>
     </section>
 
-    <section class="section">
+    <!-- AI CONSULTATION SECTION (Exact Match to Reference Image) -->
+    <section class="section" style="padding: 80px 0;">
         <div class="container">
-            <div class="ai-consultation-banner" style="position: relative; border-radius: 30px; overflow: hidden; min-height: 500px; display: flex; align-items: center; justify-content: center; box-shadow: 0 20px 60px rgba(66, 153, 225, 0.2); background-image: url('/public/images/home/hero-tech.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+            <div class="ai-consultation-banner" style="position: relative; border-radius: 30px; overflow: hidden; min-height: 500px; display: flex; align-items: center; justify-content: center; box-shadow: 0 20px 60px rgba(66, 153, 225, 0.2);">
+                <img src="/public/images/CTA_chatbot image.png" alt="AI Consultation Background" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0;">
+                <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(40, 84, 166, 0.85) 0%, rgba(66, 153, 225, 0.75) 100%); z-index: 1;"></div>
                 <div style="position: relative; z-index: 2; text-align: center; padding: 60px 40px; max-width: 800px;">
-                    <div style="display: inline-block; padding: 10px 20px; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(15px) saturate(180%); -webkit-backdrop-filter: blur(15px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 999px; margin-bottom: 20px; font-size: 0.9rem; font-weight: 600; color: white; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);">
-                        🤖 AI-Powered Wellness
+                    <div style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: rgba(200, 200, 200, 0.3); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 999px; margin-bottom: 20px; font-size: 0.9rem; font-weight: 600; color: #333; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+                        <span style="font-size: 1rem;">🤖</span>
+                        <span>AI-POWERED WELLNESS</span>
                     </div>
-                    <h2 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: white; margin-bottom: 20px; line-height: 1.2;">
+                    <h2 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: white; margin-bottom: 20px; line-height: 1.2; text-shadow: 0 2px 10px rgba(0,0,0,0.3);">
                         Get Your Free AI Consultation
                     </h2>
-                    <p style="font-size: 1.2rem; color: rgba(255, 255, 255, 0.95); margin-bottom: 30px; line-height: 1.6;">
+                    <p style="font-size: 1.2rem; color: white; margin-bottom: 30px; line-height: 1.6; font-weight: 400; text-shadow: 0 1px 5px rgba(0,0,0,0.2);">
                         Discover personalized supplement recommendations tailored to your unique health goals. Our AI-powered chatbot analyzes your needs and suggests the perfect products for you.
                     </p>
-                    <button id="aiConsultationBtn" style="padding: 18px 40px; font-size: 1.2rem; font-weight: 600; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px) saturate(180%); -webkit-backdrop-filter: blur(15px) saturate(180%); color: #2854a6; border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 999px; cursor: pointer; transition: all 0.3s; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.5);" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 15px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.6)'; this.style.background='rgba(255, 255, 255, 0.95)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.5)'; this.style.background='rgba(255, 255, 255, 0.9)'">
-                        Start Free Consultation →
+                    <button id="aiConsultationBtn" style="padding: 18px 40px; font-size: 1.2rem; font-weight: 600; background: white; color: #2854a6; border: none; border-radius: 999px; cursor: pointer; transition: all 0.3s; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); display: inline-flex; align-items: center; gap: 8px;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 15px 40px rgba(0, 0, 0, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(0, 0, 0, 0.3)'">
+                        Start Free Consultation <span style="font-size: 1.2rem;">→</span>
                     </button>
-                    <p style="margin-top: 15px; font-size: 0.9rem; color: rgba(255, 255, 255, 0.8);">
-                        ✨ No signup required • Instant results • 100% free
+                    <p style="margin-top: 15px; font-size: 0.9rem; color: white; font-weight: 400;">
+                        <span style="margin-right: 4px;">✨</span> No signup required <span style="margin: 0 8px;">•</span> Instant results <span style="margin: 0 8px;">•</span> 100% free
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="footer">
-        <div style="background: #2854a6; padding: 20px; text-align: center;">
-            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap;">
-                <a href="/shop" class="footer-btn" style="background: white; color: #2854a6; padding: 14px 32px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; border: 3px solid transparent; background-image: linear-gradient(white, white), linear-gradient(135deg, #5eead4 0%, #3b82f6 50%, #8b5cf6 100%); background-origin: border-box; background-clip: padding-box, border-box; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); cursor: pointer; text-decoration: none; transition: all 0.3s ease; display: inline-block;">VIEW ALL</a>
-                <a href="/cart" class="footer-btn" style="background: white; color: #2854a6; padding: 14px 32px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; border: 3px solid transparent; background-image: linear-gradient(white, white), linear-gradient(135deg, #5eead4 0%, #3b82f6 50%, #8b5cf6 100%); background-origin: border-box; background-clip: padding-box, border-box; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); cursor: pointer; text-decoration: none; transition: all 0.3s ease; display: inline-block;">VIEW CART</a>
-            </div>
-            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
-                <img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;">
-            </div>
+    <!-- LLE Extraction Image Section -->
+    <section class="section" style="padding: 60px 0;">
+        <div class="container">
+            <img src="/public/images/home/LLEand2x.png" alt="Success Chemistry Quality Features - LLE Extraction, 2x Fine Grind, Made to Order Fresh" style="width: 100%; max-width: 1200px; height: auto; display: block; margin: 0 auto; border-radius: 20px; box-shadow: 0 10px 40px rgba(66, 153, 225, 0.15);">
         </div>
-        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
-        <div style="background: #2854a6; padding: 15px 20px; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; font-size: 0.85rem;">
-            <a href="/terms-of-service.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Terms of Service</a>
-            <span style="color: rgba(255,255,255,0.3);">|</span>
-            <a href="/shipping-returns.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Shipping & Returns</a>
-            <span style="color: rgba(255,255,255,0.3);">|</span>
-            <a href="/payment-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Payment Policy</a>
-            <span style="color: rgba(255,255,255,0.3);">|</span>
-            <a href="/privacy-policy.html" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Privacy Policy</a>
-            <span style="color: rgba(255,255,255,0.3);">|</span>
-            <a href="/contact" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Contact</a>
-            <span style="color: rgba(255,255,255,0.3);">|</span>
-            <a href="/shop" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">🧪 SHOP</a>
+    </section>
+
+    <!-- Hero Tech Image (Moved here for later use) -->
+    <section class="section" style="padding: 60px 0; display: none;">
+        <div class="container">
+            <div style="background-image: url('/public/images/home/hero-tech.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 400px; border-radius: 20px;"></div>
         </div>
-        <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
-        <div style="text-align: center; padding: 12px; background: #2854a6;"><p style="color: white; font-size: 0.85rem; margin: 0;">🗽 Copyright 2026 - Success Chemistry® | Powered by 🏄 WindSurf</p></div>
-    </footer>
+    </section>
+
+    <!-- UNIVERSAL FOOTER - Use this on ALL pages -->
+<!-- This footer is 100% consistent across all pages -->
+
+<footer class="footer">
+    <div style="background: #2854a6; padding: 20px; text-align: center;">
+        <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap;">
+            <a href="/shop" class="footer-btn" style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px) saturate(180%); color: #2854a6; padding: 14px 32px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; border: 3px solid transparent; background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), linear-gradient(135deg, #5eead4 0%, #3b82f6 50%, #8b5cf6 100%); background-origin: border-box; background-clip: padding-box, border-box; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); cursor: pointer; text-decoration: none; transition: all 0.3s ease; display: inline-block;">VIEW ALL</a>
+            <a href="/cart" class="footer-btn" style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px) saturate(180%); color: #2854a6; padding: 14px 32px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; border: 3px solid transparent; background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), linear-gradient(135deg, #5eead4 0%, #3b82f6 50%, #8b5cf6 100%); background-origin: border-box; background-clip: padding-box, border-box; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); cursor: pointer; text-decoration: none; transition: all 0.3s ease; display: inline-block;">VIEW CART</a>
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
+            <img src="/public/images/Footer-Badges-.png" alt="Certification Badges" style="max-width: 350px; height: auto;">
+        </div>
+    </div>
+    <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
+    <div style="background: #2854a6; padding: 15px 20px; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; font-size: 0.85rem !important;">
+        <a href="/terms-of-service.html" style="color: white; text-decoration: none; font-weight: 500; font-size: 0.85rem !important; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Terms of Service</a>
+        <span style="color: rgba(255,255,255,0.3); font-size: 0.85rem !important;">|</span>
+        <a href="/shipping-returns.html" style="color: white; text-decoration: none; font-weight: 500; font-size: 0.85rem !important; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Shipping & Returns</a>
+        <span style="color: rgba(255,255,255,0.3); font-size: 0.85rem !important;">|</span>
+        <a href="/payment-policy.html" style="color: white; text-decoration: none; font-weight: 500; font-size: 0.85rem !important; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Payment Policy</a>
+        <span style="color: rgba(255,255,255,0.3); font-size: 0.85rem !important;">|</span>
+        <a href="/privacy-policy.html" style="color: white; text-decoration: none; font-weight: 500; font-size: 0.85rem !important; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Privacy Policy</a>
+        <span style="color: rgba(255,255,255,0.3); font-size: 0.85rem !important;">|</span>
+        <a href="/contact" style="color: white; text-decoration: none; font-weight: 500; font-size: 0.85rem !important; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Contact</a>
+        <span style="color: rgba(255,255,255,0.3); font-size: 0.85rem !important;">|</span>
+        <a href="/shop" style="color: white; text-decoration: none; font-weight: 500; font-size: 0.85rem !important; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">🧪 SHOP</a>
+    </div>
+    <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
+    <div style="text-align: center; padding: 16px; background: #2854a6;">
+        <p style="color: white; font-size: 0.85rem !important; margin: 0 0 12px 0; font-weight: 500;">🗽 Copyright 2026 - Success Chemistry®</p>
+        <div style="display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 12px;">
+            <a href="https://www.successchemistry.com" target="_blank" rel="noopener" style="color: white; text-decoration: none; font-size: 0.9rem !important; font-weight: 600; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'; this.style.textDecoration='underline'" onmouseout="this.style.opacity='1'; this.style.textDecoration='none'">www.SuccessChemistry.com</a>
+        </div>
+    </div>
+</footer>
+
 
     <!-- Products Data -->
     <script src="/products-data.js?v=3"></script>
