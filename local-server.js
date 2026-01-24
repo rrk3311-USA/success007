@@ -30,6 +30,15 @@ app.use((req, res, next) => {
     next();
 });
 
+// Handle favicon requests to prevent 404 errors
+app.get('/favicon.ico', (req, res) => {
+    // Return a minimal 1x1 transparent PNG as favicon
+    const favicon = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==', 'base64');
+    res.setHeader('Content-Type', 'image/png');
+    res.setHeader('Cache-Control', 'public, max-age=31536000');
+    res.send(favicon);
+});
+
 // Route handling for clean URLs (BEFORE static middleware to prevent redirects)
 app.get('/', (req, res) => {
     // #region agent log
@@ -148,6 +157,14 @@ app.get('/my-account', (req, res) => {
 
 app.get('/command-center', (req, res) => {
     res.sendFile(path.join(__dirname, 'deploy-site/command-center/index.html'));
+});
+
+app.get('/ebay-auth-denied', (req, res) => {
+    res.sendFile(path.join(__dirname, 'deploy-site/ebay-auth-denied.html'));
+});
+
+app.get('/ebay-auth-ok', (req, res) => {
+    res.sendFile(path.join(__dirname, 'deploy-site/ebay-auth-ok.html'));
 });
 
 // Serve static files from deploy-site directory (AFTER routes to prevent conflicts)

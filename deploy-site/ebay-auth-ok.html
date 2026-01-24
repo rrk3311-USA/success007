@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eBay Authorization Successful - Success Chemistry</title>
+    <meta name="description" content="eBay OAuth authorization was successful. You can now manage your eBay listings.">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/includes/universal-header.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a234e 0%, #1a3a6e 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(40, 167, 69, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(40, 167, 69, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Status Card */
+        .status-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.8s ease;
+            border: 2px solid rgba(40, 167, 69, 0.2);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .status-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: bounce 0.8s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .status-card h1 {
+            font-size: 2.5rem;
+            color: #28a745;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .status-card p {
+            font-size: 1.2rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .success-details {
+            background: rgba(40, 167, 69, 0.1);
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .success-details h3 {
+            color: #28a745;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .success-details p {
+            color: #666;
+            font-size: 1rem;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .success-details ul {
+            list-style: none;
+            margin-top: 10px;
+            padding-left: 0;
+        }
+
+        .success-details li {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .success-details li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #28a745, #218838);
+            color: white;
+            box-shadow: 0 5px 20px rgba(40, 167, 69, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(40, 167, 69, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.9);
+            color: #2854a6;
+            border: 2px solid #2854a6;
+        }
+
+        .btn-secondary:hover {
+            background: #2854a6;
+            color: white;
+        }
+
+        /* Next Steps Section */
+        .next-steps {
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .next-steps h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .next-steps ul {
+            list-style: none;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 2;
+            text-align: left;
+        }
+
+        .next-steps li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .next-steps li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #d4af37;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .status-card {
+                padding: 40px 30px;
+            }
+
+            .status-card h1 {
+                font-size: 2rem;
+            }
+
+            .status-card p {
+                font-size: 1.1rem;
+            }
+
+            .status-icon {
+                font-size: 4rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Universal Header -->
+    <div id="header-placeholder"></div>
+
+    <main>
+        <div class="container">
+            <div class="status-card">
+                <div class="status-icon">✅</div>
+                <h1>Authorization Successful!</h1>
+                <p>Your eBay account has been successfully authorized. You can now manage your eBay listings and inventory.</p>
+
+                <div class="success-details">
+                    <h3>What's Next?</h3>
+                    <p>Your authorization code has been received. The system will now exchange it for an access token.</p>
+                    <ul>
+                        <li>Access token will be automatically refreshed</li>
+                        <li>You can create and manage eBay listings</li>
+                        <li>Inventory will sync between systems</li>
+                    </ul>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="/admin" class="btn btn-primary">Go to Admin Dashboard</a>
+                    <a href="/shop" class="btn btn-secondary">View Shop</a>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h3>What You Can Do Now</h3>
+                <ul>
+                    <li>Create new eBay listings from your products</li>
+                    <li>Sync inventory between Success Chemistry and eBay</li>
+                    <li>Manage existing eBay listings</li>
+                    <li>Update product information automatically</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- Universal Footer -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Load universal header
+        fetch('/includes/universal-header.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('header-placeholder').innerHTML = html;
+            })
+            .catch(err => console.error('Error loading header:', err));
+
+        // Load universal footer
+        fetch('/includes/universal-footer.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('footer-placeholder').innerHTML = html;
+            })
+            .catch(err => console.error('Error loading footer:', err));
+
+        // Get authorization code from URL if present
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+            const state = urlParams.get('state');
+
+            if (code) {
+                // Optionally display the code (for debugging)
+                console.log('Authorization code received:', code);
+                
+                // You could send this to your backend to exchange for tokens
+                // fetch('/api/ebay/exchange-code', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify({ code, state })
+                // });
+            }
+        });
+    </script>
+</body>
+</html>
