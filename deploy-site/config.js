@@ -25,6 +25,44 @@ const CONFIG = {
         CONVERSION_ID: 'AW-XXXXXXXXX', // Replace with your Google Ads Conversion ID
         CONVERSION_LABEL: 'XXXXX', // Replace with your conversion label
         ENABLED: true
+    },
+    
+    // eBay API Configuration (OAuth 2.0)
+    EBAY_API: {
+        // OAuth 2.0 Credentials
+        // ⚠️ SECRETS: These are loaded from environment variables in production
+        // Get your credentials from: https://developer.ebay.com/my/keys
+        CLIENT_ID: process.env.EBAY_CLIENT_ID || 'YOUR_EBAY_CLIENT_ID_HERE', // Production Client ID
+        CLIENT_SECRET: process.env.EBAY_CLIENT_SECRET || 'YOUR_EBAY_CLIENT_SECRET_HERE', // Production Client Secret
+        RU_NAME: 'Raphael_Kammer-RaphaelK-Cursor-hxncgp',
+        
+        // OAuth URLs
+        REDIRECT_URI: 'Raphael_Kammer-RaphaelK-Cursor-hxncgp', // RuName (eBay uses RuName as redirect_uri) - or use 'http://localhost:3000/ebay/callback' for local callback server
+        AUTH_URL: 'https://auth.ebay.com/oauth2/authorize',
+        TOKEN_URL: 'https://api.ebay.com/identity/v1/oauth2/token',
+        
+        // Current Access Token (if you have one)
+        ACCESS_TOKEN: 'v^1.1#i^1#r^1#f^0#p^3#I^3#t^Ul41Xzg6OTE5QTY4QTE1MTY4RjI1QzcyOEQ3QjIzRTZBMjk4MDRfMV8xI0VeMjYw',
+        REFRESH_TOKEN: 'v^1.1#i^1#r^1#f^0#p^3#I^3#t^Ul41Xzg6OTE5QTY4QTE1MTY4RjI1QzcyOEQ3QjIzRTZBMjk4MDRfMV8xI0VeMjYw', // OAuth refresh token (eBay format: v^1.1#...)
+        EXPIRES: 'Sun, 18 Jul 2027 00:21:56 GMT',
+        
+        // API Configuration
+        BASE_URL: 'https://api.ebay.com', // Production API
+        SANDBOX_BASE_URL: 'https://api.sandbox.ebay.com', // Sandbox for testing
+        USE_SANDBOX: false, // Set to true for testing
+        
+        // Required Scopes (minimal - for listing products)
+        SCOPES: [
+            'https://api.ebay.com/oauth/api_scope/sell.inventory',
+            'https://api.ebay.com/oauth/api_scope/sell.account',
+            'https://api.ebay.com/oauth/api_scope/commerce.taxonomy.readonly' // For Taxonomy API to find categories
+            // Optional later: 'https://api.ebay.com/oauth/api_scope/sell.fulfillment'
+        ],
+        
+        ENABLED: true,
+        // API Documentation: https://developer.ebay.com/api-docs
+        // Inventory API: https://developer.ebay.com/api-docs/sell/inventory/overview.html
+        // OAuth Guide: https://developer.ebay.com/api-docs/static/oauth-consent-request.html
     }
 };
 
@@ -38,4 +76,14 @@ function getPayPalClientID() {
 // Export for use in other scripts
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = CONFIG;
+}
+
+// ES Module export
+export { CONFIG, getPayPalClientID };
+export default CONFIG;
+
+// Expose to window for browser scripts
+if (typeof window !== 'undefined') {
+    window.CONFIG = CONFIG;
+    window.getPayPalClientID = getPayPalClientID;
 }

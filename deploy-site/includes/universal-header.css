@@ -1,44 +1,16 @@
 /* ============================================
-   UNIVERSAL HEADER CSS - 100% STATIC
-   Use this on ALL pages for consistent header
-   NO SIZE CHANGES - NO HOVER GROWTH - COMPLETELY STATIC
+   UNIVERSAL HEADER CSS - CLEAN & CONSISTENT
+   Use this on ALL pages - NO OVERRIDES ALLOWED
    ============================================ */
 
-/* Header wrapper for top spacing */
+/* Header wrapper */
 .header-wrapper {
     margin-top: 0;
     width: 100%;
     background: white;
 }
 
-/* Container - Fixed width system */
-.container {
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0 16px;
-}
-
-@media (min-width: 768px) {
-    .container {
-        max-width: 720px;
-        padding: 0 20px;
-    }
-}
-
-@media (min-width: 1024px) {
-    .container {
-        max-width: 960px;
-    }
-}
-
-@media (min-width: 1200px) {
-    .container {
-        max-width: 1140px;
-    }
-}
-
-/* Topbar - FIXED SIZE - NO CHANGES */
+/* Topbar - Logo & Account */
 .topbar {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px) saturate(180%);
@@ -53,7 +25,6 @@
     left: 0;
     right: 0;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    /* FIXED HEIGHT - NEVER CHANGES */
     min-height: 98px;
     max-height: 98px;
     height: 98px;
@@ -74,14 +45,50 @@
     padding: 12px 0;
     position: relative;
     width: 100%;
-    /* FIXED HEIGHT - NEVER CHANGES */
     min-height: 58px;
     max-height: 58px;
     height: 58px;
     box-sizing: border-box;
 }
 
-/* Account Link - FIXED SIZE */
+/* Brand Logo - Centered */
+.brand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    flex-shrink: 0;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) !important;
+    scale: 1 !important;
+}
+
+.brand:hover,
+.brand:active,
+.brand:focus {
+    transform: translateX(-50%) !important;
+    scale: 1 !important;
+}
+
+.brand img {
+    height: 58px;
+    width: auto;
+    min-height: 58px;
+    max-height: 58px;
+    display: block;
+    transform: none !important;
+    scale: 1 !important;
+}
+
+.brand img:hover,
+.brand img:active {
+    transform: none !important;
+    scale: 1 !important;
+}
+
+/* Account Link */
 .account-link {
     position: absolute;
     right: 20px;
@@ -95,7 +102,6 @@
     padding: 8px 16px;
     border-radius: 6px;
     transition: background-color 0.2s ease, color 0.2s ease;
-    /* NO SIZE CHANGES */
     transform: none !important;
     scale: 1 !important;
 }
@@ -103,7 +109,6 @@
 .account-link:hover {
     background: rgba(40, 84, 166, 0.1);
     color: #1e3f7a;
-    /* NO SIZE CHANGES */
     transform: none !important;
     scale: 1 !important;
 }
@@ -112,56 +117,12 @@
 .account-link:focus {
     background: rgba(40, 84, 166, 0.1);
     color: #1e3f7a;
-    /* NO SIZE CHANGES */
     transform: none !important;
     scale: 1 !important;
     font-size: 1rem !important;
 }
 
-/* Brand Logo - FIXED SIZE - NEVER CHANGES - PERFECTLY CENTERED */
-.brand {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    flex-shrink: 0;
-    margin: 0 auto;
-    position: absolute;
-    left: 50%;
-    /* NO SIZE CHANGES */
-    transform: translateX(-50%) !important;
-    scale: 1 !important;
-}
-
-.brand:hover,
-.brand:active,
-.brand:focus {
-    /* NO SIZE CHANGES - Keep centered */
-    transform: translateX(-50%) !important;
-    scale: 1 !important;
-}
-
-.brand img {
-    height: 58px;
-    width: auto;
-    /* FIXED DIMENSIONS - NEVER CHANGES */
-    min-height: 58px;
-    max-height: 58px;
-    height: 58px;
-    display: block;
-    /* NO SIZE CHANGES */
-    transform: none !important;
-    scale: 1 !important;
-}
-
-.brand img:hover,
-.brand img:active {
-    /* NO SIZE CHANGES */
-    transform: none !important;
-    scale: 1 !important;
-}
-
-/* Header Divider - PURPLE GRADIENT LINES */
+/* Header Divider - Animated Gradient */
 .header-divider {
     height: 4px;
     width: 100%;
@@ -179,12 +140,11 @@
     100% { background-position: 200% 50%; }
 }
 
-/* Blue Navigation - SOLID BLUE */
+/* Blue Navigation - SOLID BLUE (matching blog/articles page) */
 .blue-nav {
     background: #2854a6;
     padding: 0;
     width: 100%;
-    /* FIXED HEIGHT - NEVER CHANGES */
     min-height: 54px;
     max-height: 54px;
     height: 54px;
@@ -208,33 +168,32 @@
     max-width: 100%;
     margin: 0 auto;
     padding: 0;
-    /* FIXED HEIGHT - Match parent */
     height: 100%;
     min-height: 54px;
     max-height: 54px;
     text-align: center;
-    /* Ensure perfect centering */
     left: 0;
     right: 0;
 }
 
-/* Navigation Links - FIXED SIZE - NO CHANGES ON HOVER/CLICK */
-.blue-nav a {
+/* Navigation Links - WHITE TEXT - FIXED SIZE */
+.blue-nav a,
+.blue-nav a:link,
+.blue-nav a:hover,
+.blue-nav a:active,
+.blue-nav a:focus,
+.blue-nav a:visited {
     color: #ffffff;
     text-decoration: none;
-    font-weight: 500;
-    font-size: 1.56rem;
+    font-weight: 500 !important;
+    font-size: 1.56rem !important;
     letter-spacing: 0.2px;
     transition: opacity 0.3s;
-    /* FIXED LINE-HEIGHT - NEVER CHANGES */
-    line-height: 54px;
+    line-height: 54px !important;
     white-space: nowrap;
     flex-shrink: 0;
-    /* NO SIZE CHANGES */
     transform: none !important;
     scale: 1 !important;
-    font-size: 1.56rem !important;
-    /* Vertical centering */
     display: inline-flex;
     align-items: center;
     height: 100%;
@@ -242,17 +201,8 @@
 
 .blue-nav a:hover,
 .blue-nav a:active,
-.blue-nav a:focus,
-.blue-nav a:visited {
+.blue-nav a:focus {
     opacity: 0.8;
-    /* FIXED SIZE - NEVER CHANGES */
-    font-size: 1.56rem !important;
-    font-weight: 500 !important;
-    text-decoration: none !important;
-    transform: none !important;
-    scale: 1 !important;
-    line-height: 54px !important;
-    height: 100% !important;
 }
 
 /* Prevent layout shift */
@@ -269,7 +219,6 @@
    ============================================ */
 
 @media (max-width: 768px) {
-    /* Topbar - FIXED mobile height */
     .topbar {
         padding: 8px 0;
         min-height: 68px;
@@ -284,20 +233,17 @@
         height: 52px;
     }
 
-    /* Logo - FIXED mobile size */
     .brand img {
         height: 44px;
         min-height: 44px;
         max-height: 44px;
     }
 
-    /* Account Link - FIXED mobile size */
     .account-link {
         font-size: 0.9rem;
         padding: 6px 12px;
     }
 
-    /* Navigation - FIXED mobile height */
     .blue-nav {
         padding: 10px 0;
         min-height: 50px;
@@ -306,8 +252,20 @@
     }
 
     .blue-nav .container {
-        gap: 22px;
-        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 48px;
+        flex-wrap: nowrap;
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0;
+        height: 54px;
+        text-align: center;
+        left: 0;
+        right: 0;
     }
 
     .blue-nav a {
@@ -317,22 +275,25 @@
 }
 
 @media (max-width: 520px) {
-    /* Navigation - FIXED small mobile */
     .blue-nav .container {
-        gap: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 48px;
+        flex-wrap: nowrap;
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0;
+        height: 54px;
+        text-align: center;
+        left: 0;
+        right: 0;
     }
 
     .blue-nav a {
         font-size: 1.15rem;
         line-height: 1.2;
-    }
-
-    .account-link {
-        font-size: 0.85rem;
-        padding: 5px 10px;
-    }
-
-    .account-link span:last-child {
-        display: none;
     }
 }

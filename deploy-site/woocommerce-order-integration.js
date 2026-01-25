@@ -112,7 +112,7 @@ function formatOrderForWooCommerce(paypalOrder) {
 
     // Calculate totals
     const subtotal = parseFloat(purchaseUnit.amount.breakdown.item_total.value);
-    const shipping = parseFloat(purchaseUnit.amount.breakdown.shipping?.value || 0);
+    const shippingCost = parseFloat(purchaseUnit.amount.breakdown.shipping?.value || 0);
     const tax = parseFloat(purchaseUnit.amount.breakdown.tax_total?.value || 0);
     const total = parseFloat(purchaseUnit.amount.value);
 
@@ -124,10 +124,10 @@ function formatOrderForWooCommerce(paypalOrder) {
         billing: billingAddress,
         shipping: shippingAddress,
         line_items: lineItemsWithSKU, // Use SKU-based items
-        shipping_lines: shipping > 0 ? [{
+        shipping_lines: shippingCost > 0 ? [{
             method_id: 'flat_rate',
             method_title: 'Shipping',
-            total: shipping.toFixed(2)
+            total: shippingCost.toFixed(2)
         }] : [],
         meta_data: [
             {

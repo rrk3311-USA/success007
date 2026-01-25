@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚗️</text></svg>">
     <title>Admin Dashboard - Success Chemistry</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -116,72 +117,19 @@
             display: none !important;
         }
         
-        /* Fix pointer events - ensure nothing blocks clicks */
-        * {
-            pointer-events: auto !important;
-        }
-        
-        body {
-            pointer-events: auto !important;
-            overflow: visible !important;
-        }
-        
-        .dashboard,
-        .dashboard.active {
-            pointer-events: auto !important;
-            display: block !important;
-        }
-        
-        /* Remove any invisible overlays - but allow dashboard */
-        body > div[style*="position: fixed"]:not([id="dashboard"]) {
-            display: none !important;
-            pointer-events: none !important;
-        }
-        
         /* Ensure login container is always hidden */
         .login-container {
             display: none !important;
-            pointer-events: none !important;
-            visibility: hidden !important;
         }
         
-        /* Force all interactive elements to be clickable */
-        button, a, input, select, textarea, [onclick], [role="button"], .tab-btn, .action-btn, .btn-primary, .logout-btn {
-            pointer-events: auto !important;
-            cursor: pointer !important;
-            z-index: 99999 !important;
-            position: relative !important;
-            user-select: auto !important;
-            -webkit-user-select: auto !important;
+        /* Ensure interactive elements are clickable */
+        button, a, input, select, textarea, [onclick], [role="button"] {
+            cursor: pointer;
         }
         
-        /* Ensure tab buttons work */
-        .tab-btn {
-            pointer-events: auto !important;
-            cursor: pointer !important;
-            z-index: 99999 !important;
-            position: relative !important;
-        }
-        
-        /* Ensure action buttons work */
-        .action-btn {
-            pointer-events: auto !important;
-            cursor: pointer !important;
-            z-index: 99999 !important;
-            position: relative !important;
-        }
-        
-        /* Remove any blocking pseudo-elements */
-        *::before,
-        *::after {
-            pointer-events: none !important;
-        }
-        
-        /* Hide login container if dashboard is active */
-        .dashboard.active ~ .login-container,
-        body:has(.dashboard.active) .login-container {
-            display: none !important;
-            pointer-events: none !important;
+        .tab-btn, .action-btn, .btn-primary, .logout-btn {
+            cursor: pointer;
+            position: relative;
         }
 
         .header {
@@ -416,19 +364,19 @@
         <div class="header">
             <div class="header-inner">
                 <h1>Success Chemistry Admin</h1>
-                <button class="logout-btn" onclick="logout()">Logout</button>
+                <button class="logout-btn" onclick="window.logout ? window.logout() : console.error('logout not found')">Logout</button>
             </div>
         </div>
 
         <div class="container">
             <!-- Tabs -->
             <div class="tabs">
-                <button class="tab-btn active" data-tab="overview">Overview</button>
-                <button class="tab-btn" data-tab="orders">Orders</button>
-                <button class="tab-btn" data-tab="products">Products</button>
-                <button class="tab-btn" data-tab="customers">Customers</button>
-                <button class="tab-btn" data-tab="analytics">Analytics</button>
-                <button class="tab-btn" data-tab="links">🔗 Links</button>
+                <button class="tab-btn active" data-tab="overview" type="button">Overview</button>
+                <button class="tab-btn" data-tab="orders" type="button">Orders</button>
+                <button class="tab-btn" data-tab="products" type="button">Products</button>
+                <button class="tab-btn" data-tab="customers" type="button">Customers</button>
+                <button class="tab-btn" data-tab="analytics" type="button">Analytics</button>
+                <button class="tab-btn" data-tab="links" type="button">🔗 Links</button>
             </div>
 
             <!-- Overview Tab -->
@@ -480,7 +428,7 @@
                 <div class="data-table">
                     <div class="table-header">
                         <h2>All Orders</h2>
-                        <input type="text" class="search-box" placeholder="Search orders..." onkeyup="searchOrders(this.value)">
+                        <input type="text" id="searchOrdersInput" name="searchOrders" class="search-box" placeholder="Search orders..." onkeyup="searchOrders(this.value)">
                     </div>
                     <div id="ordersTable"></div>
                 </div>
@@ -491,7 +439,7 @@
                 <div class="data-table">
                     <div class="table-header">
                         <h2>All Products</h2>
-                        <input type="text" class="search-box" placeholder="Search products..." onkeyup="searchProducts(this.value)">
+                        <input type="text" id="searchProductsInput" name="searchProducts" class="search-box" placeholder="Search products..." onkeyup="searchProducts(this.value)">
                     </div>
                     <div id="productsTable"></div>
                 </div>
@@ -502,7 +450,7 @@
                 <div class="data-table">
                     <div class="table-header">
                         <h2>All Customers</h2>
-                        <input type="text" class="search-box" placeholder="Search customers..." onkeyup="searchCustomers(this.value)">
+                        <input type="text" id="searchCustomersInput" name="searchCustomers" class="search-box" placeholder="Search customers..." onkeyup="searchCustomers(this.value)">
                     </div>
                     <div id="customersTable"></div>
                 </div>
@@ -667,9 +615,18 @@
     <script src="/products-data.js"></script>
     <script src="/woocommerce-order-integration.js"></script>
     <script>
+        // Immediate execution test - should appear in console
+        console.log('🔵🔵🔵 ADMIN SCRIPT LOADING - LINE 617 🔵🔵🔵');
+        alert('Admin script is loading! Check console.');
+        
         // #region agent log
-        fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:645',message:'Admin script starting',data:{url:window.location.href,readyState:document.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+        try {
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:617',message:'Admin script STARTED',data:{url:window.location.href,readyState:document.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch((e)=>{console.error('Fetch failed:',e);});
+        } catch(e) {
+            console.error('Log fetch error:', e);
+        }
         // #endregion agent log
+        console.log('🔵 Admin script loaded');
         console.log('🔵 Admin dashboard script loaded!');
         console.log('🔵 Current URL:', window.location.href);
         console.log('🔵 Document ready state:', document.readyState);
@@ -705,7 +662,7 @@
         // Tab switching - MUST be defined before assigning to window
         function switchTab(tabName, event) {
             // #region agent log
-            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:678',message:'switchTab called',data:{tabName,hasEvent:!!event,eventTarget:event?.target?.tagName},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'B'})}).catch(()=>{});
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:651',message:'switchTab function called',data:{tabName,hasEvent:!!event},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
             // #endregion agent log
             console.log('Switching to tab:', tabName);
             
@@ -723,9 +680,6 @@
             // Remove active from all tabs
             const tabButtons = document.querySelectorAll('.tab-btn');
             const tabContents = document.querySelectorAll('.tab-content');
-            // #region agent log
-            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:682',message:'Before tab switch',data:{tabButtonsCount:tabButtons.length,tabContentsCount:tabContents.length},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'B'})}).catch(()=>{});
-            // #endregion agent log
             tabButtons.forEach(btn => btn.classList.remove('active'));
             tabContents.forEach(content => {
                 content.classList.remove('active');
@@ -752,13 +706,19 @@
             // Show the tab content
             const tabContent = document.getElementById(tabName);
             // #region agent log
-            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:698',message:'Tab content lookup',data:{tabName,found:!!tabContent,tabContentId:tabContent?.id,tabContentDisplay:tabContent?.style?.display},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'B'})}).catch(()=>{});
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:690',message:'Tab content lookup',data:{tabName,found:!!tabContent,tabContentId:tabContent?.id},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
             // #endregion agent log
             if (tabContent) {
                 tabContent.classList.add('active');
                 tabContent.style.display = 'block';
+                // #region agent log
+                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:695',message:'Tab content shown',data:{tabName,display:tabContent.style.display,hasActive:tabContent.classList.contains('active')},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+                // #endregion agent log
                 console.log('Tab content shown:', tabName);
             } else {
+                // #region agent log
+                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:700',message:'Tab content NOT FOUND',data:{tabName},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+                // #endregion agent log
                 console.error('Tab content not found:', tabName);
             }
             
@@ -787,91 +747,48 @@
         }
 
         // Make functions globally accessible - AFTER they're defined
+        // #region agent log
+        fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:726',message:'Attaching functions to window',data:{hasLogout:typeof logout,hasShowDashboard:typeof showDashboard,hasSwitchTab:typeof switchTab},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'F'})}).catch(()=>{});
+        // #endregion agent log
         window.logout = logout;
         window.showDashboard = showDashboard;
         window.switchTab = switchTab;
         window.updateWooCommerceStatus = updateWooCommerceStatus;
+        window.loadDashboardData = loadDashboardData;
+        // #region agent log
+        fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:732',message:'Functions attached to window',data:{windowSwitchTab:typeof window.switchTab,windowLogout:typeof window.logout},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'F'})}).catch(()=>{});
+        // #endregion agent log
 
         // Load dashboard immediately - no login needed
         function initDashboard() {
             console.log('🔧 Initializing dashboard...');
             
-            // Hide login container immediately
+            // Hide login container
             const loginContainer = document.querySelector('.login-container');
             if (loginContainer) {
                 loginContainer.style.display = 'none';
-                loginContainer.style.pointerEvents = 'none';
-                loginContainer.style.visibility = 'hidden';
-                loginContainer.style.opacity = '0';
-                loginContainer.classList.add('hidden');
             }
             
             // Show dashboard
             const dashboard = document.getElementById('dashboard');
             if (dashboard) {
                 dashboard.style.display = 'block';
-                dashboard.style.pointerEvents = 'auto';
                 dashboard.classList.add('active');
             }
             
             showDashboard();
             updateWooCommerceStatus();
-            
-            // Attach tab button listeners DIRECTLY - no cloning
-            function attachTabListeners() {
-                const tabButtons = document.querySelectorAll('.tab-btn[data-tab]');
-                console.log('🔘 Found tab buttons:', tabButtons.length);
-                
-                tabButtons.forEach(function(btn, index) {
-                    // Remove ALL existing listeners by replacing the element
-                    const parent = btn.parentNode;
-                    const newBtn = btn.cloneNode(true);
-                    parent.replaceChild(newBtn, btn);
-                    
-                    // Attach NEW listener
-                    newBtn.addEventListener('click', function(e) {
-                        console.log('✅ Tab clicked:', this.getAttribute('data-tab'));
-                        e.preventDefault();
-                        e.stopPropagation();
-                        const tabName = this.getAttribute('data-tab');
-                        console.log('📋 Calling switchTab with:', tabName);
-                        if (typeof window.switchTab === 'function') {
-                            window.switchTab(tabName, e);
-                        } else {
-                            console.error('❌ switchTab function not found on window!');
-                        }
-                        return false;
-                    });
-                    
-                    // Force styles
-                    newBtn.style.pointerEvents = 'auto';
-                    newBtn.style.cursor = 'pointer';
-                    newBtn.style.zIndex = '99999';
-                    newBtn.style.position = 'relative';
-                    newBtn.style.userSelect = 'auto';
-                });
-            }
-            
-            // Attach listeners immediately and after a delay
-            attachTabListeners();
-            setTimeout(attachTabListeners, 100);
-            setTimeout(attachTabListeners, 500);
         }
         
-        // Run immediately if possible
-        if (document.body) {
-            initDashboard();
-        }
+        // Make initDashboard available globally
+        window.initDashboard = initDashboard;
         
-        // Also run on DOMContentLoaded
+        // Initialize when ready
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', initDashboard);
         } else {
             initDashboard();
         }
-        
-        // And on window load
-        window.addEventListener('load', initDashboard);
 
         // Load dashboard data
         async function loadDashboardData() {
@@ -882,26 +799,29 @@
         }
 
         // Get products from products-data.js or localStorage
-        function getAllProducts() {
-            try {
-                // Wait a bit for products-data.js to load
-                if (typeof PRODUCTS_DATA !== 'undefined' && PRODUCTS_DATA) {
-                    console.log('Products loaded from PRODUCTS_DATA:', Object.keys(PRODUCTS_DATA).length);
-                    return Object.values(PRODUCTS_DATA);
+        // Use window.getAllProducts if available from products-data.js, otherwise define fallback
+        if (typeof window.getAllProducts !== 'function') {
+            window.getAllProducts = function() {
+                try {
+                    // Wait a bit for products-data.js to load
+                    if (typeof PRODUCTS_DATA !== 'undefined' && PRODUCTS_DATA) {
+                        console.log('Products loaded from PRODUCTS_DATA:', Object.keys(PRODUCTS_DATA).length);
+                        return Object.values(PRODUCTS_DATA);
+                    }
+                    // Fallback: try localStorage
+                    const stored = localStorage.getItem('productsData');
+                    if (stored) {
+                        const data = JSON.parse(stored);
+                        return Object.values(data);
+                    }
+                    // Return empty array if nothing found
+                    console.warn('No products data found');
+                    return [];
+                } catch (error) {
+                    console.error('Error loading products:', error);
+                    return [];
                 }
-                // Fallback: try localStorage
-                const stored = localStorage.getItem('productsData');
-                if (stored) {
-                    const data = JSON.parse(stored);
-                    return Object.values(data);
-                }
-                // Return empty array if nothing found
-                console.warn('No products data found');
-                return [];
-            } catch (error) {
-                console.error('Error loading products:', error);
-                return [];
-            }
+            };
         }
 
         // Load orders from API or localStorage
@@ -993,7 +913,6 @@
                 </table>
             `;
             
-            const ordersTableEl = document.getElementById('ordersTable');
             const recentOrdersTableEl = document.getElementById('recentOrdersTable');
             
             if (ordersTableEl) {
@@ -1497,127 +1416,113 @@
         
         // GLOBAL CLICK TRACKER - Track ALL clicks
         document.addEventListener('click', function(e) {
-            // #region agent log
-            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1408',message:'Global click detected',data:{targetTag:e.target.tagName,targetId:e.target.id,targetClass:e.target.className,pointerEvents:e.target.style.pointerEvents,zIndex:e.target.style.zIndex,isButton:e.target.tagName==='BUTTON',isClickable:e.target.style.pointerEvents!=='none'},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'A'})}).catch(()=>{});
-            // #endregion agent log
         }, true); // Use capture phase
         
         // GLOBAL ERROR TRACKER
         window.addEventListener('error', function(e) {
             // #region agent log
-            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1410',message:'JavaScript error',data:{message:e.message,filename:e.filename,lineno:e.lineno,error:e.error?.toString()},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'E'})}).catch(()=>{});
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1390',message:'JavaScript error caught',data:{message:e.message,filename:e.filename,lineno:e.lineno,error:e.error?.toString()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
             // #endregion agent log
         });
         
-        // FORCE ALL ELEMENTS TO BE CLICKABLE - EMERGENCY FIX
-        document.addEventListener('DOMContentLoaded', function() {
+        // Simple initialization - ensure everything works
+        function setupAdmin() {
             // #region agent log
-            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1412',message:'DOMContentLoaded fired',data:{readyState:document.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'C'})}).catch(()=>{});
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1394',message:'setupAdmin called',data:{readyState:document.readyState,hasSwitchTab:typeof window.switchTab,hasInitDashboard:typeof window.initDashboard},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
             // #endregion agent log
-            console.log('🔧 Applying clickability fix...');
+            console.log('🔧 Setting up admin page...');
             
-            // Remove any blocking overlays
-            const overlays = document.querySelectorAll('div[style*="position: fixed"][style*="z-index"]');
+            // Hide login container
+            const loginContainer = document.querySelector('.login-container');
             // #region agent log
-            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1415',message:'Checking overlays',data:{overlayCount:overlays.length},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'A'})}).catch(()=>{});
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1400',message:'Login container check',data:{found:!!loginContainer,display:loginContainer?.style?.display},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
             // #endregion agent log
-            overlays.forEach(overlay => {
-                if (!overlay.querySelector('button, a, input')) {
-                    overlay.style.pointerEvents = 'none';
-                    overlay.style.display = 'none';
-                }
-            });
+            if (loginContainer) loginContainer.style.display = 'none';
             
-            // Force all buttons and links to be clickable
-            const allClickable = document.querySelectorAll('button, a, [onclick], [role="button"]');
-            // #region agent log
-            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1425',message:'Found clickable elements',data:{count:allClickable.length},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'D'})}).catch(()=>{});
-            // #endregion agent log
-            allClickable.forEach((el, idx) => {
-                el.style.pointerEvents = 'auto';
-                el.style.cursor = 'pointer';
-                el.style.zIndex = '9999';
-                el.style.position = 'relative';
-                // #region agent log
-                if (idx < 5) { // Log first 5
-                    fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1430',message:'Element made clickable',data:{tag:el.tagName,id:el.id,class:el.className,hasOnclick:!!el.onclick},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'D'})}).catch(()=>{});
-                }
-                // #endregion agent log
-            });
-            
-            // Ensure dashboard is visible and clickable
+            // Show dashboard
             const dashboard = document.getElementById('dashboard');
+            // #region agent log
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1407',message:'Dashboard check',data:{found:!!dashboard,display:dashboard?.style?.display,hasActive:dashboard?.classList?.contains('active')},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+            // #endregion agent log
             if (dashboard) {
                 dashboard.style.display = 'block';
-                dashboard.style.pointerEvents = 'auto';
                 dashboard.classList.add('active');
             }
             
-            // Hide login container if it exists
-            const loginContainer = document.querySelector('.login-container');
-            if (loginContainer) {
-                loginContainer.style.display = 'none';
-                loginContainer.style.pointerEvents = 'none';
-            }
-            
-            // Attach event listeners to tab buttons
+            // Attach tab button listeners
             const tabButtons = document.querySelectorAll('.tab-btn[data-tab]');
             // #region agent log
-            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1449',message:'Attaching tab listeners',data:{tabButtonsCount:tabButtons.length,tabNames:Array.from(tabButtons).map(b=>b.getAttribute('data-tab'))},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'D'})}).catch(()=>{});
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1415',message:'Tab buttons found',data:{count:tabButtons.length,tabNames:Array.from(tabButtons).map(b=>b.getAttribute('data-tab')),hasSwitchTab:typeof window.switchTab},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
             // #endregion agent log
             tabButtons.forEach((btn, idx) => {
-                const tabName = btn.getAttribute('data-tab');
                 // #region agent log
-                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1453',message:'Attaching listener to tab button',data:{tabName,buttonText:btn.textContent,hasListener:true},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'D'})}).catch(()=>{});
+                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1418',message:'Attaching onclick to button',data:{index:idx,tabName:btn.getAttribute('data-tab'),hasOnclick:!!btn.onclick,before:btn.onclick?.toString().substring(0,50)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
                 // #endregion agent log
-                btn.addEventListener('click', function(e) {
+                btn.onclick = function(e) {
                     // #region agent log
-                    fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1455',message:'Tab button click handler fired',data:{tabName,buttonText:this.textContent,defaultPrevented:e.defaultPrevented},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'D'})}).catch(()=>{});
+                    fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1420',message:'Tab button clicked',data:{tabName:this.getAttribute('data-tab'),hasSwitchTab:typeof window.switchTab,switchTabType:typeof window.switchTab},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
                     // #endregion agent log
                     e.preventDefault();
                     e.stopPropagation();
                     const tabName = this.getAttribute('data-tab');
-                    // #region agent log
-                    fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1460',message:'Calling switchTab',data:{tabName,switchTabExists:typeof switchTab==='function'},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'D'})}).catch(()=>{});
-                    // #endregion agent log
-                    if (typeof switchTab === 'function') {
-                        switchTab(tabName, e);
+                    console.log('Tab clicked:', tabName);
+                    if (window.switchTab) {
+                        // #region agent log
+                        fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1427',message:'Calling switchTab',data:{tabName},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+                        // #endregion agent log
+                        window.switchTab(tabName, e);
                     } else {
                         // #region agent log
-                        fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1463',message:'switchTab function not found',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run3',hypothesisId:'E'})}).catch(()=>{});
+                        fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1430',message:'switchTab NOT FOUND on window',data:{windowKeys:Object.keys(window).filter(k=>k.includes('switch')||k.includes('Tab'))},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
                         // #endregion agent log
-                        console.error('switchTab function not found!');
+                        console.error('switchTab not found!');
                     }
-                });
-                btn.style.pointerEvents = 'auto';
-                btn.style.cursor = 'pointer';
+                };
+                // #region agent log
+                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1434',message:'onclick attached',data:{index:idx,tabName:btn.getAttribute('data-tab'),hasOnclick:!!btn.onclick,after:btn.onclick?.toString().substring(0,50)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+                // #endregion agent log
             });
             
-            console.log('✅ Clickability fix applied!', {
-                buttons: allClickable.length,
-                tabButtons: tabButtons.length,
-                dashboard: dashboard ? 'visible' : 'missing'
-            });
-        });
-        
-        // Also run immediately if DOM is already loaded
-        if (document.readyState !== 'loading') {
-            const script = document.createElement('script');
-            script.textContent = `
-                const overlays = document.querySelectorAll('div[style*="position: fixed"][style*="z-index"]');
-                overlays.forEach(overlay => {
-                    if (!overlay.querySelector('button, a, input')) {
-                        overlay.style.pointerEvents = 'none';
-                        overlay.style.display = 'none';
-                    }
-                });
-                document.querySelectorAll('button, a, [onclick]').forEach(el => {
-                    el.style.pointerEvents = 'auto';
-                    el.style.cursor = 'pointer';
-                    el.style.zIndex = '9999';
-                });
-            `;
-            document.head.appendChild(script);
+            // Initialize dashboard data
+            if (window.initDashboard) {
+                // #region agent log
+                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1440',message:'Calling initDashboard',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+                // #endregion agent log
+                window.initDashboard();
+            }
+            
+            // Load initial data
+            if (window.loadDashboardData) {
+                // #region agent log
+                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1446',message:'Calling loadDashboardData',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+                // #endregion agent log
+                window.loadDashboardData();
+            }
         }
+        
+        // #region agent log
+        fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1452',message:'Script execution start',data:{readyState:document.readyState,hasBody:!!document.body},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+        // #endregion agent log
+        // Run when ready
+        if (document.readyState === 'loading') {
+            // #region agent log
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1456',message:'Adding DOMContentLoaded listener',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+            // #endregion agent log
+            document.addEventListener('DOMContentLoaded', setupAdmin);
+        } else {
+            // #region agent log
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1460',message:'DOM already loaded, calling setupAdmin immediately',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+            // #endregion agent log
+            setupAdmin();
+        }
+        
+        // Also run on load as backup
+        window.addEventListener('load', function() {
+            // #region agent log
+            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1466',message:'Window load event fired',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+            // #endregion agent log
+            setupAdmin();
+        });
+    </script>
 </body>
 </html>

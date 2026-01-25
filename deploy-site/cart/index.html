@@ -99,8 +99,11 @@
         .cart-item img {
             width: 100px;
             height: 100px;
-            object-fit: cover;
+            object-fit: contain;
+            object-position: center;
             border-radius: 8px;
+            background: #f8f9fa;
+            padding: 5px;
         }
 
         .item-details h3 {
@@ -531,11 +534,11 @@
         }
 
         /* Blue Navigation - SOLID BLUE */
+/* Blue Navigation - SOLID BLUE (matching blog/articles page) */
 .blue-nav {
     background: #2854a6;
     padding: 0;
     width: 100%;
-    /* FIXED HEIGHT - NEVER CHANGES */
     min-height: 54px;
     max-height: 54px;
     height: 54px;
@@ -559,17 +562,15 @@
     max-width: 100%;
     margin: 0 auto;
     padding: 0;
-    /* FIXED HEIGHT - Match parent */
     height: 100%;
     min-height: 54px;
     max-height: 54px;
     text-align: center;
-    /* Ensure perfect centering */
     left: 0;
     right: 0;
 }
 
-/* Navigation Links - FIXED SIZE - NO CHANGES ON HOVER/CLICK */
+/* Navigation Links - WHITE TEXT - FIXED SIZE */
 .blue-nav a {
     color: #ffffff;
     text-decoration: none;
@@ -577,33 +578,29 @@
     font-size: 1.56rem;
     letter-spacing: 0.2px;
     transition: opacity 0.3s;
-    /* FIXED LINE-HEIGHT - NEVER CHANGES */
     line-height: 54px;
     white-space: nowrap;
     flex-shrink: 0;
-    /* NO SIZE CHANGES */
     transform: none !important;
     scale: 1 !important;
     font-size: 1.56rem !important;
-    /* Vertical centering */
     display: inline-flex;
     align-items: center;
     height: 100%;
 }
 
-        .blue-nav a:hover,
-        .blue-nav a:active,
-        .blue-nav a:focus,
-        .blue-nav a:visited {
-            opacity: 0.8;
-            /* FIXED SIZE - NEVER CHANGES */
-            font-size: 1.56rem !important;
-            font-weight: 500 !important;
-            text-decoration: none !important;
-            transform: none !important;
-            scale: 1 !important;
-            line-height: 54px !important;
-        }
+.blue-nav a:hover,
+.blue-nav a:active,
+.blue-nav a:focus,
+.blue-nav a:visited {
+    opacity: 0.8;
+    font-size: 1.56rem !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+    transform: none !important;
+    scale: 1 !important;
+    line-height: 54px !important;
+}
 
         /* Prevent layout shift */
         .topbar,
@@ -656,23 +653,21 @@
             }
 
             .blue-nav .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 48px;
-    flex-wrap: nowrap;
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0;
-    /* FIXED HEIGHT */
-    height: 54px;
-    text-align: center;
-    /* Ensure perfect centering */
-    left: 0;
-    right: 0;
-}
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 48px;
+                flex-wrap: nowrap;
+                position: relative;
+                width: 100%;
+                max-width: 100%;
+                margin: 0 auto;
+                padding: 0;
+                height: 54px;
+                text-align: center;
+                left: 0;
+                right: 0;
+            }
 
             .blue-nav a {
                 font-size: 1.2rem;
@@ -683,23 +678,21 @@
         @media (max-width: 520px) {
             /* Navigation - FIXED small mobile */
             .blue-nav .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 48px;
-    flex-wrap: nowrap;
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0;
-    /* FIXED HEIGHT */
-    height: 54px;
-    text-align: center;
-    /* Ensure perfect centering */
-    left: 0;
-    right: 0;
-}
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 48px;
+                flex-wrap: nowrap;
+                position: relative;
+                width: 100%;
+                max-width: 100%;
+                margin: 0 auto;
+                padding: 0;
+                height: 54px;
+                text-align: center;
+                left: 0;
+                right: 0;
+            }
 
             .blue-nav a {
                 font-size: 1.15rem;
@@ -898,28 +891,35 @@
 
         @media (max-width: 520px) {
             /* Navigation - FIXED small mobile */
+            .blue-nav {
+                min-height: 65px;
+                max-height: 65px;
+                height: 65px;
+            }
+            
             .blue-nav .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 48px;
-    flex-wrap: nowrap;
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0;
-    /* FIXED HEIGHT */
-    height: 54px;
-    text-align: center;
-    /* Ensure perfect centering */
-    left: 0;
-    right: 0;
-}
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 16px;
+                flex-wrap: wrap;
+                position: relative;
+                width: 100%;
+                max-width: 100%;
+                margin: 0 auto;
+                padding: 0;
+                height: 65px;
+                min-height: 65px;
+                max-height: 65px;
+                text-align: center;
+                left: 0;
+                right: 0;
+            }
 
             .blue-nav a {
-                font-size: 1.15rem;
-                line-height: 1.2;
+                font-size: 1.15rem !important;
+                line-height: 65px;
+                margin: 0 8px;
             }
 
             .account-link {
@@ -952,10 +952,6 @@
             <div class="topbar-inner">
                 <a class="brand" href="/">
                     <img src="/public/images/SC_logo_withR.png" alt="Success Chemistry">
-                </a>
-                <a href="/my-account-dashboard.html" class="account-link">
-                    <span>👤</span>
-                    <span>My Account</span>
                 </a>
             </div>
         </div>
@@ -1096,7 +1092,9 @@
             const cartContent = document.getElementById('cart-content');
             const cartCount = document.getElementById('cart-count');
 
-            cartCount.textContent = cart.length;
+            if (cartCount) {
+                cartCount.textContent = cart.length;
+            }
 
             if (cart.length === 0) {
                 emptyState.style.display = 'block';
@@ -1115,7 +1113,9 @@
 
                 return `
                     <div class="cart-item">
-                        <img src="${item.image || '/public/images/placeholder.jpg'}" alt="${item.name}">
+                        <div style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; background: #f8f9fa; border-radius: 8px; overflow: hidden;">
+                            <img src="${item.image || '/public/images/placeholder.jpg'}" alt="${item.name}" style="max-width: 100%; max-height: 100%; object-fit: contain; object-position: center;">
+                        </div>
                         <div class="item-details">
                             <h3>${item.name}</h3>
                             <div class="item-price">$${item.price}</div>
@@ -1141,13 +1141,56 @@
         }
 
         function loadRecommendations() {
-            // Show 4 random recommended products
-            const recommendedProducts = [
-                { sku: '10814-123', name: 'Dragon FIRE E-Sports Supplement', price: '20.36', image: '/public/images/products/10814-123/01.jpg' },
-                { sku: '14179-504-2', name: 'Success Chemistry® Prostate Renew', price: '37.99', image: '/public/images/products/14179-504-2/01.png' },
-                { sku: '5531-502', name: 'Testosterone Booster for Men', price: '24.99', image: '/public/images/products/5531-502/01.jpg' },
-                { sku: 'B071JK6HM2', name: 'Turmeric Curcumin with BioPerine', price: '19.99', image: '/public/images/products/B071JK6HM2/01.png' }
-            ];
+            const cart = getCart();
+            if (cart.length === 0) {
+                return;
+            }
+            
+            // Get recommended products based on cart contents
+            let recommendedProducts = [];
+            
+            if (typeof window.getAllProducts === 'function') {
+                try {
+                    const allProducts = window.getAllProducts();
+                    const cartSkus = cart.map(item => item.sku);
+                    
+                    // Get products from different categories than what's in cart
+                    const cartCategories = cart.map(item => {
+                        const product = allProducts.find(p => p.sku === item.sku);
+                        return product ? (product.category || '').toLowerCase() : '';
+                    });
+                    
+                    // Filter out products already in cart and from same categories
+                    const availableProducts = allProducts.filter(p => 
+                        p && p.sku && 
+                        !cartSkus.includes(p.sku) &&
+                        !cartCategories.includes((p.category || '').toLowerCase())
+                    );
+                    
+                    // Sort by sales/rating and take top 4
+                    recommendedProducts = availableProducts
+                        .sort((a, b) => (b.sales || 0) - (a.sales || 0))
+                        .slice(0, 4)
+                        .map(p => ({
+                            sku: p.sku,
+                            name: p.name,
+                            price: parseFloat(p.price || 0).toFixed(2),
+                            image: (p.images && p.images[0]) ? p.images[0] : '/images/placeholder.jpg'
+                        }));
+                } catch (error) {
+                    console.error('Error loading recommendations:', error);
+                }
+            }
+            
+            // Fallback to hardcoded products if no recommendations found
+            if (recommendedProducts.length === 0) {
+                recommendedProducts = [
+                    { sku: '10814-123', name: 'Dragon FIRE E-Sports Supplement', price: '20.36', image: '/public/images/products/10814-123/01.jpg' },
+                    { sku: '14179-504-2', name: 'Success Chemistry® Prostate Renew', price: '37.99', image: '/public/images/products/14179-504-2/01.png' },
+                    { sku: '5531-502', name: 'Testosterone Booster for Men', price: '24.99', image: '/public/images/products/5531-502/01.jpg' },
+                    { sku: 'B071JK6HM2', name: 'Turmeric Curcumin with BioPerine', price: '19.99', image: '/public/images/products/B071JK6HM2/01.png' }
+                ];
+            }
 
             const container = document.getElementById('recommended-products');
             const recommendationsSection = document.getElementById('recommendations');
@@ -1512,7 +1555,9 @@
             }
             
             alert(message);
-            window.location.href = '/subscribe.html';
+            // Redirect to thank-you page with order ID
+            const orderId = details.id || orderData.orderId;
+            window.location.href = `/thank-you.html?orderId=${orderId}`;
         }
     </script>
 

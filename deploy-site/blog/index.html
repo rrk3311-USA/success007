@@ -795,10 +795,6 @@
                 <a class="brand" href="/">
                     <img src="/public/images/SC_logo_withR.png" alt="Success Chemistry">
                 </a>
-                <a href="/my-account-dashboard.html" class="account-link">
-                    <span>👤</span>
-                    <span>My Account</span>
-                </a>
             </div>
         </div>
     </div>
@@ -831,49 +827,8 @@
                 </div>
                 <a class="pill" href="/shop">Shop supplements</a>
             </div>
-            <div class="blog-grid">
-                <article class="blog-card">
-                    <img src="/public/images/home/lab.jpg" alt="Supplement science">
-                    <div class="blog-card-content">
-                        <h3>How to Build a Consistent Supplement Routine</h3>
-                        <p>Tips for choosing the right formulas, timing your doses, and staying consistent for long-term results.</p>
-                    </div>
-                </article>
-                <article class="blog-card">
-                    <img src="/public/images/home/fda-compliant.png" alt="Quality standards">
-                    <div class="blog-card-content">
-                        <h3>What GMP Certification Really Means</h3>
-                        <p>Learn why manufacturing standards matter and how to evaluate supplement quality.</p>
-                    </div>
-                </article>
-                <article class="blog-card">
-                    <img src="/public/images/home/hero-tech.jpg" alt="Wellness research">
-                    <div class="blog-card-content">
-                        <h3>Daily Wellness Habits That Stack</h3>
-                        <p>Simple, science-backed habits you can combine with supplements to support energy and focus.</p>
-                    </div>
-                </article>
-                <article class="blog-card">
-                    <img src="/public/images/home/lab.jpg" alt="Nutrition science">
-                    <div class="blog-card-content">
-                        <h3>Understanding Bioavailability in Supplements</h3>
-                        <p>Why how your body absorbs nutrients matters and what to look for on supplement labels.</p>
-                    </div>
-                </article>
-                <article class="blog-card">
-                    <img src="/public/images/home/fda-compliant.png" alt="Quality control">
-                    <div class="blog-card-content">
-                        <h3>Third-Party Testing: What You Need to Know</h3>
-                        <p>How independent testing ensures supplement purity, potency, and safety.</p>
-                    </div>
-                </article>
-                <article class="blog-card">
-                    <img src="/public/images/home/hero-tech.jpg" alt="Health optimization">
-                    <div class="blog-card-content">
-                        <h3>Seasonal Wellness: Adjusting Your Routine</h3>
-                        <p>How to adapt your supplement and wellness habits as seasons change throughout the year.</p>
-                    </div>
-                </article>
+            <div class="blog-grid" id="blogGrid">
+                <!-- Blog posts will be loaded dynamically from WordPress -->
             </div>
         </div>
     </section>
@@ -915,6 +870,9 @@
 </footer>
 
 
+        <!-- Blog Posts Loader -->
+        <script src="/public/blog-loader.js"></script>
+        
         <script>
             function updateCartBadge() {
                 const el = document.getElementById('navCartCount');

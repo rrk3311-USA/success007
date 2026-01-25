@@ -1,4 +1,18 @@
-const PAYPAL_CLIENT_ID = 'EBAQIbUDDVgB06yvEWREs2cMox8AKElkxFJAqKF71iUj007dv0YzxlKbepduwV7xGEI5FrjK3vakzm0b';
+// Get PayPal Client ID from config.js if available, otherwise use sandbox
+function getPayPalClientID() {
+    // Check if CONFIG object exists (from config.js)
+    if (typeof window.CONFIG !== 'undefined' && window.CONFIG.PAYPAL) {
+        return window.CONFIG.SANDBOX_MODE 
+            ? window.CONFIG.PAYPAL.SANDBOX_CLIENT_ID 
+            : window.CONFIG.PAYPAL.PRODUCTION_CLIENT_ID;
+    }
+    // Check if getPayPalClientID function exists in global scope (from config.js)
+    if (typeof window.getPayPalClientID === 'function' && window.getPayPalClientID !== getPayPalClientID) {
+        return window.getPayPalClientID();
+    }
+    // Fallback to sandbox client ID
+    return 'ATM3Eoawal0vHl1xqCcuP5TvlPBP-96AHV0xP0tiQ-KlAd_tuSLLQjKMsby8lgbgE7jN5zXPF3HjMUNk';
+}
 const PAYPAL_MODE = 'sandbox';
 
 function loadPayPalSDK(callback) {
@@ -7,8 +21,9 @@ function loadPayPalSDK(callback) {
         return;
     }
     
+    const clientId = getPayPalClientID();
     const script = document.createElement('script');
-    script.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=USD&intent=capture&components=buttons,funding-eligibility`;
+    script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=USD&intent=capture&components=buttons,funding-eligibility`;
     script.onload = callback;
     script.onerror = () => {
         console.error('Failed to load PayPal SDK');
