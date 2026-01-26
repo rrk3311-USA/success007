@@ -1,0 +1,55 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Node modules
+node_modules
+**/node_modules
+
+# Build artifacts
+.next
+dist
+build
+*.log
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Deployment configs (keep vercel.json and render.yaml)
+.vercel
+.netlify
+
+# Debug and temp files
+.cursor/debug.log
+*.tmp
+*.temp
+
+# Documentation (optional - remove if you want docs in image)
+*.md
+!README.md
+
+# Test files
+**/*.test.js
+**/*.spec.js
+__tests__
+coverage
+
+# Large media files (optional - adjust based on needs)
+# "REAL FACTORY images /"
+
+# Non-deploy experiments
+non-deploy-experiments

@@ -5,6 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="pageTitle">Loading Product... - Success Chemistry</title>
     <meta name="description" id="pageDescription" content="Success Chemistry Premium Supplements">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <link rel="canonical" id="canonicalUrl" href="">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" id="ogType" content="product">
+    <meta property="og:url" id="ogUrl" content="">
+    <meta property="og:title" id="ogTitle" content="Loading Product... - Success Chemistry">
+    <meta property="og:description" id="ogDescription" content="Success Chemistry Premium Supplements">
+    <meta property="og:image" id="ogImage" content="">
+    <meta property="og:site_name" content="Success Chemistry">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" id="twitterUrl" content="">
+    <meta name="twitter:title" id="twitterTitle" content="Loading Product... - Success Chemistry">
+    <meta name="twitter:description" id="twitterDescription" content="Success Chemistry Premium Supplements">
+    <meta name="twitter:image" id="twitterImage" content="">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -4365,23 +4383,51 @@
                     
                     // Update meta tags (only if not already set by SSR)
                     const pageTitle = document.getElementById('pageTitle');
+                    const productTitle = `${product.name} - Success Chemistry`;
                     if (pageTitle && pageTitle.textContent.includes('Loading Product')) {
-                        pageTitle.textContent = `${product.name} - Success Chemistry`;
+                        pageTitle.textContent = productTitle;
                     }
                     
                     const pageDescription = document.getElementById('pageDescription');
+                    const productDescription = product.short_description || description.substring(0, 160) || `${product.name} - Premium supplement from Success Chemistry`;
                     if (pageDescription && pageDescription.getAttribute('content') === 'Success Chemistry Premium Supplements') {
-                        pageDescription.setAttribute('content', product.short_description || description.substring(0, 160) || `${product.name} - Premium supplement from Success Chemistry`);
+                        pageDescription.setAttribute('content', productDescription);
                     }
                     
-                    // Add/update canonical URL (only if not already set by SSR)
-                    let canonicalLink = document.querySelector('link[rel="canonical"]');
-                    if (!canonicalLink) {
-                        canonicalLink = document.createElement('link');
+                    // Update canonical URL
+                    const canonicalUrl = document.getElementById('canonicalUrl') || document.querySelector('link[rel="canonical"]');
+                    const currentUrl = window.location.href;
+                    if (canonicalUrl) {
+                        canonicalUrl.setAttribute('href', currentUrl);
+                    } else {
+                        const canonicalLink = document.createElement('link');
                         canonicalLink.setAttribute('rel', 'canonical');
+                        canonicalLink.setAttribute('id', 'canonicalUrl');
+                        canonicalLink.setAttribute('href', currentUrl);
                         document.head.appendChild(canonicalLink);
-                        canonicalLink.setAttribute('href', window.location.href);
                     }
+                    
+                    // Update Open Graph tags
+                    const ogTitle = document.getElementById('ogTitle');
+                    const ogDescription = document.getElementById('ogDescription');
+                    const ogImage = document.getElementById('ogImage');
+                    const ogUrl = document.getElementById('ogUrl');
+                    
+                    if (ogTitle) ogTitle.setAttribute('content', productTitle);
+                    if (ogDescription) ogDescription.setAttribute('content', productDescription);
+                    if (ogImage) ogImage.setAttribute('content', mainImage);
+                    if (ogUrl) ogUrl.setAttribute('content', currentUrl);
+                    
+                    // Update Twitter Card tags
+                    const twitterTitle = document.getElementById('twitterTitle');
+                    const twitterDescription = document.getElementById('twitterDescription');
+                    const twitterImage = document.getElementById('twitterImage');
+                    const twitterUrl = document.getElementById('twitterUrl');
+                    
+                    if (twitterTitle) twitterTitle.setAttribute('content', productTitle);
+                    if (twitterDescription) twitterDescription.setAttribute('content', productDescription);
+                    if (twitterImage) twitterImage.setAttribute('content', mainImage);
+                    if (twitterUrl) twitterUrl.setAttribute('content', currentUrl);
                     
                     // Initialize bundle selection
                     let selectedBundle = 'two';

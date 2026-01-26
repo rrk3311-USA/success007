@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: success-chemistry
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    volumes:
+      # Optional: Mount for development
+      # - ./deploy-site:/usr/share/nginx/html:ro
+    networks:
+      - success-chemistry-net
+
+networks:
+  success-chemistry-net:
+    driver: bridge

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{PRODUCT_NAME}} - Success Chemistry</title>
+    <meta name="description" content="{{SHORT_DESCRIPTION}}">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <link rel="canonical" href="https://successchemistry.com/product/?sku={{SKU}}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="product">
+    <meta property="og:url" content="https://successchemistry.com/product/?sku={{SKU}}">
+    <meta property="og:title" content="{{PRODUCT_NAME}} - Success Chemistry">
+    <meta property="og:description" content="{{SHORT_DESCRIPTION}}">
+    <meta property="og:image" content="https://successchemistry.com{{MAIN_IMAGE}}">
+    <meta property="og:site_name" content="Success Chemistry">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://successchemistry.com/product/?sku={{SKU}}">
+    <meta name="twitter:title" content="{{PRODUCT_NAME}} - Success Chemistry">
+    <meta name="twitter:description" content="{{SHORT_DESCRIPTION}}">
+    <meta name="twitter:image" content="https://successchemistry.com{{MAIN_IMAGE}}">
+    
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json">{{PRODUCT_SCHEMA}}</script>
+    {{FAQ_SCHEMA_SCRIPT}}
+    
+    <!-- Styles (import from main site) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/public/images/SC_logo_withR.png">
+    
+    <style>
+        /* Import main site styles - simplified version for SSG */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #0a234e;
+            line-height: 1.6;
+            background: #f8f9fa;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        h1 { font-size: 2rem; color: #2854a6; margin-bottom: 1rem; }
+        h2 { font-size: 1.5rem; color: #2854a6; margin: 2rem 0 1rem; }
+        h3 { font-size: 1.2rem; color: #2854a6; margin: 1.5rem 0 0.75rem; }
+        .section { background: white; padding: 2rem; margin: 2rem 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .ingredient-item { margin: 1rem 0; padding: 1rem; background: #f8f9fa; border-radius: 6px; }
+        .faq-item { margin: 1rem 0; padding: 1rem; border: 1px solid #e0e0e0; border-radius: 6px; }
+        .faq-question { font-weight: 600; color: #2854a6; margin-bottom: 0.5rem; }
+        .faq-answer { color: #555; }
+        .disclaimer { background: #fff3cd; padding: 1rem; border-left: 4px solid #ffc107; margin: 2rem 0; }
+        .trust-badges { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1rem 0; }
+        .trust-badge { padding: 0.5rem 1rem; background: #e7f3ff; border-radius: 4px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <!-- Header (simplified - import from main site) -->
+    <header style="background: white; padding: 1rem 0; border-bottom: 1px solid #e0e0e0;">
+        <div class="container">
+            <a href="/" style="display: inline-block;">
+                <img src="/public/images/SC_logo_withR.png" alt="Success Chemistry" style="height: 50px;">
+            </a>
+        </div>
+    </header>
+
+    <main class="container" style="padding: 2rem 20px;">
+        
+        <!-- SECTION 1: H1 - Product name + primary function -->
+        <section class="section">
+            <h1>{{PRODUCT_NAME}} – {{PRIMARY_FUNCTION}}</h1>
+        </section>
+
+        <!-- SECTION 2: Plain-English summary (2–3 sentences) -->
+        <section class="section">
+            <p style="font-size: 1.1rem; line-height: 1.8; color: #333;">{{SUMMARY}}</p>
+        </section>
+
+        <!-- SECTION 3: What it does (mechanism-focused, non-medical) -->
+        <section class="section">
+            <h2>What It Does</h2>
+            <p style="line-height: 1.8; color: #555;">{{WHAT_IT_DOES}}</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: #666; font-style: italic;">
+                This formula works by supporting your body's natural processes. Individual results may vary.
+            </p>
+        </section>
+
+        <!-- SECTION 4: Key ingredients (each with short explanation) -->
+        <section class="section">
+            <h2>Key Ingredients</h2>
+            {{KEY_INGREDIENTS_HTML}}
+        </section>
+
+        <!-- SECTION 5: Suggested use -->
+        <section class="section">
+            <h2>Suggested Use</h2>
+            <p style="line-height: 1.8; color: #555;">{{SUGGESTED_USE}}</p>
+        </section>
+
+        <!-- SECTION 6: Who it's for / not for -->
+        <section class="section">
+            <h2>Who It's For</h2>
+            <p style="line-height: 1.8; color: #555; margin-bottom: 1rem;">
+                This supplement is designed for: <strong>{{WHO_ITS_FOR}}</strong>
+            </p>
+            <div style="background: #fff3cd; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
+                <strong>Not recommended for:</strong>
+                <ul style="margin: 0.5rem 0 0 1.5rem; color: #856404;">
+                    {{WHO_ITS_NOT_FOR_LIST}}
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 7: Supplement Facts: image + exact HTML text mirror -->
+        <section class="section">
+            <h2>Supplement Facts</h2>
+            {{SUPPLEMENT_FACTS_IMAGE}}
+            <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 6px; margin-top: 1rem;">
+                <pre style="white-space: pre-wrap; font-family: inherit; font-size: 0.9rem; line-height: 1.6; color: #333; margin: 0;">{{SUPPLEMENT_FACTS}}</pre>
+            </div>
+        </section>
+
+        <!-- SECTION 8: Safety + FDA disclaimer -->
+        <section class="section">
+            <div class="disclaimer">
+                <h3 style="margin-top: 0;">Important Safety Information</h3>
+                <p style="margin: 0; line-height: 1.8;">{{SAFETY_DISCLAIMER}}</p>
+            </div>
+        </section>
+
+        <!-- SECTION 9: FAQ (4–8 real user questions) -->
+        {{FAQ_SECTION}}
+
+        <!-- SECTION 10: Trust & manufacturing (GMP/testing/etc.) -->
+        <section class="section">
+            <h2>Quality & Manufacturing</h2>
+            <div class="trust-badges">
+                {{TRUST_BADGES_HTML}}
+            </div>
+            <p style="margin-top: 1rem; line-height: 1.8; color: #555;">
+                Success Chemistry is committed to providing high-quality dietary supplements. Our products are manufactured in facilities that follow Good Manufacturing Practices (GMP) and are FDA-compliant. Each batch is tested for purity and potency to ensure you receive a safe, effective product.
+            </p>
+        </section>
+
+        <!-- SECTION 11: CTA -->
+        <section class="section" style="text-align: center; background: linear-gradient(135deg, #2854a6 0%, #667eea 100%); color: white;">
+            <h2 style="color: white; margin-top: 0;">Ready to Get Started?</h2>
+            <p style="font-size: 1.1rem; margin: 1rem 0;">{{PRODUCT_NAME}} - ${{PRICE}}</p>
+            <a href="/cart?sku={{SKU}}" style="display: inline-block; background: white; color: #2854a6; padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 1rem;">
+                Add to Cart
+            </a>
+        </section>
+
+    </main>
+
+    <!-- Footer (simplified - import from main site) -->
+    <footer style="background: #2854a6; color: white; padding: 2rem 0; margin-top: 4rem;">
+        <div class="container" style="text-align: center;">
+            <p>&copy; 2026 Success Chemistry. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
