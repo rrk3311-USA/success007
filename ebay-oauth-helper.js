@@ -11,35 +11,32 @@
  *      - Exchanges the authorization code for an access token
  */
 
-import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import { dirname } from 'path';
 import fetch from 'node-fetch';
+import dotenv from 'dotenv';
+
+// Load environment variables
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Load config
-let CONFIG;
-try {
-    const configPath = join(__dirname, 'deploy-site', 'config.js');
-    const configModule = await import(`file://${configPath}?update=${Date.now()}`);
-    CONFIG = configModule.CONFIG || configModule.default || configModule;
-    
-    if (!CONFIG || !CONFIG.EBAY_API) {
-        throw new Error('EBAY_API configuration not found');
-    }
-} catch (err) {
-    console.error('❌ Could not load config.js:', err.message);
-    console.error('   Error details:', err);
-    process.exit(1);
-}
+// Load eBay credentials from .env
+const EBAY_CONFIG = {
+    CLIENT_ID: process.env.EBAY_CLIENT_ID,
+    CLIENT_SECRET: process.env.EBAY_CLIENT_SECRET,
+    DEV_ID: process.env.EBAY_DEV_ID,
+    RU_NAME: process.env.EBAY_RU_NAME,
+    REDIRECT_URI: process.env.EBAY_RU_NAME, // eBay uses RuName as redirect_uri
+    AUTH_URL: 'https://auth.ebay.com/oauth2/authorize',
+    TOKEN_URL: 'https://api.ebay.com/identity/v1/oauth2/token'
+};
 
-const EBAY_CONFIG = CONFIG.EBAY_API;
-
-// Hardcoded scopes - only inventory scope
+// Required scopes for listing products
+// Start with just inventory scope - we can add more later if needed
 const scopes = [
-  "https://api.ebay.com/oauth/api_scope/sell.inventory"
+    "https://api.ebay.com/oauth/api_scope/sell.inventory"
 ];
 
 /**
@@ -138,15 +135,17 @@ async function exchangeCodeForToken(authorizationCode) {
         }
         console.log('');
 
-        // Update config
-        console.log('💡 To save this token, update deploy-site/config.js:');
-        console.log('');
-        console.log(`   ACCESS_TOKEN: '${responseData.access_token}',`);
-        if (responseData.refresh_token) {
-            console.log(`   REFRESH_TOKEN: '${responseData.refresh_token}',`);
-        }
+        // Update .env file
         const expiresDate = new Date(Date.now() + responseData.expires_in * 1000);
-        console.log(`   EXPIRES: '${expiresDate.toUTCString()}',`);
+        console.log('💡 Update your .env file with these values:');
+        console.log('');
+        console.log(`EBAY_ACCESS_TOKEN="${responseData.access_token}"`);
+        if (responseData.refresh_token) {
+            console.log(`EBAY_REFRESH_TOKEN="${responseData.refresh_token}"`);
+        }
+        console.log(`EBAY_TOKEN_EXPIRES=${expiresDate.toUTCString()}`);
+        console.log('');
+        console.log('✅ Copy the token above and update your .env file!');
         console.log('');
 
         return responseData;

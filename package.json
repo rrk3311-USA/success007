@@ -12,7 +12,8 @@
     "local": "node local-server.js",
     "life-jet": "cd deploy-site/life-jet && npm run dev",
     "life-jet:build": "cd deploy-site/life-jet && npm run build",
-    "build:all": "cd deploy-site/life-jet && npm install && npm run build && cd ../.. && echo '✅ All builds complete'"
+    "build:all": "cd deploy-site/life-jet && npm install && npm run build && cd ../.. && echo '✅ All builds complete'",
+    "test:telegram": "node test-telegram.js"
   },
   "dependencies": {
     "@paypal/agent-toolkit": "^1.8.0",
@@ -24,6 +25,7 @@
     "express": "^4.18.2",
     "formdata-node": "^6.0.3",
     "google-ads-api": "^22.0.0",
+    "node-telegram-bot-api": "^0.67.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "stripe": "^14.10.0",

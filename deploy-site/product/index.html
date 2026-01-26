@@ -1418,11 +1418,14 @@
 .bundle-tab-details {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 16px;
     padding: 16px;
     background: rgba(255, 255, 255, 0.5);
     border-radius: 8px;
     border: 1px solid rgba(40, 84, 166, 0.2);
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 .bundle-tab-bottles {
@@ -1531,18 +1534,83 @@
     .bundle-tab-info {
         text-align: center;
     }
-    
-    .bundle-tab-bottles img {
-        width: 35px;
+}
+
+/* Desktop: Center bundle tab details */
+@media (min-width: 769px) {
+    .bundle-tab-details {
+        justify-content: center;
+        max-width: 600px;
+        margin: 0 auto;
     }
     
-    .bundle-tab-price {
-        font-size: 1.2rem;
+    .bundle-tab-info {
+        text-align: center;
     }
-    
-    .bundle-tab-benefits {
-        align-items: center;
-    }
+}
+
+/* Product Details Content Styling */
+.product-details-content {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.product-details-content p {
+    margin-bottom: 1.2em !important;
+    color: #333 !important;
+    line-height: 1.8 !important;
+    font-size: 1rem !important;
+    text-align: left !important;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
+.product-details-content p:first-child {
+    margin-top: 0;
+}
+
+.product-details-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Improve readability with better spacing */
+.product-details-content p + p {
+    margin-top: 1em;
+}
+
+/* Header styling in product details */
+.product-details-content h4 {
+    font-size: 1.2rem !important;
+    color: #2854a6 !important;
+    font-weight: 600 !important;
+    margin-top: 1.5em !important;
+    margin-bottom: 0.8em !important;
+    padding-bottom: 8px !important;
+    border-bottom: 2px solid #e0f2fe !important;
+    line-height: 1.4 !important;
+}
+
+.product-details-content h4:first-child {
+    margin-top: 0 !important;
+}
+
+.product-details-content h5 {
+    font-size: 1.05rem !important;
+    color: #1a1a2e !important;
+    font-weight: 600 !important;
+    margin-top: 1.2em !important;
+    margin-bottom: 0.6em !important;
+    line-height: 1.4 !important;
+}
+
+.product-details-content strong {
+    color: #2854a6 !important;
+    font-weight: 600 !important;
+}
+
+/* Better spacing between sections */
+.product-details-content h4 + p,
+.product-details-content h5 + p {
+    margin-top: 0.8em !important;
 }
 
 .choose-bundle-title {
@@ -3876,6 +3944,126 @@
             }
         }
 
+        // Format product description with proper paragraph breaks, headers, and styling
+        function formatProductDescription(description) {
+            if (!description) return '<p style="margin-bottom: 1.2em; color: #333; line-height: 1.8;">No description available.</p>';
+            
+            // Simple HTML escape
+            function escapeHtml(text) {
+                if (!text) return '';
+                const map = {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#039;'
+                };
+                return text.replace(/[&<>"']/g, m => map[m]);
+            }
+            
+            // Remove unwanted text
+            let cleaned = description
+                .replace(/View Bottle in 360°[^\n]*/gi, '')
+                .replace(/360°[^\n]*/gi, '')
+                .trim();
+            
+            // Key terms to bold (ingredient names, benefits, etc.)
+            const boldTerms = [
+                'Sclera White', 'Eyebright', 'Lutein', 'Zeaxanthin', 'Bilberry', 'Milk Thistle',
+                'Dandelion', 'Artichoke', 'Maca', 'Ashwagandha', 'Ginseng', 'L-Arginine',
+                'Saw Palmetto', 'Tribulus', 'D-Mannose', 'Cranberry', 'Turmeric', 'Ginger',
+                'Vitamin A', 'Vitamin C', 'Vitamin E', 'Vitamin B', 'Zinc', 'Magnesium',
+                'Success Chemistry', 'GMP', 'FDA', 'USA', 'Made in the USA'
+            ];
+            
+            // Function to add bold formatting to key terms
+            function addBoldFormatting(text) {
+                let formatted = escapeHtml(text);
+                boldTerms.forEach(term => {
+                    const regex = new RegExp(`\\b(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})\\b`, 'gi');
+                    formatted = formatted.replace(regex, '<strong style="color: #2854a6; font-weight: 600;">$1</strong>');
+                });
+                return formatted;
+            }
+            
+            // Split by double newlines or common section markers
+            let sections = cleaned
+                .split(/\n\n+/)
+                .filter(section => section.trim().length > 0);
+            
+            // If no clear sections, try to detect headers
+            if (sections.length === 0 || (sections.length === 1 && sections[0].length > 500)) {
+                // Try to split by common patterns
+                const lines = cleaned.split(/\n/).filter(l => l.trim().length > 0);
+                sections = [];
+                let currentSection = [];
+                
+                lines.forEach(line => {
+                    const trimmed = line.trim();
+                    // Detect potential headers (short lines, all caps, or lines ending with colon)
+                    const isHeader = trimmed.length < 80 && (
+                        trimmed === trimmed.toUpperCase() ||
+                        trimmed.endsWith(':') ||
+                        /^(Key|Benefits|Features|Ingredients|Why|How|What)/i.test(trimmed)
+                    );
+                    
+                    if (isHeader && currentSection.length > 0) {
+                        sections.push(currentSection.join(' '));
+                        currentSection = [trimmed];
+                    } else {
+                        currentSection.push(trimmed);
+                    }
+                });
+                
+                if (currentSection.length > 0) {
+                    sections.push(currentSection.join(' '));
+                }
+            }
+            
+            // Format sections with headers and content
+            let html = '';
+            sections.forEach((section, index) => {
+                const trimmed = section.trim();
+                
+                // Check if this looks like a header
+                const isHeader = trimmed.length < 100 && (
+                    trimmed === trimmed.toUpperCase() ||
+                    trimmed.endsWith(':') ||
+                    /^(Key|Benefits|Features|Ingredients|Why|How|What|Advanced|Designed|Clean|Premium)/i.test(trimmed)
+                );
+                
+                if (isHeader) {
+                    // Remove colon if present
+                    const headerText = trimmed.replace(/:\s*$/, '');
+                    // Check if it's a main header (all caps or starts with Key/Benefits)
+                    const isMainHeader = headerText === headerText.toUpperCase() || /^(Key|Benefits|Features)/i.test(headerText);
+                    
+                    if (isMainHeader) {
+                        html += `<h4 style="font-size: 1.2rem; color: #2854a6; font-weight: 600; margin-top: 1.5em; margin-bottom: 0.8em; padding-bottom: 8px; border-bottom: 2px solid #e0f2fe;">${addBoldFormatting(headerText)}</h4>`;
+                    } else {
+                        html += `<h5 style="font-size: 1.05rem; color: #1a1a2e; font-weight: 600; margin-top: 1.2em; margin-bottom: 0.6em;">${addBoldFormatting(headerText)}</h5>`;
+                    }
+                } else {
+                    // Regular paragraph
+                    // Clean up the text
+                    let para = trimmed
+                        .replace(/\n/g, ' ')
+                        .replace(/\s+/g, ' ')
+                        .replace(/\.([A-Z])/g, '. $1')
+                        .trim();
+                    
+                    // Skip very short paragraphs that look like artifacts
+                    if (para.length < 10 || /^(View|Click|See|More)/i.test(para)) {
+                        return;
+                    }
+                    
+                    html += `<p style="margin-bottom: 1.2em; color: #333; line-height: 1.8; font-size: 1rem;">${addBoldFormatting(para)}</p>`;
+                }
+            });
+            
+            return html || '<p style="margin-bottom: 1.2em; color: #333; line-height: 1.8;">No description available.</p>';
+        }
+
         // Render product information
         function renderProduct() {
             const product = currentProduct;
@@ -4116,10 +4304,10 @@
                                                 ` : ''}
                                                 
                                                 <!-- Product Details Section -->
-                                                <div style="margin-bottom: 24px; text-align: left; ${product.ingredients ? 'padding-top: 18px; border-top: 1px solid #e0e0e0;' : ''}">
-                                                    <h3 style="font-size: 1.1rem; color: #2854a6; margin-bottom: 10px; font-weight: 500; border-bottom: 2px solid #e0f2fe; padding-bottom: 6px; text-align: left;">Product Details</h3>
-                                                    <div style="line-height: 1.6; color: #444; font-size: 0.9rem; text-align: left; font-weight: 400;">
-                                                        ${description.replace(/\n\n+/g, '</p><p>').replace(/\n/g, ' ').replace(/^/, '<p>').replace(/$/, '</p>').replace(/<p><\/p>/g, '')}
+                                                <div style="margin-bottom: 32px; text-align: left; ${product.ingredients ? 'padding-top: 24px; border-top: 1px solid #e0e0e0;' : ''}">
+                                                    <h3 style="font-size: 1.3rem; color: #2854a6; margin-bottom: 16px; font-weight: 600; border-bottom: 2px solid #e0f2fe; padding-bottom: 10px; text-align: left; letter-spacing: 0.3px;">Product Details</h3>
+                                                    <div class="product-details-content" style="line-height: 1.8; color: #333; font-size: 1rem; text-align: left; font-weight: 400; max-width: 100%;">
+                                                        ${formatProductDescription(description)}
                                                     </div>
                                                 </div>
                                                 

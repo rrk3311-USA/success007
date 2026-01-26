@@ -15,22 +15,33 @@ import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import fetch from 'node-fetch';
+import dotenv from 'dotenv';
+
+// Load environment variables
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Load config
-let CONFIG;
-try {
-    const configPath = join(__dirname, 'deploy-site', 'config.js');
-    const configModule = await import(`file://${configPath}?update=${Date.now()}`);
-    CONFIG = configModule.CONFIG || configModule.default || configModule;
-    
-    if (!CONFIG || !CONFIG.EBAY_API) {
-        throw new Error('EBAY_API configuration not found');
-    }
-} catch (err) {
-    console.error('❌ Could not load config.js:', err.message);
+// Load eBay credentials from .env
+const EBAY_CREDENTIALS = {
+    CLIENT_ID: process.env.EBAY_CLIENT_ID,
+    CLIENT_SECRET: process.env.EBAY_CLIENT_SECRET,
+    DEV_ID: process.env.EBAY_DEV_ID,
+    ACCESS_TOKEN: process.env.EBAY_ACCESS_TOKEN,
+    REFRESH_TOKEN: process.env.EBAY_REFRESH_TOKEN,
+    RU_NAME: process.env.EBAY_RU_NAME,
+    TOKEN_EXPIRES: process.env.EBAY_TOKEN_EXPIRES,
+    BASE_URL: 'https://api.ebay.com',
+    SANDBOX_BASE_URL: 'https://api.sandbox.ebay.com',
+    USE_SANDBOX: false
+};
+
+// Validate credentials
+if (!EBAY_CREDENTIALS.ACCESS_TOKEN) {
+    console.error('❌ EBAY_ACCESS_TOKEN not found in .env file');
+    console.log('💡 Make sure your .env file contains:');
+    console.log('   EBAY_ACCESS_TOKEN=your_token_here');
     process.exit(1);
 }
 
@@ -56,32 +67,34 @@ try {
     process.exit(1);
 }
 
-const EBAY_CONFIG = CONFIG.EBAY_API;
-const BASE_URL = EBAY_CONFIG.USE_SANDBOX ? EBAY_CONFIG.SANDBOX_BASE_URL : EBAY_CONFIG.BASE_URL;
+const BASE_URL = EBAY_CREDENTIALS.USE_SANDBOX 
+    ? EBAY_CREDENTIALS.SANDBOX_BASE_URL 
+    : EBAY_CREDENTIALS.BASE_URL;
 
 /**
  * Get access token (refresh if needed)
  */
 async function getAccessToken() {
-    const token = EBAY_CONFIG.ACCESS_TOKEN;
+    const token = EBAY_CREDENTIALS.ACCESS_TOKEN;
     
     if (!token) {
-        console.error('❌ No ACCESS_TOKEN found in config.js');
-        console.log('💡 Run: node ebay-oauth-helper.js exchange-code <code>');
+        console.error('❌ No ACCESS_TOKEN found in .env file');
+        console.log('💡 Make sure EBAY_ACCESS_TOKEN is set in your .env file');
         return null;
     }
     
     // Check if token is expired (basic check)
-    const expires = EBAY_CONFIG.EXPIRES;
+    const expires = EBAY_CREDENTIALS.TOKEN_EXPIRES;
     if (expires) {
         const expiresDate = new Date(expires);
         if (expiresDate < new Date()) {
             console.log('⚠️  Token appears expired. Attempting refresh...');
             // Try to refresh if refresh token available
-            if (EBAY_CONFIG.REFRESH_TOKEN) {
-                // Refresh logic would go here
+            if (EBAY_CREDENTIALS.REFRESH_TOKEN) {
                 console.log('💡 Please refresh your token using: node ebay-oauth-helper.js refresh');
             }
+        } else {
+            console.log(`✅ Token valid until: ${expires}`);
         }
     }
     

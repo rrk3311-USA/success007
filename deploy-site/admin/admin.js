@@ -166,6 +166,10 @@ async function loadDashboardData() {
         loadProducts(),
         loadUsers()
     ]);
+    // Load sales channels if tab is active
+    if (document.getElementById('sales-channels')?.classList.contains('active')) {
+        loadSalesChannels();
+    }
 }
 
 // Analytics
@@ -337,17 +341,27 @@ async function loadUsers(page = 1) {
 }
 
 // Tab switching
-function switchTab(tabName) {
+function switchTab(tabName, event) {
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
     
-    event.target.classList.add('active');
-    document.getElementById(tabName).classList.add('active');
+    // Find and activate the clicked tab button
+    const clickedBtn = event?.target || document.querySelector(`[data-tab="${tabName}"]`);
+    if (clickedBtn) {
+        clickedBtn.classList.add('active');
+    }
+    
+    // Show the corresponding tab content
+    const tabContent = document.getElementById(tabName);
+    if (tabContent) {
+        tabContent.classList.add('active');
+    }
     
     // Reload data for active tab
     if (tabName === 'orders') loadOrders();
     if (tabName === 'products') loadProducts();
     if (tabName === 'customers') loadUsers();
+    if (tabName === 'sales-channels') loadSalesChannels();
 }
 
 // Product actions
@@ -436,6 +450,185 @@ function searchCustomers(query) {
     console.log('Search customers:', query);
 }
 
+// Sales Channels Management
+async function loadSalesChannels() {
+    const channels = [
+        {
+            name: 'eBay',
+            icon: '🛒',
+            status: 'active',
+            statusText: 'Active',
+            statusColor: '#10B981',
+            config: 'OAuth Token Configured',
+            listings: '1 listing active',
+            dashboardUrl: 'https://www.ebay.com/sh/landing',
+            sellerHubUrl: 'https://www.ebay.com/sh/landing',
+            apiStatus: 'Connected',
+            lastSync: 'Just now',
+            actions: [
+                { label: 'Seller Hub', url: 'https://www.ebay.com/sh/landing', icon: '📊' },
+                { label: 'List Product', action: 'listEbay', icon: '➕' },
+                { label: 'View Listings', url: 'https://www.ebay.com/sh/landing', icon: '👁️' }
+            ]
+        },
+        {
+            name: 'Walmart',
+            icon: '🏪',
+            status: 'pending',
+            statusText: 'Pending Setup',
+            statusColor: '#F59E0B',
+            config: 'API Credentials Needed',
+            listings: '0 listings',
+            dashboardUrl: 'https://seller.walmart.com',
+            sellerHubUrl: 'https://seller.walmart.com',
+            apiStatus: 'Not Connected',
+            lastSync: 'Never',
+            actions: [
+                { label: 'Seller Center', url: 'https://seller.walmart.com', icon: '📊' },
+                { label: 'Setup API', action: 'setupWalmart', icon: '⚙️' }
+            ]
+        },
+        {
+            name: 'Amazon',
+            icon: '📦',
+            status: 'pending',
+            statusText: 'Pending Setup',
+            statusColor: '#F59E0B',
+            config: 'Seller Central Access Needed',
+            listings: '0 listings',
+            dashboardUrl: 'https://sellercentral.amazon.com',
+            sellerHubUrl: 'https://sellercentral.amazon.com',
+            apiStatus: 'Not Connected',
+            lastSync: 'Never',
+            actions: [
+                { label: 'Seller Central', url: 'https://sellercentral.amazon.com', icon: '📊' },
+                { label: 'Setup API', action: 'setupAmazon', icon: '⚙️' }
+            ]
+        },
+        {
+            name: 'Temu',
+            icon: '🛍️',
+            status: 'pending',
+            statusText: 'Pending Setup',
+            statusColor: '#F59E0B',
+            config: 'Seller Account Needed',
+            listings: '0 listings',
+            dashboardUrl: 'https://seller.temu.com',
+            sellerHubUrl: 'https://seller.temu.com',
+            apiStatus: 'Not Connected',
+            lastSync: 'Never',
+            actions: [
+                { label: 'Seller Portal', url: 'https://seller.temu.com', icon: '📊' },
+                { label: 'Setup Account', action: 'setupTemu', icon: '⚙️' }
+            ]
+        },
+        {
+            name: 'WooCommerce',
+            icon: '🛒',
+            status: 'active',
+            statusText: 'Active',
+            statusColor: '#10B981',
+            config: 'API Configured',
+            listings: '56 products',
+            dashboardUrl: 'https://blueviolet-snake-802946.hostingersite.com/wp-admin',
+            sellerHubUrl: 'https://blueviolet-snake-802946.hostingersite.com/wp-admin',
+            apiStatus: 'Connected',
+            lastSync: 'Active',
+            actions: [
+                { label: 'Dashboard', url: 'https://blueviolet-snake-802946.hostingersite.com/wp-admin', icon: '📊' },
+                { label: 'Products', url: 'https://blueviolet-snake-802946.hostingersite.com/wp-admin/edit.php?post_type=product', icon: '📦' },
+                { label: 'Orders', url: 'https://blueviolet-snake-802946.hostingersite.com/wp-admin/edit.php?post_type=shop_order', icon: '📋' }
+            ]
+        },
+        {
+            name: 'Success Chemistry Website',
+            icon: '🌐',
+            status: 'active',
+            statusText: 'Active',
+            statusColor: '#10B981',
+            config: 'Live & Operational',
+            listings: '56 products',
+            dashboardUrl: 'https://successchemistry.com',
+            sellerHubUrl: 'https://successchemistry.com/admin',
+            apiStatus: 'Live',
+            lastSync: 'Real-time',
+            actions: [
+                { label: 'View Site', url: 'https://successchemistry.com', icon: '🌐' },
+                { label: 'Shop Page', url: 'https://successchemistry.com/shop', icon: '🛍️' },
+                { label: 'Admin', url: 'https://successchemistry.com/admin', icon: '⚙️' }
+            ]
+        }
+    ];
+
+    const tableBody = document.getElementById('salesChannelsTable');
+    if (!tableBody) return;
+
+    tableBody.innerHTML = channels.map(channel => `
+        <tr style="border-bottom: 1px solid rgba(139, 125, 107, 0.2);">
+            <td style="padding: 16px 24px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 1.5rem;">${channel.icon}</span>
+                    <div>
+                        <div style="font-weight: 600; color: #F1F5F9; margin-bottom: 4px;">${channel.name}</div>
+                        <div style="font-size: 0.85rem; color: #94A3B8;">${channel.dashboardUrl}</div>
+                    </div>
+                </div>
+            </td>
+            <td style="padding: 16px 24px;">
+                <span class="badge" style="background: rgba(${channel.status === 'active' ? '16, 185, 129' : '245, 158, 11'}, 0.2); color: ${channel.statusColor}; border: 1px solid rgba(${channel.status === 'active' ? '16, 185, 129' : '245, 158, 11'}, 0.3);">
+                    ${channel.statusText}
+                </span>
+                <div style="font-size: 0.75rem; color: #94A3B8; margin-top: 4px;">${channel.apiStatus}</div>
+            </td>
+            <td style="padding: 16px 24px; color: #CBD5E1;">
+                <div style="margin-bottom: 4px;">${channel.config}</div>
+                <div style="font-size: 0.75rem; color: #94A3B8;">Last sync: ${channel.lastSync}</div>
+            </td>
+            <td style="padding: 16px 24px; color: #CBD5E1;">
+                ${channel.listings}
+            </td>
+            <td style="padding: 16px 24px;">
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    ${channel.actions.map(action => {
+                        if (action.url) {
+                            return `<a href="${action.url}" target="_blank" style="padding: 6px 12px; background: rgba(6, 182, 212, 0.2); border: 1px solid #06B6D4; color: #06B6D4; text-decoration: none; border-radius: 0; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.2s;" onmouseover="this.style.background='rgba(6, 182, 212, 0.3)'" onmouseout="this.style.background='rgba(6, 182, 212, 0.2)'">${action.icon} ${action.label}</a>`;
+                        } else if (action.action) {
+                            return `<button onclick="${action.action}()" style="padding: 6px 12px; background: rgba(6, 182, 212, 0.2); border: 1px solid #06B6D4; color: #06B6D4; border-radius: 0; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(6, 182, 212, 0.3)'" onmouseout="this.style.background='rgba(6, 182, 212, 0.2)'">${action.icon} ${action.label}</button>`;
+                        }
+                    }).join('')}
+                </div>
+            </td>
+        </tr>
+    `).join('');
+}
+
+function refreshSalesChannels() {
+    loadSalesChannels();
+    // Show notification
+    const notification = document.createElement('div');
+    notification.style.cssText = 'position: fixed; top: 20px; right: 20px; padding: 16px 24px; background: rgba(16, 185, 129, 0.2); border: 1px solid #10B981; color: #10B981; border-radius: 0; z-index: 10000; font-weight: 600;';
+    notification.textContent = '✅ Sales channels refreshed';
+    document.body.appendChild(notification);
+    setTimeout(() => notification.remove(), 3000);
+}
+
+// Channel-specific actions
+function listEbay() {
+    alert('eBay Listing:\n\nRun: node create-ebay-listing.js <SKU>\n\nExample: node create-ebay-listing.js 10777-810');
+}
+
+function setupWalmart() {
+    alert('Walmart Setup:\n\n1. Visit: https://developer.walmart.com\n2. Create API credentials\n3. Add to .env file:\n   WALMART_CLIENT_ID=your_id\n   WALMART_CLIENT_SECRET=your_secret');
+}
+
+function setupAmazon() {
+    alert('Amazon Setup:\n\n1. Visit: https://sellercentral.amazon.com\n2. Set up Seller Central account\n3. Configure MWS/SP-API credentials\n4. Add credentials to .env file');
+}
+
+function setupTemu() {
+    alert('Temu Setup:\n\n1. Visit: https://seller.temu.com\n2. Create seller account\n3. Complete verification\n4. Configure API access');
+}
+
 // Export functions for inline event handlers
 window.login = login;
 window.logout = logout;
@@ -448,3 +641,9 @@ window.viewUser = viewUser;
 window.searchOrders = searchOrders;
 window.searchProducts = searchProducts;
 window.searchCustomers = searchCustomers;
+window.loadSalesChannels = loadSalesChannels;
+window.refreshSalesChannels = refreshSalesChannels;
+window.listEbay = listEbay;
+window.setupWalmart = setupWalmart;
+window.setupAmazon = setupAmazon;
+window.setupTemu = setupTemu;

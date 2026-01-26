@@ -8,8 +8,12 @@
  * Usage: node build-pdp-ssg.js
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Configuration
 const PRODUCTS_DATA_PATH = './deploy-site/products-data.js';
@@ -404,6 +408,43 @@ function generateWhoItsNotForHTML(notForList) {
     return notForList.map(item => `<li>${escapeHtml(item)}</li>`).join('');
 }
 
+// Truncate title to 50-60 chars
+function truncateTitle(fullTitle) {
+    const maxLength = 60;
+    if (fullTitle.length <= maxLength) return fullTitle;
+    
+    // Try to truncate at word boundary
+    const truncated = fullTitle.substring(0, maxLength - 3);
+    const lastSpace = truncated.lastIndexOf(' ');
+    if (lastSpace > 40) {
+        return truncated.substring(0, lastSpace) + '...';
+    }
+    return truncated + '...';
+}
+
+// Truncate meta description to 140-160 chars
+function truncateMetaDescription(description) {
+    const targetLength = 155; // Aim for middle of 140-160 range
+    if (description.length <= targetLength) return description;
+    
+    // Try to truncate at sentence or word boundary
+    const truncated = description.substring(0, targetLength - 3);
+    
+    // Look for sentence end
+    const lastPeriod = truncated.lastIndexOf('.');
+    if (lastPeriod > 120) {
+        return truncated.substring(0, lastPeriod + 1);
+    }
+    
+    // Look for word boundary
+    const lastSpace = truncated.lastIndexOf(' ');
+    if (lastSpace > 120) {
+        return truncated.substring(0, lastSpace) + '...';
+    }
+    
+    return truncated + '...';
+}
+
 // Generate HTML for a product
 function generateHTML(product, template) {
     const primaryFunction = extractPrimaryFunction(product);
@@ -420,7 +461,11 @@ function generateHTML(product, template) {
     
     const price = parseFloat(product.price || 0).toFixed(2);
     const baseUrl = 'https://successchemistry.com'; // Update with actual domain
-    const shortDescription = product.short_description || summary;
+    
+    // Generate SEO-optimized title and description
+    const fullTitle = `${product.name} - Success Chemistry`;
+    const seoTitle = truncateTitle(fullTitle);
+    const shortDescription = truncateMetaDescription(product.short_description || summary);
     
     // Generate schemas
     const productSchema = generateProductSchema(product, baseUrl);
@@ -443,6 +488,7 @@ function generateHTML(product, template) {
         // Replace template variables
         return template
             .replace(/\{\{PRODUCT_NAME\}\}/g, escapeHtml(product.name))
+            .replace(/\{\{SEO_TITLE\}\}/g, escapeHtml(seoTitle))
             .replace(/\{\{PRIMARY_FUNCTION\}\}/g, escapeHtml(primaryFunction))
             .replace(/\{\{SUMMARY\}\}/g, escapeHtml(summary))
             .replace(/\{\{SHORT_DESCRIPTION\}\}/g, escapeHtml(shortDescription))
@@ -555,8 +601,8 @@ function buildPDPs() {
 }
 
 // Run if called directly
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
     buildPDPs();
 }
 
-module.exports = { buildPDPs, generateHTML, generateProductSchema, generateFAQSchema };
+export { buildPDPs, generateHTML, generateProductSchema, generateFAQSchema };
