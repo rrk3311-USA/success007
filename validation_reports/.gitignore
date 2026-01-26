@@ -1,0 +1,6 @@
+# Ignore validation reports (generated files)
+*.json
+*.csv
+
+# Keep this directory structure
+!.gitignore

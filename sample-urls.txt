@@ -1,0 +1,11 @@
+# Sample URLs for batch validation
+# Lines starting with # are ignored
+# One URL per line
+
+http://localhost:8080/product/10786-807
+http://localhost:8080/product/10777-810
+http://localhost:8080/product/20647-507
+
+# Production URLs (uncomment when ready)
+# https://successchemistry.com/product/10786-807
+# https://successchemistry.com/product/10777-810

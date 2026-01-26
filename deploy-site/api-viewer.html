@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Headless API Viewer - Success Chemistry</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0a1628 0%, #1a2744 50%, #0f1b2d 100%);
+            color: #F1F5F9;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 28px;
+            color: #06B6D4;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            color: #94A3B8;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(139, 125, 107, 0.3);
+            padding-bottom: 10px;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(139, 125, 107, 0.3);
+            color: #CBD5E1;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+        
+        .tab:hover {
+            background: rgba(30, 41, 59, 0.8);
+            border-color: rgba(139, 125, 107, 0.5);
+        }
+        
+        .tab.active {
+            background: rgba(6, 182, 212, 0.2);
+            border-color: #06B6D4;
+            color: #06B6D4;
+        }
+        
+        .viewer {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid rgba(139, 125, 107, 0.3);
+            padding: 20px;
+            min-height: 500px;
+        }
+        
+        .endpoint-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .endpoint-card {
+            background: rgba(51, 65, 85, 0.5);
+            border: 1px solid rgba(139, 125, 107, 0.3);
+            padding: 15px;
+        }
+        
+        .endpoint-method {
+            display: inline-block;
+            padding: 4px 8px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-right: 10px;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        
+        .method-get { background: #10B981; color: white; }
+        .method-post { background: #F59E0B; color: white; }
+        .method-put { background: #06B6D4; color: white; }
+        .method-delete { background: #EF4444; color: white; }
+        
+        .endpoint-path {
+            font-family: 'Share Tech Mono', monospace;
+            color: #E8DDD0;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+        
+        .data-viewer {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(139, 125, 107, 0.3);
+            padding: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+        
+        .data-viewer pre {
+            color: #E8DDD0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: rgba(51, 65, 85, 0.5);
+            border: 1px solid rgba(139, 125, 107, 0.3);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #06B6D4;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .stat-label {
+            color: #94A3B8;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 8px;
+        }
+        
+        .api-base {
+            background: rgba(51, 65, 85, 0.5);
+            border: 1px solid rgba(139, 125, 107, 0.3);
+            padding: 15px;
+            margin-bottom: 20px;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        
+        .api-base strong {
+            color: #06B6D4;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background: rgba(6, 182, 212, 0.2);
+            border: 1px solid #06B6D4;
+            color: #06B6D4;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 12px;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: rgba(6, 182, 212, 0.3);
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&family=Inter:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>🔌 Headless API Viewer</h1>
+        <p class="subtitle">REST API Interface for Customers, Orders & Products</p>
+        
+        <div class="api-base">
+            <strong>API Base URL:</strong> 
+            <span id="apiBase">http://localhost:3001/api</span>
+            <button onclick="toggleApiBase()" style="margin-left: 15px; margin-top: 0; padding: 6px 12px; font-size: 11px;">Switch to Production</button>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('products')">Products</div>
+            <div class="tab" onclick="showTab('orders')">Orders</div>
+            <div class="tab" onclick="showTab('customers')">Customers</div>
+            <div class="tab" onclick="showTab('endpoints')">API Endpoints</div>
+        </div>
+        
+        <!-- Products Tab -->
+        <div id="products-tab" class="viewer">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="products-count">-</div>
+                    <div class="stat-label">Total Products</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="products-categories">-</div>
+                    <div class="stat-label">Categories</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="products-stock">-</div>
+                    <div class="stat-label">In Stock</div>
+                </div>
+            </div>
+            <button onclick="loadProducts()">Load Products Data</button>
+            <div class="data-viewer" id="products-data">
+                <pre>Click "Load Products Data" to fetch from API or load from local file...</pre>
+            </div>
+        </div>
+        
+        <!-- Orders Tab -->
+        <div id="orders-tab" class="viewer hidden">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="orders-count">-</div>
+                    <div class="stat-label">Total Orders</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="orders-pending">-</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="orders-total">-</div>
+                    <div class="stat-label">Total Revenue</div>
+                </div>
+            </div>
+            <button onclick="loadOrders()">Load Orders Data</button>
+            <div class="data-viewer" id="orders-data">
+                <pre>Click "Load Orders Data" to fetch from API...</pre>
+            </div>
+        </div>
+        
+        <!-- Customers Tab -->
+        <div id="customers-tab" class="viewer hidden">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="customers-count">-</div>
+                    <div class="stat-label">Total Customers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="customers-active">-</div>
+                    <div class="stat-label">Active</div>
+                </div>
+            </div>
+            <button onclick="loadCustomers()">Load Customers Data</button>
+            <div class="data-viewer" id="customers-data">
+                <pre>Click "Load Customers Data" to fetch from API...</pre>
+            </div>
+        </div>
+        
+        <!-- Endpoints Tab -->
+        <div id="endpoints-tab" class="viewer hidden">
+            <h2 style="margin-bottom: 20px; color: #06B6D4; font-size: 18px;">Available API Endpoints</h2>
+            <div class="endpoint-list">
+                <div class="endpoint-card">
+                    <span class="endpoint-method method-get">GET</span>
+                    <div class="endpoint-path">/api/products</div>
+                    <div style="color: #94A3B8; font-size: 11px; margin-top: 8px;">List all products</div>
+                </div>
+                <div class="endpoint-card">
+                    <span class="endpoint-method method-get">GET</span>
+                    <div class="endpoint-path">/api/products/:sku</div>
+                    <div style="color: #94A3B8; font-size: 11px; margin-top: 8px;">Get single product</div>
+                </div>
+                <div class="endpoint-card">
+                    <span class="endpoint-method method-post">POST</span>
+                    <div class="endpoint-path">/api/products</div>
+                    <div style="color: #94A3B8; font-size: 11px; margin-top: 8px;">Create product (auth)</div>
+                </div>
+                <div class="endpoint-card">
+                    <span class="endpoint-method method-put">PUT</span>
+                    <div class="endpoint-path">/api/products/:sku</div>
+                    <div style="color: #94A3B8; font-size: 11px; margin-top: 8px;">Update product (auth)</div>
+                </div>
+                <div class="endpoint-card">
+                    <span class="endpoint-method method-delete">DELETE</span>
+                    <div class="endpoint-path">/api/products/:sku</div>
+                    <div style="color: #94A3B8; font-size: 11px; margin-top: 8px;">Delete product (auth)</div>
+                </div>
+                <div class="endpoint-card">
+                    <span class="endpoint-method method-get">GET</span>
+                    <div class="endpoint-path">/api/orders</div>
+                    <div style="color: #94A3B8; font-size: 11px; margin-top: 8px;">List all orders</div>
+                </div>
+                <div class="endpoint-card">
+                    <span class="endpoint-method method-get">GET</span>
+                    <div class="endpoint-path">/api/orders/:id</div>
+                    <div style="color: #94A3B8; font-size: 11px; margin-top: 8px;">Get single order</div>
+                </div>
+                <div class="endpoint-card">
+                    <span class="endpoint-method method-post">POST</span>
+                    <div class="endpoint-path">/api/orders</div>
+                    <div style="color: #94A3B8; font-size: 11px; margin-top: 8px;">Create order</div>
+                </div>
+                <div class="endpoint-card">
+                    <span class="endpoint-method method-put">PUT</span>
+                    <div class="endpoint-path">/api/orders/:id</div>
+                    <div style="color: #94A3B8; font-size: 11px; margin-top: 8px;">Update order</div>
+                </div>
+                <div class="endpoint-card">
+                    <span class="endpoint-method method-get">GET</span>
+                    <div class="endpoint-path">/api/orders/stats/summary</div>
+                    <div style="color: #94A3B8; font-size: 11px; margin-top: 8px;">Order statistics</div>
+                </div>
+                <div class="endpoint-card">
+                    <span class="endpoint-method method-get">GET</span>
+                    <div class="endpoint-path">/api/users</div>
+                    <div style="color: #94A3B8; font-size: 11px; margin-top: 8px;">List users</div>
+                </div>
+                <div class="endpoint-card">
+                    <span class="endpoint-method method-get">GET</span>
+                    <div class="endpoint-path">/api/users/:id</div>
+                    <div style="color: #94A3B8; font-size: 11px; margin-top: 8px;">Get single user</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let apiBase = 'http://localhost:3001/api';
+        let isProduction = false;
+        
+        function toggleApiBase() {
+            isProduction = !isProduction;
+            apiBase = isProduction ? 'https://successchemistry.com/api' : 'http://localhost:3001/api';
+            document.getElementById('apiBase').textContent = apiBase;
+            document.querySelector('button').textContent = isProduction ? 'Switch to Development' : 'Switch to Production';
+        }
+        
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.viewer').forEach(v => v.classList.add('hidden'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.remove('hidden');
+            event.target.classList.add('active');
+        }
+        
+        async function loadProducts() {
+            const viewer = document.getElementById('products-data');
+            viewer.innerHTML = '<pre>Loading products...</pre>';
+            
+            try {
+                // Try API first
+                const response = await fetch(apiBase + '/products');
+                if (response.ok) {
+                    const data = await response.json();
+                    displayProducts(data);
+                } else {
+                    throw new Error('API not available');
+                }
+            } catch (error) {
+                // Fallback to local products-data.js
+                try {
+                    const script = document.createElement('script');
+                    script.src = '/products-data.js';
+                    script.onload = () => {
+                        if (typeof getAllProducts === 'function') {
+                            const products = getAllProducts();
+                            displayProducts(products);
+                        } else {
+                            viewer.innerHTML = '<pre style="color: #EF4444;">Error: Could not load products data</pre>';
+                        }
+                    };
+                    document.body.appendChild(script);
+                } catch (e) {
+                    viewer.innerHTML = '<pre style="color: #EF4444;">Error: ' + e.message + '</pre>';
+                }
+            }
+        }
+        
+        function displayProducts(products) {
+            const viewer = document.getElementById('products-data');
+            const count = Array.isArray(products) ? products.length : Object.keys(products).length;
+            const categories = new Set();
+            let inStock = 0;
+            
+            const productsArray = Array.isArray(products) ? products : Object.values(products);
+            
+            productsArray.forEach(p => {
+                if (p.category) categories.add(p.category);
+                if (p.stock_status === 'instock' || p.stock > 0) inStock++;
+            });
+            
+            document.getElementById('products-count').textContent = count;
+            document.getElementById('products-categories').textContent = categories.size;
+            document.getElementById('products-stock').textContent = inStock;
+            
+            viewer.innerHTML = '<pre>' + JSON.stringify(products, null, 2) + '</pre>';
+        }
+        
+        async function loadOrders() {
+            const viewer = document.getElementById('orders-data');
+            viewer.innerHTML = '<pre>Loading orders...</pre>';
+            
+            try {
+                const response = await fetch(apiBase + '/orders');
+                if (response.ok) {
+                    const data = await response.json();
+                    const orders = Array.isArray(data) ? data : (data.orders || []);
+                    
+                    document.getElementById('orders-count').textContent = orders.length;
+                    const pending = orders.filter(o => o.status === 'pending').length;
+                    document.getElementById('orders-pending').textContent = pending;
+                    const total = orders.reduce((sum, o) => sum + (parseFloat(o.total_amount) || 0), 0);
+                    document.getElementById('orders-total').textContent = '$' + total.toFixed(2);
+                    
+                    viewer.innerHTML = '<pre>' + JSON.stringify(orders, null, 2) + '</pre>';
+                } else {
+                    viewer.innerHTML = '<pre style="color: #EF4444;">Error: ' + response.statusText + '</pre>';
+                }
+            } catch (error) {
+                viewer.innerHTML = '<pre style="color: #EF4444;">Error: ' + error.message + '\n\nAPI endpoint: ' + apiBase + '/orders</pre>';
+            }
+        }
+        
+        async function loadCustomers() {
+            const viewer = document.getElementById('customers-data');
+            viewer.innerHTML = '<pre>Loading customers...</pre>';
+            
+            try {
+                const response = await fetch(apiBase + '/users');
+                if (response.ok) {
+                    const data = await response.json();
+                    const users = Array.isArray(data) ? data : (data.users || []);
+                    
+                    document.getElementById('customers-count').textContent = users.length;
+                    document.getElementById('customers-active').textContent = users.filter(u => u.status !== 'inactive').length;
+                    
+                    viewer.innerHTML = '<pre>' + JSON.stringify(users, null, 2) + '</pre>';
+                } else {
+                    viewer.innerHTML = '<pre style="color: #EF4444;">Error: ' + response.statusText + '</pre>';
+                }
+            } catch (error) {
+                viewer.innerHTML = '<pre style="color: #EF4444;">Error: ' + error.message + '\n\nAPI endpoint: ' + apiBase + '/users</pre>';
+            }
+        }
+        
+        // Auto-load products on page load
+        window.addEventListener('load', () => {
+            loadProducts();
+        });
+    </script>
+</body>
+</html>

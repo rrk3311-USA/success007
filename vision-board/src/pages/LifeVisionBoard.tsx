@@ -5,6 +5,9 @@ import CustomerAnalytics from "@/components/CustomerAnalytics";
 import LeadMagnet from "@/components/LeadMagnet";
 import CustomerLoyalty from "@/components/CustomerLoyalty";
 import WalmartProductSpec from "@/components/WalmartProductSpec";
+import AppHeader from "@/components/layout/AppHeader";
+import AppSidebar from "@/components/layout/AppSidebar";
+import AppFooter from "@/components/layout/AppFooter";
 import { 
   Target, 
   CheckCircle2, 
@@ -71,6 +74,8 @@ interface ProjectMilestone {
 export default function LifeVisionBoard() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [activeTab, setActiveTab] = useState("command");
+  const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [weather] = useState({ temp: 72, unit: "°F" });
   const [battery] = useState({ level: "B+", status: "charging" });
   
@@ -308,139 +313,97 @@ export default function LifeVisionBoard() {
   };
 
   return (
-    <div className="min-h-screen text-gray-100">
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
-      </div>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      {/* Admin Layout Structure */}
+      <AppHeader 
+        sidebarToggled={sidebarToggled}
+        onSidebarToggle={() => setSidebarToggled(!sidebarToggled)}
+      />
+      
+      <AppSidebar
+        isToggled={sidebarToggled}
+        isCollapsed={sidebarCollapsed}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        onCollapseToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+      />
 
-      <header className="relative border-b border-cyan-500/20 bg-slate-900/90 backdrop-blur-md">
-        <div className="container mx-auto px-4 md:px-6 py-3">
-          <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-0 lg:justify-between">
-            <div className="flex items-center gap-3 md:gap-4">
-              <div className="relative flex-shrink-0">
-                <Shield className="w-8 h-8 md:w-10 md:h-10 text-emerald-500" />
-                <div className="absolute -top-1 -right-1 w-2 h-2 md:w-3 md:h-3 bg-emerald-500 rounded-full animate-pulse" />
-              </div>
-              <div className="min-w-0">
-                <h1 className="text-lg md:text-2xl font-display font-bold tracking-wider text-cyan-400 glow-text">
-                  LIFE VISION BOARD
-                </h1>
-                <p className="text-[10px] md:text-xs text-emerald-500/70 tracking-[0.2em] md:tracking-[0.3em] uppercase truncate">Command Center // Private Ops</p>
-              </div>
-            </div>
-
-            <div className="hidden lg:block flex-1 mx-8">
-              <div className="relative p-3 bg-slate-900/80 rounded border border-emerald-800/50 overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent" />
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse" />
-                    <span className="text-[10px] text-amber-400 font-mono tracking-widest">{weeklyMantra.classification}</span>
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <Crosshair className="w-3 h-3 text-emerald-400" />
-                      <span className="text-xs font-bold text-emerald-400 tracking-wider">{weeklyMantra.code}</span>
-                    </div>
-                    <p className="text-xs text-gray-400 italic">"{weeklyMantra.mission}"</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="flex items-center gap-2 md:gap-4 flex-wrap">
-              <div className="flex items-center gap-2 px-2 py-1.5 md:px-3 md:py-2 bg-slate-800/50 rounded border border-cyan-900/50">
-                <Sun className="w-3 h-3 md:w-4 md:h-4 text-amber-400" />
-                <span className="text-amber-400 font-mono text-xs md:text-sm">{weather.temp}{weather.unit}</span>
-              </div>
-              
-              <div className="flex items-center gap-2 px-2 py-1.5 md:px-3 md:py-2 bg-red-950/50 rounded border border-red-900/50">
-                <Droplets className="w-3 h-3 md:w-4 md:h-4 text-red-400" />
-                <span className="text-red-400 font-bold text-xs md:text-sm">{battery.level}</span>
-              </div>
-              
-              <div className="flex items-center gap-2 px-2 py-1.5 md:px-3 md:py-2 bg-slate-800/50 rounded border border-emerald-900/50">
-                <Clock className="w-3 h-3 md:w-4 md:h-4 text-cyan-400" />
-                <span className="text-cyan-400 font-mono text-xs md:text-sm">
-                  {currentTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
-                </span>
-              </div>
-            </div>
+      {/* Main Content Area */}
+      <div 
+        className={`transition-all duration-300 ${
+          sidebarToggled ? (sidebarCollapsed ? 'ml-16' : 'ml-64') : 'ml-0'
+        }`}
+        style={{ marginTop: '64px', minHeight: 'calc(100vh - 64px)' }}
+      >
+        <div className="p-6">
+          {/* Page Header */}
+          <div className="mb-6">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              {activeTab === 'command' && 'Command Center'}
+              {activeTab === 'health' && 'Health Dashboard'}
+              {activeTab === 'income' && 'Income Overview'}
+              {activeTab === 'achievements' && 'Achievements'}
+              {activeTab === 'skills' && 'Skills Development'}
+              {activeTab === 'romance' && 'Relationship Goals'}
+              {activeTab === 'customers' && 'Customer Analytics'}
+              {activeTab === 'infographics' && 'Infographics'}
+              {activeTab === 'loyalty' && 'Customer Loyalty'}
+              {activeTab === 'terminal' && 'Code Terminal'}
+              {activeTab === 'walmart' && 'Walmart Integration'}
+            </h1>
+            <p className="text-gray-600 dark:text-gray-400">
+              Manage your life vision and track your progress
+            </p>
           </div>
-        </div>
-      </header>
 
-      <div className="container mx-auto px-4 md:px-6 py-4">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="bg-slate-900/60 border border-slate-700/50 mb-6 flex flex-wrap gap-1 h-auto p-1">
-            <TabsTrigger value="command" className="data-[state=active]:bg-slate-700/50 data-[state=active]:text-sky-400">
-              <Shield className="w-4 h-4 mr-2" />
-              Command
-            </TabsTrigger>
-            <TabsTrigger value="health" className="data-[state=active]:bg-slate-700/50 data-[state=active]:text-sky-400">
-              <HeartPulse className="w-4 h-4 mr-2" />
-              Health
-            </TabsTrigger>
-            <TabsTrigger value="income" className="data-[state=active]:bg-slate-700/50 data-[state=active]:text-sky-400">
-              <DollarSign className="w-4 h-4 mr-2" />
-              Income
-            </TabsTrigger>
-            <TabsTrigger value="achievements" className="data-[state=active]:bg-slate-700/50 data-[state=active]:text-sky-400">
-              <Trophy className="w-4 h-4 mr-2" />
-              Achievements
-            </TabsTrigger>
-            <TabsTrigger value="skills" className="data-[state=active]:bg-slate-700/50 data-[state=active]:text-sky-400">
-              <Brain className="w-4 h-4 mr-2" />
-              Skills
-            </TabsTrigger>
-            <TabsTrigger value="romance" className="data-[state=active]:bg-slate-700/50 data-[state=active]:text-sky-400">
-              <Heart className="w-4 h-4 mr-2" />
-              Romance
-            </TabsTrigger>
-            <TabsTrigger value="customers" className="data-[state=active]:bg-slate-700/50 data-[state=active]:text-sky-400">
-              <Users className="w-4 h-4 mr-2" />
-              Customers
-            </TabsTrigger>
-            <TabsTrigger value="infographics" className="data-[state=active]:bg-slate-700/50 data-[state=active]:text-sky-400">
-              <FileText className="w-4 h-4 mr-2" />
-              Infographics
-            </TabsTrigger>
-            <TabsTrigger value="loyalty" className="data-[state=active]:bg-slate-700/50 data-[state=active]:text-sky-400">
-              <Mail className="w-4 h-4 mr-2" />
-              Loyalty
-            </TabsTrigger>
-            <TabsTrigger value="terminal" className="data-[state=active]:bg-slate-700/50 data-[state=active]:text-sky-400">
-              <Terminal className="w-4 h-4 mr-2" />
-              Terminal
-            </TabsTrigger>
-            <TabsTrigger value="walmart" className="data-[state=active]:bg-slate-700/50 data-[state=active]:text-sky-400">
-              <Store className="w-4 h-4 mr-2" />
-              Walmart
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="command">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
-              <div className="lg:col-span-8 order-2 lg:order-1">
-                <Card className="bg-slate-800/50 border-cyan-500/20 backdrop-blur-sm">
-                  <div className="p-4 border-b border-emerald-900/50">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <Eye className="w-5 h-5 text-cyan-400" />
-                        <h2 className="text-lg font-semibold tracking-wide text-cyan-400">VISION MATRIX</h2>
-                      </div>
-                      <Button 
-                        size="sm" 
-                        variant="outline"
-                        className="border-emerald-700 text-emerald-400 hover:bg-emerald-900/30"
-                        onClick={() => setShowAddPhoto(true)}
-                      >
-                        <Plus className="w-4 h-4 mr-1" />
-                        ADD TARGET
-                      </Button>
-                    </div>
+          {/* Content */}
+          <div className="space-y-6">
+            {/* Mission Banner */}
+            {activeTab === 'command' && (
+              <Card className="mb-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border-blue-200 dark:border-blue-800">
+                <div className="p-4">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse" />
+                    <span className="text-xs font-mono text-amber-600 dark:text-amber-400 tracking-widest">
+                      {weeklyMantra.classification}
+                    </span>
                   </div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <Crosshair className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                    <span className="text-sm font-bold text-blue-600 dark:text-blue-400 tracking-wider">
+                      {weeklyMantra.code}
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-700 dark:text-gray-300 italic">
+                    "{weeklyMantra.mission}"
+                  </p>
+                </div>
+              </Card>
+            )}
+
+            {/* Tab Content */}
+            <div className="space-y-6">
+            {activeTab === 'command' && (
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div className="lg:col-span-8 order-2 lg:order-1">
+                  <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 shadow-sm">
+                    <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <Eye className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Vision Matrix</h2>
+                        </div>
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          className="border-blue-600 text-blue-600 hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900/20"
+                          onClick={() => setShowAddPhoto(true)}
+                        >
+                          <Plus className="w-4 h-4 mr-1" />
+                          Add Target
+                        </Button>
+                      </div>
+                    </div>
                   
                   <div className="p-4">
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
@@ -452,27 +415,27 @@ export default function LifeVisionBoard() {
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.8 }}
                             transition={{ delay: index * 0.05 }}
-                            className="group relative aspect-[4/3] rounded-lg overflow-hidden border border-emerald-900/50 hover:border-emerald-500/50 transition-all"
+                            className="group relative aspect-[4/3] rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-blue-500 transition-all shadow-sm"
                           >
                             <img 
                               src={photo.url} 
                               alt={photo.caption}
                               className="w-full h-full object-cover transition-transform group-hover:scale-105"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent" />
                             <div className="absolute bottom-0 left-0 right-0 p-3">
                               <div className="flex items-center gap-2">
-                                <Crosshair className="w-3 h-3 text-emerald-400" />
-                                <span className="text-xs font-mono text-emerald-400 tracking-wider">{photo.caption}</span>
+                                <Crosshair className="w-3 h-3 text-blue-400" />
+                                <span className="text-xs font-mono text-blue-400 tracking-wider">{photo.caption}</span>
                               </div>
                             </div>
                             <button 
                               onClick={() => deletePhoto(photo.id)}
-                              className="absolute top-2 right-2 p-1.5 bg-red-900/80 rounded opacity-0 group-hover:opacity-100 transition-opacity"
+                              className="absolute top-2 right-2 p-1.5 bg-red-500/90 rounded opacity-0 group-hover:opacity-100 transition-opacity"
                             >
-                              <X className="w-3 h-3 text-red-400" />
+                              <X className="w-3 h-3 text-white" />
                             </button>
-                            <div className="absolute top-2 left-2 px-2 py-0.5 bg-slate-950/80 rounded text-[10px] font-mono text-cyan-400 border border-cyan-900/50">
+                            <div className="absolute top-2 left-2 px-2 py-0.5 bg-gray-900/80 rounded text-[10px] font-mono text-blue-400 border border-blue-500/50">
                               TARGET-{String(index + 1).padStart(2, '0')}
                             </div>
                           </motion.div>
@@ -482,28 +445,28 @@ export default function LifeVisionBoard() {
                   </div>
                 </Card>
 
-                <Card className="card-glow mt-6 bg-slate-800/50 border-cyan-500/20 backdrop-blur-sm">
-                  <div className="p-4 border-b border-emerald-900/50">
-                    <div className="flex items-center gap-3">
-                      <Milestone className="w-5 h-5 text-cyan-400" />
-                      <h2 className="text-lg font-semibold tracking-wide text-cyan-400">ACTIVE OPERATIONS</h2>
+                  <Card className="mt-6 bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 shadow-sm">
+                    <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+                      <div className="flex items-center gap-3">
+                        <Milestone className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Active Operations</h2>
+                      </div>
                     </div>
-                  </div>
                   
                   <div className="p-4 space-y-4 max-h-[400px] overflow-y-auto">
                     {projects.map((project) => (
-                      <div key={project.id} className="p-4 bg-slate-800/30 rounded-lg border border-emerald-900/30">
+                      <div key={project.id} className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex items-center gap-2">
-                            <Zap className="w-4 h-4 text-amber-400" />
-                            <span className="font-mono text-sm text-amber-400 tracking-wide">{project.name}</span>
+                            <Zap className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                            <span className="font-medium text-sm text-gray-900 dark:text-white">{project.name}</span>
                           </div>
-                          <Badge variant="outline" className="border-emerald-700 text-emerald-400 font-mono">
-                            {project.progress}% COMPLETE
+                          <Badge variant="outline" className="border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400">
+                            {project.progress}% Complete
                           </Badge>
                         </div>
                         
-                        <Progress value={project.progress} className="h-2 mb-4 bg-slate-700" />
+                        <Progress value={project.progress} className="h-2 mb-4 bg-gray-200 dark:bg-gray-700" />
                         
                         <div className="grid grid-cols-2 gap-2">
                           {project.milestones.map((milestone) => (
@@ -512,14 +475,14 @@ export default function LifeVisionBoard() {
                               onClick={() => toggleMilestone(project.id, milestone.id)}
                               className={`flex items-center gap-2 p-2 rounded text-left text-sm transition-all ${
                                 milestone.completed 
-                                  ? 'bg-emerald-900/30 text-emerald-400' 
-                                  : 'bg-slate-700/30 text-gray-400 hover:bg-slate-700/50'
+                                  ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' 
+                                  : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700'
                               }`}
                             >
                               {milestone.completed ? (
-                                <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                                <CheckCircle2 className="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0" />
                               ) : (
-                                <Circle className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                                <Circle className="w-4 h-4 text-gray-400 dark:text-gray-500 flex-shrink-0" />
                               )}
                               <span className={milestone.completed ? 'line-through opacity-70' : ''}>
                                 {milestone.text}
@@ -533,25 +496,25 @@ export default function LifeVisionBoard() {
                 </Card>
               </div>
 
-              <div className="lg:col-span-4 space-y-4 lg:space-y-6 order-1 lg:order-2">
-                <Card className="card-glow bg-slate-800/50 border-cyan-500/20 backdrop-blur-sm">
-                  <div className="p-4 border-b border-emerald-900/50">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <Target className="w-5 h-5 text-emerald-400" />
-                        <h2 className="text-lg font-semibold tracking-wide text-emerald-400">DAILY OPS</h2>
+                <div className="lg:col-span-4 space-y-6 order-1 lg:order-2">
+                  <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 shadow-sm">
+                    <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <Target className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Daily Ops</h2>
+                        </div>
+                        <span className="text-xs font-mono text-blue-600 dark:text-blue-400">{completedTodos}/{todos.length}</span>
                       </div>
-                      <span className="text-xs font-mono text-cyan-400">{completedTodos}/{todos.length}</span>
                     </div>
-                  </div>
                   
                   <div className="p-4">
                     <div className="mb-4">
-                      <div className="flex items-center justify-between text-xs text-gray-500 mb-1">
-                        <span>MISSION PROGRESS</span>
-                        <span className="font-mono text-emerald-400">{totalProgress}%</span>
+                      <div className="flex items-center justify-between text-xs text-gray-600 dark:text-gray-400 mb-1">
+                        <span>Mission Progress</span>
+                        <span className="font-mono text-blue-600 dark:text-blue-400">{totalProgress}%</span>
                       </div>
-                      <Progress value={totalProgress} className="h-2 bg-slate-700" />
+                      <Progress value={totalProgress} className="h-2 bg-gray-200 dark:bg-gray-700" />
                     </div>
 
                     <div className="flex gap-2 mb-4">
@@ -560,12 +523,12 @@ export default function LifeVisionBoard() {
                         onChange={(e) => setNewTodo(e.target.value)}
                         onKeyPress={(e) => e.key === 'Enter' && addTodo()}
                         placeholder="New objective..."
-                        className="bg-slate-800/50 border-emerald-900/50 text-gray-100 placeholder:text-gray-500"
+                        className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
                       />
                       <Button 
                         size="icon" 
                         variant="outline"
-                        className="border-emerald-700 text-emerald-400 hover:bg-emerald-900/30"
+                        className="border-blue-600 text-blue-600 hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900/20"
                         onClick={addTodo}
                       >
                         <Plus className="w-4 h-4" />
@@ -582,8 +545,8 @@ export default function LifeVisionBoard() {
                             exit={{ opacity: 0, x: 20 }}
                             className={`group flex items-center gap-3 p-3 rounded-lg border transition-all ${
                               todo.completed 
-                                ? 'bg-emerald-900/20 border-emerald-900/30' 
-                                : 'bg-slate-800/30 border-slate-700/50 hover:border-emerald-900/50'
+                                ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800' 
+                                : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500'
                             }`}
                           >
                             <button 
@@ -591,13 +554,13 @@ export default function LifeVisionBoard() {
                               className="flex-shrink-0"
                             >
                               {todo.completed ? (
-                                <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                                <CheckCircle2 className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                               ) : (
-                                <Circle className="w-5 h-5 text-gray-500 hover:text-emerald-400 transition-colors" />
+                                <Circle className="w-5 h-5 text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" />
                               )}
                             </button>
                             <div className="flex-1 min-w-0">
-                              <span className={`text-sm ${todo.completed ? 'line-through text-gray-500' : 'text-gray-200'}`}>
+                              <span className={`text-sm ${todo.completed ? 'line-through text-gray-500 dark:text-gray-500' : 'text-gray-900 dark:text-white'}`}>
                                 {todo.text}
                               </span>
                             </div>
@@ -617,40 +580,40 @@ export default function LifeVisionBoard() {
                   </div>
                 </Card>
 
-                <Card className="bg-slate-800/50 border-cyan-500/20 backdrop-blur-sm">
-                  <div className="p-4 border-b border-emerald-900/50">
-                    <div className="flex items-center gap-3">
-                      <LayoutGrid className="w-5 h-5 text-cyan-400" />
-                      <h2 className="text-lg font-semibold tracking-wide text-cyan-400">QUICK INTEL</h2>
+                  <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 shadow-sm">
+                    <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+                      <div className="flex items-center gap-3">
+                        <LayoutGrid className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Quick Intel</h2>
+                      </div>
                     </div>
-                  </div>
                   
                   <div className="p-4 space-y-3">
-                    <div className="flex items-center justify-between p-3 bg-slate-800/30 rounded-lg border border-slate-700/50">
-                      <span className="text-sm text-gray-400">Active Targets</span>
-                      <span className="font-mono text-emerald-400">{visionPhotos.length}</span>
+                    <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+                      <span className="text-sm text-gray-700 dark:text-gray-300">Active Targets</span>
+                      <span className="font-mono text-blue-600 dark:text-blue-400">{visionPhotos.length}</span>
                     </div>
-                    <div className="flex items-center justify-between p-3 bg-slate-800/30 rounded-lg border border-slate-700/50">
-                      <span className="text-sm text-gray-400">Operations</span>
-                      <span className="font-mono text-cyan-400">{projects.length}</span>
+                    <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+                      <span className="text-sm text-gray-700 dark:text-gray-300">Operations</span>
+                      <span className="font-mono text-blue-600 dark:text-blue-400">{projects.length}</span>
                     </div>
-                    <div className="flex items-center justify-between p-3 bg-emerald-900/30 rounded-lg border border-emerald-700/50">
-                      <span className="text-sm text-emerald-400">Status</span>
-                      <span className="font-mono text-emerald-400 flex items-center gap-2">
-                        <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                        ACTIVE
+                    <div className="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                      <span className="text-sm text-blue-600 dark:text-blue-400">Status</span>
+                      <span className="font-mono text-blue-600 dark:text-blue-400 flex items-center gap-2">
+                        <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+                        Active
                       </span>
                     </div>
                   </div>
                 </Card>
+                </div>
               </div>
-            </div>
-          </TabsContent>
+            )}
 
-          <TabsContent value="health">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
-              <div className="lg:col-span-8">
-                <Card className="bg-gradient-to-br from-emerald-950/50 to-slate-900/50 border-emerald-900/50 backdrop-blur">
+            {activeTab === 'health' && (
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div className="lg:col-span-8">
+                  <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 shadow-sm">
                   <div className="p-4 border-b border-emerald-900/50">
                     <div className="flex items-center gap-3">
                       <Dumbbell className="w-5 h-5 text-emerald-400" />
@@ -741,14 +704,14 @@ export default function LifeVisionBoard() {
                     </div>
                   </div>
                 </Card>
+                </div>
               </div>
-            </div>
-          </TabsContent>
+            )}
 
-          <TabsContent value="income">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
-              <div className="lg:col-span-8">
-                <Card className="bg-gradient-to-br from-amber-950/30 via-slate-900/50 to-slate-950/50 border-amber-900/50 backdrop-blur overflow-hidden">
+            {activeTab === 'income' && (
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div className="lg:col-span-8">
+                  <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(251,191,36,0.1),transparent_50%)]" />
                   <div className="relative p-4 border-b border-amber-900/50">
                     <div className="flex items-center gap-3">
@@ -820,12 +783,12 @@ export default function LifeVisionBoard() {
                     </div>
                   </div>
                 </Card>
+                </div>
               </div>
-            </div>
-          </TabsContent>
+            )}
 
-          <TabsContent value="achievements">
-            <Card className="bg-gradient-to-br from-yellow-950/30 via-slate-900/50 to-amber-950/30 border-yellow-900/50 backdrop-blur overflow-hidden">
+            {activeTab === 'achievements' && (
+              <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(234,179,8,0.1),transparent_50%)]" />
               <div className="relative p-4 border-b border-yellow-900/50">
                 <div className="flex items-center justify-between">
@@ -877,12 +840,11 @@ export default function LifeVisionBoard() {
                     );
                   })}
                 </div>
-              </div>
-            </Card>
-          </TabsContent>
+              </Card>
+            )}
 
-          <TabsContent value="skills">
-            <Card className="bg-slate-900/50 border-emerald-900/50 backdrop-blur">
+            {activeTab === 'skills' && (
+              <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 shadow-sm">
               <div className="p-4 border-b border-emerald-900/50">
                 <div className="flex items-center gap-3">
                   <Brain className="w-5 h-5 text-cyan-400" />
@@ -928,11 +890,11 @@ export default function LifeVisionBoard() {
                   })}
                 </div>
               </div>
-            </Card>
-          </TabsContent>
+              </Card>
+            )}
 
-          <TabsContent value="romance">
-            <Card className="bg-gradient-to-br from-pink-950/30 via-slate-900/50 to-rose-950/30 border-pink-900/50 backdrop-blur">
+            {activeTab === 'romance' && (
+              <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 shadow-sm">
               <div className="p-4 border-b border-pink-900/50">
                 <div className="flex items-center gap-3">
                   <Heart className="w-5 h-5 text-pink-400" />
@@ -980,23 +942,15 @@ export default function LifeVisionBoard() {
                   <p className="text-gray-400 text-sm">Relationship tracking and milestone features coming soon!</p>
                 </div>
               </div>
-            </Card>
-          </TabsContent>
+              </Card>
+            )}
 
-          <TabsContent value="customers">
-            <CustomerAnalytics />
-          </TabsContent>
+            {activeTab === 'customers' && <CustomerAnalytics />}
+            {activeTab === 'infographics' && <LeadMagnet />}
+            {activeTab === 'loyalty' && <CustomerLoyalty />}
 
-          <TabsContent value="infographics">
-            <LeadMagnet />
-          </TabsContent>
-
-          <TabsContent value="loyalty">
-            <CustomerLoyalty />
-          </TabsContent>
-
-          <TabsContent value="terminal">
-            <Card className="bg-slate-900/50 border-emerald-900/50 backdrop-blur overflow-hidden">
+            {activeTab === 'terminal' && (
+              <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">
               <div className="p-4 border-b border-emerald-900/50">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -1072,14 +1026,15 @@ export default function LifeVisionBoard() {
                     </p>
                   </div>
                 </div>
-              </div>
-            </Card>
-          </TabsContent>
+              </Card>
+            )}
 
-          <TabsContent value="walmart">
-            <WalmartProductSpec />
-          </TabsContent>
-        </Tabs>
+            {activeTab === 'walmart' && <WalmartProductSpec />}
+          </div>
+        </div>
+
+        {/* Footer */}
+        <AppFooter />
       </div>
 
       {showAddPhoto && (

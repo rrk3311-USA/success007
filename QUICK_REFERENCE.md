@@ -1,22 +1,17 @@
 # 📋 Quick Reference - Your Project
 
-## 🎯 The Two Locations (Simple Explanation)
+## 🎯 Single Source of Truth
 
-### 1. **LOCAL DEV** (Where You Work)
-```
-📍 /Users/r-kammer/CascadeProjects/Success Chemistry/
-   Size: 10GB
-   GitHub Desktop: ❌ Doesn't see this
-   Deploys: ❌ No
-```
-
-### 2. **PRODUCTION REPO** (What Goes Live)
+### **YOUR WORKSPACE** (Edit Here!)
 ```
 📍 /Users/r-kammer/Documents/GitHub/success007/
-   Size: 697MB  
+   Size: ~700MB  
    GitHub Desktop: ✅ Watches this
    Deploys: ✅ Yes (to successchemistry.com)
+   Purpose: Edit, test, and deploy from here
 ```
+
+**This is your single source of truth - no syncing needed!**
 
 ---
 
@@ -42,26 +37,22 @@ Shows: files over 1MB, 2MB, 5MB
 
 ---
 
-## 🔄 Sync Commands
+## 🔄 Development Workflow
 
-### Interactive Menu:
-```bash
-./sync-selective.sh
-```
-Choose what to sync
+**No syncing needed!** Edit directly in the repo:
 
-### Quick Sync:
 ```bash
-./quick-sync.sh shop      # Just shop page
-./quick-sync.sh home      # Just home page
-./quick-sync.sh images    # Just images
-```
+# 1. Edit files in deploy-site/
+# 2. Test with local server
+node local-server.js
 
-### Full Sync:
-```bash
-./sync-to-production.sh
+# 3. Commit changes
+git add .
+git commit -m "Description of changes"
+
+# 4. Deploy
+git push
 ```
-Syncs everything
 
 ---
 
@@ -111,11 +102,14 @@ git push
 
 ## ❓ Common Questions
 
-**Q: Why doesn't GitHub Desktop see my local dev?**
-A: Because only the production repo has `.git` folder. GitHub Desktop only watches git repositories.
-
 **Q: Where should I edit files?**
-A: Local Dev (`CascadeProjects`). Then sync to Production Repo.
+A: Directly in `/Users/r-kammer/Documents/GitHub/success007/deploy-site/`
+
+**Q: How do I test changes?**
+A: Run `node local-server.js` and visit `http://localhost:8080`
+
+**Q: How do I deploy?**
+A: Just `git push` - auto-deploys to successchemistry.com
 
 **Q: How do I get changes online?**
 A: Edit → Sync → Commit → Push

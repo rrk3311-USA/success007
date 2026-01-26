@@ -1,64 +1,50 @@
 # 📁 Project Structure Explained
 
-## 🗂️ Your Two Main Locations
+## 🎯 **SINGLE SOURCE OF TRUTH**
 
-### 1. **LOCAL DEVELOPMENT** (Where You Work)
-```
-/Users/r-kammer/CascadeProjects/Success Chemistry/
-├── deploy-site/          ← Your working files
-│   ├── shop/
-│   ├── product/
-│   ├── images/
-│   └── ...
-├── local-server.js      ← Runs localhost:8080
-└── ...
-```
-
-**Purpose:**
-- ✅ Edit and test your files here
-- ✅ Run `node local-server.js` to test
-- ✅ View at `http://localhost:8080/shop`
-- ❌ NOT automatically deployed
-- ❌ GitHub Desktop doesn't watch this
-
----
-
-### 2. **PRODUCTION REPO** (What Gets Deployed)
+### **YOUR WORKSPACE** (Edit Here!)
 ```
 /Users/r-kammer/Documents/GitHub/success007/
-├── deploy-site/          ← What goes to successchemistry.com
-├── .git/                 ← Git repository
-├── sync-selective.sh     ← Sync tool
+├── deploy-site/          ← Your website files
+│   ├── shop/            ← Shop page
+│   ├── product/         ← Product pages
+│   ├── cart/            ← Shopping cart
+│   ├── images/           ← Product images
+│   └── ...
+├── local-server.js      ← Runs localhost:8080
+├── .git/                ← Git repository
 └── ...
 ```
 
-**Purpose:**
-- ✅ This is what GitHub Desktop sees
-- ✅ This is what gets deployed to .com
-- ✅ Managed by git
-- ❌ Don't edit directly (use sync instead)
+**This is your single source of truth:**
+- ✅ Edit files directly here
+- ✅ Run `node local-server.js` to test at `http://localhost:8080`
+- ✅ GitHub Desktop watches this
+- ✅ Git tracks changes here
+- ✅ Auto-deploys to successchemistry.com on `git push`
 
 ---
 
-## 🔄 How They Work Together
+## 🔄 **SIMPLE WORKFLOW**
 
 ```
 ┌─────────────────────────────────────┐
-│  LOCAL DEV (CascadeProjects)        │
+│  YOUR WORKSPACE                     │
+│  /Users/r-kammer/Documents/         │
+│  GitHub/success007/                 │
 │  - Edit files here                  │
 │  - Test at localhost:8080           │
 └──────────────┬──────────────────────┘
                │
-               │ Run: ./sync-selective.sh
+               │ Run: git add . && git commit -m "message"
                │
                ▼
 ┌─────────────────────────────────────┐
-│  PRODUCTION REPO (GitHub/success007)│
-│  - GitHub Desktop watches this      │
-│  - Git tracks changes here          │
+│  Git Push                           │
+│  - Commits changes                  │
 └──────────────┬──────────────────────┘
                │
-               │ Run: git push
+               │ Auto-deploys
                │
                ▼
 ┌─────────────────────────────────────┐
@@ -72,20 +58,20 @@
 
 ## 🎯 Common Questions
 
-**Q: Why two folders?**
-A: Keeps your work separate from deployment. You can test locally without affecting production.
+**Q: Where should I edit files?**
+A: **Directly in this repo** (`/Users/r-kammer/Documents/GitHub/success007/deploy-site/`)
+
+**Q: How do I test changes?**
+A: Run `node local-server.js` and visit `http://localhost:8080`
+
+**Q: How do I deploy?**
+A: 
+1. Edit files in `deploy-site/`
+2. Run `git add . && git commit -m "Description"`
+3. Run `git push` (auto-deploys to .com)
 
 **Q: Which one does GitHub Desktop see?**
-A: Only the **Production Repo** (`/Users/r-kammer/Documents/GitHub/success007/`)
-
-**Q: Where should I edit files?**
-A: **Local Dev** (`CascadeProjects/Success Chemistry/deploy-site/`)
-
-**Q: How do I get changes to .com?**
-A: 
-1. Edit in Local Dev
-2. Run `./sync-selective.sh` (copies to Production Repo)
-3. Run `git push` (deploys to .com)
+A: This repo! (`/Users/r-kammer/Documents/GitHub/success007/`)
 
 ---
 

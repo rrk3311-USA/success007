@@ -7,15 +7,14 @@ echo "1. Killing old servers..."
 killall node 2>/dev/null
 sleep 2
 
-# Sync all files
-echo "2. Syncing all files from GitHub repo..."
+# Start server from workspace
+echo "2. Starting server from workspace..."
 cd /Users/r-kammer/Documents/GitHub/success007
-rsync -av --delete deploy-site/ "/Users/r-kammer/CascadeProjects/Success Chemistry/deploy-site/" > /dev/null 2>&1
-echo "   ✅ Files synced"
-
-# Start server
-echo "3. Starting server..."
-cd '/Users/r-kammer/CascadeProjects/Success Chemistry'
+if [ ! -f "local-server.js" ]; then
+    echo "   ❌ ERROR: local-server.js not found!"
+    echo "   Make sure you're in the correct directory"
+    exit 1
+fi
 node local-server.js &
 sleep 2
 

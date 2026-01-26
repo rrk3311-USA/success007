@@ -148,6 +148,8 @@
             border-radius: 6px;
             padding: 6px;
             background-color: rgba(40, 84, 167, 1);
+            color: #FFD700; /* Gold color */
+            font-weight: 600;
         }
 
         .remove-btn {
@@ -1043,6 +1045,29 @@
             </div>
         </div>
 
+        <!-- Subscribe & Save Pitch Section (shows for single items) - Simple & Compact -->
+        <div id="subscription-pitch" style="display: none; margin: 30px 0; padding: 16px; background: #f8f9fa; border: 2px solid #2854a6; border-radius: 8px; max-width: 1140px; margin-left: auto; margin-right: auto;">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 15px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 200px;">
+                    <div style="font-size: 0.85rem; color: #2854a6; font-weight: 600; margin-bottom: 4px;">🔄 Subscribe & Save 15%</div>
+                    <div style="font-size: 0.75rem; color: #666; margin-bottom: 8px;">Save <span id="monthly-savings" style="color: #10b981; font-weight: 600;">$0.00</span>/month • Free shipping • Cancel anytime</div>
+                    <div style="display: flex; align-items: center; gap: 10px; font-size: 0.8rem;">
+                        <span style="text-decoration: line-through; color: #999;">One-time: $<span id="one-time-price">0.00</span></span>
+                        <span style="color: #2854a6; font-weight: 600;">→</span>
+                        <span style="color: #2854a6; font-weight: 700;">Subscribe: $<span id="subscription-price">0.00</span>/mo</span>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button id="one-time-btn" onclick="selectPurchaseType('one-time')" style="padding: 8px 16px; background: white; color: #2854a6; border: 1px solid #2854a6; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                        One-Time
+                    </button>
+                    <button id="subscribe-btn" onclick="selectPurchaseType('subscribe')" style="padding: 8px 16px; background: #2854a6; color: white; border: 1px solid #2854a6; border-radius: 6px; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 4px rgba(40,84,166,0.2);">
+                        Subscribe
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <!-- Recommended Products / Upsells -->
         <div id="recommendations" style="margin: 60px 0; display: none;">
             <h2 style="font-size: 2rem; font-weight: 600; color: #2854a6; margin-bottom: 30px; text-align: center;">You May Also Like</h2>
@@ -1085,6 +1110,220 @@
             renderCart();
         }
 
+        // Subscription state
+        let purchaseType = localStorage.getItem('purchaseType') || 'subscribe'; // Default to subscribe
+
+        function selectPurchaseType(type) {
+            purchaseType = type;
+            localStorage.setItem('purchaseType', type);
+            updateSubscriptionUI();
+            // Re-render cart to update prices
+            renderCart();
+            // Re-initialize PayPal buttons
+            initializePayPalButtons();
+        }
+        
+        // Make selectPurchaseType globally accessible
+        window.selectPurchaseType = selectPurchaseType;
+
+        function initializePayPalButtons() {
+            const cart = getCart();
+            if (cart.length === 0) {
+                return;
+            }
+
+            const container = document.getElementById('paypal-button-container');
+            if (!container) return;
+
+            // Clear existing buttons
+            container.innerHTML = '';
+
+            // Check if subscription is selected
+            const isSubscription = purchaseType === 'subscribe' && cart.length === 1;
+            
+            if (isSubscription) {
+                // Show subscription setup button
+                const setupBtn = document.createElement('button');
+                setupBtn.textContent = '🔄 Subscribe & Save - Continue to Checkout';
+                setupBtn.style.cssText = 'width: 100%; padding: 16px 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); transition: all 0.3s;';
+                setupBtn.onmouseover = function() { this.style.transform = 'translateY(-2px)'; this.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.5)'; };
+                setupBtn.onmouseout = function() { this.style.transform = 'translateY(0)'; this.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.4)'; };
+                setupBtn.onclick = window.setupSubscription;
+                container.appendChild(setupBtn);
+                return;
+            }
+
+            // Regular PayPal button for one-time purchases
+            paypal.Buttons({
+                style: {
+                    layout: 'vertical',
+                    shape: 'rect',
+                    height: 55
+                },
+                createOrder: function(data, actions) {
+                    const cart = getCart();
+                    const subtotal = cart.reduce((sum, item) => {
+                        const itemPrice = parseFloat(item.price) || 0;
+                        // Apply subscription discount if applicable
+                        const finalPrice = (cart.length === 1 && purchaseType === 'subscribe') ? itemPrice * 0.85 : itemPrice;
+                        return sum + finalPrice * (parseInt(item.quantity) || 1);
+                    }, 0);
+
+                    // Default to US (no shipping) until address is known
+                    const shipping = 0;
+                    const total = subtotal + shipping;
+
+                    console.log('💰 Creating order for subtotal:', subtotal);
+
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: total.toFixed(2),
+                                currency_code: 'USD',
+                                breakdown: {
+                                    item_total: {
+                                        currency_code: 'USD',
+                                        value: subtotal.toFixed(2)
+                                    },
+                                    shipping: {
+                                        currency_code: 'USD',
+                                        value: shipping.toFixed(2)
+                                    }
+                                }
+                            },
+                            description: 'Success Chemistry Supplements'
+                        }],
+                        application_context: {
+                            shipping_preference: 'GET_FROM_FILE'
+                        }
+                    });
+                },
+                onShippingChange: function(data, actions) {
+                    const cart = getCart();
+                    const subtotal = cart.reduce((sum, item) => {
+                        const itemPrice = parseFloat(item.price) || 0;
+                        // Apply subscription discount if applicable
+                        const finalPrice = (cart.length === 1 && purchaseType === 'subscribe') ? itemPrice * 0.85 : itemPrice;
+                        return sum + finalPrice * (parseInt(item.quantity) || 1);
+                    }, 0);
+                    
+                    // Check if shipping address is outside USA
+                    const countryCode = data.shipping_address?.country_code || 'US';
+                    const shipping = (countryCode !== 'US') ? 15.00 : 0.00;
+                    const total = subtotal + shipping;
+
+                    console.log('📦 Shipping to', countryCode, '- Shipping:', shipping);
+
+                    return actions.order.patch([
+                        {
+                            op: 'replace',
+                            path: '/purchase_units/@reference_id==\'default\'/amount',
+                            value: {
+                                value: total.toFixed(2),
+                                currency_code: 'USD',
+                                breakdown: {
+                                    item_total: {
+                                        currency_code: 'USD',
+                                        value: subtotal.toFixed(2)
+                                    },
+                                    shipping: {
+                                        currency_code: 'USD',
+                                        value: shipping.toFixed(2)
+                                    }
+                                }
+                            }
+                        }
+                    ]);
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        handlePaymentSuccess(details);
+                    });
+                },
+                onError: function(err) {
+                    console.error('❌ PayPal error:', err);
+                    alert('Payment error. Please try again.');
+                }
+            }).render('#paypal-button-container').then(function() {
+                console.log('✅ PayPal buttons rendered successfully!');
+            }).catch(function(err) {
+                console.error('❌ Failed to render PayPal buttons:', err);
+            });
+        }
+
+        function updateSubscriptionUI() {
+            const oneTimeBtn = document.getElementById('one-time-btn');
+            const subscribeBtn = document.getElementById('subscribe-btn');
+            
+            if (!oneTimeBtn || !subscribeBtn) return;
+
+            if (purchaseType === 'subscribe') {
+                oneTimeBtn.style.background = 'white';
+                oneTimeBtn.style.color = '#2854a6';
+                oneTimeBtn.style.border = '1px solid #2854a6';
+                oneTimeBtn.style.boxShadow = 'none';
+                subscribeBtn.style.background = '#2854a6';
+                subscribeBtn.style.color = 'white';
+                subscribeBtn.style.border = '1px solid #2854a6';
+                subscribeBtn.style.boxShadow = '0 2px 4px rgba(40,84,166,0.2)';
+            } else {
+                oneTimeBtn.style.background = '#2854a6';
+                oneTimeBtn.style.color = 'white';
+                oneTimeBtn.style.border = '1px solid #2854a6';
+                oneTimeBtn.style.boxShadow = '0 2px 4px rgba(40,84,166,0.2)';
+                subscribeBtn.style.background = 'white';
+                subscribeBtn.style.color = '#2854a6';
+                subscribeBtn.style.border = '1px solid #2854a6';
+                subscribeBtn.style.boxShadow = 'none';
+            }
+        }
+
+        function calculateSubscriptionSavings(price) {
+            const subscriptionPrice = price * 0.85; // 15% off
+            const monthlySavings = price - subscriptionPrice;
+            const annualSavings = monthlySavings * 12;
+            return {
+                subscriptionPrice: subscriptionPrice.toFixed(2),
+                monthlySavings: monthlySavings.toFixed(2),
+                annualSavings: annualSavings.toFixed(2),
+                originalPrice: price.toFixed(2)
+            };
+        }
+
+        function updateSubscriptionPitch(cart) {
+            const pitchSection = document.getElementById('subscription-pitch');
+            if (!pitchSection) {
+                console.warn('⚠️ Subscription pitch element not found');
+                return;
+            }
+
+            // Only show for single items
+            if (cart.length === 1) {
+                console.log('✅ Showing subscription pitch for single item');
+                pitchSection.style.display = 'block';
+                const item = cart[0];
+                const price = parseFloat(item.price) || 0;
+                const savings = calculateSubscriptionSavings(price);
+
+                const oneTimePriceEl = document.getElementById('one-time-price');
+                const subscriptionPriceEl = document.getElementById('subscription-price');
+                const monthlySavingsEl = document.getElementById('monthly-savings');
+
+                if (oneTimePriceEl) oneTimePriceEl.textContent = savings.originalPrice;
+                if (subscriptionPriceEl) subscriptionPriceEl.textContent = savings.subscriptionPrice;
+                if (monthlySavingsEl) monthlySavingsEl.textContent = savings.monthlySavings;
+
+                updateSubscriptionUI();
+            } else {
+                console.log('ℹ️ Hiding subscription pitch (cart has', cart.length, 'items)');
+                pitchSection.style.display = 'none';
+                if (cart.length > 1) {
+                    purchaseType = 'one-time';
+                    localStorage.setItem('purchaseType', 'one-time');
+                }
+            }
+        }
+
         function renderCart() {
             const cart = getCart();
             const itemsContainer = document.getElementById('cart-items');
@@ -1106,9 +1345,15 @@
             emptyState.style.display = 'none';
             cartContent.style.display = 'grid';
 
+            // Update subscription pitch
+            updateSubscriptionPitch(cart);
+
             let subtotal = 0;
             itemsContainer.innerHTML = cart.map((item, index) => {
-                const itemTotal = (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1);
+                const itemPrice = parseFloat(item.price) || 0;
+                // Apply subscription discount if applicable
+                const finalPrice = (cart.length === 1 && purchaseType === 'subscribe') ? itemPrice * 0.85 : itemPrice;
+                const itemTotal = finalPrice * (parseInt(item.quantity) || 1);
                 subtotal += itemTotal;
 
                 return `
@@ -1118,7 +1363,14 @@
                         </div>
                         <div class="item-details">
                             <h3>${item.name}</h3>
-                            <div class="item-price">$${item.price}</div>
+                            ${cart.length === 1 && purchaseType === 'subscribe' ? 
+                                `<div style="display: flex; align-items: center; gap: 10px;">
+                                    <span style="text-decoration: line-through; color: #999; font-size: 1rem;">$${itemPrice.toFixed(2)}</span>
+                                    <span class="item-price">$${finalPrice.toFixed(2)}</span>
+                                    <span style="background: #4ade80; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: 600;">15% OFF</span>
+                                </div>` :
+                                `<div class="item-price">$${itemPrice.toFixed(2)}</div>`
+                            }
                             <div class="quantity-controls">
                                 <button onclick="updateQuantity(${index}, ${item.quantity - 1})">-</button>
                                 <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)">
@@ -1244,107 +1496,61 @@
             console.log('✅ WooCommerce API initialized from admin settings');
         }
         
-        window.onload = function() {
-            console.log('🎯 Page loaded, initializing cart...');
-            renderCart();
-
+        // Make setupSubscription globally accessible
+        window.setupSubscription = async function() {
             const cart = getCart();
-            if (cart.length === 0) {
-                console.log('⚠️ Cart is empty, PayPal buttons will not render');
+            if (cart.length !== 1) {
+                alert('Subscription is only available for single items.');
                 return;
             }
 
-            console.log('✅ Cart has items, initializing PayPal buttons...');
+            const item = cart[0];
+            try {
+                console.log('🔄 Setting up subscription for:', item);
+                const response = await fetch('http://localhost:3001/api/subscription/setup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        sku: item.sku,
+                        name: item.name,
+                        price: parseFloat(item.price),
+                        image: item.image
+                    })
+                });
 
-            paypal.Buttons({
-                style: {
-                    layout: 'vertical',
-                    shape: 'rect',
-                    height: 55
-                },
-                createOrder: function(data, actions) {
-                    const cart = getCart();
-                    const subtotal = cart.reduce((sum, item) => {
-                        return sum + (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1);
-                    }, 0);
-
-                    // Default to US (no shipping) until address is known
-                    const shipping = 0;
-                    const total = subtotal + shipping;
-
-                    console.log('💰 Creating order for subtotal:', subtotal);
-
-                    return actions.order.create({
-                        purchase_units: [{
-                            amount: {
-                                value: total.toFixed(2),
-                                currency_code: 'USD',
-                                breakdown: {
-                                    item_total: {
-                                        currency_code: 'USD',
-                                        value: subtotal.toFixed(2)
-                                    },
-                                    shipping: {
-                                        currency_code: 'USD',
-                                        value: shipping.toFixed(2)
-                                    }
-                                }
-                            },
-                            description: 'Success Chemistry Supplements'
-                        }],
-                        application_context: {
-                            shipping_preference: 'GET_FROM_FILE'
-                        }
-                    });
-                },
-                onShippingChange: function(data, actions) {
-                    const cart = getCart();
-                    const subtotal = cart.reduce((sum, item) => {
-                        return sum + (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1);
-                    }, 0);
-                    
-                    // Check if shipping address is outside USA
-                    const countryCode = data.shipping_address?.country_code || 'US';
-                    const shipping = (countryCode !== 'US') ? 15.00 : 0.00;
-                    const total = subtotal + shipping;
-
-                    console.log('📦 Shipping to', countryCode, '- Shipping:', shipping);
-
-                    return actions.order.patch([
-                        {
-                            op: 'replace',
-                            path: '/purchase_units/@reference_id==\'default\'/amount',
-                            value: {
-                                value: total.toFixed(2),
-                                currency_code: 'USD',
-                                breakdown: {
-                                    item_total: {
-                                        currency_code: 'USD',
-                                        value: subtotal.toFixed(2)
-                                    },
-                                    shipping: {
-                                        currency_code: 'USD',
-                                        value: shipping.toFixed(2)
-                                    }
-                                }
-                            }
-                        }
-                    ]);
-                },
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(details) {
-                        handlePaymentSuccess(details);
-                    });
-                },
-                onError: function(err) {
-                    console.error('❌ PayPal error:', err);
-                    alert('Payment error. Please try again.');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
-            }).render('#paypal-button-container').then(function() {
-                console.log('✅ PayPal buttons rendered successfully!');
-            }).catch(function(err) {
-                console.error('❌ Failed to render PayPal buttons:', err);
-            });
+
+                const data = await response.json();
+                if (data.success && data.planId) {
+                    localStorage.setItem('isSubscription', 'true');
+                    localStorage.setItem('subscriptionInfo', JSON.stringify({
+                        planId: data.planId,
+                        productId: data.productId
+                    }));
+                    console.log('✅ Subscription setup successful, redirecting to checkout...');
+                    // Redirect to checkout
+                    window.location.href = '/checkout.html';
+                } else {
+                    console.error('❌ Subscription setup failed:', data);
+                    alert('Failed to setup subscription. Please try again or proceed with one-time purchase.');
+                }
+            } catch (error) {
+                console.error('❌ Subscription setup error:', error);
+                // If API is not available, show message but allow one-time purchase
+                if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+                    alert('Subscription service is temporarily unavailable. You can still proceed with a one-time purchase.');
+                } else {
+                    alert('Error setting up subscription. Please try again or proceed with one-time purchase.');
+                }
+            }
+        };
+
+        window.onload = function() {
+            console.log('🎯 Page loaded, initializing cart...');
+            renderCart();
+            initializePayPalButtons();
         };
 
         // Test Payment Function - Simulates PayPal payment completion

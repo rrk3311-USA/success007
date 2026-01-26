@@ -5,3 +5,7 @@ review-repo/
 .DS_Store
 node_modules/
 .env*
+deploy-site/life-jet/node_modules/
+deploy-site/life-jet/dist/
+*.log
+non-deploy-experiments/

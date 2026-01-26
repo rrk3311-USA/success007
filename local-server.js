@@ -5,6 +5,7 @@ import express from 'express';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+import { renderProductPage } from './server-render-product.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,7 +23,7 @@ writeLog({location:'local-server.js:12',message:'Server initialization',data:{di
 // #endregion agent log
 
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 // Log all incoming requests
 app.use((req, res, next) => {
@@ -78,6 +79,34 @@ app.get('/blog', (req, res) => {
     res.sendFile(path.join(__dirname, 'deploy-site/blog/index.html'));
 });
 
+// Serve individual blog post pages (with .html extension)
+app.get('/blog/:slug.html', (req, res) => {
+    const slug = req.params.slug;
+    const blogPostPath = path.join(__dirname, 'deploy-site/blog', `${slug}.html`);
+    
+    // Check if file exists
+    if (fs.existsSync(blogPostPath)) {
+        res.sendFile(blogPostPath);
+    } else {
+        // Fallback to blog listing page
+        res.redirect('/blog');
+    }
+});
+
+// Also support clean URLs without .html (redirect to .html version)
+app.get('/blog/:slug', (req, res) => {
+    const slug = req.params.slug;
+    const blogPostPath = path.join(__dirname, 'deploy-site/blog', `${slug}.html`);
+    
+    // Check if file exists
+    if (fs.existsSync(blogPostPath)) {
+        res.redirect(`/blog/${slug}.html`);
+    } else {
+        // Fallback to blog listing page
+        res.redirect('/blog');
+    }
+});
+
 app.get('/faq', (req, res) => {
     res.sendFile(path.join(__dirname, 'deploy-site/faq/index.html'));
 });
@@ -87,11 +116,45 @@ app.get('/contact', (req, res) => {
 });
 
 app.get('/product/:sku', (req, res) => {
-    res.sendFile(path.join(__dirname, 'deploy-site/product/index.html'));
+    const sku = req.params.sku;
+    const baseUrl = `${req.protocol}://${req.get('host')}`;
+    
+    try {
+        // Server-side render with schema, canonical, and meta tags
+        const html = renderProductPage(sku, baseUrl);
+        res.send(html);
+    } catch (error) {
+        console.error('Error rendering product page:', error);
+        // Fallback to static file
+        res.sendFile(path.join(__dirname, 'deploy-site/product/index.html'));
+    }
 });
 
 app.get('/product', (req, res) => {
-    res.sendFile(path.join(__dirname, 'deploy-site/product/index.html'));
+    const sku = req.query.sku;
+    const baseUrl = `${req.protocol}://${req.get('host')}`;
+    
+    // Check for specific static product pages first
+    if (sku === '10777-810') {
+        // Serve the new server-rendered Liver Cleanse page
+        res.sendFile(path.join(__dirname, 'deploy-site/product/liver-cleanse-10777-810.html'));
+        return;
+    }
+    
+    if (sku) {
+        try {
+            // Server-side render with schema, canonical, and meta tags
+            const html = renderProductPage(sku, baseUrl);
+            res.send(html);
+        } catch (error) {
+            console.error('Error rendering product page:', error);
+            // Fallback to static file
+            res.sendFile(path.join(__dirname, 'deploy-site/product/index.html'));
+        }
+    } else {
+        // No SKU provided, serve static file
+        res.sendFile(path.join(__dirname, 'deploy-site/product/index.html'));
+    }
 });
 
 // Additional pages - support both folder and .html versions
@@ -167,6 +230,25 @@ app.get('/ebay-auth-ok', (req, res) => {
     res.sendFile(path.join(__dirname, 'deploy-site/ebay-auth-ok.html'));
 });
 
+// Handle images with spaces in filenames (URL-encoded or with spaces)
+app.get('/public/images/real-factory-images/:filename(*)', (req, res) => {
+    let filename = req.params.filename;
+    // Decode URL encoding if present
+    filename = decodeURIComponent(filename);
+    const filePath = path.join(__dirname, 'deploy-site', 'public', 'images', 'real-factory-images', filename);
+    if (fs.existsSync(filePath)) {
+        res.sendFile(filePath);
+    } else {
+        // Try with original spaces if URL-encoded didn't work
+        const altPath = path.join(__dirname, 'deploy-site', 'public', 'images', 'real-factory-images', req.params.filename);
+        if (fs.existsSync(altPath)) {
+            res.sendFile(altPath);
+        } else {
+            res.status(404).send('File not found');
+        }
+    }
+});
+
 // Serve static files from deploy-site directory (AFTER routes to prevent conflicts)
 // IMPORTANT: This serves from GitHub repo ONLY, not CascadeProjects
 // Cache-busting headers prevent browser from serving stale cached files
@@ -183,6 +265,12 @@ app.use(express.static(path.join(__dirname, 'deploy-site'), {
         }
     }
 }));
+
+// Serve blog-posts.json from root with correct Content-Type
+app.get('/blog-posts.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.sendFile(path.join(__dirname, 'deploy-site/blog-posts.json'));
+});
 
 // Serve products-data.js from root with correct Content-Type
 app.get('/products-data.js', (req, res) => {
@@ -207,7 +295,7 @@ app.get('/llms.txt', (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
+app.listen(PORT, '127.0.0.1', () => {
     // #region agent log
     writeLog({location:'local-server.js:100',message:'Server started successfully',data:{port:PORT,status:'listening'},timestamp:Date.now(),sessionId:'debug-session',runId:'init',hypothesisId:'A'});
     // #endregion agent log

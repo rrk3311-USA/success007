@@ -1,6 +1,6 @@
 {
-  "installCommand": "echo 'Skipping install - static site only'",
-  "buildCommand": "echo 'No build required - static site'",
+  "installCommand": "npm install",
+  "buildCommand": "npm run build:all",
   "outputDirectory": "deploy-site",
   "cleanUrls": false,
   "trailingSlash": false,
@@ -12,6 +12,10 @@
     {
       "source": "/faq/:sku",
       "destination": "/faq/index.html?sku=:sku"
+    },
+    {
+      "source": "/life-jet",
+      "destination": "/life-jet/dist/index.html"
     }
   ],
   "headers": [
@@ -30,6 +34,15 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/life-jet/dist/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
         }
       ]
     }

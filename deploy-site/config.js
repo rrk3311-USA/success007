@@ -32,8 +32,8 @@ const CONFIG = {
         // OAuth 2.0 Credentials
         // ⚠️ SECRETS: These are loaded from environment variables in production
         // Get your credentials from: https://developer.ebay.com/my/keys
-        CLIENT_ID: process.env.EBAY_CLIENT_ID || 'YOUR_EBAY_CLIENT_ID_HERE', // Production Client ID
-        CLIENT_SECRET: process.env.EBAY_CLIENT_SECRET || 'YOUR_EBAY_CLIENT_SECRET_HERE', // Production Client Secret
+        CLIENT_ID: (typeof process !== 'undefined' && process.env?.EBAY_CLIENT_ID) || 'YOUR_EBAY_CLIENT_ID_HERE', // Production Client ID
+        CLIENT_SECRET: (typeof process !== 'undefined' && process.env?.EBAY_CLIENT_SECRET) || 'YOUR_EBAY_CLIENT_SECRET_HERE', // Production Client Secret
         RU_NAME: 'Raphael_Kammer-RaphaelK-Cursor-hxncgp',
         
         // OAuth URLs
@@ -78,11 +78,12 @@ if (typeof module !== 'undefined' && module.exports) {
     module.exports = CONFIG;
 }
 
-// ES Module export
-export { CONFIG, getPayPalClientID };
-export default CONFIG;
+// ES Module export (only if actually in module context - check at runtime)
+// Note: This file is loaded as regular script, not module, so ES6 exports will fail
+// If you need ES6 exports, load this file with type="module"
+// For now, we only expose via window and module.exports
 
-// Expose to window for browser scripts
+// Expose to window for browser scripts (always available)
 if (typeof window !== 'undefined') {
     window.CONFIG = CONFIG;
     window.getPayPalClientID = getPayPalClientID;

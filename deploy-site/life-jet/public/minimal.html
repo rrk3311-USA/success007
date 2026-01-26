@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life OS - Minimal Version (Craigslist Style)</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picocss@1/css/pico.min.css">
+    <style>
+        /* Minimal custom styles - Pico.css handles most of it */
+        body {
+            padding: 1rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            border-bottom: 2px solid #000;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .kpi {
+            border: 2px solid #1e293b;
+            background: #f8fafc;
+            padding: 0.75rem;
+            text-align: center;
+            border-radius: 0.5rem;
+        }
+        .kpi-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1e40af;
+        }
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .filters select, .filters input {
+            flex: 1;
+            min-width: 150px;
+        }
+        .goals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        .goal-card {
+            border: 2px solid #cbd5e1;
+            padding: 1rem;
+            background: #fff;
+            border-radius: 0.5rem;
+        }
+        .goal-card:hover {
+            border-color: #2563eb;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.5rem;
+        }
+        .goal-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 2px solid;
+        }
+        .badge.high { 
+            background: #dc2626; 
+            color: #fff; 
+            border-color: #991b1b;
+        }
+        .badge.medium { 
+            background: #ea580c; 
+            color: #fff; 
+            border-color: #c2410c;
+        }
+        .badge.low { 
+            background: #16a34a; 
+            color: #fff; 
+            border-color: #15803d;
+        }
+        .badge.in-progress { 
+            background: #2563eb; 
+            color: #fff; 
+            border-color: #1e40af;
+        }
+        .badge.planning { 
+            background: #7c3aed; 
+            color: #fff; 
+            border-color: #6d28d9;
+        }
+        .badge:not(.high):not(.medium):not(.low):not(.in-progress):not(.planning) {
+            background: #475569;
+            color: #fff;
+            border-color: #334155;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            margin: 0.5rem 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2563eb, #7c3aed, #dc2626);
+        }
+        .next-action {
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+        .next-action input[type="checkbox"] {
+            margin-right: 0.5rem;
+            width: 1.1rem;
+            height: 1.1rem;
+            cursor: pointer;
+            accent-color: #2563eb;
+        }
+        .next-action label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .domains {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .domain-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid #475569;
+            background: #fff;
+            color: #1e293b;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+        }
+        .domain-btn:hover {
+            background: #f1f5f9;
+            border-color: #2563eb;
+        }
+        .domain-btn.active {
+            background: #2563eb;
+            color: #fff;
+            border-color: #1e40af;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Life OS Dashboard</h1>
+        <p>Minimal Version - Fast, Simple, Functional</p>
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpi-grid">
+        <div class="kpi">
+            <div class="kpi-value" id="activeGoals">-</div>
+            <div>Active Goals</div>
+        </div>
+        <div class="kpi">
+            <div class="kpi-value" id="onTrack">-</div>
+            <div>On-Track %</div>
+        </div>
+        <div class="kpi">
+            <div class="kpi-value" id="weeklyActions">-</div>
+            <div>Weekly Actions</div>
+        </div>
+    </div>
+
+    <!-- Domain Filter -->
+    <div class="domains">
+        <button class="domain-btn active" data-domain="all">All</button>
+        <button class="domain-btn" data-domain="Health">Health</button>
+        <button class="domain-btn" data-domain="Wealth">Wealth</button>
+        <button class="domain-btn" data-domain="Career">Career</button>
+        <button class="domain-btn" data-domain="Relationships">Relationships</button>
+        <button class="domain-btn" data-domain="Brand">Brand</button>
+        <button class="domain-btn" data-domain="Skills">Skills</button>
+        <button class="domain-btn" data-domain="Lifestyle">Lifestyle</button>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+        <select id="statusFilter">
+            <option value="all">All Status</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Planning">Planning</option>
+            <option value="Completed">Completed</option>
+        </select>
+        <select id="priorityFilter">
+            <option value="all">All Priority</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+        </select>
+        <input type="text" id="searchInput" placeholder="Search goals...">
+    </div>
+
+    <!-- Goals Grid -->
+    <div class="goals-grid" id="goalsContainer"></div>
+
+    <script>
+        let goals = [];
+        let filteredGoals = [];
+
+        // Load goals from JSON
+        async function loadGoals() {
+            try {
+                const response = await fetch('/goals-data.json');
+                goals = await response.json();
+                filteredGoals = [...goals];
+                renderGoals();
+                updateKPIs();
+            } catch (e) {
+                console.error('Failed to load goals:', e);
+                // Fallback to localStorage
+                const saved = localStorage.getItem('lifeOSGoals');
+                if (saved) {
+                    goals = JSON.parse(saved);
+                    filteredGoals = [...goals];
+                    renderGoals();
+                    updateKPIs();
+                }
+            }
+        }
+
+        // Save to localStorage
+        function saveGoals() {
+            localStorage.setItem('lifeOSGoals', JSON.stringify(goals));
+        }
+
+        // Render goals
+        function renderGoals() {
+            const container = document.getElementById('goalsContainer');
+            container.innerHTML = '';
+
+            filteredGoals.forEach(goal => {
+                const progress = Math.min(100, (goal.metricCurrent / goal.metricTarget) * 100);
+                const card = document.createElement('div');
+                card.className = 'goal-card';
+                card.innerHTML = `
+                    <div class="goal-header">
+                        <h3 class="goal-title">${goal.title}</h3>
+                        <span class="badge ${goal.priority.toLowerCase()}">${goal.priority}</span>
+                    </div>
+                    <div>
+                        <span class="badge ${goal.status.toLowerCase().replace(' ', '-')}">${goal.status}</span>
+                        <span class="badge">${goal.domain}</span>
+                    </div>
+                    <div style="margin: 0.5rem 0; font-size: 0.9rem;">
+                        <strong>${goal.metricName}:</strong> ${goal.metricCurrent} / ${goal.metricTarget}
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${progress}%"></div>
+                    </div>
+                    <div style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">
+                        Target: ${new Date(goal.targetDate).toLocaleDateString()}
+                    </div>
+                    <div class="next-action">
+                        <label>
+                            <input type="checkbox" ${goal.completedThisWeek ? 'checked' : ''} 
+                                   onchange="toggleWeeklyAction('${goal.id}')">
+                            ${goal.nextAction}
+                        </label>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Toggle weekly action
+        function toggleWeeklyAction(id) {
+            const goal = goals.find(g => g.id === id);
+            if (goal) {
+                goal.completedThisWeek = !goal.completedThisWeek;
+                goal.lastUpdated = new Date().toISOString().split('T')[0];
+                saveGoals();
+                updateKPIs();
+                // Re-render to show updated checkbox state
+                renderGoals();
+            }
+        }
+
+        // Update KPIs
+        function updateKPIs() {
+            const active = goals.filter(g => g.status === 'In Progress').length;
+            const onTrack = goals.filter(g => {
+                if (g.status !== 'In Progress') return false;
+                const progress = (g.metricCurrent / g.metricTarget) * 100;
+                const daysLeft = (new Date(g.targetDate) - new Date()) / (1000 * 60 * 60 * 24);
+                const daysTotal = (new Date(g.targetDate) - new Date(g.lastUpdated + 'T00:00:00')) / (1000 * 60 * 60 * 24);
+                const expectedProgress = daysTotal > 0 ? ((daysTotal - daysLeft) / daysTotal) * 100 : 0;
+                return progress >= expectedProgress * 0.9; // 90% of expected
+            }).length;
+            const weekly = goals.filter(g => g.completedThisWeek).length;
+
+            document.getElementById('activeGoals').textContent = active;
+            document.getElementById('onTrack').textContent = active > 0 ? Math.round((onTrack / active) * 100) + '%' : '0%';
+            document.getElementById('weeklyActions').textContent = weekly;
+        }
+
+        // Filters
+        document.getElementById('statusFilter').addEventListener('change', applyFilters);
+        document.getElementById('priorityFilter').addEventListener('change', applyFilters);
+        document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+        // Domain buttons
+        document.querySelectorAll('.domain-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.domain-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                applyFilters();
+            });
+        });
+
+        function applyFilters() {
+            const status = document.getElementById('statusFilter').value;
+            const priority = document.getElementById('priorityFilter').value;
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const domain = document.querySelector('.domain-btn.active').dataset.domain;
+
+            filteredGoals = goals.filter(goal => {
+                if (status !== 'all' && goal.status !== status) return false;
+                if (priority !== 'all' && goal.priority !== priority) return false;
+                if (domain !== 'all' && goal.domain !== domain) return false;
+                if (search && !goal.title.toLowerCase().includes(search) && 
+                    !goal.tags.some(t => t.toLowerCase().includes(search))) return false;
+                return true;
+            });
+
+            renderGoals();
+        }
+
+        // Initialize
+        loadGoals();
+    </script>
+</body>
+</html>

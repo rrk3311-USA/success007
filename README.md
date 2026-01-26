@@ -64,7 +64,7 @@ success007/
 ### Single Source of Truth
 **✅ Work only in this repo:** `/Users/r-kammer/Documents/GitHub/success007/`
 
-**❌ Don't edit in:** `/Users/r-kammer/CascadeProjects/Success Chemistry/` (archive this)
+**This is your single source of truth - edit directly here, no syncing needed!**
 
 ### Development Loop
 1. Edit files in `deploy-site/`

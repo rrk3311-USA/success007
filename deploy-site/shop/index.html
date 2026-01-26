@@ -316,6 +316,7 @@
             justify-content: center;
             overflow: hidden;
             z-index: 1;
+            pointer-events: none; /* Allow clicks to pass through to card */
         }
 
         .product-image img {
@@ -392,6 +393,7 @@
             padding: 0;
             loading: lazy;
             display: block;
+            pointer-events: none; /* Allow clicks to pass through to card */
         }
         
         .loading-spinner {
@@ -446,6 +448,11 @@
             transition: all 0.3s ease;
             z-index: 2;
             overflow: visible;
+            pointer-events: none; /* Allow clicks to pass through, except buttons */
+        }
+        
+        .product-info .btn-add-cart {
+            pointer-events: auto; /* Buttons should still be clickable */
         }
 
         .product-card:hover .product-info {
@@ -2047,6 +2054,17 @@
                 if (e.target.closest('.btn-add-cart') || e.target.classList.contains('btn-add-cart')) {
                     return;
                 }
+                // Don't navigate if clicking on links or buttons
+                if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.closest('a') || e.target.closest('button')) {
+                    return;
+                }
+                // Allow modifier keys for opening in new tab
+                if (e.metaKey || e.ctrlKey) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    window.open(`/product/?sku=${skuParam}`, '_blank');
+                    return false;
+                }
                 // Navigate to product page
                 e.preventDefault();
                 e.stopPropagation();
@@ -2054,6 +2072,18 @@
                 const productUrl = `/product/?sku=${skuParam}`;
                 console.log('🖱️ Navigating to URL:', productUrl);
                 window.location.href = productUrl;
+                return false;
+            });
+            
+            // Also make the card keyboard accessible
+            card.setAttribute('role', 'link');
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('aria-label', `View ${displayName} product page`);
+            card.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    window.location.href = `/product/?sku=${skuParam}`;
+                }
             });
             
             // Prevent button clicks from triggering card navigation

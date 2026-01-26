@@ -1,7 +1,11 @@
 // Global Cart Utility Functions
 function getCart() {
-    const cart = localStorage.getItem('successChemistryCart');
-    return cart ? JSON.parse(cart) : [];
+    try {
+        const cart = localStorage.getItem('successChemistryCart');
+        return cart ? JSON.parse(cart) : [];
+    } catch (e) {
+        return [];
+    }
 }
 
 function saveCart(cart) {

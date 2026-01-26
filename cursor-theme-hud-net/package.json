@@ -1,0 +1,38 @@
+{
+  "name": "hud-net-theme",
+  "displayName": "HUD Net Core Theme",
+  "description": "A dark, futuristic admin dashboard theme inspired by HUD Net Core 60 MVC Admin Template. Features neon accents, high contrast, and a modern tech aesthetic perfect for developers.",
+  "version": "1.0.0",
+  "publisher": "success-chemistry",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "keywords": [
+    "dark",
+    "hud",
+    "admin",
+    "dashboard",
+    "neon",
+    "futuristic",
+    "tech",
+    "high-contrast"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "HUD Net Core",
+        "uiTheme": "vs-dark",
+        "path": "./themes/hud-net-core-color-theme.json"
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/cursor-theme-hud-net"
+  },
+  "license": "MIT",
+  "icon": "icon.png"
+}

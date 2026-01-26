@@ -2,17 +2,14 @@
 
 ## 🎯 Your Setup (Simple)
 
-### **LOCAL DEV** (Where You Work)
-- **Location**: `/Users/r-kammer/CascadeProjects/Success Chemistry/`
-- **Size**: 10GB
-- **GitHub Desktop**: ❌ Doesn't see this (no .git folder)
-- **Purpose**: Your workspace - edit and test here
-
-### **PRODUCTION REPO** (What Gets Deployed)  
+### **SINGLE SOURCE OF TRUTH** (Edit Here!)
 - **Location**: `/Users/r-kammer/Documents/GitHub/success007/`
-- **Size**: 697MB
+- **Size**: ~700MB
 - **GitHub Desktop**: ✅ Watches this (has .git folder)
-- **Purpose**: What goes to successchemistry.com
+- **Purpose**: Edit, test, and deploy from here
+- **Deploys**: ✅ Auto-deploys to successchemistry.com on `git push`
+
+**No syncing needed - edit directly in this repo!**
 
 ---
 
@@ -48,7 +45,7 @@ These files have no extension (might be broken):
 
 ## 🗂️ Folder Structure
 
-### Local Dev (`CascadeProjects/Success Chemistry/`)
+### Your Workspace (`/Users/r-kammer/Documents/GitHub/success007/`)
 ```
 deploy-site/ (460MB)
 ├── shop/ (56K)

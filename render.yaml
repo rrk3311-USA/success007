@@ -2,7 +2,7 @@ services:
   - type: web
     name: containersuccess007
     env: static
-    buildCommand: echo "No build required - static site"
+    buildCommand: npm install && npm run build:all
     staticPublishPath: ./deploy-site
     headers:
       - path: /images/*
@@ -11,6 +11,9 @@ services:
       - path: /*.js
         name: Cache-Control
         value: public, max-age=3600
+      - path: /life-jet/dist/assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
     routes:
       - type: rewrite
         source: /product/:sku
@@ -18,3 +21,6 @@ services:
       - type: rewrite
         source: /faq/:sku
         destination: /faq/index.html?sku=:sku
+      - type: rewrite
+        source: /life-jet
+        destination: /life-jet/dist/index.html
