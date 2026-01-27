@@ -3,10 +3,6 @@ const API_BASE = 'http://localhost:3001/api';
 let authToken = null;
 let currentUser = null;
 
-// #region agent log
-fetch('http://127.0.0.1:7242/ingest/59f8293b-dd31-42b2-b22c-f816ef9edeed',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/admin.js:2',message:'Admin script loaded',data:{apiBase:API_BASE,pageUrl:window.location.href},timestamp:Date.now(),sessionId:'debug-session',runId:'runtime',hypothesisId:'E'})}).catch(()=>{});
-// #endregion agent log
-
 // Debug logging
 console.log('Admin dashboard script loaded');
 
@@ -22,16 +18,9 @@ async function login(event) {
     const email = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/59f8293b-dd31-42b2-b22c-f816ef9edeed',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/admin.js:16',message:'Login attempt',data:{apiBase:API_BASE,loginUrl:`${API_BASE}/auth/login`,email},timestamp:Date.now(),sessionId:'debug-session',runId:'runtime',hypothesisId:'E'})}).catch(()=>{});
-    // #endregion agent log
-    
     try {
-        // #region agent log
         const loginUrl = `${API_BASE}/auth/login`;
         console.log('Attempting login to:', loginUrl);
-        fetch('http://127.0.0.1:7242/ingest/59f8293b-dd31-42b2-b22c-f816ef9edeed',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/admin.js:22',message:'Login fetch starting',data:{apiBase:API_BASE,loginUrl,email},timestamp:Date.now(),sessionId:'debug-session',runId:'runtime',hypothesisId:'E'})}).catch(()=>{});
-        // #endregion agent log
         
         const response = await fetch(`${API_BASE}/auth/login`, {
             method: 'POST',
@@ -39,16 +28,9 @@ async function login(event) {
             body: JSON.stringify({ email, password })
         });
         
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/59f8293b-dd31-42b2-b22c-f816ef9edeed',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/admin.js:30',message:'Login response received',data:{status:response.status,statusText:response.statusText,ok:response.ok,url:response.url},timestamp:Date.now(),sessionId:'debug-session',runId:'runtime',hypothesisId:'E'})}).catch(()=>{});
-        // #endregion agent log
-        
         const data = await response.json();
         
         if (!response.ok) {
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/59f8293b-dd31-42b2-b22c-f816ef9edeed',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/admin.js:30',message:'Login failed',data:{status:response.status,error:data.error},timestamp:Date.now(),sessionId:'debug-session',runId:'runtime',hypothesisId:'E'})}).catch(()=>{});
-            // #endregion agent log
             throw new Error(data.error || 'Login failed');
         }
         
@@ -59,10 +41,6 @@ async function login(event) {
         
         showDashboard();
     } catch (error) {
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/59f8293b-dd31-42b2-b22c-f816ef9edeed',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/admin.js:40',message:'Login error caught',data:{error:error.message,errorType:error.name,apiBase:API_BASE},timestamp:Date.now(),sessionId:'debug-session',runId:'runtime',hypothesisId:'E'})}).catch(()=>{});
-        // #endregion agent log
-        
         // Better error message for connection failures
         let errorMsg = error.message;
         if (error.message === 'Failed to fetch' || error.message.includes('fetch')) {

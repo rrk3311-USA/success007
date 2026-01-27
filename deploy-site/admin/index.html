@@ -413,12 +413,11 @@
             <!-- Tabs -->
             <div class="tabs">
                 <button class="tab-btn active" data-tab="overview" type="button">Overview</button>
-                <button class="tab-btn" data-tab="orders" type="button">Orders</button>
                 <button class="tab-btn" data-tab="products" type="button">Products</button>
-                <button class="tab-btn" data-tab="customers" type="button">Customers</button>
                 <button class="tab-btn" data-tab="sales-channels" type="button">📦 Sales Channels</button>
                 <button class="tab-btn" data-tab="analytics" type="button">Analytics</button>
                 <button class="tab-btn" data-tab="links" type="button">🔗 Links</button>
+                <button class="tab-btn" data-tab="future-upgrades" type="button">🚀 Future Upgrades</button>
             </div>
 
             <!-- Overview Tab -->
@@ -430,50 +429,17 @@
                         <div class="change">+12.5% from last month</div>
                     </div>
                     <div class="stat-card">
-                        <h3>Total Orders</h3>
-                        <div class="value" id="totalOrders">0</div>
-                        <div class="change">+8.2% from last month</div>
-                    </div>
-                    <div class="stat-card">
                         <h3>Products</h3>
                         <div class="value" id="totalProducts">0</div>
-                        <div class="change">76 active products</div>
+                        <div class="change">Active products</div>
                     </div>
                     <div class="stat-card">
-                        <h3>Customers</h3>
-                        <div class="value" id="totalCustomers">0</div>
-                        <div class="change">+15.3% from last month</div>
+                        <h3>Sales Channels</h3>
+                        <div class="value" id="totalChannels">3</div>
+                        <div class="change">Active channels</div>
                     </div>
                 </div>
 
-                <div class="data-table">
-                    <div class="table-header">
-                        <h2>Recent Orders</h2>
-                    </div>
-                    <div id="recentOrdersTable"></div>
-                </div>
-            </div>
-
-            <!-- Orders Tab -->
-            <div id="orders" class="tab-content">
-                <div style="margin-bottom: 20px; display: flex; gap: 12px; flex-wrap: wrap;">
-                    <button onclick="configureWooCommerceAPI()" class="btn-primary" style="background: rgba(6, 182, 212, 0.2); color: #06B6D4; border: 1px solid #06B6D4; padding: 10px 20px; border-radius: 0; cursor: pointer; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">
-                        ⚙️ Configure WooCommerce API
-                    </button>
-                    <button onclick="showManualOrderEntry()" class="btn-primary" style="background: rgba(16, 185, 129, 0.2); color: #10B981; border: 1px solid #10B981; padding: 10px 20px; border-radius: 0; cursor: pointer; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">
-                        ➕ Add Order Manually
-                    </button>
-                </div>
-                <div id="woocommerceStatus" style="padding: 10px; background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 0; margin-bottom: 20px; color: #EF4444;">
-                    <strong>⚠️ WooCommerce API Not Configured</strong> - Click "Configure WooCommerce API" to enable order pushing
-                </div>
-                <div class="data-table">
-                    <div class="table-header">
-                        <h2>All Orders</h2>
-                        <input type="text" id="searchOrdersInput" name="searchOrders" class="search-box" placeholder="Search orders..." onkeyup="searchOrders(this.value)">
-                    </div>
-                    <div id="ordersTable"></div>
-                </div>
             </div>
 
             <!-- Products Tab -->
@@ -487,32 +453,21 @@
                 </div>
             </div>
 
-            <!-- Customers Tab -->
-            <div id="customers" class="tab-content">
-                <div class="data-table">
-                    <div class="table-header">
-                        <h2>All Customers</h2>
-                        <input type="text" id="searchCustomersInput" name="searchCustomers" class="search-box" placeholder="Search customers..." onkeyup="searchCustomers(this.value)">
-                    </div>
-                    <div id="customersTable"></div>
-                </div>
-            </div>
-
             <!-- Sales Channels Tab -->
             <div id="sales-channels" class="tab-content">
                 <div class="data-table">
                     <div class="table-header">
                         <h2>Sales Channels</h2>
-                        <button onclick="refreshSalesChannels()" class="action-btn" style="background: rgba(6, 182, 212, 0.2); color: #06B6D4; border: 1px solid #06B6D4;">🔄 Refresh Status</button>
+                        <button onclick="addSalesChannel()" class="action-btn" style="background: rgba(16, 185, 129, 0.2); color: #10B981; border: 1px solid #10B981;">➕ Add Channel</button>
                     </div>
                     <div style="padding: 24px;">
                         <table style="width: 100%; border-collapse: collapse;">
                             <thead>
                                 <tr style="border-bottom: 2px solid rgba(139, 125, 107, 0.3);">
-                                    <th style="text-align: left; padding: 16px 24px; color: #06B6D4; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;">Channel</th>
+                                    <th style="text-align: left; padding: 16px 24px; color: #06B6D4; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; width: 40px;">Order</th>
+                                    <th style="text-align: left; padding: 16px 24px; color: #06B6D4; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;">Channel Name</th>
                                     <th style="text-align: left; padding: 16px 24px; color: #06B6D4; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;">Status</th>
-                                    <th style="text-align: left; padding: 16px 24px; color: #06B6D4; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;">Configuration</th>
-                                    <th style="text-align: left; padding: 16px 24px; color: #06B6D4; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;">Listings</th>
+                                    <th style="text-align: left; padding: 16px 24px; color: #06B6D4; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;">URL/Info</th>
                                     <th style="text-align: left; padding: 16px 24px; color: #06B6D4; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;">Actions</th>
                                 </tr>
                             </thead>
@@ -565,14 +520,78 @@
                 </div>
             </div>
 
+            <!-- Future Upgrades Tab -->
+            <div id="future-upgrades" class="tab-content">
+                <div class="data-table">
+                    <div class="table-header">
+                        <h2>Planned Feature Upgrades</h2>
+                    </div>
+                    <div style="padding: 24px;">
+                        <div style="margin-bottom: 30px;">
+                            <h3 style="color: #06B6D4; margin-bottom: 15px; font-size: 1.1rem; font-family: 'Orbitron', monospace; text-transform: uppercase; letter-spacing: 1px;">📚 Product Content Downloads</h3>
+                            <div style="background: rgba(51, 65, 85, 0.5); border: 1px solid rgba(139, 125, 107, 0.3); padding: 20px; border-radius: 0; margin-bottom: 20px;">
+                                <h4 style="color: #10B981; margin-bottom: 10px; font-size: 1rem; font-weight: 600;">Download eBook / Product Brochure Feature</h4>
+                                <p style="color: #CBD5E1; margin-bottom: 15px; line-height: 1.6;">
+                                    Add downloadable product brochures and eBooks to product listings. Customers can download comprehensive product guides, usage instructions, and detailed specifications.
+                                </p>
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 15px;">
+                                    <div style="padding: 12px; background: rgba(6, 182, 212, 0.1); border-left: 3px solid #06B6D4;">
+                                        <div style="font-weight: 600; color: #06B6D4; margin-bottom: 5px; font-size: 0.85rem;">Features</div>
+                                        <ul style="color: #94A3B8; font-size: 0.85rem; margin: 0; padding-left: 20px;">
+                                            <li>Email capture for downloads</li>
+                                            <li>PDF brochure generation</li>
+                                            <li>Product-specific content</li>
+                                            <li>Download tracking & analytics</li>
+                                        </ul>
+                                    </div>
+                                    <div style="padding: 12px; background: rgba(245, 158, 11, 0.1); border-left: 3px solid #F59E0B;">
+                                        <div style="font-weight: 600; color: #F59E0B; margin-bottom: 5px; font-size: 0.85rem;">Status</div>
+                                        <p style="color: #94A3B8; font-size: 0.85rem; margin: 0;">Planned for future release</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 30px;">
+                            <h3 style="color: #06B6D4; margin-bottom: 15px; font-size: 1.1rem; font-family: 'Orbitron', monospace; text-transform: uppercase; letter-spacing: 1px;">💡 Additional Planned Features</h3>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                                <div style="background: rgba(51, 65, 85, 0.5); border: 1px solid rgba(139, 125, 107, 0.3); padding: 15px; border-radius: 0;">
+                                    <div style="font-weight: 600; color: #06B6D4; margin-bottom: 8px;">📧 Email Marketing Integration</div>
+                                    <p style="color: #94A3B8; font-size: 0.85rem; margin: 0;">Connect with email marketing platforms for automated campaigns.</p>
+                                </div>
+                                <div style="background: rgba(51, 65, 85, 0.5); border: 1px solid rgba(139, 125, 107, 0.3); padding: 15px; border-radius: 0;">
+                                    <div style="font-weight: 600; color: #06B6D4; margin-bottom: 8px;">📊 Advanced Analytics</div>
+                                    <p style="color: #94A3B8; font-size: 0.85rem; margin: 0;">Enhanced reporting and customer behavior insights.</p>
+                                </div>
+                                <div style="background: rgba(51, 65, 85, 0.5); border: 1px solid rgba(139, 125, 107, 0.3); padding: 15px; border-radius: 0;">
+                                    <div style="font-weight: 600; color: #06B6D4; margin-bottom: 8px;">🔄 Inventory Management</div>
+                                    <p style="color: #94A3B8; font-size: 0.85rem; margin: 0;">Real-time stock tracking and low inventory alerts.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Links Tab -->
             <div id="links" class="tab-content">
                 <div class="data-table">
                     <div class="table-header">
                         <h2>Complete Site Links Reference</h2>
+                        <button onclick="fetchAllLinks()" class="action-btn" style="background: rgba(6, 182, 212, 0.2); color: #06B6D4; border: 1px solid #06B6D4;">🔄 Fetch All URLs</button>
                         <button onclick="copyAllLinks()" class="action-btn" style="background: #48BB78;">📋 Copy All Links</button>
                     </div>
-                    <div style="padding: 24px;">
+                    <div id="linksContent" style="padding: 24px;">
+                        <div style="text-align: center; padding: 40px; color: #94A3B8;">
+                            <p style="margin-bottom: 20px;">Click "🔄 Fetch All URLs" to load all project links</p>
+                            <button onclick="fetchAllLinks()" class="action-btn" style="background: rgba(6, 182, 212, 0.2); color: #06B6D4; border: 1px solid #06B6D4; padding: 12px 24px;">🔄 Fetch Links</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Old Links Content (hidden, will be replaced) -->
+            <div id="oldLinksContent" style="display: none;">
                         <div style="margin-bottom: 30px;">
                             <h3 style="color: #06B6D4; margin-bottom: 15px; font-size: 1.1rem; font-family: 'Orbitron', monospace; text-transform: uppercase; letter-spacing: 1px;">🌐 Production URLs (successchemistry.com)</h3>
                             
@@ -680,24 +699,12 @@
         </div>
     </div>
 
+    <!-- Optional external dependencies - admin dashboard works standalone with fallbacks -->
     <script src="/products-data.js"></script>
     <script src="/woocommerce-order-integration.js"></script>
+    <!-- All core functionality is inline below for easy navigation -->
     <script>
-        // Immediate execution test - should appear in console
-        console.log('🔵🔵🔵 ADMIN SCRIPT LOADING - LINE 617 🔵🔵🔵');
-        alert('Admin script is loading! Check console.');
-        
-        // #region agent log
-        try {
-            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:617',message:'Admin script STARTED',data:{url:window.location.href,readyState:document.readyState},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch((e)=>{console.error('Fetch failed:',e);});
-        } catch(e) {
-            console.error('Log fetch error:', e);
-        }
-        // #endregion agent log
-        console.log('🔵 Admin script loaded');
-        console.log('🔵 Admin dashboard script loaded!');
-        console.log('🔵 Current URL:', window.location.href);
-        console.log('🔵 Document ready state:', document.readyState);
+        console.log('🔵 Admin dashboard ready');
         
         // Login removed - direct access
         function logout() {
@@ -729,9 +736,6 @@
 
         // Tab switching - MUST be defined before assigning to window
         function switchTab(tabName, event) {
-            // #region agent log
-            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:651',message:'switchTab function called',data:{tabName,hasEvent:!!event},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-            // #endregion agent log
             console.log('Switching to tab:', tabName);
             
             // Use window.event if event not passed
@@ -773,39 +777,27 @@
             
             // Show the tab content
             const tabContent = document.getElementById(tabName);
-            // #region agent log
-            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:690',message:'Tab content lookup',data:{tabName,found:!!tabContent,tabContentId:tabContent?.id},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-            // #endregion agent log
             if (tabContent) {
                 tabContent.classList.add('active');
                 tabContent.style.display = 'block';
-                // #region agent log
-                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:695',message:'Tab content shown',data:{tabName,display:tabContent.style.display,hasActive:tabContent.classList.contains('active')},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-                // #endregion agent log
                 console.log('Tab content shown:', tabName);
             } else {
-                // #region agent log
-                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:700',message:'Tab content NOT FOUND',data:{tabName},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-                // #endregion agent log
                 console.error('Tab content not found:', tabName);
             }
             
             // Load data when switching tabs
-            if (tabName === 'orders') {
-                console.log('Loading orders...');
-                loadOrders();
-            } else if (tabName === 'products') {
+            if (tabName === 'products') {
                 console.log('Loading products...');
                 loadProducts();
-            } else if (tabName === 'customers') {
-                console.log('Loading customers...');
-                if (window.loadCustomers) {
-                    loadCustomers();
-                }
+            } else if (tabName === 'sales-channels') {
+                console.log('Sales Channels tab active');
+                loadSalesChannels();
             } else if (tabName === 'analytics') {
                 console.log('Analytics tab active');
             } else if (tabName === 'links') {
                 console.log('Links tab active');
+            } else if (tabName === 'future-upgrades') {
+                console.log('Future Upgrades tab active');
             } else if (tabName === 'overview') {
                 console.log('Overview tab active');
                 loadDashboardData();
@@ -815,17 +807,11 @@
         }
 
         // Make functions globally accessible - AFTER they're defined
-        // #region agent log
-        fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:726',message:'Attaching functions to window',data:{hasLogout:typeof logout,hasShowDashboard:typeof showDashboard,hasSwitchTab:typeof switchTab},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'F'})}).catch(()=>{});
-        // #endregion agent log
         window.logout = logout;
         window.showDashboard = showDashboard;
         window.switchTab = switchTab;
         window.updateWooCommerceStatus = updateWooCommerceStatus;
         window.loadDashboardData = loadDashboardData;
-        // #region agent log
-        fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:732',message:'Functions attached to window',data:{windowSwitchTab:typeof window.switchTab,windowLogout:typeof window.logout},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'F'})}).catch(()=>{});
-        // #endregion agent log
 
         // Load dashboard immediately - no login needed
         function initDashboard() {
@@ -861,9 +847,10 @@
         // Load dashboard data
         async function loadDashboardData() {
             console.log('Loading dashboard data...');
-            await loadOrders();
             loadProducts();
             updateStats();
+            // Initialize sales channels count
+            loadSalesChannels();
         }
 
         // Get products from products-data.js or localStorage
@@ -1033,13 +1020,13 @@
         function updateStats() {
             const products = getAllProducts ? getAllProducts() : [];
             document.getElementById('totalProducts').textContent = products.length;
-            document.getElementById('totalOrders').textContent = ordersData.length;
             
-            const totalRevenue = ordersData.reduce((sum, order) => sum + parseFloat(order.total || 0), 0);
-            document.getElementById('totalRevenue').textContent = '$' + totalRevenue.toFixed(2);
-            
-            const uniqueCustomers = new Set(ordersData.map(o => o.customer)).size;
-            document.getElementById('totalCustomers').textContent = uniqueCustomers;
+            // Load sales channels count
+            const channels = JSON.parse(localStorage.getItem('salesChannels') || '[]');
+            const channelsCount = document.getElementById('totalChannels');
+            if (channelsCount) {
+                channelsCount.textContent = channels.length || 3;
+            }
         }
 
         function viewOrder(orderId) {
@@ -1445,26 +1432,19 @@
 
         // Copy all links function
         function copyAllLinks() {
-            const links = [
-                'https://successchemistry.com/',
-                'https://successchemistry.com/shop',
-                'https://successchemistry.com/cart',
-                'https://successchemistry.com/blog',
-                'https://successchemistry.com/contact',
-                'https://successchemistry.com/subscribe.html',
-                'https://successchemistry.com/thank-you.html',
-                'https://successchemistry.com/terms-of-service.html',
-                'https://successchemistry.com/shipping-returns.html',
-                'https://successchemistry.com/payment-policy.html',
-                'https://successchemistry.com/privacy-policy.html',
-                'https://successchemistry.com/admin/',
-                'https://successchemistry.com/my-account-dashboard.html',
-                'https://successchemistry.com/command-center/',
-                'https://successchemistry.com/faq/',
-                'https://successchemistry.com/feeds/generate-bing-feed.html',
-                'https://successchemistry.com/feeds/google-merchant-feed.xml',
-                'https://successchemistry.com/feeds/bing-shopping-feed.xml'
-            ].join('\n');
+            // Use fetched links if available, otherwise use default list
+            const links = window.allFetchedLinks && window.allFetchedLinks.length > 0 
+                ? window.allFetchedLinks.join('\n')
+                : [
+                    'http://localhost:8080/',
+                    'http://localhost:8080/shop',
+                    'http://localhost:8080/admin/',
+                    'http://localhost:8080/command-center/',
+                    'http://localhost:3001',
+                    'https://successchemistry.com/',
+                    'https://successchemistry.com/shop',
+                    'https://successchemistry.com/admin/'
+                ].join('\n');
             
             navigator.clipboard.writeText(links).then(() => {
                 alert('✅ All links copied to clipboard!');
@@ -1482,36 +1462,389 @@
         
         window.copyAllLinks = copyAllLinks;
         
-        // GLOBAL CLICK TRACKER - Track ALL clicks
-        document.addEventListener('click', function(e) {
-        }, true); // Use capture phase
+        // Fetch all project URLs dynamically (excluding product pages)
+        async function fetchAllLinks() {
+            const linksContent = document.getElementById('linksContent');
+            if (!linksContent) return;
+            
+            linksContent.innerHTML = '<div style="text-align: center; padding: 40px; color: #94A3B8;"><p>Loading links...</p></div>';
+            
+            try {
+                const currentOrigin = window.location.origin;
+                const currentPort = window.location.port || (window.location.protocol === 'https:' ? '443' : '80');
+                const isLocalhost = currentOrigin.includes('localhost') || currentOrigin.includes('127.0.0.1');
+                
+                // Define all environments and paths
+                const environments = {
+                    local: {
+                        base: 'http://localhost:8080',
+                        api: 'http://localhost:3001',
+                        customDomains: [
+                            'http://successchemistry.local:8080',
+                            'http://shop.successchemistry.local:8080',
+                            'http://admin.successchemistry.local:8080'
+                        ]
+                    },
+                    staging: {
+                        base: 'https://staging.successchemistry.com',
+                        api: 'https://api-staging.successchemistry.com'
+                    },
+                    production: {
+                        base: 'https://successchemistry.com',
+                        api: 'https://api.successchemistry.com'
+                    }
+                };
+                
+                // Common paths (excluding product pages)
+                const commonPaths = [
+                    // Main pages
+                    '/', '/shop', '/cart', '/blog', '/blog.html', '/contact', 
+                    '/subscribe.html', '/thank-you.html',
+                    // Policy pages
+                    '/terms-of-service.html', '/shipping-returns.html', 
+                    '/payment-policy.html', '/privacy-policy.html',
+                    // Admin & Dashboard
+                    '/admin/', '/my-account-dashboard.html', '/command-center/',
+                    // Tools & Utilities
+                    '/faq/', '/feeds/generate-bing-feed.html', 
+                    '/feeds/google-merchant-feed.xml', '/feeds/bing-shopping-feed.xml',
+                    // Development/Test pages
+                    '/debug.html', '/test-products.html', '/test-isometric-cart.html',
+                    '/minimal-shop.html', '/cart-new.html', '/branding-kit.html',
+                    '/frosted-glass-buttons-demo.html', '/frosted-glass-components-demo.html',
+                    // Email templates
+                    '/email-templates/order-confirmation.html',
+                    // Data files
+                    '/sitemap.xml', '/robots.txt', '/products-data.js'
+                ];
+                
+                // Try to fetch sitemap.xml to get additional URLs
+                let sitemapLinks = [];
+                try {
+                    const sitemapResponse = await fetch('/sitemap.xml');
+                    if (sitemapResponse.ok) {
+                        const sitemapText = await sitemapResponse.text();
+                        const parser = new DOMParser();
+                        const xmlDoc = parser.parseFromString(sitemapText, 'text/xml');
+                        const locs = xmlDoc.getElementsByTagName('loc');
+                        for (let loc of locs) {
+                            const url = loc.textContent;
+                            // Exclude product pages
+                            if (!url.includes('/product?') && !url.includes('/product/') && !url.match(/\/product-[^\/]+/)) {
+                                sitemapLinks.push(url);
+                            }
+                        }
+                    }
+                } catch (e) {
+                    console.log('Could not fetch sitemap, using common paths');
+                }
+                
+                // Build links for all environments
+                const allLinks = [];
+                
+                // Local environment
+                environments.local.customDomains.forEach(domain => {
+                    commonPaths.forEach(path => {
+                        allLinks.push({ url: domain + path, env: 'local', type: 'custom-domain' });
+                    });
+                });
+                commonPaths.forEach(path => {
+                    allLinks.push({ url: environments.local.base + path, env: 'local', type: 'main' });
+                });
+                allLinks.push({ url: environments.local.api, env: 'local', type: 'api' });
+                
+                // Staging environment (if applicable)
+                if (currentOrigin.includes('staging') || isLocalhost) {
+                    commonPaths.forEach(path => {
+                        allLinks.push({ url: environments.staging.base + path, env: 'staging', type: 'main' });
+                    });
+                    allLinks.push({ url: environments.staging.api, env: 'staging', type: 'api' });
+                }
+                
+                // Production environment
+                commonPaths.forEach(path => {
+                    allLinks.push({ url: environments.production.base + path, env: 'production', type: 'main' });
+                });
+                allLinks.push({ url: environments.production.api, env: 'production', type: 'api' });
+                
+                // Add sitemap links to production
+                sitemapLinks.forEach(url => {
+                    if (url.includes('successchemistry.com') && !allLinks.find(l => l.url === url)) {
+                        allLinks.push({ url: url, env: 'production', type: 'sitemap' });
+                    }
+                });
+                
+                // Group links by environment and category
+                const grouped = {
+                    local: { main: [], admin: [], dev: [], tools: [], api: [], custom: [] },
+                    staging: { main: [], admin: [], dev: [], tools: [], api: [] },
+                    production: { main: [], admin: [], dev: [], tools: [], api: [] }
+                };
+                
+                allLinks.forEach(link => {
+                    const url = link.url;
+                    const env = link.env;
+                    const path = url.replace(/^https?:\/\/[^\/]+/, '') || '/';
+                    
+                    if (url.includes('/admin') || url.includes('account') || url.includes('command')) {
+                        grouped[env].admin.push({ url, path });
+                    } else if (url.includes('debug') || url.includes('test-') || url.includes('demo') || url.includes('branding')) {
+                        grouped[env].dev.push({ url, path });
+                    } else if (url.includes('/feeds') || url.includes('/faq') || url.includes('sitemap') || url.includes('robots') || url.includes('products-data')) {
+                        grouped[env].tools.push({ url, path });
+                    } else if (url.includes(':3001') || url.includes('/api')) {
+                        grouped[env].api.push({ url, path: url });
+                    } else if (link.type === 'custom-domain') {
+                        grouped[env].custom.push({ url, path });
+                    } else {
+                        grouped[env].main.push({ url, path });
+                    }
+                });
+                
+                // Render links by environment
+                let html = '';
+                
+                // Local Environment
+                if (grouped.local.main.length > 0 || grouped.local.admin.length > 0 || grouped.local.dev.length > 0) {
+                    html += '<h3 style="color: #06B6D4; margin-top: 30px; margin-bottom: 15px; font-size: 1.2rem; font-family: \'Orbitron\', monospace; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid rgba(6, 182, 212, 0.3); padding-bottom: 10px;">🏠 Local Development (localhost:8080)</h3>';
+                    
+                    if (grouped.local.main.length > 0) {
+                        html += '<h4 style="color: #10B981; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem; font-weight: 600;">Main Pages</h4>';
+                        html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">';
+                        grouped.local.main.forEach(({ url, path }) => {
+                            html += `<div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #3E4C7A;">
+                                <a href="${url}" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600; display: block;">${path}</a>
+                                <span style="color: #94A3B8; font-size: 0.75rem;">${url}</span>
+                            </div>`;
+                        });
+                        html += '</div>';
+                    }
+                    
+                    if (grouped.local.admin.length > 0) {
+                        html += '<h4 style="color: #F59E0B; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem; font-weight: 600;">Admin & Dashboard</h4>';
+                        html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">';
+                        grouped.local.admin.forEach(({ url, path }) => {
+                            html += `<div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #F59E0B;">
+                                <a href="${url}" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600; display: block;">${path}</a>
+                                <span style="color: #94A3B8; font-size: 0.75rem;">${url}</span>
+                            </div>`;
+                        });
+                        html += '</div>';
+                    }
+                    
+                    if (grouped.local.dev.length > 0) {
+                        html += '<h4 style="color: #8B5CF6; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem; font-weight: 600;">Development & Test Pages</h4>';
+                        html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">';
+                        grouped.local.dev.forEach(({ url, path }) => {
+                            html += `<div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #8B5CF6;">
+                                <a href="${url}" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600; display: block;">${path}</a>
+                                <span style="color: #94A3B8; font-size: 0.75rem;">${url}</span>
+                            </div>`;
+                        });
+                        html += '</div>';
+                    }
+                    
+                    if (grouped.local.tools.length > 0) {
+                        html += '<h4 style="color: #48BB78; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem; font-weight: 600;">Tools & Utilities</h4>';
+                        html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">';
+                        grouped.local.tools.forEach(({ url, path }) => {
+                            html += `<div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #48BB78;">
+                                <a href="${url}" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600; display: block;">${path}</a>
+                                <span style="color: #94A3B8; font-size: 0.75rem;">${url}</span>
+                            </div>`;
+                        });
+                        html += '</div>';
+                    }
+                    
+                    if (grouped.local.api.length > 0) {
+                        html += '<h4 style="color: #EC4899; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem; font-weight: 600;">API Endpoints</h4>';
+                        html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">';
+                        grouped.local.api.forEach(({ url }) => {
+                            html += `<div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #EC4899;">
+                                <a href="${url}" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600; display: block;">${url}</a>
+                            </div>`;
+                        });
+                        html += '</div>';
+                    }
+                }
+                
+                // Production Environment
+                if (grouped.production.main.length > 0 || grouped.production.admin.length > 0) {
+                    html += '<h3 style="color: #06B6D4; margin-top: 40px; margin-bottom: 15px; font-size: 1.2rem; font-family: \'Orbitron\', monospace; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid rgba(6, 182, 212, 0.3); padding-bottom: 10px;">🌐 Production (successchemistry.com)</h3>';
+                    
+                    if (grouped.production.main.length > 0) {
+                        html += '<h4 style="color: #10B981; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem; font-weight: 600;">Main Pages</h4>';
+                        html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">';
+                        grouped.production.main.forEach(({ url, path }) => {
+                            html += `<div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #3E4C7A;">
+                                <a href="${url}" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600; display: block;">${path}</a>
+                                <span style="color: #94A3B8; font-size: 0.75rem;">${url}</span>
+                            </div>`;
+                        });
+                        html += '</div>';
+                    }
+                    
+                    if (grouped.production.admin.length > 0) {
+                        html += '<h4 style="color: #F59E0B; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem; font-weight: 600;">Admin & Dashboard</h4>';
+                        html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">';
+                        grouped.production.admin.forEach(({ url, path }) => {
+                            html += `<div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #F59E0B;">
+                                <a href="${url}" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600; display: block;">${path}</a>
+                                <span style="color: #94A3B8; font-size: 0.75rem;">${url}</span>
+                            </div>`;
+                        });
+                        html += '</div>';
+                    }
+                    
+                    if (grouped.production.tools.length > 0) {
+                        html += '<h4 style="color: #48BB78; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem; font-weight: 600;">Tools & Utilities</h4>';
+                        html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">';
+                        grouped.production.tools.forEach(({ url, path }) => {
+                            html += `<div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #48BB78;">
+                                <a href="${url}" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600; display: block;">${path}</a>
+                                <span style="color: #94A3B8; font-size: 0.75rem;">${url}</span>
+                            </div>`;
+                        });
+                        html += '</div>';
+                    }
+                }
+                
+                linksContent.innerHTML = html;
+                
+                // Update copyAllLinks to use fetched links
+                window.allFetchedLinks = allLinks.map(l => l.url);
+                
+            } catch (error) {
+                linksContent.innerHTML = `<div style="text-align: center; padding: 40px; color: #EF4444;">
+                    <p>Error fetching links: ${error.message}</p>
+                    <button onclick="fetchAllLinks()" class="action-btn" style="margin-top: 20px;">🔄 Retry</button>
+                </div>`;
+            }
+        }
         
-        // GLOBAL ERROR TRACKER
-        window.addEventListener('error', function(e) {
-            // #region agent log
-            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1390',message:'JavaScript error caught',data:{message:e.message,filename:e.filename,lineno:e.lineno,error:e.error?.toString()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
-            // #endregion agent log
-        });
+        window.fetchAllLinks = fetchAllLinks;
+        
+        // Sales Channels Management
+        function loadSalesChannels() {
+            let channels = JSON.parse(localStorage.getItem('salesChannels') || '[]');
+            
+            // Initialize with default channels if empty
+            if (channels.length === 0) {
+                channels = [
+                    { id: 1, name: 'Amazon', status: 'Active', url: 'https://sellercentral.amazon.com', order: 1 },
+                    { id: 2, name: 'eBay', status: 'Active', url: 'https://www.ebay.com/sellercenter', order: 2 },
+                    { id: 3, name: 'WooCommerce', status: 'Active', url: '', order: 3 }
+                ];
+                localStorage.setItem('salesChannels', JSON.stringify(channels));
+            }
+            
+            // Sort by order
+            channels.sort((a, b) => (a.order || 0) - (b.order || 0));
+            
+            const table = document.getElementById('salesChannelsTable');
+            if (!table) return;
+            
+            if (channels.length === 0) {
+                table.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 40px; color: #94A3B8;">No sales channels. Click "➕ Add Channel" to add one.</td></tr>';
+                return;
+            }
+            
+            table.innerHTML = channels.map((channel, index) => `
+                <tr style="border-bottom: 1px solid rgba(139, 125, 107, 0.2);" data-channel-id="${channel.id}">
+                    <td style="padding: 16px 24px;">
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                            <button onclick="moveChannel(${channel.id}, 'up')" ${index === 0 ? 'disabled' : ''} style="background: rgba(6, 182, 212, 0.2); color: #06B6D4; border: 1px solid #06B6D4; padding: 4px 8px; cursor: pointer; font-size: 12px;" ${index === 0 ? 'opacity: 0.5; cursor: not-allowed;' : ''}>↑</button>
+                            <button onclick="moveChannel(${channel.id}, 'down')" ${index === channels.length - 1 ? 'disabled' : ''} style="background: rgba(6, 182, 212, 0.2); color: #06B6D4; border: 1px solid #06B6D4; padding: 4px 8px; cursor: pointer; font-size: 12px;" ${index === channels.length - 1 ? 'opacity: 0.5; cursor: not-allowed;' : ''}>↓</button>
+                        </div>
+                    </td>
+                    <td style="padding: 16px 24px;">
+                        <input type="text" value="${channel.name}" onchange="updateChannel(${channel.id}, 'name', this.value)" style="background: rgba(51, 65, 85, 0.5); border: 1px solid rgba(139, 125, 107, 0.3); color: #F1F5F9; padding: 8px; width: 100%; max-width: 200px;">
+                    </td>
+                    <td style="padding: 16px 24px;">
+                        <select onchange="updateChannel(${channel.id}, 'status', this.value)" style="background: rgba(51, 65, 85, 0.5); border: 1px solid rgba(139, 125, 107, 0.3); color: #F1F5F9; padding: 8px;">
+                            <option value="Active" ${channel.status === 'Active' ? 'selected' : ''}>Active</option>
+                            <option value="Inactive" ${channel.status === 'Inactive' ? 'selected' : ''}>Inactive</option>
+                            <option value="Pending" ${channel.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                        </select>
+                    </td>
+                    <td style="padding: 16px 24px;">
+                        <input type="text" value="${channel.url || ''}" onchange="updateChannel(${channel.id}, 'url', this.value)" placeholder="URL or info" style="background: rgba(51, 65, 85, 0.5); border: 1px solid rgba(139, 125, 107, 0.3); color: #F1F5F9; padding: 8px; width: 100%; max-width: 300px;">
+                    </td>
+                    <td style="padding: 16px 24px;">
+                        <button onclick="deleteChannel(${channel.id})" style="background: rgba(239, 68, 68, 0.2); color: #EF4444; border: 1px solid #EF4444; padding: 6px 12px; cursor: pointer; font-size: 12px;">🗑️ Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        function addSalesChannel() {
+            let channels = JSON.parse(localStorage.getItem('salesChannels') || '[]');
+            const newId = Math.max(...channels.map(c => c.id || 0), 0) + 1;
+            const newOrder = Math.max(...channels.map(c => c.order || 0), 0) + 1;
+            
+            channels.push({
+                id: newId,
+                name: 'New Channel',
+                status: 'Pending',
+                url: '',
+                order: newOrder
+            });
+            
+            localStorage.setItem('salesChannels', JSON.stringify(channels));
+            loadSalesChannels();
+        }
+        
+        function updateChannel(id, field, value) {
+            let channels = JSON.parse(localStorage.getItem('salesChannels') || '[]');
+            const channel = channels.find(c => c.id === id);
+            if (channel) {
+                channel[field] = value;
+                localStorage.setItem('salesChannels', JSON.stringify(channels));
+            }
+        }
+        
+        function deleteChannel(id) {
+            if (!confirm('Are you sure you want to delete this channel?')) return;
+            
+            let channels = JSON.parse(localStorage.getItem('salesChannels') || '[]');
+            channels = channels.filter(c => c.id !== id);
+            localStorage.setItem('salesChannels', JSON.stringify(channels));
+            loadSalesChannels();
+        }
+        
+        function moveChannel(id, direction) {
+            let channels = JSON.parse(localStorage.getItem('salesChannels') || '[]');
+            channels.sort((a, b) => (a.order || 0) - (b.order || 0));
+            
+            const index = channels.findIndex(c => c.id === id);
+            if (index === -1) return;
+            
+            if (direction === 'up' && index > 0) {
+                [channels[index].order, channels[index - 1].order] = [channels[index - 1].order, channels[index].order];
+            } else if (direction === 'down' && index < channels.length - 1) {
+                [channels[index].order, channels[index + 1].order] = [channels[index + 1].order, channels[index].order];
+            }
+            
+            localStorage.setItem('salesChannels', JSON.stringify(channels));
+            loadSalesChannels();
+        }
+        
+        window.loadSalesChannels = loadSalesChannels;
+        window.addSalesChannel = addSalesChannel;
+        window.updateChannel = updateChannel;
+        window.deleteChannel = deleteChannel;
+        window.moveChannel = moveChannel;
         
         // Simple initialization - ensure everything works
         function setupAdmin() {
-            // #region agent log
-            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1394',message:'setupAdmin called',data:{readyState:document.readyState,hasSwitchTab:typeof window.switchTab,hasInitDashboard:typeof window.initDashboard},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-            // #endregion agent log
             console.log('🔧 Setting up admin page...');
             
             // Hide login container
             const loginContainer = document.querySelector('.login-container');
-            // #region agent log
-            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1400',message:'Login container check',data:{found:!!loginContainer,display:loginContainer?.style?.display},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-            // #endregion agent log
             if (loginContainer) loginContainer.style.display = 'none';
             
             // Show dashboard
             const dashboard = document.getElementById('dashboard');
-            // #region agent log
-            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1407',message:'Dashboard check',data:{found:!!dashboard,display:dashboard?.style?.display,hasActive:dashboard?.classList?.contains('active')},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-            // #endregion agent log
             if (dashboard) {
                 dashboard.style.display = 'block';
                 dashboard.classList.add('active');
@@ -1519,76 +1852,40 @@
             
             // Attach tab button listeners
             const tabButtons = document.querySelectorAll('.tab-btn[data-tab]');
-            // #region agent log
-            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1415',message:'Tab buttons found',data:{count:tabButtons.length,tabNames:Array.from(tabButtons).map(b=>b.getAttribute('data-tab')),hasSwitchTab:typeof window.switchTab},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-            // #endregion agent log
-            tabButtons.forEach((btn, idx) => {
-                // #region agent log
-                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1418',message:'Attaching onclick to button',data:{index:idx,tabName:btn.getAttribute('data-tab'),hasOnclick:!!btn.onclick,before:btn.onclick?.toString().substring(0,50)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
-                // #endregion agent log
+            tabButtons.forEach((btn) => {
                 btn.onclick = function(e) {
-                    // #region agent log
-                    fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1420',message:'Tab button clicked',data:{tabName:this.getAttribute('data-tab'),hasSwitchTab:typeof window.switchTab,switchTabType:typeof window.switchTab},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-                    // #endregion agent log
                     e.preventDefault();
                     e.stopPropagation();
                     const tabName = this.getAttribute('data-tab');
                     console.log('Tab clicked:', tabName);
                     if (window.switchTab) {
-                        // #region agent log
-                        fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1427',message:'Calling switchTab',data:{tabName},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-                        // #endregion agent log
                         window.switchTab(tabName, e);
                     } else {
-                        // #region agent log
-                        fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1430',message:'switchTab NOT FOUND on window',data:{windowKeys:Object.keys(window).filter(k=>k.includes('switch')||k.includes('Tab'))},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-                        // #endregion agent log
                         console.error('switchTab not found!');
                     }
                 };
-                // #region agent log
-                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1434',message:'onclick attached',data:{index:idx,tabName:btn.getAttribute('data-tab'),hasOnclick:!!btn.onclick,after:btn.onclick?.toString().substring(0,50)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
-                // #endregion agent log
             });
             
             // Initialize dashboard data
             if (window.initDashboard) {
-                // #region agent log
-                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1440',message:'Calling initDashboard',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-                // #endregion agent log
                 window.initDashboard();
             }
             
             // Load initial data
             if (window.loadDashboardData) {
-                // #region agent log
-                fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1446',message:'Calling loadDashboardData',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-                // #endregion agent log
                 window.loadDashboardData();
             }
         }
         
-        // #region agent log
-        fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1452',message:'Script execution start',data:{readyState:document.readyState,hasBody:!!document.body},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-        // #endregion agent log
         // Run when ready
         if (document.readyState === 'loading') {
-            // #region agent log
-            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1456',message:'Adding DOMContentLoaded listener',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-            // #endregion agent log
             document.addEventListener('DOMContentLoaded', setupAdmin);
         } else {
-            // #region agent log
-            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1460',message:'DOM already loaded, calling setupAdmin immediately',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-            // #endregion agent log
             setupAdmin();
         }
         
         // Also run on load as backup
         window.addEventListener('load', function() {
-            // #region agent log
-            fetch('http://127.0.0.1:7243/ingest/a91912c8-15cc-4fb5-93f1-5d293379d7a7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/index.html:1466',message:'Window load event fired',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-            // #endregion agent log
             setupAdmin();
         });
     </script>

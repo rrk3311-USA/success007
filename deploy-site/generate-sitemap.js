@@ -30,10 +30,19 @@ const PRODUCTS_DATA = eval('(' + match[1] + ')');
 // Get all product SKUs
 const products = Object.values(PRODUCTS_DATA);
 const productUrls = products.map(p => ({
-    loc: `${BASE_URL}/product/${p.sku}`,
+    loc: `${BASE_URL}/product?sku=${encodeURIComponent(p.sku)}`,
     lastmod: new Date().toISOString().split('T')[0],
     changefreq: 'weekly',
     priority: '0.8'
+}));
+
+// Sclera i18n (13 languages) – for international indexing
+const SCLERA_LANGS = ['en', 'es', 'fr', 'de', 'pt', 'it', 'zh', 'ja', 'ar', 'ru', 'hi', 'ko', 'nl'];
+const scleraI18nUrls = SCLERA_LANGS.map(l => ({
+    loc: `${BASE_URL}/sclera/${l}/`,
+    lastmod: new Date().toISOString().split('T')[0],
+    changefreq: 'weekly',
+    priority: '0.85'
 }));
 
 // Static pages
@@ -72,6 +81,17 @@ function generateSitemap() {
 `;
     });
 
+    // Add Sclera i18n pages (for international indexing)
+    scleraI18nUrls.forEach(page => {
+        xml += `  <url>
+    <loc>${escapeXml(page.loc)}</loc>
+    <lastmod>${page.lastmod}</lastmod>
+    <changefreq>${page.changefreq}</changefreq>
+    <priority>${page.priority}</priority>
+  </url>
+`;
+    });
+
     // Add product pages
     productUrls.forEach(product => {
         xml += `  <url>
@@ -103,7 +123,8 @@ const sitemapPath = path.join(__dirname, 'sitemap.xml');
 fs.writeFileSync(sitemapPath, sitemap, 'utf8');
 
 console.log(`✅ Sitemap generated: ${sitemapPath}`);
-console.log(`   Total URLs: ${staticPages.length + productUrls.length}`);
+console.log(`   Total URLs: ${staticPages.length + scleraI18nUrls.length + productUrls.length}`);
 console.log(`   - Static pages: ${staticPages.length}`);
+console.log(`   - Sclera i18n: ${scleraI18nUrls.length}`);
 console.log(`   - Product pages: ${productUrls.length}`);
 console.log(`\n📍 Update BASE_URL in this script when you have your domain!`);

@@ -60,6 +60,58 @@ To serve each language on its own subdomain (e.g. `fr.successchemistry.com`, `de
    If you switch to subdomains, update the generator to use  
    `https://{lang}.successchemistry.com/` (or your chosen pattern) and regenerate.
 
+## Indexing in target countries
+
+To get Sclera i18n pages indexed in France, Germany, Spain, etc.:
+
+### 1. **Hreflang (already done)**
+
+Each page includes `<link rel="alternate" hreflang="…" href="…">` for all 13 languages plus `hreflang="x-default"` → `/sclera/en/`. Regenerate after changing languages:
+
+```bash
+npm run sclera:i18n
+```
+
+### 2. **Sitemap**
+
+All `/sclera/{lang}/` URLs are in `sitemap.xml`. Regenerate after adding languages:
+
+```bash
+node deploy-site/generate-sitemap.js
+```
+
+### 3. **Google Search Console**
+
+1. **Submit sitemap**  
+   [Search Console](https://search.google.com/search-console) → your property → **Sitemaps** → add `https://successchemistry.com/sitemap.xml` if not already there.
+
+2. **International targeting (optional)**  
+   - **Settings** → **International targeting** → **Country**.  
+   - Often leave **Unlisted** (no country selected) when using **same domain + hreflang**. Google uses hreflang to show the right language in each country.
+
+3. **Inspect / Request indexing**  
+   - **URL Inspection** → enter e.g. `https://successchemistry.com/sclera/fr/` → **Request indexing** for new or updated pages.
+
+4. **Check coverage**  
+   - **Pages** (or **Indexing** → **Pages**) to see indexed vs excluded. Fix any errors (e.g. redirects, 404s).
+
+### 4. **Bing Webmaster Tools**
+
+- Add site, submit `https://successchemistry.com/sitemap.xml`.  
+- Bing also uses hreflang for language/region signals.
+
+### 5. **Optional: Country-specific Search Console properties**
+
+If you use **ccTLDs** (e.g. `successchemistry.fr`) or **subdomains** (e.g. `fr.successchemistry.com`) later:
+
+- Add a **separate Search Console property** per domain/subdomain.
+- Set **International targeting** → **Country** to the matching country (e.g. France for `fr`).
+- Keep **hreflang** consistent across all variants.
+
+With the current **path-based** setup (`/sclera/fr/`, etc.), one property + sitemap + hreflang is enough for international indexing.
+
+---
+
 ## Links
 
 - **Base**: `/sclera` → redirects to `/sclera/en`

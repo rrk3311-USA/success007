@@ -387,6 +387,7 @@
                 min-height: 68px;
                 max-height: 68px;
                 height: 68px;
+                box-sizing: border-box;
             }
             
             .topbar-inner {
@@ -394,100 +395,227 @@
                 min-height: 52px;
                 max-height: 52px;
                 height: 52px;
+                box-sizing: border-box;
             }
 
             .brand {
-                left: 50%;
-                transform: translateX(-50%) !important;
+                max-width: calc(100% - 100px);
             }
 
             .brand img {
                 height: 44px;
                 min-height: 44px;
                 max-height: 44px;
-            }
-
-            .account-link {
-                right: 20px;
-                font-size: 0.9rem;
-                padding: 6px 12px;
-            }
-
-            .blue-nav {
-                padding: 10px 0;
-                min-height: 50px;
-                max-height: 50px;
-                height: 50px;
-            }
-
-            .blue-nav .container {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 48px;
-                flex-wrap: nowrap;
-                position: relative;
-                width: 100%;
-                max-width: 100%;
-                margin: 0 auto;
-                padding: 0;
-                height: 50px;
-                min-height: 50px;
-                max-height: 50px;
-                text-align: center;
-                left: 0;
-                right: 0;
-            }
-
-            .blue-nav a {
-                font-size: 1.2rem;
-                line-height: 50px;
-            }
-        }
-
-        @media (max-width: 520px) {
-            .blue-nav .container {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 48px;
-                flex-wrap: nowrap;
-                position: relative;
-                width: 100%;
-                max-width: 100%;
-                margin: 0 auto;
-                padding: 0;
-                height: 54px;
-                text-align: center;
-                left: 0;
-                right: 0;
-            }
-
-            .blue-nav {
-                min-height: 52px;
-                max-height: 52px;
-                height: 52px;
-            }
-            
-            .blue-nav .container {
-                height: 52px;
-                min-height: 52px;
-                max-height: 52px;
-            }
-            
-            .blue-nav a {
-                font-size: 1.15rem;
-                line-height: 52px;
+                width: auto;
             }
 
             .account-link {
                 font-size: 0.85rem;
+                padding: 6px 12px;
+                right: 12px;
+                max-width: 80px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .blue-nav {
+                padding: 0;
+                min-height: 50px;
+                max-height: 50px;
+                height: 50px;
+                box-sizing: border-box;
+            }
+
+            .blue-nav .container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 12px;
+                flex-wrap: nowrap;
+                position: relative;
+                width: 100%;
+                max-width: 100%;
+                margin: 0 auto;
+                padding: 0 8px;
+                height: 50px;
+                min-height: 50px;
+                max-height: 50px;
+                text-align: center;
+                box-sizing: border-box;
+            }
+
+            .blue-nav a {
+                font-size: 0.9rem !important;
+                line-height: 50px !important;
+                padding: 0 4px;
+                flex-shrink: 1;
+                min-width: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            
+            .blue-nav a span {
+                margin-left: 3px;
+            }
+
+            .blue-nav a #navCartCount {
+                font-size: 0.7rem;
+                padding: 2px 5px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .topbar {
+                padding: 8px 0;
+                min-height: 68px;
+                max-height: 68px;
+                height: 68px;
+                box-sizing: border-box;
+            }
+            
+            .topbar-inner {
+                padding: 0 12px;
+                min-height: 52px;
+                max-height: 52px;
+                height: 52px;
+                box-sizing: border-box;
+            }
+
+            .brand {
+                max-width: calc(100% - 90px);
+            }
+
+            .brand img {
+                height: 40px;
+                min-height: 40px;
+                max-height: 40px;
+                width: auto;
+            }
+
+            .account-link {
+                font-size: 0.8rem;
                 padding: 5px 10px;
+                right: 10px;
+                max-width: 70px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
 
             .account-link span:last-child {
                 display: none;
             }
+
+            .blue-nav {
+                min-height: 50px;
+                max-height: 50px;
+                height: 50px;
+                box-sizing: border-box;
+            }
+            
+            .blue-nav .container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                flex-wrap: nowrap;
+                position: relative;
+                width: 100%;
+                max-width: 100%;
+                margin: 0 auto;
+                padding: 0 6px;
+                height: 50px;
+                min-height: 50px;
+                max-height: 50px;
+                text-align: center;
+                box-sizing: border-box;
+            }
+            
+            .blue-nav a {
+                font-size: 0.8rem !important;
+                line-height: 50px !important;
+                padding: 0 3px;
+                flex-shrink: 1;
+                min-width: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            
+            .blue-nav a span {
+                margin-left: 2px;
+            }
+            
+            .blue-nav a #navCartCount {
+                font-size: 0.65rem;
+                padding: 1px 4px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .topbar {
+                padding: 8px 0;
+                min-height: 68px;
+                max-height: 68px;
+                height: 68px;
+                box-sizing: border-box;
+            }
+
+            .topbar-inner {
+                padding: 0 10px;
+                min-height: 52px;
+                max-height: 52px;
+                height: 52px;
+                box-sizing: border-box;
+            }
+
+            .brand {
+                max-width: calc(100% - 80px);
+            }
+
+            .brand img {
+                height: 36px;
+                min-height: 36px;
+                max-height: 36px;
+                width: auto;
+            }
+
+            .account-link {
+                font-size: 0.75rem;
+                padding: 4px 8px;
+                right: 8px;
+                max-width: 60px;
+            }
+
+            .blue-nav {
+                min-height: 50px;
+                max-height: 50px;
+                height: 50px;
+                box-sizing: border-box;
+            }
+
+            .blue-nav .container {
+                gap: 4px;
+                padding: 0 4px;
+                height: 50px;
+                min-height: 50px;
+                max-height: 50px;
+                box-sizing: border-box;
+            }
+
+            .blue-nav a {
+                font-size: 0.75rem !important;
+                line-height: 50px !important;
+                padding: 0 2px;
+            }
+            
+            .blue-nav a #navCartCount {
+                font-size: 0.6rem;
+                padding: 1px 3px;
+            }
+        }
         }
                 padding: 6px 12px;
             }
@@ -636,7 +764,7 @@
             padding: 20px 25px;
             border-radius: 20px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-            border: 2px solid transparent;
+            border: 5px solid transparent;
             background-image: 
                 linear-gradient(white, white),
                 linear-gradient(135deg, #5eead4 0%, #3b82f6 50%, #8b5cf6 100%);
@@ -648,7 +776,24 @@
             gap: 15px;
             cursor: pointer;
             transition: transform 0.3s;
-            animation: slideIn 0.5s ease-out;
+            animation: slideIn 0.5s ease-out, glimmer 3s ease-in-out infinite;
+        }
+        
+        .sticky-cart-banner::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 25px;
+            padding: 5px;
+            background: linear-gradient(135deg, #5eead4 0%, #3b82f6 50%, #8b5cf6 100%);
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            z-index: -1;
+            animation: glimmerBorder 3s ease-in-out infinite;
+            pointer-events: none;
         }
         
         @keyframes slideIn {
@@ -662,8 +807,49 @@
             }
         }
         
+        @keyframes glimmer {
+            0%, 100% {
+                background-image: 
+                    linear-gradient(white, white),
+                    linear-gradient(135deg, #5eead4 0%, #3b82f6 50%, #8b5cf6 100%);
+            }
+            25% {
+                background-image: 
+                    linear-gradient(white, white),
+                    linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #5eead4 100%);
+            }
+            50% {
+                background-image: 
+                    linear-gradient(white, white),
+                    linear-gradient(135deg, #8b5cf6 0%, #5eead4 50%, #3b82f6 100%);
+            }
+            75% {
+                background-image: 
+                    linear-gradient(white, white),
+                    linear-gradient(135deg, #5eead4 0%, #3b82f6 50%, #8b5cf6 100%);
+            }
+        }
+        
+        @keyframes glimmerBorder {
+            0%, 100% {
+                opacity: 1;
+                filter: brightness(1) saturate(1);
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.9;
+                filter: brightness(1.4) saturate(1.6);
+                transform: scale(1.01);
+            }
+        }
+        
         .sticky-cart-banner:hover {
             transform: translateY(-5px);
+            animation: slideIn 0.5s ease-out, glimmer 2s ease-in-out infinite;
+        }
+        
+        .sticky-cart-banner:hover::before {
+            animation: glimmerBorder 1.5s ease-in-out infinite;
         }
         
         .cart-icon {
@@ -1770,19 +1956,22 @@
 
 .add-bundle-btn {
     width: 100%;
-    padding: 8px 12px;
+    max-width: 100%;
+    padding: 14px 20px;
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     color: white;
     border: none;
-    border-radius: 6px;
-    font-size: 0.65rem;
-    font-weight: 700;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
-    margin-top: 4px;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    margin-top: 16px;
+    display: block;
+    box-sizing: border-box;
 }
 
 .add-bundle-btn:hover {
@@ -3245,6 +3434,19 @@
             padding-top: 0;
         }
         
+        .payment-card-container {
+            margin-top: 0;
+            padding-top: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .payment-card-container {
+                max-width: 100% !important;
+                padding: 20px 16px !important;
+                margin: 20px auto !important;
+            }
+        }
+        
         .paypal-divider {
             text-align: center;
             margin: 20px 0;
@@ -3624,30 +3826,6 @@
             }
         }
         
-        /* Download Brochure Section Responsive */
-        @media (max-width: 768px) {
-            .download-brochure-section .container > div {
-                padding: 35px 25px !important;
-            }
-            
-            .download-brochure-section h2 {
-                font-size: 1.8rem !important;
-            }
-            
-            .download-brochure-section form {
-                flex-direction: column !important;
-            }
-            
-            .download-brochure-section form > div:first-child {
-                width: 100% !important;
-                min-width: 100% !important;
-            }
-            
-            .download-brochure-section button {
-                width: 100% !important;
-                justify-content: center !important;
-            }
-        }
         
         @media (max-width: 768px) {
             .description-grid {
@@ -3775,10 +3953,8 @@
     <div class="blue-nav">
         <div class="container">
             <a href="/">Home</a>
-            <a href="/blog">Articles</a>
             <a href="/shop">🧪 Shop</a>
-            <a href="/cart">🛒 Cart <span id="navCartCount">0</span></a>
-            <a href="/contact">Contact</a>
+            <a href="/cart" id="cartLink" style="font-size: 0.9rem;">Cart</a>
         </div>
     </div>
 
@@ -4270,12 +4446,33 @@
                                 </div>
                             </div>
 
-                            <!-- PayPal Button Container -->
-                            <div class="paypal-section" style="max-width: 400px; margin: 0 auto 30px; padding-top: 20px;">
-                                <div id="paypal-button-container"></div>
-                                <button class="add-to-cart-btn" id="addToCartBtn" style="width: 100%; margin-top: 15px; padding: 14px; background: #2854a6; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem;">
+                            <!-- Payment & Cart Card Container -->
+                            <div class="payment-card-container" style="max-width: 500px; margin: 30px auto; padding: 24px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 16px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); border: 1px solid rgba(255, 255, 255, 0.3);">
+                                <h3 style="font-size: 1.1rem; font-weight: 600; color: #2854a6; margin-bottom: 20px; text-align: center;">Complete Your Purchase</h3>
+                                
+                                <!-- PayPal Button Container -->
+                                <div id="paypal-button-container" style="margin-bottom: 16px;"></div>
+                                
+                                <!-- Divider -->
+                                <div style="text-align: center; margin: 20px 0; position: relative;">
+                                    <div style="position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: #dee2e6;"></div>
+                                    <span style="background: rgba(255, 255, 255, 0.95); padding: 0 15px; position: relative; color: #6c757d; font-size: 0.85rem; font-weight: 500;">OR</span>
+                                </div>
+                                
+                                <!-- Add to Cart Button -->
+                                <button class="add-to-cart-btn" id="addToCartBtn" style="width: 100%; padding: 14px; background: linear-gradient(135deg, #2854a6 0%, #1e3a8a 100%); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: all 0.3s; box-shadow: 0 4px 15px rgba(40, 84, 166, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(40, 84, 166, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(40, 84, 166, 0.3)'">
                                     Add to Cart - $${price}
                                 </button>
+                                
+                                <!-- Trust Badges -->
+                                <div style="text-align: center; margin-top: 16px; padding-top: 16px; border-top: 1px solid #e0e0e0;">
+                                    <p style="font-size: 0.75rem; color: #666; margin-bottom: 8px;">🔒 Secure checkout powered by PayPal</p>
+                                    <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+                                        <span style="font-size: 0.7rem; color: #888;">✓ Free Shipping</span>
+                                        <span style="font-size: 0.7rem; color: #888;">✓ 30-Day Returns</span>
+                                        <span style="font-size: 0.7rem; color: #888;">✓ Secure Payment</span>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- Tabbed Content Section -->
@@ -4362,96 +4559,6 @@
                     </section>
                     
                     ${imageGalleryHTML}
-                    
-                    <!-- Download Brochure Section -->
-                    <section class="download-brochure-section" style="padding: 30px 0; margin-top: 20px; background: linear-gradient(135deg, rgba(40, 84, 166, 0.05) 0%, rgba(102, 126, 234, 0.05) 100%);">
-                        <div class="container" style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
-                            <div style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 255, 0.98) 100%); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 25px 20px; border-radius: 12px; border: 2px solid rgba(40, 84, 166, 0.2); box-shadow: 0 6px 24px rgba(40, 84, 166, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.5) inset; position: relative; overflow: hidden;">
-                                <!-- Decorative elements -->
-                                <div style="position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(40, 84, 166, 0.1) 0%, transparent 70%); border-radius: 50%; z-index: 0;"></div>
-                                <div style="position: absolute; bottom: -30px; left: -30px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(102, 126, 234, 0.08) 0%, transparent 70%); border-radius: 50%; z-index: 0;"></div>
-                                
-                                <div style="position: relative; z-index: 1;">
-                                    <!-- Header -->
-                                    <div style="text-align: center; margin-bottom: 20px;">
-                                        <div style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: linear-gradient(135deg, #2854a6 0%, #667eea 100%); border-radius: 50%; margin-bottom: 10px; box-shadow: 0 4px 12px rgba(40, 84, 166, 0.3);">
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M12 15V3M12 15L8 11M12 15L16 11M2 17L2 19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19V17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                        </div>
-                                        <h2 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; color: #1a1a2e; letter-spacing: -0.5px; background: linear-gradient(135deg, #2854a6 0%, #667eea 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-                                            Download Product Brochure
-                                        </h2>
-                                        <p style="font-size: 0.85rem; color: #555; line-height: 1.5; font-weight: 400; max-width: 600px; margin: 0 auto;">
-                                            Get our beautifully designed product brochure with comprehensive information, detailed specifications, usage guidelines, and exclusive insights.
-                                        </p>
-                                    </div>
-                                    
-                                    <!-- Features Grid -->
-                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 20px;">
-                                        <div style="display: flex; align-items: start; gap: 6px; padding: 10px; background: rgba(40, 84, 166, 0.04); border-radius: 6px; border-left: 2px solid #2854a6;">
-                                            <div style="font-size: 1rem; flex-shrink: 0; color: #2854a6;">📋</div>
-                                            <div>
-                                                <div style="font-weight: 600; color: #1a1a2e; margin-bottom: 2px; font-size: 0.75rem;">Complete Guide</div>
-                                                <div style="font-size: 0.7rem; color: #666; font-weight: 400; line-height: 1.4;">Detailed product information</div>
-                                            </div>
-                                        </div>
-                                        <div style="display: flex; align-items: start; gap: 6px; padding: 10px; background: rgba(40, 84, 166, 0.04); border-radius: 6px; border-left: 2px solid #2854a6;">
-                                            <div style="font-size: 1rem; flex-shrink: 0; color: #2854a6;">💡</div>
-                                            <div>
-                                                <div style="font-weight: 600; color: #1a1a2e; margin-bottom: 2px; font-size: 0.75rem;">Usage Tips</div>
-                                                <div style="font-size: 0.7rem; color: #666; font-weight: 400; line-height: 1.4;">Best practices & recommendations</div>
-                                            </div>
-                                        </div>
-                                        <div style="display: flex; align-items: start; gap: 6px; padding: 10px; background: rgba(40, 84, 166, 0.04); border-radius: 6px; border-left: 2px solid #2854a6;">
-                                            <div style="font-size: 1rem; flex-shrink: 0; color: #2854a6;">✨</div>
-                                            <div>
-                                                <div style="font-weight: 600; color: #1a1a2e; margin-bottom: 2px; font-size: 0.75rem;">Premium Design</div>
-                                                <div style="font-size: 0.7rem; color: #666; font-weight: 400; line-height: 1.4;">Beautifully formatted PDF</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Email Form -->
-                                    <div style="background: linear-gradient(135deg, rgba(40, 84, 166, 0.06) 0%, rgba(102, 126, 234, 0.06) 100%); padding: 18px; border-radius: 8px; border: 2px solid rgba(40, 84, 166, 0.15);">
-                                        <form id="downloadForm" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center; justify-content: center;">
-                                            <div style="flex: 1; min-width: 280px;">
-                                                <label for="downloadEmail" style="display: block; font-size: 0.75rem; font-weight: 600; color: #2854a6; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">
-                                                    Email Address
-                                                </label>
-                                                <input 
-                                                    type="email" 
-                                                    id="downloadEmail" 
-                                                    placeholder="your.email@example.com" 
-                                                    required
-                                                    style="width: 100%; padding: 7px 10px; border: 2px solid rgba(40, 84, 166, 0.25); border-radius: 5px; font-size: 0.85rem; font-family: inherit; transition: all 0.3s; background: white; color: #1a1a2e; box-shadow: 0 1px 4px rgba(40, 84, 166, 0.08);"
-                                                    onfocus="this.style.borderColor='#2854a6'; this.style.outline='none'; this.style.boxShadow='0 2px 6px rgba(40,84,166,0.15)';"
-                                                    onblur="this.style.borderColor='rgba(40, 84, 166, 0.25)'; this.style.boxShadow='0 1px 4px rgba(40,84,166,0.08)';"
-                                                >
-                                            </div>
-                                            <div style="display: flex; align-items: flex-end;">
-                                                <button 
-                                                    type="submit"
-                                                    style="background: linear-gradient(135deg, #2854a6 0%, #1e3f73 100%); color: white; border: none; padding: 7px 20px; border-radius: 5px; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; box-shadow: 0 3px 10px rgba(40, 84, 166, 0.3); white-space: nowrap; height: fit-content; display: flex; align-items: center; gap: 4px;"
-                                                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(40,84,166,0.4)'; this.style.background='linear-gradient(135deg, #1e3f73 0%, #2854a6 100%)'"
-                                                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 3px 10px rgba(40,84,166,0.3)'; this.style.background='linear-gradient(135deg, #2854a6 0%, #1e3f73 100%)'"
-                                                >
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0;">
-                                                        <path d="M12 15V3M12 15L8 11M12 15L16 11M2 17L2 19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                    Download Brochure
-                                                </button>
-                                            </div>
-                                        </form>
-                                        <p style="font-size: 0.7rem; color: #888; margin-top: 8px; text-align: center; font-weight: 400; line-height: 1.4;">
-                                            🔒 Your email is safe with us. We'll send you the download link instantly.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    
                     <!-- Subscribe & Save Section -->
                     <section class="subscribe-save-section" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.15) 100%); padding: 20px 0; margin-top: 15px; border-top: 2px solid rgba(16, 185, 129, 0.2);">
                         <div class="container" style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
@@ -4777,60 +4884,6 @@
                     if (bundleButtons[0]) {
                         bundleButtons[0].classList.add('active');
                     }
-                    
-                    // Download form handler
-                    setTimeout(() => {
-                        const downloadForm = document.getElementById('downloadForm');
-                        if (downloadForm) {
-                            downloadForm.addEventListener('submit', function(e) {
-                                e.preventDefault();
-                                const emailInput = document.getElementById('downloadEmail');
-                                const email = emailInput.value.trim();
-                                
-                                if (!email || !email.includes('@')) {
-                                    alert('Please enter a valid email address');
-                                    return;
-                                }
-                                
-                                // Here you would typically send the email to your backend
-                                // For now, we'll simulate a download
-                                console.log('Download requested for email:', email);
-                                
-                                // Show success message
-                                const button = downloadForm.querySelector('button[type="submit"]');
-                                const originalText = button.textContent;
-                                button.textContent = '✓ Downloading...';
-                                button.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
-                                button.disabled = true;
-                                
-                                // Simulate download (replace with actual download logic)
-                                setTimeout(() => {
-                                    // In a real implementation, you would:
-                                    // 1. Send email to backend/API
-                                    // 2. Trigger actual file download
-                                    // 3. Track the download event
-                                    
-                                    alert('✅ Download link sent to ' + email + '!\n\nCheck your email for the product guide.');
-                                    
-                                    // Reset form
-                                    emailInput.value = '';
-                                    button.textContent = originalText;
-                                    button.style.background = 'linear-gradient(135deg, #2854a6 0%, #1e3f73 100%)';
-                                    button.disabled = false;
-                                    
-                                    // Track download event if analytics available
-                                    if (window.SuccessChemistryTracking) {
-                                        window.SuccessChemistryTracking.trackEvent('download_guide', {
-                                            product_sku: product.sku,
-                                            product_name: product.name,
-                                            email: email
-                                        });
-                                    }
-                                }, 1000);
-                            });
-                        }
-                    }, 100);
-                    
                     // Helper function for subscribe & save
                     window.addToCartWithSubscription = function(isSubscription) {
                         const bundle = document.querySelector('.bundle-select-btn.active');
@@ -4839,20 +4892,44 @@
                         const price = bundle ? parseFloat(bundle.getAttribute('data-price')) : (product.price || 0);
                         const productImage = product.images && product.images[0] ? product.images[0] : '/images/placeholder.jpg';
                         
+                        // Use the correct cart key (successChemistryCart)
                         if (typeof window.addToCart === 'function') {
                             window.addToCart(product.name, price, quantity, product.sku, productImage);
                             
                             if (isSubscription) {
-                                // Add subscription flag to cart item
-                                const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-                                const item = cart.find(i => i.sku === product.sku);
-                                if (item) {
-                                    item.subscription = true;
-                                    item.subscriptionDiscount = 0.2;
-                                    localStorage.setItem('cart', JSON.stringify(cart));
-                                }
-                                alert('✅ Added to cart with Subscribe & Save! You\'ll save 20% on future orders.');
+                                // Set subscription preference - actual setup happens in cart page
+                                localStorage.setItem('purchaseType', 'subscribe');
+                                // Redirect to cart where subscription setup will happen
+                                window.location.href = '/cart';
+                            } else {
+                                // One-time purchase
+                                localStorage.setItem('purchaseType', 'one-time');
+                                window.location.href = '/cart';
                             }
+                        } else {
+                            // Fallback if addToCart function not available
+                            const cart = JSON.parse(localStorage.getItem('successChemistryCart') || '[]');
+                            const existingItem = cart.find(item => item.sku === product.sku);
+                            
+                            if (existingItem) {
+                                existingItem.quantity += quantity;
+                            } else {
+                                cart.push({
+                                    sku: product.sku,
+                                    name: product.name,
+                                    price: price,
+                                    quantity: quantity,
+                                    image: productImage
+                                });
+                            }
+                            localStorage.setItem('successChemistryCart', JSON.stringify(cart));
+                            
+                            if (isSubscription) {
+                                localStorage.setItem('purchaseType', 'subscribe');
+                            } else {
+                                localStorage.setItem('purchaseType', 'one-time');
+                            }
+                            
                             window.location.href = '/cart';
                         }
                     };

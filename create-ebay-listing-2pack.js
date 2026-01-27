@@ -178,24 +178,23 @@ async function createInventoryItem() {
     console.log(`✅ SEO Description: ${seoDescription.length} characters`);
     console.log(`✅ Targeting: milk thistle liver support, dandelion root detox, liver health supplements\n`);
     
-    // Use image 02.png as hero (assuming it shows 2 bottles)
-    // If not, we'll use 01.png but note it's a 2-pack
+    // Use the new 2-pack hero image (02-hero-2pack-main.png) as the first image
     const images = product.images ? product.images.map(img => {
         if (img.startsWith('http')) return img;
         return `https://successchemistry.com${img}`;
     }) : [];
     
-    // Reorder images to put 02.png first (2-bottle image)
+    // Reorder images to put the new 2-pack hero image first
     const reorderedImages = [];
-    const twoBottleImage = images.find(img => img.includes('02.png'));
-    if (twoBottleImage) {
-        reorderedImages.push(twoBottleImage);
-        images.forEach(img => {
-            if (img !== twoBottleImage) reorderedImages.push(img);
-        });
-    } else {
-        reorderedImages.push(...images);
-    }
+    const newHeroImage = 'https://successchemistry.com/images/products/10777-810/02-hero-2pack-main.png';
+    reorderedImages.push(newHeroImage); // New hero image first
+    
+    // Add other images after
+    images.forEach(img => {
+        if (!img.includes('02-hero-2pack-main.png')) {
+            reorderedImages.push(img);
+        }
+    });
     
     const inventoryItem = {
         sku: SKU,
@@ -207,14 +206,24 @@ async function createInventoryItem() {
                 'Product Type': ['Dietary Supplements'],
                 'Form': ['Capsules'],
                 'Size': ['120 Count', '2-Pack'],
+                'Capsule Count': ['120'],
                 'Key Ingredients': ['Milk Thistle', 'Dandelion Root', 'Artichoke Extract', 'Turmeric', 'Ginger'],
                 'Target Audience': ['Adults'],
                 'Health Concern': ['Liver Health', 'Detoxification', 'Digestive Support'],
-                'Package Quantity': ['2']
+                'Package Quantity': ['2'],
+                'Country/Region of Manufacture': ['United States'],
+                'Country of Origin': ['United States']
             },
             imageUrls: reorderedImages.slice(0, 12),
             brand: 'Success Chemistry',
-            mpn: SKU
+            mpn: SKU,
+            productIdentifiers: (product.gtin || product.upc) ? {
+                upc: [product.gtin || product.upc]
+            } : undefined,
+            // Additional product details
+            countryOfOrigin: 'US',
+            // Include ingredients in description (already in SEO description)
+            // Include formulation details (already in SEO description)
         },
         condition: 'NEW',
         conditionDescription: 'Brand new, factory sealed - 2-pack bundle',

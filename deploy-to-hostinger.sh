@@ -8,18 +8,27 @@ set -e
 echo "🚀 Deploying to Hostinger..."
 echo ""
 
-# Load credentials from .env file if it exists
+# Load credentials from .env file using Python to safely handle special characters
 if [ -f .env ]; then
-    source .env
+    eval $(python3 << 'PYEOF'
+import re
+import sys
+
+with open('.env', 'r') as f:
+    for line in f:
+        line = line.strip()
+        if line.startswith('HOSTINGER_') and '=' in line and not line.startswith('#'):
+            key, value = line.split('=', 1)
+            # Remove surrounding quotes
+            value = value.strip('"').strip("'")
+            # Escape special characters for bash
+            value = value.replace('\\', '\\\\').replace('$', '\\$').replace('`', '\\`').replace('"', '\\"')
+            print(f'export {key}="{value}"')
+PYEOF
+)
 fi
 
 # Hostinger FTP/SFTP Configuration
-# Set these in .env file or export them before running:
-# export HOSTINGER_HOST="ftp.yourdomain.com"
-# export HOSTINGER_USER="your_username"
-# export HOSTINGER_PASS="your_password"
-# export HOSTINGER_REMOTE_PATH="/public_html"  # or /domains/yourdomain.com/public_html
-
 HOSTINGER_HOST="${HOSTINGER_HOST:-ftp.yourdomain.com}"
 HOSTINGER_USER="${HOSTINGER_USER:-your_username}"
 HOSTINGER_PASS="${HOSTINGER_PASS:-your_password}"
@@ -63,15 +72,42 @@ if command -v lftp &> /dev/null; then
     echo "✅ Using lftp for deployment..."
     echo ""
     
-    lftp -c "
-    set ftp:ssl-allow no
-    set ftp:passive-mode yes
-    open -u $HOSTINGER_USER,$HOSTINGER_PASS $HOSTINGER_HOST
-    cd $HOSTINGER_REMOTE_PATH
-    lcd $SOURCE_DIR
-    mirror --reverse --delete --verbose --exclude-glob .git* --exclude-glob .DS_Store --exclude-glob .vercel* --exclude-glob .netlify* --exclude-glob node_modules
-    bye
-    "
+    # Use Python to safely create lftp script with special character handling
+    LFTP_SCRIPT=$(mktemp)
+    python3 << PYEOF
+import re
+import os
+
+# Read credentials from .env
+credentials = {}
+with open('.env', 'r') as f:
+    for line in f:
+        if line.startswith('HOSTINGER_') and '=' in line and not line.strip().startswith('#'):
+            key, value = line.strip().split('=', 1)
+            # Remove surrounding quotes
+            value = value.strip('"').strip("'")
+            credentials[key] = value
+
+# Get values with defaults
+host = credentials.get('HOSTINGER_HOST', 'ftp.yourdomain.com')
+user = credentials.get('HOSTINGER_USER', 'your_username')
+password = credentials.get('HOSTINGER_PASS', 'your_password')
+remote_path = credentials.get('HOSTINGER_REMOTE_PATH', '/public_html')
+source_dir = os.path.abspath('$SOURCE_DIR')
+
+# Write lftp script
+with open('$LFTP_SCRIPT', 'w') as f:
+    f.write('set ftp:ssl-allow no\\n')
+    f.write('set ftp:passive-mode yes\\n')
+    f.write(f'open -u {user},{password} {host}\\n')
+    f.write(f'cd {remote_path}\\n')
+    f.write(f'lcd {source_dir}\\n')
+    f.write('mirror --reverse --delete --verbose --exclude-glob .git* --exclude-glob .DS_Store --exclude-glob .vercel* --exclude-glob .netlify* --exclude-glob node_modules\\n')
+    f.write('bye\\n')
+PYEOF
+    
+    lftp -f "$LFTP_SCRIPT"
+    rm -f "$LFTP_SCRIPT"
     
     echo ""
     echo "✅ Deployment complete!"

@@ -186,6 +186,12 @@ function buildFullProductPage(locale) {
   <meta name="twitter:title" content="${escapeHtml(t(locale, 'title'))}">
   <meta name="twitter:description" content="${escapeHtml(t(locale, 'metaDescription'))}">
   <meta name="twitter:image" content="${BASE_URL}${mainImage}">
+  ${Object.keys(locales).map((l) => {
+    const u = `${BASE_URL}/sclera/${l}/`;
+    const h = l === 'zh' ? 'zh-Hans' : l;
+    return `<link rel="alternate" hreflang="${escapeHtml(h)}" href="${escapeHtml(u)}">`;
+  }).join('\n  ')}
+  <link rel="alternate" hreflang="x-default" href="${BASE_URL}/sclera/en/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="/public/images/SC_logo_withR.png">

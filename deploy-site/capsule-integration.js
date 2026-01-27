@@ -25,11 +25,12 @@ async function createCapsuleContact(customerData) {
                     emails: customerData.email ? [{ address: customerData.email }] : [],
                     phoneNumbers: customerData.phone ? [{ number: customerData.phone }] : [],
                     addresses: customerData.address ? [{
-                        street: customerData.address.street || customerData.address,
-                        city: customerData.address.city || '',
-                        state: customerData.address.state || '',
-                        zip: customerData.address.zip || customerData.address.postal_code || '',
-                        country: customerData.address.country || 'USA'
+                        // Handle PayPal address format (address_line_1) and standard format (street)
+                        street: customerData.address.address_line_1 || customerData.address.street || customerData.address.address_line_2 || '',
+                        city: customerData.address.admin_area_2 || customerData.address.city || '',
+                        state: customerData.address.admin_area_1 || customerData.address.state || '',
+                        zip: customerData.address.postal_code || customerData.address.zip || '',
+                        country: customerData.address.country_code || customerData.address.country || 'USA'
                     }] : []
                 }
             })

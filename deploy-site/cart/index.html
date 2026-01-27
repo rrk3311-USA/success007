@@ -722,94 +722,236 @@
                 min-height: 68px;
                 max-height: 68px;
                 height: 68px;
+                box-sizing: border-box;
             }
-            
+
             .topbar-inner {
                 padding: 0 16px;
                 min-height: 52px;
                 max-height: 52px;
                 height: 52px;
+                box-sizing: border-box;
             }
-        
+
             /* Logo - FIXED mobile size */
+            .brand {
+                max-width: calc(100% - 100px);
+            }
+
             .brand img {
                 height: 44px;
                 min-height: 44px;
                 max-height: 44px;
+                width: auto;
             }
-        
+
             /* Account Link - FIXED mobile size */
             .account-link {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
                 padding: 6px 12px;
+                right: 12px;
+                max-width: 80px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
-        
+
             /* Navigation - FIXED mobile height */
             .blue-nav {
-                padding: 10px 0;
+                padding: 0;
                 min-height: 50px;
                 max-height: 50px;
                 height: 50px;
+                box-sizing: border-box;
+            }
+
+            .blue-nav .container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 12px;
+                flex-wrap: nowrap;
+                position: relative;
+                width: 100%;
+                max-width: 100%;
+                margin: 0 auto;
+                padding: 0 8px;
+                height: 50px;
+                min-height: 50px;
+                max-height: 50px;
+                text-align: center;
+                box-sizing: border-box;
             }
         
-            .blue-nav .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 48px;
-    flex-wrap: nowrap;
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0;
-    /* FIXED HEIGHT */
-    height: 54px;
-    text-align: center;
-    /* Ensure perfect centering */
-    left: 0;
-    right: 0;
-}
-        
             .blue-nav a {
-                font-size: 1.2rem;
-                line-height: 1.2;
+                font-size: 0.9rem !important;
+                line-height: 50px !important;
+                padding: 0 4px;
+                flex-shrink: 1;
+                min-width: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            
+            .blue-nav a span {
+                margin-left: 3px;
+            }
+
+            .blue-nav a #navCartCount {
+                font-size: 0.7rem;
+                padding: 2px 5px;
             }
         }
         
         @media (max-width: 520px) {
-            /* Navigation - FIXED small mobile */
-            .blue-nav .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 48px;
-    flex-wrap: nowrap;
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0;
-    /* FIXED HEIGHT */
-    height: 54px;
-    text-align: center;
-    /* Ensure perfect centering */
-    left: 0;
-    right: 0;
-}
-        
-            .blue-nav a {
-                font-size: 1.15rem;
-                line-height: 1.2;
+            .topbar {
+                padding: 8px 0;
+                min-height: 68px;
+                max-height: 68px;
+                height: 68px;
+                box-sizing: border-box;
             }
-        
+            
+            .topbar-inner {
+                padding: 0 12px;
+                min-height: 52px;
+                max-height: 52px;
+                height: 52px;
+                box-sizing: border-box;
+            }
+
+            .brand {
+                max-width: calc(100% - 90px);
+            }
+
+            .brand img {
+                height: 40px;
+                min-height: 40px;
+                max-height: 40px;
+                width: auto;
+            }
+
             .account-link {
-                font-size: 0.85rem;
+                font-size: 0.8rem;
                 padding: 5px 10px;
+                right: 10px;
+                max-width: 70px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
-        
+
             .account-link span:last-child {
                 display: none;
+            }
+
+            .blue-nav {
+                min-height: 50px;
+                max-height: 50px;
+                height: 50px;
+                box-sizing: border-box;
+            }
+
+            .blue-nav .container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                flex-wrap: nowrap;
+                position: relative;
+                width: 100%;
+                max-width: 100%;
+                margin: 0 auto;
+                padding: 0 6px;
+                height: 50px;
+                min-height: 50px;
+                max-height: 50px;
+                text-align: center;
+                box-sizing: border-box;
+            }
+        
+            .blue-nav a {
+                font-size: 0.8rem !important;
+                line-height: 50px !important;
+                padding: 0 3px;
+                flex-shrink: 1;
+                min-width: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            
+            .blue-nav a span {
+                margin-left: 2px;
+            }
+            
+            .blue-nav a #navCartCount {
+                font-size: 0.65rem;
+                padding: 1px 4px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .topbar {
+                padding: 8px 0;
+                min-height: 68px;
+                max-height: 68px;
+                height: 68px;
+                box-sizing: border-box;
+            }
+
+            .topbar-inner {
+                padding: 0 10px;
+                min-height: 52px;
+                max-height: 52px;
+                height: 52px;
+                box-sizing: border-box;
+            }
+
+            .brand {
+                max-width: calc(100% - 80px);
+            }
+
+            .brand img {
+                height: 36px;
+                min-height: 36px;
+                max-height: 36px;
+                width: auto;
+            }
+
+            .account-link {
+                font-size: 0.75rem;
+                padding: 4px 8px;
+                right: 8px;
+                max-width: 60px;
+            }
+
+            .blue-nav {
+                min-height: 50px;
+                max-height: 50px;
+                height: 50px;
+                box-sizing: border-box;
+            }
+
+            .blue-nav .container {
+                gap: 4px;
+                padding: 0 4px;
+                height: 50px;
+                min-height: 50px;
+                max-height: 50px;
+                box-sizing: border-box;
+            }
+
+            .blue-nav a {
+                font-size: 0.75rem !important;
+                line-height: 50px !important;
+                padding: 0 2px;
+            }
+            
+            .blue-nav a #navCartCount {
+                font-size: 0.6rem;
+                padding: 1px 3px;
             }
         }
 
@@ -1123,10 +1265,18 @@
                 },
                 createOrder: function(data, actions) {
                     const cart = getCart();
+                    // Check for active coupon
+                    const activeCoupon = JSON.parse(localStorage.getItem('activeCoupon') || 'null');
+                    const hasValidCoupon = activeCoupon && activeCoupon.expiry > Date.now() && !activeCoupon.applied;
+                    
                     const subtotal = cart.reduce((sum, item) => {
                         const itemPrice = parseFloat(item.price) || 0;
                         // Apply subscription discount if applicable
-                        const finalPrice = (cart.length === 1 && purchaseType === 'subscribe') ? itemPrice * 0.85 : itemPrice;
+                        let finalPrice = (cart.length === 1 && purchaseType === 'subscribe') ? itemPrice * 0.85 : itemPrice;
+                        // Apply coupon discount if valid (25% off)
+                        if (hasValidCoupon && purchaseType !== 'subscribe') {
+                            finalPrice = itemPrice * 0.75; // 25% off
+                        }
                         return sum + finalPrice * (parseInt(item.quantity) || 1);
                     }, 0);
 
@@ -1310,11 +1460,19 @@
             // Update subscription pitch
             updateSubscriptionPitch(cart);
 
+            // Check for active coupon
+            const activeCoupon = JSON.parse(localStorage.getItem('activeCoupon') || 'null');
+            const hasValidCoupon = activeCoupon && activeCoupon.expiry > Date.now() && !activeCoupon.applied;
+            
             let subtotal = 0;
             itemsContainer.innerHTML = cart.map((item, index) => {
                 const itemPrice = parseFloat(item.price) || 0;
                 // Apply subscription discount if applicable
-                const finalPrice = (cart.length === 1 && purchaseType === 'subscribe') ? itemPrice * 0.85 : itemPrice;
+                let finalPrice = (cart.length === 1 && purchaseType === 'subscribe') ? itemPrice * 0.85 : itemPrice;
+                // Apply coupon discount if valid (25% off)
+                if (hasValidCoupon && purchaseType !== 'subscribe') {
+                    finalPrice = itemPrice * 0.75; // 25% off
+                }
                 const itemTotal = finalPrice * (parseInt(item.quantity) || 1);
                 subtotal += itemTotal;
 
@@ -1347,8 +1505,42 @@
                 `;
             }).join('');
 
+            // Apply coupon discount to subtotal if valid
+            let discountAmount = 0;
+            let finalTotal = subtotal;
+            if (hasValidCoupon && purchaseType !== 'subscribe') {
+                discountAmount = subtotal * 0.25; // 25% discount
+                finalTotal = subtotal - discountAmount;
+            }
+            
             document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
-            document.getElementById('total').textContent = `$${subtotal.toFixed(2)}`;
+            
+            // Show coupon discount if applicable
+            const summaryDiv = document.querySelector('.summary-section');
+            if (summaryDiv) {
+                const existingDiscount = summaryDiv.querySelector('.summary-discount');
+                if (hasValidCoupon && purchaseType !== 'subscribe' && discountAmount > 0) {
+                    if (!existingDiscount) {
+                        const discountRow = document.createElement('div');
+                        discountRow.className = 'summary-discount';
+                        discountRow.style.cssText = 'display: flex; justify-content: space-between; padding: 12px 0; border-top: 1px solid #e5e7eb;';
+                        discountRow.innerHTML = `
+                            <span style="color: #10b981; font-weight: 600;">🎉 Coupon ${activeCoupon.code} (25% OFF)</span>
+                            <span style="color: #10b981; font-weight: 600;">-$${discountAmount.toFixed(2)}</span>
+                        `;
+                        const totalRow = summaryDiv.querySelector('.summary-total');
+                        if (totalRow) {
+                            totalRow.parentNode.insertBefore(discountRow, totalRow);
+                        }
+                    } else {
+                        existingDiscount.querySelector('span:last-child').textContent = `-$${discountAmount.toFixed(2)}`;
+                    }
+                } else if (existingDiscount) {
+                    existingDiscount.remove();
+                }
+            }
+            
+            document.getElementById('total').textContent = `$${finalTotal.toFixed(2)}`;
 
             // Same-product upsell when cart has items (no redirects, no other products)
             const bundlePitch = document.getElementById('bundle-pitch');

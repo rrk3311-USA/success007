@@ -1083,18 +1083,14 @@
     opacity: 0.8;
 }
 
+.blue-nav a#cartLink {
+    font-size: 0.9rem !important;
+    font-weight: 400 !important;
+}
+
         .blue-nav a span {
             display: inline-block;
             margin-left: 4px;
-        }
-
-        .blue-nav a #navCartCount {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 2px 6px;
-            border-radius: 10px;
-            font-weight: 700;
-            margin-left: 4px;
-            display: inline-block;
         }
 
         /* Prevent layout shift */
@@ -1132,22 +1128,26 @@
             z-index: 1;
         }
 
+        /* ============================================
+           MOBILE RESPONSIVE - Consolidated & Fixed
+           ============================================ */
+
         /* Mobile Responsive - Tablet and below (768px) */
         @media (max-width: 768px) {
             /* Topbar - Consistent mobile height */
             .topbar {
-                padding: 12px 0;
-                min-height: 80px;
-                max-height: 80px;
-                height: 80px;
+                padding: 8px 0;
+                min-height: 68px;
+                max-height: 68px;
+                height: 68px;
                 box-sizing: border-box;
             }
             
             .topbar-inner {
                 padding: 0 16px;
-                min-height: 56px;
-                max-height: 56px;
-                height: 56px;
+                min-height: 52px;
+                max-height: 52px;
+                height: 52px;
                 box-sizing: border-box;
             }
 
@@ -1160,6 +1160,7 @@
                 height: 44px;
                 min-height: 44px;
                 max-height: 44px;
+                width: auto;
             }
 
             /* Account Link - Consistent mobile size */
@@ -1176,9 +1177,9 @@
             /* Navigation - Consistent mobile height */
             .blue-nav {
                 padding: 0;
-                min-height: 54px;
-                max-height: 54px;
-                height: 54px;
+                min-height: 50px;
+                max-height: 50px;
+                height: 50px;
                 margin-bottom: 0;
                 border-top: none;
                 border-bottom: none;
@@ -1190,24 +1191,24 @@
             .blue-nav .container {
                 display: flex;
                 align-items: center;
-                justify-content: space-around;
-                gap: 8px;
+                justify-content: center;
+                gap: 12px;
                 flex-wrap: nowrap;
                 position: relative;
                 width: 100%;
                 max-width: 100%;
                 margin: 0 auto;
-                padding: 0 12px;
-                height: 54px;
-                min-height: 54px;
-                max-height: 54px;
+                padding: 0 8px;
+                height: 50px;
+                min-height: 50px;
+                max-height: 50px;
                 text-align: center;
                 box-sizing: border-box;
             }
 
             .blue-nav a {
-                font-size: 0.95rem !important;
-                line-height: 54px !important;
+                font-size: 0.9rem !important;
+                line-height: 50px !important;
                 padding: 0 4px;
                 flex-shrink: 1;
                 min-width: 0;
@@ -1215,15 +1216,14 @@
                 text-overflow: ellipsis;
                 white-space: nowrap;
             }
+
+            .blue-nav a#cartLink {
+                font-size: 0.85rem !important;
+            }
             
             .blue-nav a span {
                 display: inline-block;
                 margin-left: 3px;
-            }
-
-            .blue-nav a #navCartCount {
-                font-size: 0.75rem;
-                padding: 2px 5px;
             }
         }
 
@@ -1231,10 +1231,11 @@
         @media (max-width: 520px) {
             /* Topbar - Smaller mobile height */
             .topbar {
-                padding: 10px 0;
-                min-height: 72px;
-                max-height: 72px;
-                height: 72px;
+                padding: 8px 0;
+                min-height: 68px;
+                max-height: 68px;
+                height: 68px;
+                box-sizing: border-box;
             }
             
             .topbar-inner {
@@ -1242,6 +1243,7 @@
                 min-height: 52px;
                 max-height: 52px;
                 height: 52px;
+                box-sizing: border-box;
             }
 
             /* Logo - Smaller mobile size */
@@ -1253,6 +1255,7 @@
                 height: 40px;
                 min-height: 40px;
                 max-height: 40px;
+                width: auto;
             }
 
             /* Account Link - Smaller mobile size */
@@ -1272,33 +1275,34 @@
 
             /* Navigation - Smaller mobile height */
             .blue-nav {
-                min-height: 54px;
-                max-height: 54px;
-                height: 54px;
+                min-height: 50px;
+                max-height: 50px;
+                height: 50px;
                 margin-bottom: 0;
+                box-sizing: border-box;
             }
             
             .blue-nav .container {
                 display: flex;
                 align-items: center;
-                justify-content: space-around;
-                gap: 4px;
+                justify-content: center;
+                gap: 8px;
                 flex-wrap: nowrap;
                 position: relative;
                 width: 100%;
                 max-width: 100%;
                 margin: 0 auto;
-                padding: 0 8px;
-                height: 54px;
-                min-height: 54px;
-                max-height: 54px;
+                padding: 0 6px;
+                height: 50px;
+                min-height: 50px;
+                max-height: 50px;
                 text-align: center;
                 box-sizing: border-box;
             }
 
             .blue-nav a {
-                font-size: 0.85rem !important;
-                line-height: 54px !important;
+                font-size: 0.8rem !important;
+                line-height: 50px !important;
                 padding: 0 3px;
                 flex-shrink: 1;
                 min-width: 0;
@@ -1306,35 +1310,26 @@
                 text-overflow: ellipsis;
                 white-space: nowrap;
             }
+
+            .blue-nav a#cartLink {
+                font-size: 0.75rem !important;
+            }
             
             .blue-nav a span {
                 display: inline-block;
                 margin-left: 2px;
             }
             
-            .blue-nav a #navCartCount {
-                font-size: 0.7rem;
-                padding: 1px 4px;
-            }
         }
 
         /* Mobile Responsive - Extra small mobile (400px and below) */
         @media (max-width: 400px) {
-            .blue-nav a {
-                font-size: 0.75rem !important;
-                padding: 0 2px;
-            }
-
-            .blue-nav .container {
-                gap: 2px;
-                padding: 0 6px;
-            }
-
             .topbar {
                 padding: 8px 0;
                 min-height: 68px;
                 max-height: 68px;
                 height: 68px;
+                box-sizing: border-box;
             }
 
             .topbar-inner {
@@ -1342,6 +1337,7 @@
                 min-height: 52px;
                 max-height: 52px;
                 height: 52px;
+                box-sizing: border-box;
             }
 
             .brand {
@@ -1352,6 +1348,7 @@
                 height: 36px;
                 min-height: 36px;
                 max-height: 36px;
+                width: auto;
             }
 
             .account-link {
@@ -1360,16 +1357,32 @@
                 right: 8px;
                 max-width: 60px;
             }
-        }
+
+            .blue-nav {
+                min-height: 50px;
+                max-height: 50px;
+                height: 50px;
+                box-sizing: border-box;
+            }
+
+            .blue-nav .container {
+                gap: 4px;
+                padding: 0 4px;
+                height: 50px;
+                min-height: 50px;
+                max-height: 50px;
+            }
 
             .blue-nav a {
-                font-size: 1.2rem;
+                font-size: 0.75rem !important;
+                line-height: 50px !important;
+                padding: 0 2px;
             }
-        }
 
-            .blue-nav a {
-                font-size: 1.15rem;
+            .blue-nav a#cartLink {
+                font-size: 0.7rem !important;
             }
+            
         }
     </style>
 </head>
@@ -1395,10 +1408,8 @@
     <div class="blue-nav">
         <div class="container">
             <a href="/">Home</a>
-            <a href="/blog">Articles</a>
             <a href="/shop">🧪 Shop</a>
-            <a href="/cart" id="cartLink">Cart 🛒 <span id="navCartCount">0</span></a>
-            <a href="/contact">Contact</a>
+            <a href="/cart" id="cartLink" style="font-size: 0.9rem;">Cart</a>
         </div>
     </div>
     <div class="header-divider"></div>
@@ -1542,6 +1553,118 @@
         
         // Products to hide from main store view
         const hiddenSKUs = ['21884-502', '20647-507-3', '10786-807-2', '10786-807-3'];
+        
+        // Handle coupon code from URL (QR code redemption)
+        function handleCouponFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const couponCode = urlParams.get('coupon');
+            
+            if (couponCode) {
+                // Valid coupon codes
+                const validCoupons = ['SAVE25', 'WELLNESS25', 'THANKS25', 'VIP25'];
+                
+                if (validCoupons.includes(couponCode.toUpperCase())) {
+                    // Save coupon to localStorage
+                    const couponData = {
+                        code: couponCode.toUpperCase(),
+                        discount: 25,
+                        applied: false,
+                        timestamp: Date.now(),
+                        expiry: Date.now() + (90 * 24 * 60 * 60 * 1000) // 90 days
+                    };
+                    localStorage.setItem('activeCoupon', JSON.stringify(couponData));
+                    
+                    // Show success notification
+                    showCouponNotification(couponCode.toUpperCase());
+                    
+                    // Clean URL (remove coupon parameter)
+                    const newUrl = window.location.pathname;
+                    window.history.replaceState({}, '', newUrl);
+                } else {
+                    console.warn('Invalid coupon code:', couponCode);
+                }
+            }
+        }
+        
+        // Show coupon notification banner
+        function showCouponNotification(couponCode) {
+            // Remove existing notification if any
+            const existing = document.getElementById('coupon-notification');
+            if (existing) existing.remove();
+            
+            const notification = document.createElement('div');
+            notification.id = 'coupon-notification';
+            notification.style.cssText = `
+                position: fixed;
+                top: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+                color: #0a234e;
+                padding: 16px 24px;
+                border-radius: 12px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+                z-index: 10000;
+                font-weight: 600;
+                font-size: 1.1rem;
+                text-align: center;
+                animation: slideDown 0.5s ease;
+                max-width: 90%;
+                border: 2px solid #0a234e;
+            `;
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 12px; justify-content: center;">
+                    <span style="font-size: 1.5rem;">🎉</span>
+                    <div>
+                        <strong>Coupon ${couponCode} Applied!</strong><br>
+                        <span style="font-size: 0.9rem; opacity: 0.9;">25% off will be applied at checkout</span>
+                    </div>
+                    <button onclick="this.parentElement.parentElement.remove()" style="
+                        background: #0a234e;
+                        color: white;
+                        border: none;
+                        border-radius: 50%;
+                        width: 28px;
+                        height: 28px;
+                        cursor: pointer;
+                        font-size: 1.2rem;
+                        line-height: 1;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    ">×</button>
+                </div>
+            `;
+            
+            // Add animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideDown {
+                    from {
+                        opacity: 0;
+                        transform: translateX(-50%) translateY(-20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateX(-50%) translateY(0);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            document.body.appendChild(notification);
+            
+            // Auto-hide after 8 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.style.animation = 'slideDown 0.5s ease reverse';
+                    setTimeout(() => notification.remove(), 500);
+                }
+            }, 8000);
+        }
+        
+        // Check for coupon on page load
+        handleCouponFromURL();
         
         // Simple logging function (console only)        
         // Global flag to prevent duplicate loads
@@ -2569,15 +2692,6 @@
 
 
         <script>
-            function updateCartBadge() {
-                const el = document.getElementById('navCartCount');
-                if (!el) return;
-                const cart = localStorage.getItem('successChemistryCart');
-                const cartData = cart ? JSON.parse(cart) : [];
-                const count = cartData.reduce((sum, item) => sum + (parseInt(item.quantity) || 0), 0);
-                el.textContent = String(count);
-            }
-            document.addEventListener('DOMContentLoaded', updateCartBadge);
             window.addEventListener('storage', (e) => {
                 if (e.key === 'successChemistryCart') updateCartBadge();
             });

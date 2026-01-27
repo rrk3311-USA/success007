@@ -193,16 +193,26 @@ async function createInventoryItem() {
                 'Product Type': ['Dietary Supplements'],
                 'Form': ['Capsules'],
                 'Size': ['60 Count'],
+                'Capsule Count': ['60'],
                 'Key Ingredients': ['Milk Thistle', 'Dandelion Root', 'Artichoke Extract', 'Turmeric', 'Ginger'],
                 'Target Audience': ['Adults'],
-                'Health Concern': ['Liver Health', 'Detoxification', 'Digestive Support']
+                'Health Concern': ['Liver Health', 'Detoxification', 'Digestive Support'],
+                'Country/Region of Manufacture': ['United States'],
+                'Country of Origin': ['United States']
             },
             imageUrls: product.images ? product.images.map(img => {
                 if (img.startsWith('http')) return img;
                 return `https://successchemistry.com${img}`;
             }).slice(0, 12) : [],
             brand: 'Success Chemistry',
-            mpn: product.sku
+            mpn: product.sku,
+            productIdentifiers: (product.gtin || product.upc) ? {
+                upc: [product.gtin || product.upc]
+            } : undefined,
+            // Additional product details
+            countryOfOrigin: 'US',
+            // Include ingredients in description (already in SEO description)
+            // Include formulation details (already in SEO description)
         },
         condition: 'NEW',
         conditionDescription: 'Brand new, factory sealed',

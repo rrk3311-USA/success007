@@ -206,8 +206,62 @@ function renderSubscriptionButton(container, planId, onSuccess, onError, onCance
             }
         },
 
-        onApprove: function(data) {
+        onApprove: async function(data) {
             console.log('Subscription approved:', data.subscriptionID);
+            
+            // Sync subscription to WooCommerce, Capsule, and ShipStation
+            try {
+                const cart = JSON.parse(localStorage.getItem('successChemistryCart') || '[]');
+                const subscriptionInfo = JSON.parse(localStorage.getItem('subscriptionInfo') || 'null');
+                
+                if (cart.length > 0 && subscriptionInfo) {
+                    // Format subscription as order data for syncing
+                    const orderData = {
+                        id: data.subscriptionID,
+                        orderId: data.subscriptionID,
+                        date: new Date().toISOString(),
+                        items: cart,
+                        total: parseFloat(subscriptionInfo.subscriptionPrice || 0),
+                        status: 'subscription_active',
+                        isSubscription: true,
+                        subscriptionId: data.subscriptionID,
+                        planId: subscriptionInfo.planId
+                    };
+                    
+                    // Sync to WooCommerce
+                    if (window.WooCommerceOrder && window.WooCommerceOrder.syncOrder) {
+                        try {
+                            // Fetch subscription details from PayPal to get customer info
+                            const subscriptionResponse = await fetch(`http://localhost:3001/api/paypal/subscriptions/${data.subscriptionID}`);
+                            if (subscriptionResponse.ok) {
+                                const subscriptionDetails = await subscriptionResponse.json();
+                                await window.WooCommerceOrder.syncOrder(subscriptionDetails);
+                                console.log('✅ Subscription synced to WooCommerce!');
+                            }
+                        } catch (err) {
+                            console.warn('⚠️ WooCommerce subscription sync failed:', err);
+                        }
+                    }
+                    
+                    // Sync to Capsule CRM
+                    if (window.CapsuleCRM && window.CapsuleCRM.syncOrder) {
+                        try {
+                            const customerData = {
+                                email: subscriptionInfo.customerEmail || '',
+                                firstName: subscriptionInfo.customerName?.split(' ')[0] || '',
+                                lastName: subscriptionInfo.customerName?.split(' ').slice(1).join(' ') || ''
+                            };
+                            await window.CapsuleCRM.syncOrder(orderData, customerData);
+                            console.log('✅ Subscription synced to Capsule CRM!');
+                        } catch (err) {
+                            console.warn('⚠️ Capsule subscription sync failed:', err);
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error('Error syncing subscription:', err);
+            }
+            
             if (onSuccess) {
                 onSuccess(data);
             } else {
@@ -256,7 +310,103 @@ function renderCartPayPalButtons() {
         renderPayPalButton('paypal-button-container', {
             isSubscription: true,
             planId: subscriptionInfo.planId,
-            onSuccess: (data) => {
+            onSuccess: async (data) => {
+                // Sync subscription to WooCommerce, Capsule, and ShipStation
+                try {
+                    console.log('🔄 Syncing subscription to integrations...', data);
+                    
+                    // Fetch subscription details from PayPal API
+                    const apiBase = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+                        ? 'http://localhost:3001' 
+                        : 'https://api.successchemistry.com';
+                    
+                    const subscriptionResponse = await fetch(`${apiBase}/api/paypal/subscriptions/${data.subscriptionID}`);
+                    if (subscriptionResponse.ok) {
+                        const subscriptionDetails = await subscriptionResponse.json();
+                        
+                        // Format as order data for WooCommerce
+                        const orderData = {
+                            id: data.subscriptionID,
+                            orderId: data.subscriptionID,
+                            date: new Date().toISOString(),
+                            items: cart,
+                            total: parseFloat(subscriptionInfo.subscriptionPrice || cart[0].price * 0.85),
+                            status: 'subscription_active',
+                            isSubscription: true,
+                            subscriptionId: data.subscriptionID,
+                            planId: subscriptionInfo.planId
+                        };
+                        
+                        // Sync to WooCommerce
+                        if (window.WooCommerceOrder && window.WooCommerceOrder.syncOrder) {
+                            try {
+                                // Format subscription details as PayPal order format for WooCommerce
+                                const paypalOrderFormat = {
+                                    id: data.subscriptionID,
+                                    purchase_units: [{
+                                        amount: {
+                                            value: orderData.total.toString(),
+                                            currency_code: 'USD'
+                                        },
+                                        items: cart.map(item => ({
+                                            name: item.name,
+                                            sku: item.sku,
+                                            quantity: item.quantity.toString(),
+                                            unit_amount: {
+                                                value: item.price.toString(),
+                                                currency_code: 'USD'
+                                            }
+                                        })),
+                                        shipping: subscriptionDetails.subscriber?.shipping_address ? {
+                                            name: {
+                                                full_name: subscriptionDetails.subscriber?.name?.given_name + ' ' + subscriptionDetails.subscriber?.name?.surname
+                                            },
+                                            address: {
+                                                address_line_1: subscriptionDetails.subscriber?.shipping_address?.address_line_1 || '',
+                                                address_line_2: subscriptionDetails.subscriber?.shipping_address?.address_line_2 || '',
+                                                admin_area_1: subscriptionDetails.subscriber?.shipping_address?.admin_area_1 || '',
+                                                admin_area_2: subscriptionDetails.subscriber?.shipping_address?.admin_area_2 || '',
+                                                postal_code: subscriptionDetails.subscriber?.shipping_address?.postal_code || '',
+                                                country_code: subscriptionDetails.subscriber?.shipping_address?.country_code || 'US'
+                                            }
+                                        } : null
+                                    }],
+                                    payer: {
+                                        name: subscriptionDetails.subscriber?.name || {},
+                                        email_address: subscriptionDetails.subscriber?.email_address || '',
+                                        phone: subscriptionDetails.subscriber?.phone || {}
+                                    }
+                                };
+                                
+                                const wooResult = await window.WooCommerceOrder.syncOrder(paypalOrderFormat);
+                                if (wooResult && wooResult.id) {
+                                    console.log('✅ Subscription synced to WooCommerce!', wooResult);
+                                }
+                            } catch (err) {
+                                console.warn('⚠️ WooCommerce subscription sync failed:', err);
+                            }
+                        }
+                        
+                        // Sync to Capsule CRM
+                        if (window.CapsuleCRM && window.CapsuleCRM.syncOrder) {
+                            try {
+                                const customerData = {
+                                    email: subscriptionDetails.subscriber?.email_address || '',
+                                    firstName: subscriptionDetails.subscriber?.name?.given_name || '',
+                                    lastName: subscriptionDetails.subscriber?.name?.surname || '',
+                                    address: subscriptionDetails.subscriber?.shipping_address || {}
+                                };
+                                await window.CapsuleCRM.syncOrder(orderData, customerData);
+                                console.log('✅ Subscription synced to Capsule CRM!');
+                            } catch (err) {
+                                console.warn('⚠️ Capsule subscription sync failed:', err);
+                            }
+                        }
+                    }
+                } catch (err) {
+                    console.error('Error syncing subscription:', err);
+                }
+                
                 localStorage.removeItem('successChemistryCart');
                 localStorage.removeItem('subscriptionInfo');
                 localStorage.removeItem('isSubscription');

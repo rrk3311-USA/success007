@@ -20,13 +20,10 @@
             background: linear-gradient(135deg, #0a234e 0%, #1a3a6e 100%);
             color: #333;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             padding: 20px;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         body::before {
@@ -45,15 +42,17 @@
         .container {
             max-width: 900px;
             width: 100%;
+            margin: 0 auto;
             position: relative;
             z-index: 10;
+            padding: 20px 0;
         }
 
         /* Thank You Header */
         .thank-you-header {
             text-align: center;
             color: white;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             animation: fadeInDown 0.8s ease;
         }
 
@@ -70,14 +69,14 @@
 
         .thank-you-header h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: 800;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             text-shadow: 0 2px 20px rgba(0,0,0,0.3);
         }
 
         .thank-you-header p {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             opacity: 0.9;
         }
 
@@ -162,10 +161,10 @@
 
         /* Ticket Body */
         .ticket-body {
-            padding: 50px;
+            padding: 35px;
             display: grid;
             grid-template-columns: 1fr auto;
-            gap: 40px;
+            gap: 30px;
             align-items: center;
             background: 
                 repeating-linear-gradient(
@@ -193,14 +192,14 @@
 
         .ticket-info .code {
             font-family: 'Courier New', monospace;
-            font-size: 3rem;
+            font-size: 2.5rem;
             color: white;
             font-weight: 800;
-            letter-spacing: 5px;
-            margin-bottom: 25px;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
             text-shadow: 0 2px 10px rgba(212, 175, 55, 0.5);
             border: 2px solid #d4af37;
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
             background: rgba(212, 175, 55, 0.1);
             text-align: center;
@@ -208,63 +207,70 @@
 
         .ticket-info .discount {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: #d4af37;
             font-weight: 800;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .ticket-info .details {
-            font-size: 1.1rem;
-            line-height: 1.8;
+            font-size: 1rem;
+            line-height: 1.6;
             color: rgba(255,255,255,0.9);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .ticket-info .expiry {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: #d4af37;
             font-weight: 600;
-            margin-top: 20px;
-            padding-top: 20px;
+            margin-top: 15px;
+            padding-top: 15px;
             border-top: 1px solid rgba(212, 175, 55, 0.3);
         }
 
-        /* QR Code Section */
-        .qr-section {
+        /* Screenshot Icon Section */
+        .screenshot-icon-section {
             text-align: center;
-            padding: 20px;
-            background: white;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(244, 208, 63, 0.2) 100%);
             border-radius: 15px;
             border: 3px solid #d4af37;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+            animation: pulseGlow 2s infinite;
         }
 
-        .qr-section .qr-label {
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+            }
+            50% {
+                box-shadow: 0 5px 30px rgba(212, 175, 55, 0.6);
+            }
+        }
+
+        .screenshot-icon-large {
+            font-size: 5rem;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        }
+
+        .screenshot-label {
             font-family: 'Playfair Display', serif;
-            font-size: 0.9rem;
+            font-size: 1.3rem;
             color: #0a234e;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
             font-weight: 700;
         }
 
-        .qr-code {
-            width: 200px;
-            height: 200px;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            border: 2px solid #0a234e;
-            border-radius: 10px;
-        }
-
-        .qr-code canvas {
-            max-width: 100%;
-            height: auto;
+        .screenshot-hint {
+            font-size: 0.95rem;
+            color: #0a234e;
+            opacity: 0.8;
+            font-style: italic;
         }
 
         /* Ticket Footer */
@@ -286,8 +292,8 @@
         /* Screenshot Prompt */
         .screenshot-prompt {
             text-align: center;
-            margin-top: 40px;
-            padding: 30px;
+            margin-top: 30px;
+            padding: 25px;
             background: rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
             border-radius: 20px;
@@ -306,17 +312,30 @@
 
         .screenshot-prompt h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: #d4af37;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             font-weight: 700;
         }
 
         .screenshot-prompt p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: white;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             opacity: 0.9;
+        }
+
+        .screenshot-instructions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .screenshot-instructions p {
+            font-size: 1rem;
+            margin-bottom: 10px;
         }
 
         .screenshot-icon {
@@ -339,7 +358,8 @@
             display: flex;
             gap: 20px;
             justify-content: center;
-            margin-top: 30px;
+            margin-top: 25px;
+            margin-bottom: 30px;
             flex-wrap: wrap;
         }
 
@@ -386,7 +406,11 @@
 
         @media (max-width: 768px) {
             .thank-you-header h1 {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
+            }
+
+            .thank-you-header p {
+                font-size: 1rem;
             }
 
             .ticket-header h2 {
@@ -396,23 +420,26 @@
 
             .ticket-body {
                 grid-template-columns: 1fr;
-                padding: 30px 20px;
-                gap: 30px;
+                padding: 25px 15px;
+                gap: 25px;
             }
 
             .ticket-info .code {
-                font-size: 2rem;
-                letter-spacing: 3px;
-                padding: 15px;
+                font-size: 1.8rem;
+                letter-spacing: 2px;
+                padding: 12px;
             }
 
             .ticket-info .discount {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
 
-            .qr-code {
-                width: 180px;
-                height: 180px;
+            .screenshot-icon-section {
+                padding: 20px 15px;
+            }
+
+            .screenshot-icon-large {
+                font-size: 4rem;
             }
 
             .screenshot-prompt h3 {
@@ -455,13 +482,13 @@
                     </div>
                     <div class="code" id="couponCode">SAVE25</div>
                     
-                    <div class="discount">25% OFF</div>
+                    <div class="discount">15% OFF</div>
                     
                     <div class="details">
                         ✓ Valid on your next purchase<br>
                         ✓ Applies to all products<br>
-                        ✓ Free shipping included<br>
-                        ✓ Stackable with sales
+                        ✓ One-time use per customer<br>
+                        ✓ WooCommerce coupon code
                     </div>
                     
                     <div class="expiry">
@@ -469,10 +496,11 @@
                     </div>
                 </div>
 
-                <!-- QR Code -->
-                <div class="qr-section">
-                    <div class="qr-label">Scan to Redeem</div>
-                    <div class="qr-code" id="qrCode"></div>
+                <!-- Screenshot Icon Section -->
+                <div class="screenshot-icon-section">
+                    <div class="screenshot-icon-large">📸</div>
+                    <div class="screenshot-label">Take a Screenshot!</div>
+                    <div class="screenshot-hint">Save this to your photos for later</div>
                 </div>
             </div>
 
@@ -485,15 +513,33 @@
         <!-- Screenshot Prompt -->
         <div class="screenshot-prompt">
             <div class="screenshot-icon">📸</div>
-            <h3>Save This Coupon!</h3>
-            <p>Take a screenshot now so you can easily find this exclusive discount later.</p>
-            <p style="font-size: 1rem; opacity: 0.8;">Your coupon code: <strong>SAVE25</strong></p>
+            <h3>📱 Take a Screenshot Now!</h3>
+            <p>Save this coupon to your photos so you can find it easily later when shopping.</p>
+            <div class="screenshot-instructions">
+                <p><strong>💡 How to Screenshot:</strong></p>
+                <p style="font-size: 0.95rem; opacity: 0.9;">
+                    <strong>iPhone/iPad:</strong> Press Side Button + Volume Up<br>
+                    <strong>Android:</strong> Press Power + Volume Down<br>
+                    <strong>Windows:</strong> Press Win + Shift + S<br>
+                    <strong>Mac:</strong> Press Cmd + Shift + 4
+                </p>
+            </div>
         </div>
 
         <!-- Action Buttons -->
         <div class="action-buttons">
             <a href="/shop" class="btn btn-primary">🛍️ Continue Shopping</a>
             <a href="/" class="btn btn-secondary">Return to Home</a>
+        </div>
+
+        <!-- Instagram Link -->
+        <div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
+            <a href="https://www.instagram.com/success_chemistry/" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 8px; color: white; text-decoration: none; font-size: 1rem; font-weight: 600; padding: 10px 20px; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); border-radius: 25px; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 4px 15px rgba(188, 24, 136, 0.4);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(188, 24, 136, 0.6)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(188, 24, 136, 0.4)'">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+                <span>@success_chemistry</span>
+            </a>
         </div>
     </div>
 
@@ -684,113 +730,124 @@
             <a href="/shop" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">🧪 SHOP</a>
         </div>
         <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
-                <div style="text-align: center; padding: 16px; background: #2854a6;">
-            <p style="color: white; font-size: 0.85rem; margin: 0 0 12px 0;">🗽 Copyright 2026 - Success Chemistry®</p>
-            <div style="display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 12px;">
-                <span style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">Powered by:</span>
-                <a href="https://cursor.sh" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 6px; color: white; text-decoration: none; opacity: 0.85; transition: opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.85'">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;">
-                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor"/>
-                        <path d="M2 17L12 22L22 17V12L12 17L2 12V17Z" fill="currentColor"/>
-                    </svg>
-                    <span style="font-size: 0.85rem; font-weight: 500;">Cursor</span>
-                </a>
-                <a href="https://nvidia.com" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 6px; color: white; text-decoration: none; opacity: 0.85; transition: opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.85'">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;">
-                        <path d="M8.5 6L15.5 6L12 18L8.5 6Z" fill="currentColor"/>
-                    </svg>
-                    <span style="font-size: 0.85rem; font-weight: 500;">NVIDIA</span>
-                </a>
-                <a href="https://vercel.com" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 6px; color: white; text-decoration: none; opacity: 0.85; transition: opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.85'">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;">
-                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor"/>
-                        <path d="M2 17L12 22L22 17V12L12 17L2 12V17Z" fill="currentColor"/>
-                    </svg>
-                    <span style="font-size: 0.85rem; font-weight: 500;">Vercel</span>
-                </a>
-                <a href="https://github.com" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 6px; color: white; text-decoration: none; opacity: 0.85; transition: opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.85'">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;">
-                        <path d="M12 2C6.477 2 2 6.477 2 12C2 16.42 4.865 20.17 8.839 21.49C9.339 21.58 9.521 21.27 9.521 21.01C9.521 20.77 9.513 20.04 9.508 19.21C6.726 19.76 6.14 17.56 6.14 17.56C5.685 16.33 5.029 16.01 5.029 16.01C4.121 15.33 5.097 15.35 5.097 15.35C6.101 15.43 6.629 16.38 6.629 16.38C7.521 17.82 8.97 17.41 9.539 17.18C9.631 16.54 9.889 16.11 10.176 15.87C7.954 15.64 5.62 14.81 5.62 11.5C5.62 10.39 6.01 9.5 6.649 8.79C6.546 8.54 6.203 7.5 6.747 6.15C6.747 6.15 7.586 5.88 9.496 7.17C10.295 6.95 11.15 6.84 12 6.84C12.85 6.84 13.705 6.95 14.504 7.17C16.414 5.88 17.253 6.15 17.253 6.15C17.797 7.5 17.454 8.54 17.351 8.79C17.99 9.5 18.38 10.39 18.38 11.5C18.38 14.82 16.046 15.64 13.824 15.87C14.174 16.2 14.485 16.78 14.485 17.65C14.485 18.98 14.473 20.04 14.479 21.01C14.479 21.28 14.66 21.59 15.16 21.49C19.135 20.17 22 16.42 22 12C22 6.477 17.523 2 12 2Z" fill="currentColor"/>
-                    </svg>
-                    <span style="font-size: 0.85rem; font-weight: 500;">GitHub</span>
-                </a>
-                <a href="https://nodejs.org" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 6px; color: white; text-decoration: none; opacity: 0.85; transition: opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.85'">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;">
-                        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17.5C13 17.78 12.78 18 12.5 18C12.22 18 12 17.78 12 17.5V15.5C12 15.22 12.22 15 12.5 15C12.78 15 13 15.22 13 15.5V17.5ZM16.5 15.5C16.5 15.78 16.28 16 16 16C15.72 16 15.5 15.78 15.5 15.5V13.5C15.5 13.22 15.72 13 16 13C16.28 13 16.5 13.22 16.5 13.5V15.5Z" fill="currentColor"/>
-                    </svg>
-                    <span style="font-size: 0.85rem; font-weight: 500;">Node.js</span>
-                </a>
-            </div>
+        <div style="text-align: center; padding: 16px; background: #2854a6;">
+            <p style="color: white; font-size: 0.85rem; margin: 0;">🗽 Copyright 2026 - Success Chemistry®</p>
         </div>
     </footer>
 
-    <!-- QR Code Library -->
-    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-    
     <script>
-        // Generate unique coupon code with timestamp
+        // WooCommerce Configuration
+        const WOOCOMMERCE_CONFIG = {
+            url: 'https://blueviolet-snake-802946.hostingersite.com',
+            consumerKey: 'ck_2a7dcf6903f5d22ed4228abd6da424746d5f80b6',
+            consumerSecret: 'cs_448d2cd75368443afcd926cb249bd78e81a80db1',
+            apiEndpoint: '/wp-json/wc/v3'
+        };
+
+        // Generate unique coupon code
         function generateCouponCode() {
-            const codes = ['SAVE25', 'WELLNESS25', 'THANKS25', 'VIP25'];
-            return codes[Math.floor(Math.random() * codes.length)];
+            const timestamp = Date.now().toString(36).toUpperCase();
+            const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+            return `THANKYOU15-${timestamp}-${random}`;
         }
 
-        // Set expiry date (90 days from now)
+        // Set expiry date (7 months from now)
         function setExpiryDate() {
             const today = new Date();
-            const expiry = new Date(today.setDate(today.getDate() + 90));
+            const expiry = new Date(today);
+            expiry.setMonth(expiry.getMonth() + 7); // 7 months from now
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             return expiry.toLocaleDateString('en-US', options);
         }
 
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set coupon code
+        // Create WooCommerce coupon
+        async function createWooCommerceCoupon() {
             const couponCode = generateCouponCode();
-            document.getElementById('couponCode').textContent = couponCode;
+            const expiryDate = new Date();
+            expiryDate.setMonth(expiryDate.getMonth() + 7);
             
-            // Set expiry date
-            document.getElementById('expiryDate').textContent = setExpiryDate();
-            
-            // Generate QR Code
-            const qrContainer = document.getElementById('qrCode');
-            const couponUrl = `https://successchemistry.com/shop?coupon=${couponCode}`;
-            
-            new QRCode(qrContainer, {
-                text: couponUrl,
-                width: 180,
-                height: 180,
-                colorDark: '#0a234e',
-                colorLight: '#ffffff',
-                correctLevel: QRCode.CorrectLevel.H
-            });
-
-            // Add animation to ticket on load
-            setTimeout(() => {
-                document.querySelector('.coupon-ticket').style.transform = 'scale(1)';
-            }, 100);
-
-            // Save coupon to localStorage for future reference
-            localStorage.setItem('successChemistryCoupon', JSON.stringify({
+            const couponData = {
                 code: couponCode,
-                discount: '25%',
-                expiry: setExpiryDate(),
-                timestamp: Date.now()
-            }));
+                discount_type: 'percent',
+                amount: '15',
+                individual_use: false,
+                exclude_sale_items: false,
+                minimum_amount: '0.00',
+                usage_limit: 1,
+                usage_limit_per_user: 1,
+                expiry_date: expiryDate.toISOString().split('T')[0],
+                description: 'Thank you coupon - 15% off your next purchase'
+            };
 
-            // Show browser notification prompt (optional)
-            if ('Notification' in window && Notification.permission === 'default') {
-                setTimeout(() => {
-                    if (confirm('Would you like to receive a reminder about your coupon before it expires?')) {
-                        Notification.requestPermission();
+            try {
+                const response = await fetch(
+                    `${WOOCOMMERCE_CONFIG.url}${WOOCOMMERCE_CONFIG.apiEndpoint}/coupons`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Basic ${btoa(`${WOOCOMMERCE_CONFIG.consumerKey}:${WOOCOMMERCE_CONFIG.consumerSecret}`)}`
+                        },
+                        body: JSON.stringify(couponData)
                     }
-                }, 3000);
+                );
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`WooCommerce API Error ${response.status}: ${errorText}`);
+                }
+
+                const createdCoupon = await response.json();
+                return {
+                    success: true,
+                    code: createdCoupon.code,
+                    discount: '15%',
+                    expiryDateFormatted: setExpiryDate()
+                };
+            } catch (error) {
+                console.error('Failed to create WooCommerce coupon:', error);
+                // Return fallback coupon code
+                return {
+                    success: false,
+                    code: couponCode,
+                    discount: '15%',
+                    expiryDateFormatted: setExpiryDate()
+                };
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                // Create WooCommerce coupon
+                const couponData = await createWooCommerceCoupon();
+                
+                // Display coupon
+                document.getElementById('couponCode').textContent = couponData.code;
+                document.getElementById('expiryDate').textContent = couponData.expiryDateFormatted;
+
+                // Add animation to ticket on load
+                setTimeout(() => {
+                    document.querySelector('.coupon-ticket').style.transform = 'scale(1)';
+                }, 100);
+
+                // Save coupon to localStorage for future reference
+                localStorage.setItem('successChemistryCoupon', JSON.stringify({
+                    code: couponData.code,
+                    discount: '15%',
+                    expiry: couponData.expiryDateFormatted,
+                    timestamp: Date.now(),
+                    wooCommerceCoupon: couponData.success
+                }));
+
+            } catch (error) {
+                console.error('Error initializing coupon:', error);
+                // Show fallback message
+                const fallbackCode = generateCouponCode();
+                document.getElementById('couponCode').textContent = fallbackCode;
+                document.getElementById('expiryDate').textContent = setExpiryDate();
             }
         });
-
-        // Add print functionality for easy saving
-        function printCoupon() {
-            window.print();
-        }
 
         // Keyboard shortcut for screenshot reminder
         document.addEventListener('keydown', function(e) {
