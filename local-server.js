@@ -6,6 +6,7 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { renderProductPage } from './server-render-product.js';
+import { syncLeadToZoho } from './zoho-crm-integration.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,6 +25,10 @@ writeLog({location:'local-server.js:12',message:'Server initialization',data:{di
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+
+// Middleware for parsing JSON
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Log all incoming requests
 app.use((req, res, next) => {
@@ -222,6 +227,10 @@ app.get('/command-center', (req, res) => {
     res.sendFile(path.join(__dirname, 'deploy-site/command-center/index.html'));
 });
 
+app.get('/vision-board', (req, res) => {
+    res.sendFile(path.join(__dirname, 'deploy-site/vision-board/index.html'));
+});
+
 app.get('/ebay-auth-denied', (req, res) => {
     res.sendFile(path.join(__dirname, 'deploy-site/ebay-auth-denied.html'));
 });
@@ -321,6 +330,401 @@ app.get('/robots.txt', (req, res) => {
 app.get('/llms.txt', (req, res) => {
     res.setHeader('Content-Type', 'text/plain');
     res.sendFile(path.join(__dirname, 'deploy-site/llms.txt'));
+});
+
+// Contact form API endpoint
+app.post('/api/contact', async (req, res) => {
+    try {
+        const { name, email, message } = req.body;
+        
+        // Validate input
+        if (!name || !email || !message) {
+            return res.status(400).json({
+                success: false,
+                error: 'All fields are required'
+            });
+        }
+        
+        // Basic email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({
+                success: false,
+                error: 'Invalid email address'
+            });
+        }
+        
+        // Log contact form submission
+        const contactLog = {
+            timestamp: new Date().toISOString(),
+            name: name,
+            email: email,
+            message: message
+        };
+        
+        // Write to log file
+        const contactLogPath = path.join(__dirname, '.cursor/contact-submissions.log');
+        try {
+            fs.appendFileSync(contactLogPath, JSON.stringify(contactLog) + '\n');
+            console.log('✅ Contact form submission logged:', { name, email });
+        } catch (logError) {
+            console.error('Failed to log contact submission:', logError);
+            // Continue even if logging fails
+        }
+        
+        // Optional: Send to Capsule CRM if integration is available
+        // This would require importing the Capsule integration module
+        // For now, we'll just log it
+        
+        // Return success
+        res.json({
+            success: true,
+            message: 'Contact form submitted successfully'
+        });
+        
+    } catch (error) {
+        console.error('Contact form error:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Internal server error'
+        });
+    }
+});
+
+// ============================================
+// ZIA SKILLS API ENDPOINTS - For Zoho SalesIQ
+// ============================================
+
+// Load product data dynamically
+let PRODUCTS_DATA = {};
+try {
+    const { createRequire } = await import('module');
+    const require = createRequire(import.meta.url);
+    const productsModule = require('./deploy-site/products-data.js');
+    PRODUCTS_DATA = productsModule.PRODUCTS_DATA || {};
+    console.log(`✅ Loaded ${Object.keys(PRODUCTS_DATA).length} products for Zia Skills API`);
+} catch (error) {
+    console.error('⚠️ Error loading products data:', error);
+}
+
+// Helper function to search products
+function searchProducts(query, field = 'all') {
+    const results = [];
+    const queryLower = query.toLowerCase();
+    
+    Object.values(PRODUCTS_DATA).forEach(product => {
+        let score = 0;
+        let matched = false;
+        
+        if (field === 'all' || field === 'ingredients') {
+            if (product.ingredients?.toLowerCase().includes(queryLower)) {
+                score += 3;
+                matched = true;
+            }
+        }
+        
+        if (field === 'all' || field === 'name') {
+            if (product.name?.toLowerCase().includes(queryLower)) {
+                score += 2;
+                matched = true;
+            }
+        }
+        
+        if (field === 'all' || field === 'description') {
+            if (product.description?.toLowerCase().includes(queryLower)) {
+                score += 2;
+                matched = true;
+            }
+        }
+        
+        if (field === 'all' || field === 'category') {
+            if (product.category?.toLowerCase().includes(queryLower)) {
+                score += 2;
+                matched = true;
+            }
+        }
+        
+        if (field === 'all' || field === 'goals') {
+            const searchTerms = product.key_search_terms?.toLowerCase() || '';
+            const seoTargets = JSON.stringify(product.seo_targets || {}).toLowerCase();
+            if (searchTerms.includes(queryLower) || seoTargets.includes(queryLower)) {
+                score += 1;
+                matched = true;
+            }
+        }
+        
+        if (matched) {
+            results.push({ ...product, relevanceScore: score });
+        }
+    });
+    
+    return results.sort((a, b) => b.relevanceScore - a.relevanceScore).slice(0, 10);
+}
+
+// API: Search products (for Zia Skills)
+app.get('/api/zia/products/search', (req, res) => {
+    try {
+        const { q, field } = req.query;
+        
+        if (!q) {
+            return res.status(400).json({
+                success: false,
+                error: 'Query parameter "q" is required'
+            });
+        }
+        
+        const results = searchProducts(q, field || 'all');
+        
+        res.json({
+            success: true,
+            query: q,
+            count: results.length,
+            products: results.map(p => ({
+                sku: p.sku,
+                name: p.name,
+                price: p.price,
+                category: p.category,
+                short_description: p.short_description,
+                ingredients: p.ingredients,
+                key_features: p.key_search_terms,
+                url: `https://successchemistry.com/product?sku=${p.sku}`
+            }))
+        });
+    } catch (error) {
+        console.error('Product search error:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Internal server error'
+        });
+    }
+});
+
+// API: Get product by SKU
+app.get('/api/zia/products/:sku', (req, res) => {
+    try {
+        const { sku } = req.params;
+        const product = PRODUCTS_DATA[sku];
+        
+        if (!product) {
+            return res.status(404).json({
+                success: false,
+                error: 'Product not found'
+            });
+        }
+        
+        res.json({
+            success: true,
+            product: {
+                sku: product.sku,
+                name: product.name,
+                price: product.price,
+                category: product.category,
+                description: product.description,
+                short_description: product.short_description,
+                ingredients: product.ingredients,
+                supplement_facts: product.supplement_facts,
+                suggested_use: product.suggested_use,
+                key_features: product.key_search_terms,
+                images: product.images,
+                url: `https://successchemistry.com/product?sku=${product.sku}`
+            }
+        });
+    } catch (error) {
+        console.error('Get product error:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Internal server error'
+        });
+    }
+});
+
+// API: Get all products (summary)
+app.get('/api/zia/products', (req, res) => {
+    try {
+        const products = Object.values(PRODUCTS_DATA).map(p => ({
+            sku: p.sku,
+            name: p.name,
+            price: p.price,
+            category: p.category,
+            short_description: p.short_description
+        }));
+        
+        res.json({
+            success: true,
+            count: products.length,
+            products
+        });
+    } catch (error) {
+        console.error('Get all products error:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Internal server error'
+        });
+    }
+});
+
+// ============================================
+// SALESIQ LEAD CAPTURE WEBHOOK - Sync to Capsule & Zoho CRM
+// ============================================
+
+// Capsule CRM configuration
+const CAPSULE_API_URL = 'https://api.capsulecrm.com/api/v2';
+const CAPSULE_API_TOKEN = 'FPH4ltmX3v307MaUMCYkECGl9a16eXPh37TpUbWjOM83kd3cyW4z2vk8Kk+GcxJA';
+
+// Helper: Create contact in Capsule CRM
+async function createCapsuleContact(customerData) {
+    try {
+        const response = await fetch(`${CAPSULE_API_URL}/parties`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${CAPSULE_API_TOKEN}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                party: {
+                    type: 'person',
+                    firstName: customerData.firstName || customerData.name?.split(' ')[0] || 'Lead',
+                    lastName: customerData.lastName || customerData.name?.split(' ').slice(1).join(' ') || '',
+                    emails: customerData.email ? [{ address: customerData.email }] : [],
+                    phoneNumbers: customerData.phone ? [{ number: customerData.phone }] : []
+                }
+            })
+        });
+
+        if (!response.ok) {
+            const error = await response.text();
+            throw new Error(`Capsule API error: ${response.status} ${error}`);
+        }
+
+        const data = await response.json();
+        return data.party;
+    } catch (error) {
+        console.error('Error creating Capsule contact:', error);
+        throw error;
+    }
+}
+
+// Helper: Find contact by email in Capsule CRM
+async function findCapsuleContactByEmail(email) {
+    try {
+        const response = await fetch(`${CAPSULE_API_URL}/parties?q=${encodeURIComponent(email)}`, {
+            headers: {
+                'Authorization': `Bearer ${CAPSULE_API_TOKEN}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            return null;
+        }
+
+        const data = await response.json();
+        return data.parties?.find(p => p.emails?.some(e => e.address === email));
+    } catch (error) {
+        return null;
+    }
+}
+
+// Webhook: Receive lead from SalesIQ and sync to both CRMs
+app.post('/api/webhooks/salesiq/lead', async (req, res) => {
+    try {
+        console.log('📥 Received SalesIQ lead:', req.body);
+
+        const leadData = req.body;
+        
+        // Extract lead information (SalesIQ format may vary)
+        const customerData = {
+            firstName: leadData.firstName || leadData.first_name || leadData.name?.split(' ')[0] || 'Lead',
+            lastName: leadData.lastName || leadData.last_name || leadData.name?.split(' ').slice(1).join(' ') || '',
+            email: leadData.email || leadData.Email || '',
+            phone: leadData.phone || leadData.Phone || leadData.phoneNumber || '',
+            name: leadData.name || `${leadData.firstName || ''} ${leadData.lastName || ''}`.trim(),
+            message: leadData.message || leadData.Message || leadData.description || '',
+            source: 'SalesIQ Chat',
+            company: leadData.company || 'Success Chemistry Customer',
+            customFields: {
+                ...(leadData.customFields || {}),
+                Lead_Source: 'SalesIQ Chat',
+                Description: leadData.message || leadData.description || ''
+            }
+        };
+
+        // Validate required fields
+        if (!customerData.email) {
+            return res.status(400).json({
+                success: false,
+                error: 'Email is required'
+            });
+        }
+
+        const results = {
+            capsule: null,
+            zoho: null
+        };
+
+        // Sync to Capsule CRM
+        try {
+            let capsuleContact = await findCapsuleContactByEmail(customerData.email);
+            
+            if (!capsuleContact) {
+                capsuleContact = await createCapsuleContact(customerData);
+                console.log('✅ Lead created in Capsule CRM:', capsuleContact?.id);
+            } else {
+                console.log('✅ Lead already exists in Capsule CRM:', capsuleContact?.id);
+            }
+            
+            results.capsule = {
+                success: true,
+                contactId: capsuleContact?.id
+            };
+        } catch (error) {
+            console.error('❌ Capsule CRM sync failed:', error);
+            results.capsule = {
+                success: false,
+                error: error.message
+            };
+        }
+
+        // Sync to Zoho CRM
+        try {
+            const zohoResult = await syncLeadToZoho(customerData);
+            results.zoho = zohoResult;
+        } catch (error) {
+            console.error('❌ Zoho CRM sync failed:', error);
+            results.zoho = {
+                success: false,
+                error: error.message
+            };
+        }
+
+        // Log lead capture
+        const leadLog = {
+            timestamp: new Date().toISOString(),
+            customerData: customerData,
+            results: results
+        };
+        
+        const leadLogPath = path.join(__dirname, '.cursor/lead-captures.log');
+        try {
+            fs.appendFileSync(leadLogPath, JSON.stringify(leadLog) + '\n');
+        } catch (logError) {
+            console.error('Failed to log lead capture:', logError);
+        }
+
+        // Return success even if one CRM fails
+        res.json({
+            success: true,
+            message: 'Lead captured and synced',
+            results: results
+        });
+
+    } catch (error) {
+        console.error('Lead capture webhook error:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Internal server error'
+        });
+    }
 });
 
 // Start server

@@ -14,8 +14,10 @@
     "life-jet:build": "cd deploy-site/life-jet && npm run build",
     "build:all": "cd deploy-site/life-jet && npm install && npm run build && cd ../.. && echo '✅ All builds complete'",
     "test:telegram": "node test-telegram.js",
+    "test:zia": "node test-zia-api.js",
     "test:purchase": "node test-purchase-flow.js",
-    "sclera:i18n": "node deploy-site/sclera/generate-full-i18n-pages.js"
+    "sclera:i18n": "node deploy-site/sclera/generate-full-i18n-pages.js",
+    "admin": "node admin-api-server.js"
   },
   "dependencies": {
     "@paypal/agent-toolkit": "^1.8.0",

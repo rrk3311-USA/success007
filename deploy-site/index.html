@@ -44,6 +44,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&family=Poppins:wght@400;500;600&family=Inter:wght@400;500;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/phosphor-icons/Fonts/regular/style.css">
     <style>
         :root {
             --bg: #070b18;
@@ -1618,10 +1619,11 @@
         </div>
     </section>
 
-    <!-- Video Section Below Banner -->
-    <section class="section" style="padding: 30px 0; background: linear-gradient(135deg, #e3f2fd 0%, #f5f9ff 50%, #e8f4f8 100%);">
+    <!-- Video + LLE Image Section (white background) -->
+    <section class="section" style="padding: 30px 0; background: #ffffff !important;">
         <div class="container" style="max-width: 1200px;">
-            <div style="position: relative; width: 100%; border-radius: 20px; overflow: hidden; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15); background: #000;">
+            <div class="video-lle-white-block" style="background: #ffffff; padding: 24px; border-radius: 20px; box-shadow: none;">
+                <div style="position: relative; width: 100%; border-radius: 20px; overflow: hidden; box-shadow: none; background: #000;">
                 <video 
                     id="heroVideo" 
                     autoplay 
@@ -1678,9 +1680,12 @@
                     Video loading...
                 </div>
             </div>
+                <img src="/public/images/home/LLEand2x.png" alt="Success Chemistry Quality Features - LLE Extraction, 2x Fine Grind, Made to Order Fresh" style="width: 100%; max-width: 100%; height: auto; display: block; margin: 20px 0 0; border-radius: 20px; box-shadow: none;">
+            </div>
         </div>
         <style>
             #videoPlayOverlay:hover { background: rgba(0,0,0,0.65); transform: translate(-50%, -50%) scale(1.08); }
+            .video-lle-white-block { background: #ffffff !important; }
         </style>
         <script>
             // Handle video loading and controls
@@ -1807,14 +1812,7 @@
         </script>
     </section>
 
-    <!-- LLE Extraction Image (below video) -->
-    <section class="section" style="padding: 30px 0;">
-        <div class="container">
-            <img src="/public/images/home/LLEand2x.png" alt="Success Chemistry Quality Features - LLE Extraction, 2x Fine Grind, Made to Order Fresh" style="width: 100%; max-width: 1200px; height: auto; display: block; margin: 0 auto; border-radius: 20px; box-shadow: 0 10px 40px rgba(66, 153, 225, 0.15);">
-        </div>
-    </section>
-
-    <section class="section">
+    <section class="section" style="margin-top: -65px; position: relative; z-index: 1; background: #ffffff !important; padding-top: 20px;">
         <div class="container">
             <!-- Factory Images Collage (Remaining Images) -->
             <div class="factory-collage" style="display: flex; flex-direction: column; gap: 12px; margin: 20px 0; max-width: 100%;">
@@ -1956,7 +1954,7 @@
                 <!-- Features Content -->
                 <div class="features-content" style="flex: 1; display: flex; flex-direction: column; gap: 24px;">
                     <div class="feature-item" style="display: flex; align-items: flex-start; gap: 16px;">
-                        <div class="feature-icon" style="font-size: 2rem; flex-shrink: 0; line-height: 1;">🔬</div>
+                        <span class="ph ph-flask feature-icon" style="font-size: 2rem; flex-shrink: 0; line-height: 1; color: #2854a6;"></span>
                         <div class="feature-text">
                             <strong style="display: block; font-size: 1.2rem; color: #0a234e; margin-bottom: 6px; font-weight: 700;">Quality-First Formulation</strong>
                             <span style="display: block; color: #4a5568; font-size: 0.95rem; line-height: 1.5;">Purpose-built blends that combine classic botanicals with targeted nutrients.</span>
@@ -1964,7 +1962,7 @@
                     </div>
                     
                     <div class="feature-item" style="display: flex; align-items: flex-start; gap: 16px;">
-                        <div class="feature-icon" style="font-size: 2rem; flex-shrink: 0; line-height: 1;">🇺🇸</div>
+                        <span class="ph ph-factory feature-icon" style="font-size: 2rem; flex-shrink: 0; line-height: 1; color: #2854a6;"></span>
                         <div class="feature-text">
                             <strong style="display: block; font-size: 1.2rem; color: #0a234e; margin-bottom: 6px; font-weight: 700;">USA Manufacturing</strong>
                             <span style="display: block; color: #4a5568; font-size: 0.95rem; line-height: 1.5;">Products manufactured in the USA with an emphasis on clean, consistent standards.</span>
@@ -1972,7 +1970,7 @@
                     </div>
                     
                     <div class="feature-item" style="display: flex; align-items: flex-start; gap: 16px;">
-                        <div class="feature-icon" style="font-size: 2rem; flex-shrink: 0; line-height: 1;">🌿</div>
+                        <span class="ph ph-leaf feature-icon" style="font-size: 2rem; flex-shrink: 0; line-height: 1; color: #2854a6;"></span>
                         <div class="feature-text">
                             <strong style="display: block; font-size: 1.2rem; color: #0a234e; margin-bottom: 6px; font-weight: 700;">Clean Ingredients</strong>
                             <span style="display: block; color: #4a5568; font-size: 0.95rem; line-height: 1.5;">Non-GMO friendly positioning and ingredient choices designed for everyday use.</span>
@@ -2383,5 +2381,9 @@
             if (e.key === 'successChemistryCart') updateCartBadge();
         });
     </script>
+    
+    <!-- Zoho SalesIQ Widget -->
+    <script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script>
+    <script id="zsiqscript" src="https://salesiq.zohopublic.com/widget?wc=siq1d8d899db43e91c30ede17c35a08b62b2eeed59411e71ff20fbb1228132ce141" defer></script>
 </body>
 </html>
