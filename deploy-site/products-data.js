@@ -107,7 +107,7 @@ const PRODUCTS_DATA = {
         "weight": "3oz",
         "dimensions": "2 inches wide x 3.5 inches tall",
         "images": [
-            "/images/products/B072MMW71X-1/01.jpg",
+            "/images/products/B072MMW71X-1/01.png",
             "/images/products/B072MMW71X-1/02.jpg",
             "/images/products/B072MMW71X-1/03.jpg",
             "/images/products/B072MMW71X-1/04.jpg",
@@ -345,7 +345,7 @@ const PRODUCTS_DATA = {
         "weight": "3oz",
         "dimensions": "2 inches wide x 3.5 inches tall",
         "images": [
-            "/images/products/5531-502/01.jpg",
+            "/images/products/5531-502/01.png",
             "/images/products/5531-502/02.jpg",
             "/images/products/5531-502/03.jpg",
             "/images/products/5531-502/04.jpg",
@@ -400,7 +400,7 @@ const PRODUCTS_DATA = {
         "weight": "3oz",
         "dimensions": "2 inches wide x 3.5 inches tall",
         "images": [
-            "/images/products/31410-836/01.jpg",
+            "/images/products/31410-836/01.png",
             "/images/products/31410-836/02.jpg",
             "/images/products/31410-836/03.jpg",
             "/images/products/31410-836/04.jpg",
@@ -454,7 +454,7 @@ const PRODUCTS_DATA = {
         "weight": "3oz",
         "dimensions": "2 inches wide x 3.5 inches tall",
         "images": [
-            "/images/products/10814-123/01.jpg",
+            "/images/products/10814-123/01.png",
             "/images/products/10814-123/02.jpg",
             "/images/products/10814-123/03.jpg",
             "/images/products/10814-123/04.jpg"
@@ -743,7 +743,7 @@ const PRODUCTS_DATA = {
         "weight": "3oz",
         "dimensions": "2 inches wide x 3.5 inches tall",
         "images": [
-            "/images/products/10779-123/01.jpg",
+            "/images/products/10779-123/01.png",
             "/images/products/10779-123/02.png",
             "/images/products/10779-123/03.jpg",
             "/images/products/10779-123/04.jpg",
@@ -771,7 +771,7 @@ const PRODUCTS_DATA = {
         "weight": "3oz",
         "dimensions": "2 inches wide x 3.5 inches tall",
         "images": [
-            "/images/products/31412-404U/01.jpg",
+            "/images/products/31412-404U/01.png",
             "/images/products/31412-404U/02.jpg",
             "/images/products/31412-404U/03.jpg",
             "/images/products/31412-404U/04.jpg"
@@ -990,7 +990,7 @@ const PRODUCTS_DATA = {
         "weight": "3oz",
         "dimensions": "2 inches wide x 3.5 inches tall",
         "images": [
-            "/images/products/39969-861/01.jpg",
+            "/images/products/39969-861/01.png",
             "/images/products/39969-861/02.jpg",
             "/images/products/39969-861/03.jpg",
             "/images/products/39969-861/04.jpg",
@@ -1087,7 +1087,7 @@ const PRODUCTS_DATA = {
         "weight": "3oz",
         "dimensions": "2 inches wide x 3.5 inches tall",
         "images": [
-            "/images/products/11209-221/01.jpg",
+            "/images/products/11209-221/01.png",
             "/images/products/11209-221/02.png",
             "/images/products/11209-221/03.png",
             "/images/products/11209-221/04.png",
@@ -1267,7 +1267,7 @@ const PRODUCTS_DATA = {
         "weight": "3oz",
         "dimensions": "2 inches wide x 3.5 inches tall",
         "images": [
-            "/images/products/2004-817/01.jpg",
+            "/images/products/2004-817/01.png",
             "/images/products/2004-817/02.jpg",
             "/images/products/2004-817/03.jpg",
             "/images/products/2004-817/04.jpg"
@@ -1508,7 +1508,7 @@ const PRODUCTS_DATA = {
         "weight": "3oz",
         "dimensions": "2 inches wide x 3.5 inches tall",
         "images": [
-            "/images/products/14179-504/01.jpg",
+            "/images/products/14179-504/01.png",
             "/images/products/14179-504/02.jpg",
             "/images/products/14179-504/03.jpg",
             "/images/products/14179-504/04.jpg",
@@ -1536,7 +1536,7 @@ const PRODUCTS_DATA = {
         "weight": "3oz",
         "dimensions": "2 inches wide x 3.5 inches tall",
         "images": [
-            "/images/products/1989-403/01.jpg",
+            "/images/products/1989-403/01.png",
             "/images/products/1989-403/02.jpg",
             "/images/products/1989-403/03.jpg",
             "/images/products/1989-403/04.jpg",
@@ -1633,7 +1633,7 @@ const PRODUCTS_DATA = {
         "weight": "3oz",
         "dimensions": "2 inches wide x 3.5 inches tall",
         "images": [
-            "/images/products/20646-838/01.jpg",
+            "/images/products/20646-838/01.png",
             "/images/products/20646-838/02.jpg",
             "/images/products/20646-838/03.jpg",
             "/images/products/20646-838/04.jpg",
@@ -1726,7 +1726,7 @@ const PRODUCTS_DATA = {
         "short_description": "Boost your height naturally with Maximum Strength Height Growth Support. Doctor-recommended supplement with 13 essential nutrients for bone and joint health. Non-GMO, 60 veggie capsules",
         "suggested_use": "As a dietary supplement take two (2) veggie capsules once a day after a meal with an 8oz. glass of water or as directed by your healthcare professional.",
         "images": [
-            "/images/products/14180-830/01.jpg",
+            "/images/products/14180-830/01.png",
             "/images/products/14180-830/02.jpg",
             "/images/products/14180-830/03.jpg",
             "/images/products/14180-830/04.jpg",

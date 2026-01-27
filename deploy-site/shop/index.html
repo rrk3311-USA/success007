@@ -1540,6 +1540,9 @@
         let currentSort = 'sales';
         window.productsLoaded = false;
         
+        // Products to hide from main store view
+        const hiddenSKUs = ['21884-502', '20647-507-3', '10786-807-2', '10786-807-3'];
+        
         // Simple logging function (console only)        
         // Global flag to prevent duplicate loads
         window.productsLoading = false;
@@ -1588,7 +1591,7 @@
                     grid.innerHTML = '<div class="loading-spinner" style="color: #f44336;">No products found in data file.</div>';
                     return;
                 }
-                const products = allProducts.filter(p => p && p.sku && p.sku !== '21884-502');
+                const products = allProducts.filter(p => p && p.sku && !hiddenSKUs.includes(p.sku));
                 const filteredCount = products.length;
                 console.log('   - After filtering:', filteredCount, 'products');
                 console.log('Loaded products:', filteredCount);
@@ -1695,8 +1698,8 @@
             const grid = document.getElementById('productsGrid');
             if (!grid || allProductsCache.length === 0) return;
 
-            // EXCLUDE BOOTY PRODUCT (21884-502) - HIDDEN/DRAFT
-            let sorted = [...allProductsCache].filter(p => p.sku !== '21884-502');
+            // EXCLUDE HIDDEN PRODUCTS FROM MAIN STORE VIEW
+            let sorted = [...allProductsCache].filter(p => !hiddenSKUs.includes(p.sku));
 
             switch(sortType) {
                 case 'sales':
