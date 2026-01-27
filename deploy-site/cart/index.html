@@ -958,17 +958,6 @@
             </div>
         </div>
     </div>
-    <div class="header-divider"></div>
-    <div class="blue-nav">
-        <div class="container">
-            <a href="/">Home</a>
-            <a href="/blog">Articles</a>
-            <a href="/shop">🧪 Shop</a>
-            <a href="/cart" id="cartLink">Cart 🛒 <span id="navCartCount">0</span></a>
-            <a href="/contact">Contact</a>
-        </div>
-    </div>
-    <div class="header-divider"></div>
 </div>
 
     <script src="/products-data.js"></script>
@@ -982,33 +971,6 @@
             <h2>Your cart is empty</h2>
             <p>Add some amazing supplements to get started!</p>
             <a href="/shop" class="continue-shopping">Continue Shopping</a>
-            
-            <div class="category-buttons">
-                <a href="/shop?category=bestsellers" class="category-btn-small">
-                    <img src="/images/Catagory Thumbnail Images/Best sellers Catagory image.jpg" alt="Best Sellers">
-                    <span>Best Sellers</span>
-                </a>
-                <a href="/shop?category=womens" class="category-btn-small">
-                    <img src="/images/Catagory Thumbnail Images/womens health thumb.webp" alt="Women's Health">
-                    <span>Women's Health</span>
-                </a>
-                <a href="/shop?category=mens" class="category-btn-small">
-                    <img src="/images/Catagory Thumbnail Images/mens health catagory thumb.webp" alt="Men's Health">
-                    <span>Men's Health</span>
-                </a>
-                <a href="/shop?category=bundles" class="category-btn-small">
-                    <img src="/images/Catagory Thumbnail Images/Bundle Deals.webp" alt="Bundle Deals">
-                    <span>Bundle Deals</span>
-                </a>
-                <a href="/shop?category=eye" class="category-btn-small">
-                    <img src="/images/Catagory Thumbnail Images/OPZ-eyeBeautiful-lashes__94531.1721847264.jpg" alt="Eye Health">
-                    <span>Eye Health</span>
-                </a>
-                <a href="/shop?category=weight" class="category-btn-small">
-                    <img src="/images/Catagory Thumbnail Images/weight loss catagory thumb.webp" alt="Weight Loss">
-                    <span>Weight Loss</span>
-                </a>
-            </div>
         </div>
 
         <div id="cart-content" class="cart-layout">
@@ -1068,12 +1030,11 @@
             </div>
         </div>
 
-        <!-- Recommended Products / Upsells -->
-        <div id="recommendations" style="margin: 60px 0; display: none;">
-            <h2 style="font-size: 2rem; font-weight: 600; color: #2854a6; margin-bottom: 30px; text-align: center;">You May Also Like</h2>
-            <div id="recommended-products" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px;">
-                <!-- Recommended products will be inserted here -->
-            </div>
+        <!-- Same-product upsell only (add more of what's in cart, no redirects) -->
+        <div id="bundle-pitch" style="display: none; margin: 40px 0; padding: 24px; background: linear-gradient(135deg, rgba(40, 84, 166, 0.08) 0%, rgba(16, 185, 129, 0.08) 100%); border: 2px solid #2854a6; border-radius: 12px; max-width: 1140px; margin-left: auto; margin-right: auto;">
+            <div style="font-size: 1.1rem; color: #2854a6; font-weight: 600; margin-bottom: 4px; text-align: center;">📦 Save more – add more of what you're buying</div>
+            <div style="font-size: 0.9rem; color: #555; margin-bottom: 20px; text-align: center;">Add more of the same product. No redirects.</div>
+            <div id="bundle-upsell-same" style="display: flex; flex-direction: column; gap: 16px; max-width: 100%;"></div>
         </div>
     </div>
 
@@ -1338,7 +1299,8 @@
             if (cart.length === 0) {
                 emptyState.style.display = 'block';
                 cartContent.style.display = 'none';
-                // Show category buttons when cart is empty
+                const bundlePitch = document.getElementById('bundle-pitch');
+                if (bundlePitch) bundlePitch.style.display = 'none';
                 return;
             }
 
@@ -1388,104 +1350,47 @@
             document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
             document.getElementById('total').textContent = `$${subtotal.toFixed(2)}`;
 
-            // Load product recommendations
-            loadRecommendations();
-        }
-
-        function loadRecommendations() {
-            const cart = getCart();
-            if (cart.length === 0) {
-                return;
-            }
-            
-            // Get recommended products based on cart contents
-            let recommendedProducts = [];
-            
-            if (typeof window.getAllProducts === 'function') {
-                try {
-                    const allProducts = window.getAllProducts();
-                    const cartSkus = cart.map(item => item.sku);
-                    
-                    // Get products from different categories than what's in cart
-                    const cartCategories = cart.map(item => {
-                        const product = allProducts.find(p => p.sku === item.sku);
-                        return product ? (product.category || '').toLowerCase() : '';
-                    });
-                    
-                    // Filter out products already in cart and from same categories
-                    const availableProducts = allProducts.filter(p => 
-                        p && p.sku && 
-                        !cartSkus.includes(p.sku) &&
-                        !cartCategories.includes((p.category || '').toLowerCase())
-                    );
-                    
-                    // Sort by sales/rating and take top 4
-                    recommendedProducts = availableProducts
-                        .sort((a, b) => (b.sales || 0) - (a.sales || 0))
-                        .slice(0, 4)
-                        .map(p => ({
-                            sku: p.sku,
-                            name: p.name,
-                            price: parseFloat(p.price || 0).toFixed(2),
-                            image: (p.images && p.images[0]) ? p.images[0] : '/images/placeholder.jpg'
-                        }));
-                } catch (error) {
-                    console.error('Error loading recommendations:', error);
+            // Same-product upsell when cart has items (no redirects, no other products)
+            const bundlePitch = document.getElementById('bundle-pitch');
+            const sameContainer = document.getElementById('bundle-upsell-same');
+            if (bundlePitch && sameContainer) {
+                bundlePitch.style.display = cart.length > 0 ? 'block' : 'none';
+                if (cart.length > 0) {
+                    function esc(s) {
+                        if (!s) return '';
+                        return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                    }
+                    sameContainer.innerHTML = cart.map((item, idx) => {
+                        const q = parseInt(item.quantity) || 1;
+                        const name = (item.name || '').length > 60 ? (item.name || '').substring(0, 60) + '…' : (item.name || '');
+                        const img = item.image || '/images/placeholder.jpg';
+                        return `<div style="display: flex; align-items: center; gap: 16px; padding: 12px 16px; background: white; border: 1px solid #e5e7eb; border-radius: 12px; flex-wrap: wrap;">
+                            <img src="${esc(img)}" alt="${esc(name)}" style="width: 64px; height: 64px; object-fit: contain; background: #f8f9fa; border-radius: 8px;">
+                            <div style="flex: 1; min-width: 140px;">
+                                <div style="font-weight: 600; color: #1f2937; font-size: 0.9rem;">${esc(name)}</div>
+                                <div style="font-size: 0.85rem; color: #2854a6; margin-top: 4px;">$${parseFloat(item.price || 0).toFixed(2)} each · ${q} in cart</div>
+                            </div>
+                            <div style="display: flex; gap: 8px; flex-shrink: 0;">
+                                <button type="button" class="same-product-add-more" data-index="${idx}" data-add="1" style="padding: 8px 16px; background: #2854a6; color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer;">Add 1 more</button>
+                                <button type="button" class="same-product-add-more" data-index="${idx}" data-add="2" style="padding: 8px 16px; background: #1e3a8a; color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer;">Add 2 more</button>
+                            </div>
+                        </div>`;
+                    }).join('');
                 }
             }
-            
-            // Fallback to hardcoded products if no recommendations found
-            if (recommendedProducts.length === 0) {
-                recommendedProducts = [
-                    { sku: '10814-123', name: 'Dragon FIRE E-Sports Supplement', price: '20.36', image: '/public/images/products/10814-123/01.jpg' },
-                    { sku: '14179-504-2', name: 'Success Chemistry® Prostate Renew', price: '37.99', image: '/public/images/products/14179-504-2/01.png' },
-                    { sku: '5531-502', name: 'Testosterone Booster for Men', price: '24.99', image: '/public/images/products/5531-502/01.jpg' },
-                    { sku: 'B071JK6HM2', name: 'Turmeric Curcumin with BioPerine', price: '19.99', image: '/public/images/products/B071JK6HM2/01.png' }
-                ];
-            }
-
-            const container = document.getElementById('recommended-products');
-            const recommendationsSection = document.getElementById('recommendations');
-            
-            container.innerHTML = recommendedProducts.map(product => `
-                <div style="border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; transition: transform 0.2s;" 
-                     onclick="window.location.href='/product?sku=${product.sku}'"
-                     onmouseover="this.style.transform='translateY(-4px)'"
-                     onmouseout="this.style.transform='translateY(0)'">
-                    <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 200px; object-fit: contain; margin-bottom: 15px;">
-                    <h3 style="font-size: 1rem; margin-bottom: 10px; color: #1f2937; min-height: 48px;">${product.name}</h3>
-                    <div style="font-size: 1.2rem; font-weight: 600; color: #2854a6; margin-bottom: 15px;">$${product.price}</div>
-                    <button style="width: 100%; padding: 13px 32px; background: #2854a6; color: #FFFFFF; border: none; border-radius: 2px; cursor: pointer; font-weight: 500; font-size: 0.875rem; letter-spacing: 1.5px; text-transform: uppercase; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06); transition: all 0.2s ease; position: relative;"
-                            onclick="event.stopPropagation(); addToCartFromRecommendation('${product.sku}', '${product.name}', '${product.price}', '${product.image}')"
-                            onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1)'; this.style.background='#3264c8'"
-                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06)'; this.style.background='#2854a6'">
-                        Add to Cart
-                    </button>
-                </div>
-            `).join('');
-
-            recommendationsSection.style.display = 'block';
         }
 
-        function addToCartFromRecommendation(sku, name, price, image) {
+        document.addEventListener('click', function(e) {
+            const btn = e.target.closest('.same-product-add-more');
+            if (!btn) return;
+            e.preventDefault();
+            const idx = parseInt(btn.getAttribute('data-index'), 10);
+            const add = parseInt(btn.getAttribute('data-add'), 10) || 1;
             const cart = getCart();
-            const existingItem = cart.find(item => item.sku === sku);
-            
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({ sku, name, price, image, quantity: 1 });
-            }
-            
-            saveCart(cart);
-            renderCart();
-            alert(`✅ ${name} added to cart!`);
-        }
-
-        function filterByCategory(category) {
-            // Navigate to shop page with category filter
-            window.location.href = `/shop?category=${category}`;
-        }
+            if (idx < 0 || idx >= cart.length) return;
+            const cur = parseInt(cart[idx].quantity, 10) || 1;
+            updateQuantity(idx, cur + add);
+        });
 
         // Initialize PayPal Buttons
         // Initialize WooCommerce API from localStorage (if configured in admin)
@@ -1507,7 +1412,14 @@
             const item = cart[0];
             try {
                 console.log('🔄 Setting up subscription for:', item);
-                const response = await fetch('http://localhost:3001/api/subscription/setup', {
+                // Use dynamic API URL - works in both development and production
+                const apiBase = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                    ? 'http://localhost:3001'
+                    : window.location.origin;
+                const apiUrl = `${apiBase}/api/subscription/setup`;
+                console.log('📡 Calling subscription API:', apiUrl);
+                
+                const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({

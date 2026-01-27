@@ -13,10 +13,13 @@
     "life-jet": "cd deploy-site/life-jet && npm run dev",
     "life-jet:build": "cd deploy-site/life-jet && npm run build",
     "build:all": "cd deploy-site/life-jet && npm install && npm run build && cd ../.. && echo '✅ All builds complete'",
-    "test:telegram": "node test-telegram.js"
+    "test:telegram": "node test-telegram.js",
+    "test:purchase": "node test-purchase-flow.js",
+    "sclera:i18n": "node deploy-site/sclera/generate-full-i18n-pages.js"
   },
   "dependencies": {
     "@paypal/agent-toolkit": "^1.8.0",
+    "amazon-sp-api": "^0.11.0",
     "axios": "^1.6.2",
     "better-sqlite3": "^9.6.0",
     "cors": "^2.8.5",
@@ -25,6 +28,7 @@
     "express": "^4.18.2",
     "formdata-node": "^6.0.3",
     "google-ads-api": "^22.0.0",
+    "node-fetch": "^3.3.2",
     "node-telegram-bot-api": "^0.67.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

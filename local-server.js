@@ -230,6 +230,35 @@ app.get('/ebay-auth-ok', (req, res) => {
     res.sendFile(path.join(__dirname, 'deploy-site/ebay-auth-ok.html'));
 });
 
+// Sclera i18n subdomain-style pages (12 languages)
+const SCLERA_LANGS = ['en', 'es', 'fr', 'de', 'pt', 'it', 'zh', 'ja', 'ar', 'ru', 'hi', 'ko', 'nl'];
+app.get('/sclera', (req, res) => res.redirect('/sclera/en'));
+app.get('/sclera/', (req, res) => res.redirect('/sclera/en'));
+app.get('/sclera/:lang', (req, res) => {
+    const lang = req.params.lang;
+    if (!SCLERA_LANGS.includes(lang)) {
+        return res.redirect('/sclera/en');
+    }
+    const indexPath = path.join(__dirname, 'deploy-site/sclera', lang, 'index.html');
+    if (fs.existsSync(indexPath)) {
+        res.sendFile(indexPath);
+    } else {
+        res.redirect('/sclera/en');
+    }
+});
+app.get('/sclera/:lang/', (req, res) => {
+    const lang = req.params.lang;
+    if (!SCLERA_LANGS.includes(lang)) {
+        return res.redirect('/sclera/en');
+    }
+    const indexPath = path.join(__dirname, 'deploy-site/sclera', lang, 'index.html');
+    if (fs.existsSync(indexPath)) {
+        res.sendFile(indexPath);
+    } else {
+        res.redirect('/sclera/en');
+    }
+});
+
 // Handle images with spaces in filenames (URL-encoded or with spaces)
 app.get('/public/images/real-factory-images/:filename(*)', (req, res) => {
     let filename = req.params.filename;
@@ -316,5 +345,6 @@ app.listen(PORT, '127.0.0.1', () => {
     console.log(`   💳 Payment: http://localhost:${PORT}/payment-policy`);
     console.log(`   📧 Subscribe: http://localhost:${PORT}/subscribe`);
     console.log(`   ✅ Thank You: http://localhost:${PORT}/thank-you`);
+    console.log(`   🌐 Sclera i18n: http://localhost:${PORT}/sclera/en | /sclera/fr | /sclera/de | … (${SCLERA_LANGS.length} langs)`);
     console.log(`   👤 My Account: http://localhost:${PORT}/my-account`);
 });
