@@ -1,12 +1,17 @@
+import { useState } from 'react'
+import BrandAudiences from '../components/BrandAudiences'
+
 export default function QuantumTestPage() {
+  const [activeTab, setActiveTab] = useState('overview')
+
   return (
     <>
       <div className="q-page">
         {/* Top bar */}
         <header className="q-topbar">
           <div className="q-topbar-left">
-            <div className="q-title">Quantum Test</div>
-            <div className="q-subtitle">Single-page style check</div>
+            <div className="q-title">Admin Dashboard</div>
+            <div className="q-subtitle">Manage your platform</div>
           </div>
 
           <div className="q-topbar-right">
@@ -28,22 +33,41 @@ export default function QuantumTestPage() {
             </div>
 
             <nav className="q-nav">
-              <a className="q-nav-item q-active" href="#">
+              <button 
+                className={`q-nav-item ${activeTab === 'overview' ? 'q-active' : ''}`}
+                onClick={() => setActiveTab('overview')}
+              >
                 <span className="q-nav-icon" aria-hidden />
                 Overview
-              </a>
-              <a className="q-nav-item" href="#">
+              </button>
+              <button 
+                className={`q-nav-item ${activeTab === 'analytics' ? 'q-active' : ''}`}
+                onClick={() => setActiveTab('analytics')}
+              >
                 <span className="q-nav-icon" aria-hidden />
                 Analytics
-              </a>
-              <a className="q-nav-item" href="#">
+              </button>
+              <button 
+                className={`q-nav-item ${activeTab === 'brand-audiences' ? 'q-active' : ''}`}
+                onClick={() => setActiveTab('brand-audiences')}
+              >
+                <span className="q-nav-icon" aria-hidden />
+                Brand Audiences
+              </button>
+              <button 
+                className={`q-nav-item ${activeTab === 'users' ? 'q-active' : ''}`}
+                onClick={() => setActiveTab('users')}
+              >
                 <span className="q-nav-icon" aria-hidden />
                 Users
-              </a>
-              <a className="q-nav-item" href="#">
+              </button>
+              <button 
+                className={`q-nav-item ${activeTab === 'settings' ? 'q-active' : ''}`}
+                onClick={() => setActiveTab('settings')}
+              >
                 <span className="q-nav-icon" aria-hidden />
                 Settings
-              </a>
+              </button>
             </nav>
 
             <div className="q-sidebar-foot">
@@ -54,69 +78,102 @@ export default function QuantumTestPage() {
 
           {/* Main content */}
           <main className="q-main">
-            {/* Stats row */}
-            <section className="q-grid q-grid-3">
-              <div className="q-card">
-                <div className="q-card-h">Active Sessions</div>
-                <div className="q-metric">1,284</div>
-                <div className="q-muted">+8% vs last 24h</div>
-              </div>
-              <div className="q-card">
-                <div className="q-card-h">Conversion</div>
-                <div className="q-metric">3.9%</div>
-                <div className="q-muted">stable</div>
-              </div>
-              <div className="q-card">
-                <div className="q-card-h">Errors</div>
-                <div className="q-metric">12</div>
-                <div className="q-muted">-4 from yesterday</div>
-              </div>
-            </section>
+            {activeTab === 'overview' && (
+              <>
+                {/* Stats row */}
+                <section className="q-grid q-grid-3">
+                  <div className="q-card q-card-pad">
+                    <div className="q-card-h">Active Sessions</div>
+                    <div className="q-metric">1,284</div>
+                    <div className="q-muted">+8% vs last 24h</div>
+                  </div>
+                  <div className="q-card q-card-pad">
+                    <div className="q-card-h">Conversion</div>
+                    <div className="q-metric">3.9%</div>
+                    <div className="q-muted">stable</div>
+                  </div>
+                  <div className="q-card q-card-pad">
+                    <div className="q-card-h">Errors</div>
+                    <div className="q-metric">12</div>
+                    <div className="q-muted">-4 from yesterday</div>
+                  </div>
+                </section>
 
-            {/* Table card */}
-            <section className="q-card q-card-pad">
-              <div className="q-card-row">
-                <div>
-                  <div className="q-card-h">Recent Events</div>
-                  <div className="q-muted">Compact, border-led table</div>
-                </div>
-                <div className="q-actions">
-                  <button className="q-btn">Export</button>
-                  <button className="q-btn">Filter</button>
-                </div>
-              </div>
+                {/* Table card */}
+                <section className="q-card q-card-pad">
+                  <div className="q-card-row">
+                    <div>
+                      <div className="q-card-h">Recent Events</div>
+                      <div className="q-muted">Compact, border-led table</div>
+                    </div>
+                    <div className="q-actions">
+                      <button className="q-btn">Export</button>
+                      <button className="q-btn">Filter</button>
+                    </div>
+                  </div>
 
-              <div className="q-table-wrap" role="region" aria-label="Recent events table">
-                <table className="q-table">
-                  <thead>
-                    <tr>
-                      <th>Time</th>
-                      <th>Event</th>
-                      <th>Source</th>
-                      <th className="q-right">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[
-                      ["10:21", "Checkout Completed", "Web", "OK"],
-                      ["10:18", "Payment Retry", "API", "WARN"],
-                      ["10:12", "Login Spike", "Web", "OK"],
-                      ["10:05", "Webhook Timeout", "API", "FAIL"],
-                      ["09:58", "Inventory Sync", "Worker", "OK"],
-                    ].map((r, i) => (
-                      <tr key={i}>
-                        <td>{r[0]}</td>
-                        <td>{r[1]}</td>
-                        <td>{r[2]}</td>
-                        <td className="q-right">
-                          <span className={`q-tag q-tag-${r[3].toLowerCase()}`}>{r[3]}</span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                  <div className="q-table-wrap" role="region" aria-label="Recent events table">
+                    <table className="q-table">
+                      <thead>
+                        <tr>
+                          <th>Time</th>
+                          <th>Event</th>
+                          <th>Source</th>
+                          <th className="q-right">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {[
+                          ["10:21", "Checkout Completed", "Web", "OK"],
+                          ["10:18", "Payment Retry", "API", "WARN"],
+                          ["10:12", "Login Spike", "Web", "OK"],
+                          ["10:05", "Webhook Timeout", "API", "FAIL"],
+                          ["09:58", "Inventory Sync", "Worker", "OK"],
+                        ].map((r, i) => (
+                          <tr key={i}>
+                            <td>{r[0]}</td>
+                            <td>{r[1]}</td>
+                            <td>{r[2]}</td>
+                            <td className="q-right">
+                              <span className={`q-tag q-tag-${r[3].toLowerCase()}`}>{r[3]}</span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </section>
+              </>
+            )}
+
+            {activeTab === 'analytics' && (
+              <div className="q-card q-card-pad">
+                <div className="q-card-h">Analytics</div>
+                <div className="q-muted" style={{ marginTop: '8px' }}>
+                  Analytics content coming soon...
+                </div>
               </div>
-            </section>
+            )}
+
+            {activeTab === 'brand-audiences' && <BrandAudiences />}
+
+            {activeTab === 'users' && (
+              <div className="q-card q-card-pad">
+                <div className="q-card-h">Users</div>
+                <div className="q-muted" style={{ marginTop: '8px' }}>
+                  User management content coming soon...
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'settings' && (
+              <div className="q-card q-card-pad">
+                <div className="q-card-h">Settings</div>
+                <div className="q-muted" style={{ marginTop: '8px' }}>
+                  Settings content coming soon...
+                </div>
+              </div>
+            )}
           </main>
         </div>
       </div>
@@ -276,6 +333,11 @@ export default function QuantumTestPage() {
           color: var(--q-text);
           text-decoration: none;
           transition: border-color 160ms, background 160ms;
+          width: 100%;
+          text-align: left;
+          cursor: pointer;
+          font-size: 14px;
+          font-family: inherit;
         }
         .q-nav-item:hover {
           background: rgba(255, 255, 255, 0.03);
