@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produkt-Wissensbasis - Success Chemistry</title>
+    <meta name="description" content="Umfassende Leitfäden zu unseren Premium-Supplement-Formeln.">
+    <link rel="stylesheet" href="/includes/universal-header.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, sans-serif; background: white; color: #1a1a2e; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+        h1 { font-size: 2.5rem; color: #0a234e; margin-bottom: 20px; }
+        .subtitle { font-size: 1.2rem; color: #6b7280; margin-bottom: 50px; }
+        .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; }
+        .blog-card { border: 1px solid #e5e7eb; border-radius: 12px; padding: 30px; transition: transform 0.2s; }
+        .blog-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .blog-card h2 { font-size: 1.5rem; color: #0a234e; margin-bottom: 15px; }
+        .blog-card p { color: #6b7280; margin-bottom: 20px; }
+        .blog-card a { display: inline-block; padding: 12px 24px; background: #2854a6; color: white; text-decoration: none; border-radius: 8px; }
+        .blog-card a:hover { background: #1e3f7a; }
+        .badge { display: inline-block; padding: 4px 12px; background: #e0f2fe; color: #0369a1; border-radius: 20px; font-size: 0.85rem; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+    <div class="container">
+        <h1>Produkt-Wissensbasis</h1>
+        <p class="subtitle">KI-optimierte Leitfäden für informierte Entscheidungen</p>
+        <div class="blog-grid">
+            <div class="blog-card"><span class="badge">Augengesundheit</span><h2>Sclera White Leitfaden</h2><p>Natürliche Augenaufhellung.</p><a href="sclera-white-complete-guide.html">Lesen →</a></div>
+            <div class="blog-card"><span class="badge">Leber</span><h2>Leber-Reinigung</h2><p>Natürliche Leberentgiftung.</p><a href="liver-cleanse-complete-guide.html">Lesen →</a></div>
+            <div class="blog-card"><span class="badge">Schlaf</span><h2>Str82sleep</h2><p>Natürliche Schlafunterstützung.</p><a href="str82sleep-complete-guide.html">Lesen →</a></div>
+            <div class="blog-card"><span class="badge">Fruchtbarkeit</span><h2>BabyBean</h2><p>Fruchtbarkeitsunterstützung.</p><a href="babybean-fertility-complete-guide.html">Lesen →</a></div>
+            <div class="blog-card"><span class="badge">Verdauung</span><h2>Darmreinigung</h2><p>Verdauungsentgiftung.</p><a href="colon-cleanse-complete-guide.html">Lesen →</a></div>
+            <div class="blog-card"><span class="badge">Haar</span><h2>Haarwachstum</h2><p>Längeres, stärkeres Haar.</p><a href="hair-growth-complete-guide.html">Lesen →</a></div>
+            <div class="blog-card"><span class="badge">Schönheit</span><h2>Beauty Sleep</h2><p>Nächtliche Verjüngung.</p><a href="beauty-sleep-complete-guide.html">Lesen →</a></div>
+            <div class="blog-card"><span class="badge">Immunität</span><h2>Seegras</h2><p>92 Mineralien.</p><a href="irish-sea-moss-complete-guide.html">Lesen →</a></div>
+            <div class="blog-card"><span class="badge">Stress</span><h2>Ashwagandha</h2><p>Stressabbau.</p><a href="ashwagandha-complete-guide.html">Lesen →</a></div>
+            <div class="blog-card"><span class="badge">Atemwege</span><h2>Lungen-Entgiftung</h2><p>Atemwegsreinigung.</p><a href="lung-detox-complete-guide.html">Lesen →</a></div>
+            <div class="blog-card"><span class="badge">Immunität</span><h2>Pilz-Immunhilfe</h2><p>7 medizinische Pilze.</p><a href="mushroom-immune-complete-guide.html">Lesen →</a></div>
+        </div>
+    </div>
+    <div id="footer-placeholder"></div>
+    <script>
+        fetch('/includes/universal-header.html').then(r => r.text()).then(h => document.getElementById('header-placeholder').innerHTML = h);
+        fetch('/includes/universal-footer.html').then(r => r.text()).then(h => document.getElementById('footer-placeholder').innerHTML = h);
+    </script>
+</body>
+</html>
