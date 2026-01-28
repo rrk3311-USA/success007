@@ -7,6 +7,7 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { renderProductPage } from './server-render-product.js';
 import { syncLeadToZoho } from './zoho-crm-integration.js';
+import { chat as ziaChat } from './zia-chat-proxy.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -229,6 +230,14 @@ app.get('/command-center', (req, res) => {
 
 app.get('/vision-board', (req, res) => {
     res.sendFile(path.join(__dirname, 'deploy-site/vision-board/index.html'));
+});
+
+app.get('/vision-board/alternative', (req, res) => {
+    res.sendFile(path.join(__dirname, 'deploy-site/vision-board/alternative.html'));
+});
+
+app.get('/vision-board/alternative.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'deploy-site/vision-board/alternative.html'));
 });
 
 app.get('/ebay-auth-denied', (req, res) => {
@@ -720,6 +729,20 @@ app.get('/api/zia/products', (req, res) => {
             success: false,
             error: 'Internal server error'
         });
+    }
+});
+
+// ============================================
+// ZiaAgents Chat API - For site-wide chat widget (trained Success Chemistry agent)
+// ============================================
+app.post('/api/zia/chat', async (req, res) => {
+    try {
+        const { message, sessionId } = req.body || {};
+        const result = await ziaChat(message, sessionId);
+        res.json(result);
+    } catch (err) {
+        console.error('Zia chat API error:', err);
+        res.status(500).json({ success: false, error: 'Chat service unavailable' });
     }
 });
 

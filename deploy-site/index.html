@@ -2392,14 +2392,19 @@
             if (next) next.addEventListener('click', () => track.scrollBy({ left: scrollByAmount(), behavior: 'smooth' }));
         }
 
-        // AI Consultation button - placeholder for future chatbot integration
+        // AI Consultation button - opens Zia chat widget (trained Success Chemistry assistant)
         document.addEventListener('DOMContentLoaded', () => {
             const aiBtn = document.getElementById('aiConsultationBtn');
             if (aiBtn) {
                 aiBtn.addEventListener('click', () => {
-                    // TODO: Launch AI chatbot here
-                    alert('AI Consultation chatbot coming soon! 🤖\n\nThis feature will provide personalized supplement recommendations based on your health goals.');
-                    console.log('AI Consultation button clicked - chatbot integration pending');
+                    const panel = document.getElementById('zia-chat-panel');
+                    const toggle = document.getElementById('zia-chat-toggle');
+                    if (panel && toggle && panel.hasAttribute('hidden')) {
+                        panel.removeAttribute('hidden');
+                        if (toggle) toggle.setAttribute('aria-label', 'Close chat');
+                    } else if (panel && !panel.hasAttribute('hidden')) {
+                        panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
                 });
             }
         });
@@ -2419,5 +2424,7 @@
     <!-- Zoho SalesIQ Widget -->
     <script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script>
     <script id="zsiqscript" src="https://salesiq.zohopublic.com/widget?wc=siq1d8d899db43e91c30ede17c35a08b62b2eeed59411e71ff20fbb1228132ce141" defer></script>
+    <!-- Zia AI Chat Widget - trained Success Chemistry assistant on all pages -->
+    <script src="/includes/zia-chat-widget.js" defer></script>
 </body>
 </html>
