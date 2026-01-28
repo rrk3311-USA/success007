@@ -23,9 +23,17 @@
     <meta name="twitter:description" id="twitterDescription" content="Success Chemistry Premium Supplements">
     <meta name="twitter:image" id="twitterImage" content="">
     
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Phosphor Icons Font -->
+    <!-- Phosphor Icons CDN - Works on all devices including Android and Apple -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css">
+    
+    <!-- Google Fonts - Roboto -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     
     <!-- Preload products data for faster loading - MUST match script src version -->
     <link rel="preload" href="/products-data.js?v=19" as="script" crossorigin="anonymous">
@@ -42,14 +50,98 @@
             max-width: 100vw;
         }
         
-        /* Clean science-themed gradient background */
+        /* Phosphor Icons + MUI Styling */
         body {
-            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(180deg, #f0f4f8 0%, #e8f4f8 30%, #dbeafe 60%, #e0f2fe 100%);
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #ffffff;
             color: #0a234e;
             line-height: 1.6;
             min-height: 100vh;
             position: relative;
+        }
+        
+        .mui-input {
+            width: 100%;
+            padding: 16.5px 14px;
+            border: 1px solid rgba(0, 0, 0, 0.23);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            background: #ffffff;
+        }
+        
+        .mui-input:focus {
+            outline: none;
+            border-color: #1976d2;
+            border-width: 2px;
+            padding: 15.5px 13px;
+        }
+        
+        .mui-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: rgba(0, 0, 0, 0.87);
+            font-size: 0.875rem;
+        }
+        
+        .mui-btn {
+            background: #1976d2;
+            color: #ffffff;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.02857em;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .mui-btn:hover {
+            background: #1565c0;
+        }
+        
+        .mui-card {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            border-radius: 4px;
+            padding: 24px;
+        }
+        
+        .desc-subbox {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            padding: 16px;
+        }
+        .desc-ingredient-item {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+        .desc-ingredient-item:last-child { margin-bottom: 0; }
+        
+        .ph {
+            font-family: "Phosphor" !important;
+            speak: never;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1;
+            -webkit-font-feature-settings: "liga";
+            -moz-font-feature-settings: "liga=1";
+            -moz-font-feature-settings: "liga";
+            -ms-font-feature-settings: "liga" 1;
+            font-feature-settings: "liga";
+            -webkit-font-variant-ligatures: discretionary-ligatures;
+            font-variant-ligatures: discretionary-ligatures;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         /* Gradient spotlight orbs */
@@ -1297,7 +1389,8 @@
 }
 
 .top-seller-badge::after {
-    content: '✨';
+    content: '\e6a2'; /* ph-sparkle */
+    font-family: "Phosphor";
     position: absolute;
     left: 8px;
     top: 50%;
@@ -2518,7 +2611,8 @@
 }
 
 .bundle-option-compact:not(.selected):hover::after {
-    content: '✨';
+    content: '\e6a2'; /* ph-sparkle */
+    font-family: "Phosphor";
     position: absolute;
     right: 8px;
     top: 50%;
@@ -2530,7 +2624,8 @@
 }
 
 .bundle-option-compact.selected:hover::after {
-    content: '✨';
+    content: '\e6a2'; /* ph-sparkle */
+    font-family: "Phosphor";
     position: absolute;
     right: 24px;
     top: 50%;
@@ -2578,7 +2673,8 @@
 }
 
 .bundle-option-compact.selected:hover::after {
-    content: '✨';
+    content: '\e6a2'; /* ph-sparkle */
+    font-family: "Phosphor";
     position: absolute;
     right: 8px;
     top: 50%;
@@ -2722,7 +2818,8 @@
 }
 
 .bundle-cta-compact .btn::before {
-    content: '🛒';
+    content: '\e41e'; /* ph-shopping-cart */
+    font-family: "Phosphor";
     font-size: 1rem;
 }
 
@@ -2741,12 +2838,14 @@
 }
 
 .bundle-cta-compact .btn:hover::before {
-    content: '🛒';
+    content: '\e41e'; /* ph-shopping-cart */
+    font-family: "Phosphor";
     position: relative;
 }
 
 .bundle-cta-compact .btn:hover::after {
-    content: '✨';
+    content: '\e6a2'; /* ph-sparkle */
+    font-family: "Phosphor";
     position: absolute;
     right: 8px;
     top: 50%;
@@ -2817,7 +2916,8 @@
 }
 
 .bundle-add-btn::before {
-    content: '✨';
+    content: '\e6a2'; /* ph-sparkle */
+    font-family: "Phosphor";
     position: absolute;
     left: 10px;
     top: 50%;
@@ -2829,7 +2929,8 @@
 }
 
 .bundle-add-btn::after {
-    content: '✨ ✨';
+    content: '\e6a2'; /* ph-sparkle */
+    font-family: "Phosphor";
     position: absolute;
     right: 10px;
     top: 50%;
@@ -2905,7 +3006,8 @@
 }
 
 .bundle-selector .btn::before {
-    content: '🛒';
+    content: '\e41e'; /* ph-shopping-cart */
+    font-family: "Phosphor";
     font-size: 1rem;
     position: relative;
     transition: all 0.3s ease;
@@ -2941,12 +3043,14 @@
 }
 
 .bundle-selector .btn:hover::before {
-    content: '🛒';
+    content: '\e41e'; /* ph-shopping-cart */
+    font-family: "Phosphor";
     animation: wiggle 0.5s ease-in-out infinite;
 }
 
 .bundle-selector .btn:hover::after {
-    content: '✨ ✨';
+    content: '\e6a2'; /* ph-sparkle */
+    font-family: "Phosphor";
     opacity: 1;
     animation: sparkle 2s ease-in-out infinite 0.5s;
     right: 8px;
@@ -3067,6 +3171,16 @@
     line-height: 1.8;
     font-size: 1rem;
 }
+
+/* FAQ tab (product page) – scoped, no collapse; display toggle only */
+.faq-tab-list { display: flex; flex-direction: column; gap: 12px; }
+.faq-tab-item { border: 1px solid #e5e7eb; border-radius: 4px; overflow: hidden; }
+.faq-tab-question { width: 100%; padding: 14px 16px; background: #f9fafb; cursor: pointer; font-weight: 600; color: #1a1a2e; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; text-align: left; border: none; font-family: inherit; }
+.faq-tab-question:hover { background: #f3f4f6; }
+.faq-tab-question > span:first-child { flex: 1; padding-right: 12px; }
+.faq-tab-toggle { flex-shrink: 0; font-size: 1.2rem; }
+.faq-tab-answer { padding: 14px 16px; background: #fff; color: #374151; line-height: 1.6; font-size: 0.9rem; border-top: 1px solid #e5e7eb; white-space: pre-wrap; word-wrap: break-word; }
+.faq-tab-answer[hidden] { display: none !important; }
 
 .no-faqs {
     color: #888;
@@ -3938,55 +4052,67 @@
         <div class="dna-line d2"></div>
     </div>
     
-    <!-- Header -->
-    <div class="topbar">
-        <div class="container">
-            <div class="topbar-inner">
-                <a class="brand" href="/">
-                    <img src="/public/images/SC_logo_withR.png" alt="Success Chemistry">
+    <!-- Header - Phosphor Icons + MUI -->
+    <header class="bg-white border-b border-gray-300 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="/" class="text-xl font-bold text-gray-900 flex items-center gap-2">
+                    <span class="ph ph-flask text-2xl text-[#1976d2]"></span>
+                    Success Chemistry
                 </a>
+                <nav class="flex items-center gap-6">
+                    <a href="/shop" class="text-sm font-medium text-gray-700 flex items-center gap-1">
+                        <span class="ph ph-storefront"></span>
+                        Shop
+                    </a>
+                    <a href="/cart" id="cartLink" class="text-sm font-medium text-gray-700 flex items-center gap-1">
+                        <span class="ph ph-shopping-cart"></span>
+                        Cart (<span id="cartCount">0</span>)
+                    </a>
+                </nav>
             </div>
         </div>
-    </div>
-    <div class="header-divider"></div>
-
-    <div class="blue-nav">
-        <div class="container">
-            <a href="/">Home</a>
-            <a href="/shop">🧪 Shop</a>
-            <a href="/cart" id="cartLink" style="font-size: 0.9rem;">Cart</a>
-        </div>
-    </div>
-
-    <div class="header-divider"></div>
+    </header>
 
     <!-- Sticky Cart Banner -->
     <div class="sticky-cart-banner" id="stickyCartBanner" style="display: none;" onclick="window.location.href='/cart'">
-        <div class="cart-icon">🛒</div>
+        <div class="cart-icon"><span class="ph ph-shopping-cart"></span></div>
         <div class="cart-info">
             <div class="cart-items" id="cartItemsText">0 items</div>
             <div class="cart-total" id="cartTotalText">$0.00</div>
         </div>
     </div>
 
-    <!-- Breadcrumb Navigation -->
-    <div class="breadcrumb-container">
-        <div class="breadcrumb">
-            <a href="/">🏠 Home</a>
-            <span class="breadcrumb-separator">›</span>
-            <a href="/shop">Shop</a>
-            <span class="breadcrumb-separator">›</span>
-            <span class="breadcrumb-current" id="breadcrumbName">Loading...</span>
-        </div>
-    </div>
+    <!-- Breadcrumb Navigation - Phosphor Icons + MUI -->
+    <nav class="max-w-7xl mx-auto px-6 py-4 mb-6 text-sm text-gray-600 flex items-center gap-2">
+        <a href="/" class="hover:text-gray-900 flex items-center gap-1">
+            <span class="ph ph-house"></span>
+            Home
+        </a>
+        <span class="ph ph-caret-right text-gray-400"></span>
+        <a href="/shop" class="hover:text-gray-900 flex items-center gap-1">
+            <span class="ph ph-storefront"></span>
+            Shop
+        </a>
+        <span class="ph ph-caret-right text-gray-400"></span>
+        <span class="text-gray-900 flex items-center gap-1">
+            <span class="ph ph-package"></span>
+            <span id="breadcrumbName">Loading...</span>
+        </span>
+    </nav>
 
     <!-- Product Content -->
-    <div id="productContent" class="loading">
-        <div style="text-align: center; padding: 2rem;">
-            <div style="margin-bottom: 1rem;">⏳ Waiting for products data...</div>
-            <div style="font-size: 0.9rem; color: #666;">Loading product information...</div>
+    <main class="max-w-7xl mx-auto px-6 py-8">
+        <div id="productContent" class="loading">
+            <div style="text-align: center; padding: 2rem;">
+                <div style="margin-bottom: 1rem;" class="flex items-center justify-center gap-2">
+                    <span class="ph ph-spinner text-2xl text-[#1976d2] animate-spin"></span>
+                    <span>Waiting for products data...</span>
+                </div>
+                <div style="font-size: 0.9rem; color: #666;">Loading product information...</div>
+            </div>
         </div>
-    </div>
+    </main>
     
     <!-- Recently Viewed Products -->
     <div class="recently-viewed" id="recentlyViewedSection" style="display: none;">
@@ -4019,7 +4145,7 @@
             <span style="color: rgba(255,255,255,0.3); font-size: 0.85rem !important;">|</span>
             <a href="/contact" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s; font-size: 0.85rem !important;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Contact</a>
             <span style="color: rgba(255,255,255,0.3); font-size: 0.85rem !important;">|</span>
-            <a href="/shop" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s; font-size: 0.85rem !important;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">🧪 SHOP</a>
+            <a href="/shop" style="color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s; font-size: 0.85rem !important;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'"><span class="ph ph-flask"></span> SHOP</a>
         </div>
         <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
         <div style="text-align: center; padding: 16px; background: #2854a6;">
@@ -4054,6 +4180,17 @@
             if (!last) return '';
             if (last.toLowerCase() === 'product') return '';
             return last;
+        }
+
+        // Update cart count
+        function updateCartCount() {
+            if (typeof getCartItemCount === 'function') {
+                const count = getCartItemCount();
+                const cartCountEl = document.getElementById('cartCount');
+                if (cartCountEl) {
+                    cartCountEl.textContent = count;
+                }
+            }
         }
 
         // Load product data
@@ -4313,6 +4450,97 @@
                 window.productImages = product.images || [];
                 window.currentImageIndex = 0;
                 
+                // Suggested products (You May Also Like)
+                const allProducts = typeof window.getAllProducts === 'function' ? window.getAllProducts() : [];
+                const suggestedProducts = (allProducts || []).filter(p => p.sku !== product.sku).slice(0, 3);
+                const suggestedProductsHTML = suggestedProducts.length > 0 ? suggestedProducts.map(p => {
+                    const img = (p.images && p.images[0]) ? p.images[0] : '/images/placeholder.jpg';
+                    const pPrice = parseFloat(p.price || 0).toFixed(2);
+                    const safeName = (p.name || 'Product').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+                    return `<a href="/product/${p.sku}" class="suggested-product-card" style="display: block; background: #fff; border-radius: 12px; overflow: hidden; border: 1px solid #e0e0e0; box-shadow: 0 4px 12px rgba(0,0,0,0.06); transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; color: inherit;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 24px rgba(40,84,166,0.12)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.06)'"><img src="${img}" alt="${safeName}" style="width: 100%; aspect-ratio: 1; object-fit: cover; display: block;" loading="lazy"><div style="padding: 12px;"><div style="font-weight: 600; color: #2854a6; font-size: 0.9rem; margin-bottom: 4px; line-height: 1.3;">${safeName}</div><div style="font-size: 0.95rem; font-weight: 600; color: #1a1a2e;">$${pPrice}</div></div></a>`;
+                }).join('') : '';
+                
+                function buildChooseBundleHTML(suf) {
+                    const s = suf || '';
+                    return `
+                            <div class="choose-bundle-section" data-bundle-suffix="${s}">
+                                <h3 class="choose-bundle-title">
+                                    <span class="cart-icon"><span class="ph ph-shopping-cart"></span></span>
+                                    Ready to Order? Choose Your Bundle
+                                </h3>
+                                <div class="bundle-tabs-container">
+                                    <div class="bundle-tabs-header">
+                                        <button class="bundle-tab-btn active" data-bundle-tab="subscribe" data-bundle="subscribe" data-quantity="1" data-price="${basePrice.toFixed(2)}">
+                                            <span class="bundle-tab-icon">🔄</span>
+                                            <span class="bundle-tab-label">Subscribe</span>
+                                        </button>
+                                        <button class="bundle-tab-btn" data-bundle-tab="2" data-bundle="2" data-quantity="2" data-price="${(basePrice * 2 * 0.9).toFixed(2)}" data-savings="${(basePrice * 2 * 0.1).toFixed(2)}">
+                                            <span class="bundle-tab-icon">2</span>
+                                            <span class="bundle-tab-label">2 Bottles</span>
+                                        </button>
+                                        <button class="bundle-tab-btn" data-bundle-tab="3" data-bundle="3" data-quantity="3" data-price="${(basePrice * 3 * 0.85).toFixed(2)}" data-savings="${(basePrice * 3 * 0.15).toFixed(2)}">
+                                            <span class="bundle-tab-icon">3</span>
+                                            <span class="bundle-tab-label">3 Bottles</span>
+                                        </button>
+                                        <button class="bundle-tab-btn" data-bundle-tab="5" data-bundle="5" data-quantity="5" data-price="${(basePrice * 5 * 0.80).toFixed(2)}" data-savings="${(basePrice * 5 * 0.20).toFixed(2)}">
+                                            <span class="bundle-tab-icon">5</span>
+                                            <span class="bundle-tab-label">5 Bottles</span>
+                                        </button>
+                                    </div>
+                                    <div class="bundle-tabs-content">
+                                        <div class="bundle-tab-content active" id="bundle-tab-subscribe${s}">
+                                            <div class="bundle-tab-details">
+                                                <div class="bundle-tab-bottles"><img src="${mainImage}" alt="${product.name}"></div>
+                                                <div class="bundle-tab-info">
+                                                    <div class="bundle-tab-title">Subscribe & Save</div>
+                                                    <div class="bundle-tab-price">$${basePrice.toFixed(2)}</div>
+                                                    <div class="bundle-tab-description">Auto-delivery every 30 days. Cancel anytime.</div>
+                                                    <div class="bundle-tab-benefits">
+                                                        <span class="bundle-benefit">✓ 10% off every order</span>
+                                                        <span class="bundle-benefit">✓ Free shipping</span>
+                                                        <span class="bundle-benefit">✓ Skip or cancel anytime</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bundle-tab-content" id="bundle-tab-2${s}">
+                                            <div class="bundle-tab-details">
+                                                <div class="bundle-tab-bottles"><img src="${mainImage}" alt="${product.name}"><img src="${mainImage}" alt="${product.name}"></div>
+                                                <div class="bundle-tab-info">
+                                                    <div class="bundle-tab-badge">MOST POPULAR</div>
+                                                    <div class="bundle-tab-title">2 Bottles</div>
+                                                    <div class="bundle-tab-price">$${(basePrice * 2 * 0.9).toFixed(2)}</div>
+                                                    <div class="bundle-tab-savings">Save $${(basePrice * 2 * 0.1).toFixed(2)}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bundle-tab-content" id="bundle-tab-3${s}">
+                                            <div class="bundle-tab-details">
+                                                <div class="bundle-tab-bottles"><img src="${mainImage}" alt="${product.name}"><img src="${mainImage}" alt="${product.name}"><img src="${mainImage}" alt="${product.name}"></div>
+                                                <div class="bundle-tab-info">
+                                                    <div class="bundle-tab-badge">BEST VALUE</div>
+                                                    <div class="bundle-tab-title">3 Bottles</div>
+                                                    <div class="bundle-tab-price">$${(basePrice * 3 * 0.85).toFixed(2)}</div>
+                                                    <div class="bundle-tab-savings">Save $${(basePrice * 3 * 0.15).toFixed(2)}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bundle-tab-content" id="bundle-tab-5${s}">
+                                            <div class="bundle-tab-details">
+                                                <div class="bundle-tab-bottles"><img src="${mainImage}" alt="${product.name}"><img src="${mainImage}" alt="${product.name}"><img src="${mainImage}" alt="${product.name}"><img src="${mainImage}" alt="${product.name}"><img src="${mainImage}" alt="${product.name}"></div>
+                                                <div class="bundle-tab-info">
+                                                    <div class="bundle-tab-title">5 Bottles</div>
+                                                    <div class="bundle-tab-price">$${(basePrice * 5 * 0.80).toFixed(2)}</div>
+                                                    <div class="bundle-tab-savings">Save $${(basePrice * 5 * 0.20).toFixed(2)}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="add-bundle-btn" id="addBundleToCartBtn${s}">ADD SELECTED BUNDLE TO CART</button>
+                                </div>
+                            </div>`;
+                }
+                
                 const productHTML = `
                     <!-- Hero Section -->
                     <section class="hero-section">
@@ -4340,111 +4568,7 @@
                             </div>
 
                             <!-- Choose Your Bundle Component - Tab Module -->
-                            <div class="choose-bundle-section">
-                                <h3 class="choose-bundle-title">
-                                    <span class="cart-icon">🛒</span>
-                                    Ready to Order? Choose Your Bundle
-                                </h3>
-                                
-                                <!-- Bundle Tabs -->
-                                <div class="bundle-tabs-container">
-                                    <div class="bundle-tabs-header">
-                                        <button class="bundle-tab-btn active" data-bundle-tab="subscribe" data-bundle="subscribe" data-quantity="1" data-price="${basePrice.toFixed(2)}">
-                                            <span class="bundle-tab-icon">🔄</span>
-                                            <span class="bundle-tab-label">Subscribe</span>
-                                        </button>
-                                        <button class="bundle-tab-btn" data-bundle-tab="2" data-bundle="2" data-quantity="2" data-price="${(basePrice * 2 * 0.9).toFixed(2)}" data-savings="${(basePrice * 2 * 0.1).toFixed(2)}">
-                                            <span class="bundle-tab-icon">2</span>
-                                            <span class="bundle-tab-label">2 Bottles</span>
-                                        </button>
-                                        <button class="bundle-tab-btn" data-bundle-tab="3" data-bundle="3" data-quantity="3" data-price="${(basePrice * 3 * 0.85).toFixed(2)}" data-savings="${(basePrice * 3 * 0.15).toFixed(2)}">
-                                            <span class="bundle-tab-icon">3</span>
-                                            <span class="bundle-tab-label">3 Bottles</span>
-                                        </button>
-                                        <button class="bundle-tab-btn" data-bundle-tab="5" data-bundle="5" data-quantity="5" data-price="${(basePrice * 5 * 0.80).toFixed(2)}" data-savings="${(basePrice * 5 * 0.20).toFixed(2)}">
-                                            <span class="bundle-tab-icon">5</span>
-                                            <span class="bundle-tab-label">5 Bottles</span>
-                                        </button>
-                                    </div>
-                                    
-                                    <!-- Bundle Tab Contents -->
-                                    <div class="bundle-tabs-content">
-                                        <!-- Subscribe Tab -->
-                                        <div class="bundle-tab-content active" id="bundle-tab-subscribe">
-                                            <div class="bundle-tab-details">
-                                                <div class="bundle-tab-bottles">
-                                                    <img src="${mainImage}" alt="${product.name}">
-                                                </div>
-                                                <div class="bundle-tab-info">
-                                                    <div class="bundle-tab-title">Subscribe & Save</div>
-                                                    <div class="bundle-tab-price">$${basePrice.toFixed(2)}</div>
-                                                    <div class="bundle-tab-description">Auto-delivery every 30 days. Cancel anytime.</div>
-                                                    <div class="bundle-tab-benefits">
-                                                        <span class="bundle-benefit">✓ 10% off every order</span>
-                                                        <span class="bundle-benefit">✓ Free shipping</span>
-                                                        <span class="bundle-benefit">✓ Skip or cancel anytime</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- 2 Bottles Tab -->
-                                        <div class="bundle-tab-content" id="bundle-tab-2">
-                                            <div class="bundle-tab-details">
-                                                <div class="bundle-tab-bottles">
-                                                    <img src="${mainImage}" alt="${product.name}">
-                                                    <img src="${mainImage}" alt="${product.name}">
-                                                </div>
-                                                <div class="bundle-tab-info">
-                                                    <div class="bundle-tab-badge">MOST POPULAR</div>
-                                                    <div class="bundle-tab-title">2 Bottles</div>
-                                                    <div class="bundle-tab-price">$${(basePrice * 2 * 0.9).toFixed(2)}</div>
-                                                    <div class="bundle-tab-savings">Save $${(basePrice * 2 * 0.1).toFixed(2)}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- 3 Bottles Tab -->
-                                        <div class="bundle-tab-content" id="bundle-tab-3">
-                                            <div class="bundle-tab-details">
-                                                <div class="bundle-tab-bottles">
-                                                    <img src="${mainImage}" alt="${product.name}">
-                                                    <img src="${mainImage}" alt="${product.name}">
-                                                    <img src="${mainImage}" alt="${product.name}">
-                                                </div>
-                                                <div class="bundle-tab-info">
-                                                    <div class="bundle-tab-badge">BEST VALUE</div>
-                                                    <div class="bundle-tab-title">3 Bottles</div>
-                                                    <div class="bundle-tab-price">$${(basePrice * 3 * 0.85).toFixed(2)}</div>
-                                                    <div class="bundle-tab-savings">Save $${(basePrice * 3 * 0.15).toFixed(2)}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- 5 Bottles Tab -->
-                                        <div class="bundle-tab-content" id="bundle-tab-5">
-                                            <div class="bundle-tab-details">
-                                                <div class="bundle-tab-bottles">
-                                                    <img src="${mainImage}" alt="${product.name}">
-                                                    <img src="${mainImage}" alt="${product.name}">
-                                                    <img src="${mainImage}" alt="${product.name}">
-                                                    <img src="${mainImage}" alt="${product.name}">
-                                                    <img src="${mainImage}" alt="${product.name}">
-                                                </div>
-                                                <div class="bundle-tab-info">
-                                                    <div class="bundle-tab-title">5 Bottles</div>
-                                                    <div class="bundle-tab-price">$${(basePrice * 5 * 0.80).toFixed(2)}</div>
-                                                    <div class="bundle-tab-savings">Save $${(basePrice * 5 * 0.20).toFixed(2)}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <button class="add-bundle-btn" id="addBundleToCartBtn">
-                                        ADD SELECTED BUNDLE TO CART
-                                    </button>
-                                </div>
-                            </div>
+                            ${buildChooseBundleHTML('')}
 
                             <!-- Payment & Cart Card Container -->
                             <div class="payment-card-container" style="max-width: 500px; margin: 30px auto; padding: 24px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 16px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); border: 1px solid rgba(255, 255, 255, 0.3);">
@@ -4478,52 +4602,47 @@
                             <!-- Tabbed Content Section -->
                             <div class="tabs-container" style="margin-top: 25px;">
                                 <div class="tabs-header" style="display: flex; border-bottom: 2px solid #e0e0e0; margin-bottom: 0; overflow-x: auto; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(10px); border-radius: 12px 12px 0 0;">
-                                    <button class="tab-btn active" data-tab="overview" style="flex: 1; padding: 12px 18px; background: none; border: none; border-bottom: 3px solid #2854a6; color: #2854a6; font-weight: 500; cursor: pointer; font-size: 0.9rem; white-space: nowrap; transition: all 0.3s;">Overview</button>
-                                    ${product.faqs && product.faqs.length > 0 ? `<button class="tab-btn" data-tab="faq" style="flex: 1; padding: 12px 18px; background: none; border: none; border-bottom: 3px solid transparent; color: #666; font-weight: 500; cursor: pointer; font-size: 0.9rem; white-space: nowrap; transition: all 0.3s;">FAQ</button>` : ''}
+                                    <button class="tab-btn active" data-tab="overview" style="flex: 1; padding: 12px 18px; background: none; border: none; border-bottom: 3px solid #2854a6; color: #2854a6; font-weight: 500; cursor: pointer; font-size: 0.9rem; white-space: nowrap; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 6px;"><span class="ph ph-file-text" style="font-size: 1.1rem;"></span>Overview</button>
+                                    ${product.supplement_facts ? `<button class="tab-btn" data-tab="supplement-facts" style="flex: 1; padding: 12px 18px; background: none; border: none; border-bottom: 3px solid transparent; color: #666; font-weight: 500; cursor: pointer; font-size: 0.9rem; white-space: nowrap; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 6px;"><span class="ph ph-flask" style="font-size: 1.1rem;"></span>Supplement Facts</button>` : ''}
+                                    ${product.faqs && product.faqs.length > 0 ? `<button class="tab-btn" data-tab="faq" style="flex: 1; padding: 12px 18px; background: none; border: none; border-bottom: 3px solid transparent; color: #666; font-weight: 500; cursor: pointer; font-size: 0.9rem; white-space: nowrap; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 6px;"><span class="ph ph-chat-circle-text" style="font-size: 1.1rem;"></span>FAQ</button>` : ''}
                                 </div>
                                 
                                 <div class="tabs-content" style="padding: 20px 0;">
-                                    <!-- Overview Tab -->
+                                    <!-- Overview Tab (phosphor-mui style containers) -->
                                     <div class="tab-content active" id="tab-overview" style="display: block;">
                                         <div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
-                                            <div style="background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-radius: 16px; padding: 24px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); border: 1px solid rgba(255, 255, 255, 0.3);">
-                                                ${product.ingredients ? `
-                                                <!-- Key Ingredients Section -->
-                                                <div style="margin-bottom: 24px;">
-                                                    <h3 style="font-size: 1.2rem; color: #2854a6; margin-bottom: 16px; font-weight: 500; border-bottom: 2px solid #e0f2fe; padding-bottom: 8px; display: flex; align-items: center; gap: 8px;">
-                                                        <span style="display: inline-flex; align-items: center;">${icons.check}</span>
-                                                        Key Ingredients
-                                                    </h3>
-                                                    <ul style="line-height: 1.7; color: #444; padding-left: 20px; font-size: 0.9rem; margin: 0;">
-                                                        ${product.ingredients.split('\n').filter(i => i.trim()).map(ing => `<li style="margin-bottom: 6px; font-weight: 400;">${ing.trim()}</li>`).join('')}
-                                                    </ul>
-                                                </div>
-                                                ` : ''}
-                                                
+                                            <div class="mui-card">
                                                 <!-- Product Details Section -->
-                                                <div style="margin-bottom: 32px; text-align: left; ${product.ingredients ? 'padding-top: 24px; border-top: 1px solid #e0e0e0;' : ''}">
-                                                    <h3 style="font-size: 1.3rem; color: #2854a6; margin-bottom: 16px; font-weight: 600; border-bottom: 2px solid #e0f2fe; padding-bottom: 10px; text-align: left; letter-spacing: 0.3px;">Product Details</h3>
-                                                    <div class="product-details-content" style="line-height: 1.8; color: #333; font-size: 1rem; text-align: left; font-weight: 400; max-width: 100%;">
+                                                <div style="margin-bottom: 24px;">
+                                                    <h2 style="font-size: 1.25rem; font-weight: 700; color: #1a1a2e; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                                                        <span class="ph ph-info" style="color: #2854a6; font-size: 1.25rem;"></span>
+                                                        Product Details
+                                                    </h2>
+                                                    <div class="product-details-content" style="line-height: 1.75; color: #374151; font-size: 0.95rem; font-weight: 400;">
                                                         ${formatProductDescription(description)}
                                                     </div>
                                                 </div>
-                                                
-                                                <!-- Suggested Use Section -->
-                                                ${product.suggested_use ? `
-                                                <div style="margin-bottom: 24px; text-align: left; padding-top: 18px; border-top: 1px solid #e0e0e0;">
-                                                    <h3 style="font-size: 1.1rem; color: #2854a6; margin-bottom: 10px; font-weight: 500; border-bottom: 2px solid #e0f2fe; padding-bottom: 6px; text-align: left;">Suggested Use</h3>
-                                                    <div style="line-height: 1.6; color: #444; font-size: 0.9rem; text-align: left; font-weight: 400;">
-                                                        ${product.suggested_use.replace(/\n\n+/g, '</p><p>').replace(/\n/g, ' ').replace(/^/, '<p>').replace(/$/, '</p>').replace(/<p><\/p>/g, '')}
+                                                ${product.ingredients ? `
+                                                <!-- Key Ingredients Section -->
+                                                <div style="margin-bottom: 24px; padding-top: 24px; border-top: 1px solid #e5e7eb;">
+                                                    <h2 style="font-size: 1.25rem; font-weight: 700; color: #1a1a2e; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                                                        <span class="ph ph-flask" style="color: #2854a6; font-size: 1.25rem;"></span>
+                                                        Key Ingredients
+                                                    </h2>
+                                                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                                                        ${product.ingredients.split('\n').filter(i => i.trim()).map(ing => { const t = ing.trim().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); return `<div class="desc-ingredient-item"><div style="font-weight: 600; color: #1a1a2e;">${t}</div></div>`; }).join('')}
                                                     </div>
                                                 </div>
                                                 ` : ''}
-                                                
-                                                <!-- Supplement Facts Section -->
-                                                ${product.supplement_facts ? `
-                                                <div style="text-align: left; padding-top: 18px; border-top: 1px solid #e0e0e0;">
-                                                    <h3 style="font-size: 1.1rem; color: #2854a6; margin-bottom: 10px; font-weight: 500; border-bottom: 2px solid #e0f2fe; padding-bottom: 6px; text-align: left;">Supplement Facts</h3>
-                                                    <div style="background: rgba(248, 249, 250, 0.6); padding: 16px; border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.05); text-align: left;">
-                                                        <pre style="white-space: pre-wrap; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; font-size: 0.85rem; line-height: 1.6; color: #333; margin: 0; text-align: left; font-weight: 400;">${product.supplement_facts}</pre>
+                                                ${product.suggested_use ? `
+                                                <!-- Suggested Use Section -->
+                                                <div class="desc-subbox" style="margin-top: 24px;">
+                                                    <h3 style="font-size: 1rem; font-weight: 700; color: #1a1a2e; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                                                        <span class="ph ph-info" style="color: #2854a6;"></span>
+                                                        Suggested Use
+                                                    </h3>
+                                                    <div style="line-height: 1.6; color: #374151; font-size: 0.9rem;">
+                                                        ${product.suggested_use.replace(/\n\n+/g, '</p><p>').replace(/\n/g, ' ').replace(/^/, '<p>').replace(/$/, '</p>').replace(/<p><\/p>/g, '')}
                                                     </div>
                                                 </div>
                                                 ` : ''}
@@ -4531,24 +4650,49 @@
                                         </div>
                                     </div>
                                     
+                                    <!-- Supplement Facts Tab (phosphor-mui style) -->
+                                    ${product.supplement_facts ? `
+                                    <div class="tab-content" id="tab-supplement-facts" style="display: none;">
+                                        <div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+                                            <div class="mui-card">
+                                                <h2 style="font-size: 1.25rem; font-weight: 700; color: #1a1a2e; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                                                    <span class="ph ph-clipboard-text" style="color: #2854a6; font-size: 1.25rem;"></span>
+                                                    Supplement Facts
+                                                </h2>
+                                                <div class="desc-subbox">
+                                                    <pre style="white-space: pre-wrap; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 0.9rem; line-height: 1.6; color: #374151; margin: 0;">${product.supplement_facts}</pre>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    ` : ''}
+                                    
                                     <!-- FAQ Tab -->
                                     ${product.faqs && product.faqs.length > 0 ? `
                                     <div class="tab-content" id="tab-faq" style="display: none;">
-                                        <div style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
-                                            ${product.faqs.map((faq, index) => {
-                                                const isFirst = index === 0;
-                                                return `
-                                                <div class="faq-item" style="margin-bottom: 12px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-                                                    <div class="faq-question" style="padding: 14px 16px; background: #f8f9fa; cursor: pointer; font-weight: 500; color: #2854a6; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem;" onclick="const answer = this.nextElementSibling; const toggle = this.querySelector('.faq-toggle'); answer.classList.toggle('open'); toggle.textContent = answer.classList.contains('open') ? '−' : '+';" aria-expanded="${isFirst ? 'true' : 'false'}" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
-                                                        <span style="flex: 1; padding-right: 12px;">${faq.question}</span>
-                                                        <span class="faq-toggle" style="font-size: 1.3rem; font-weight: 600; flex-shrink: 0;">${isFirst ? '−' : '+'}</span>
-                                                    </div>
-                                                    <div class="faq-answer ${isFirst ? 'open' : ''}" style="padding: 14px 16px; background: white; color: #555; line-height: 1.6; font-size: 0.9rem; font-weight: 400;" role="region" aria-label="FAQ answer">
-                                                        <div style="white-space: normal; word-wrap: break-word;">${faq.answer}</div>
-                                                    </div>
+                                        <div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+                                            <div class="mui-card">
+                                                <h2 style="font-size: 1.25rem; font-weight: 700; color: #1a1a2e; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+                                                    <span class="ph ph-chat-circle-text" style="color: #2854a6; font-size: 1.25rem;"></span>
+                                                    FAQ
+                                                </h2>
+                                                <div class="faq-tab-list">
+                                                    ${product.faqs.map((faq, index) => {
+                                                        const isFirst = index === 0;
+                                                        const q = (faq.question != null && faq.question !== '') ? String(faq.question) : 'Question';
+                                                        const a = (faq.answer != null && faq.answer !== '') ? String(faq.answer) : '';
+                                                        const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+                                                        return `
+                                                        <div class="faq-tab-item" data-faq-index="${index}">
+                                                            <button type="button" class="faq-tab-question" id="faq-q-${index}" aria-expanded="${isFirst ? 'true' : 'false'}" aria-controls="faq-answer-${index}" data-faq-index="${index}" onclick="toggleFAQ(${index})">
+                                                                <span>${esc(q)}</span>
+                                                                <span class="faq-tab-toggle" id="faq-toggle-${index}">${isFirst ? '−' : '+'}</span>
+                                                            </button>
+                                                            <div class="faq-tab-answer" id="faq-answer-${index}" ${isFirst ? '' : 'hidden'} role="region" aria-labelledby="faq-q-${index}">${esc(a)}</div>
+                                                        </div>`;
+                                                    }).join('')}
                                                 </div>
-                                            `;
-                                            }).join('')}
+                                            </div>
                                         </div>
                                     </div>
                                     ` : ''}
@@ -4559,6 +4703,14 @@
                     </section>
                     
                     ${imageGalleryHTML}
+                    
+                    <!-- Choose Your Bundle (repeat) - above Subscribe & Save -->
+                    <section class="choose-bundle-repeat-section" style="padding: 32px 0;">
+                        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+                            ${buildChooseBundleHTML('-lower')}
+                        </div>
+                    </section>
+                    
                     <!-- Subscribe & Save Section -->
                     <section class="subscribe-save-section" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.15) 100%); padding: 20px 0; margin-top: 15px; border-top: 2px solid rgba(16, 185, 129, 0.2);">
                         <div class="container" style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
@@ -4613,6 +4765,18 @@
                             <div class="recently-viewed-grid" id="recentlyViewedGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; max-width: 1000px; margin: 0 auto;"></div>
                         </div>
                     </section>
+                    
+                    <!-- You May Also Like / Suggested Products (below Recently Viewed) -->
+                    ${suggestedProductsHTML ? `
+                    <section class="suggested-products-section" style="background: linear-gradient(135deg, rgba(40, 84, 166, 0.06) 0%, rgba(248, 250, 255, 0.8) 100%); padding: 40px 0; margin-top: 30px; border-top: 1px solid rgba(40, 84, 166, 0.1);">
+                        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+                            <h2 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 24px; text-align: center; color: #2854a6; display: flex; align-items: center; justify-content: center; gap: 8px;"><span class="ph ph-package" style="font-size: 1.2rem;"></span>You May Also Like</h2>
+                            <div class="suggested-products-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto;">
+                                ${suggestedProductsHTML}
+                            </div>
+                        </div>
+                    </section>
+                    ` : ''}
                 `;
                 
                 const productContent = document.getElementById('productContent');
@@ -5019,40 +5183,42 @@
                     // Delay PayPal init slightly to ensure container exists
                     setTimeout(initPayPal, 200);
                     
-                    // Choose Your Bundle Tab functionality
+                    // Choose Your Bundle Tab functionality (syncs upper + lower)
                     const bundleTabButtons = productContent.querySelectorAll('.bundle-tab-btn');
                     const bundleTabContents = productContent.querySelectorAll('.bundle-tab-content');
-                    const addBundleBtn = productContent.querySelector('#addBundleToCartBtn');
+                    const addBundleBtns = productContent.querySelectorAll('.add-bundle-btn');
                     let selectedBundleTab = productContent.querySelector('.bundle-tab-btn.active');
                     
-                    // Bundle tab switching
+                    // Bundle tab switching – keep upper and lower in sync
                     bundleTabButtons.forEach(btn => {
                         btn.addEventListener('click', function() {
                             const targetTab = this.dataset.bundleTab;
                             
-                            // Remove active class from all tabs and contents
                             bundleTabButtons.forEach(b => b.classList.remove('active'));
                             bundleTabContents.forEach(c => c.classList.remove('active'));
                             
-                            // Add active class to clicked tab
                             this.classList.add('active');
                             selectedBundleTab = this;
                             
-                            // Show corresponding content
-                            const targetContent = productContent.querySelector(`#bundle-tab-${targetTab}`);
-                            if (targetContent) {
-                                targetContent.classList.add('active');
-                            }
+                            // Activate matching tab in the other section
+                            bundleTabButtons.forEach(b => {
+                                if (b !== this && b.dataset.bundleTab === targetTab) b.classList.add('active');
+                            });
+                            
+                            // Show corresponding content in both sections
+                            const upper = productContent.querySelector('#bundle-tab-' + targetTab);
+                            const lower = productContent.querySelector('#bundle-tab-' + targetTab + '-lower');
+                            if (upper) upper.classList.add('active');
+                            if (lower) lower.classList.add('active');
                         });
                     });
                     
-                    // Add Bundle to Cart button handler
-                    if (addBundleBtn) {
+                    // Add Bundle to Cart – both buttons use same handler
+                    addBundleBtns.forEach(function(addBundleBtn) {
                         addBundleBtn.addEventListener('click', function() {
                             if (!selectedBundleTab) {
                                 selectedBundleTab = productContent.querySelector('.bundle-tab-btn.active');
                             }
-                            
                             if (!selectedBundleTab) {
                                 alert('Please select a bundle');
                                 return;
@@ -5063,40 +5229,40 @@
                             const bundlePrice = parseFloat(selectedBundleTab.dataset.price) || basePrice;
                             const productImage = product.images && product.images[0] ? product.images[0] : '/images/placeholder.jpg';
                             
-                            // Handle subscription differently
+                            function setAllAddBtns(text, bg) {
+                                addBundleBtns.forEach(function(b) {
+                                    b.textContent = text;
+                                    if (bg) b.style.background = bg;
+                                });
+                            }
+                            function resetAllAddBtns(orig, origBg) {
+                                addBundleBtns.forEach(function(b) {
+                                    b.textContent = orig;
+                                    b.style.background = origBg;
+                                });
+                            }
+                            const origText = 'ADD SELECTED BUNDLE TO CART';
+                            const origBg = addBundleBtn.style.background || '';
+                            
                             if (bundleType === 'subscribe') {
-                                // For subscription, add with a subscription flag
                                 if (typeof window.addToCart === 'function') {
-                                    window.addToCart(product.name, bundlePrice, quantity, product.sku, productImage, true); // true = subscription
-                                    
-                                    const originalText = addBundleBtn.textContent;
-                                    addBundleBtn.textContent = '✓ SUBSCRIPTION ADDED!';
-                                    addBundleBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
-                                    
-                                    setTimeout(() => {
-                                        addBundleBtn.textContent = originalText;
-                                        addBundleBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                                    window.addToCart(product.name, bundlePrice, quantity, product.sku, productImage, true);
+                                    setAllAddBtns('✓ SUBSCRIPTION ADDED!', 'linear-gradient(135deg, #10b981 0%, #059669 100%)');
+                                    setTimeout(function() {
+                                        resetAllAddBtns(origText, origBg);
                                         window.location.href = '/cart';
                                     }, 1500);
                                 } else {
                                     alert('Cart functionality not available. Please refresh the page.');
                                 }
                             } else {
-                                // Regular bundle purchase
                                 if (typeof window.addToCart === 'function') {
-                                    // Add items individually to cart
                                     for (let i = 0; i < quantity; i++) {
                                         window.addToCart(product.name, bundlePrice / quantity, 1, product.sku, productImage);
                                     }
-                                    
-                                    // Show success message
-                                    const originalText = addBundleBtn.textContent;
-                                    addBundleBtn.textContent = '✓ ADDED TO CART!';
-                                    addBundleBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
-                                    
-                                    setTimeout(() => {
-                                        addBundleBtn.textContent = originalText;
-                                        addBundleBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                                    setAllAddBtns('✓ ADDED TO CART!', 'linear-gradient(135deg, #10b981 0%, #059669 100%)');
+                                    setTimeout(function() {
+                                        resetAllAddBtns(origText, origBg);
                                         window.location.href = '/cart';
                                     }, 1500);
                                 } else {
@@ -5104,7 +5270,7 @@
                                 }
                             }
                         });
-                    }
+                    });
                     
                     // Tab switching functionality
                     const tabButtons = productContent.querySelectorAll('.tab-btn');
@@ -5143,6 +5309,25 @@
                             firstTabContent.style.display = 'block';
                         }
                     }
+                    
+                    // FAQ toggle – use hidden attribute, scoped faq-tab-* classes
+                    window.toggleFAQ = function(index) {
+                        const answer = document.getElementById('faq-answer-' + index);
+                        const toggle = document.getElementById('faq-toggle-' + index);
+                        const question = document.getElementById('faq-q-' + index);
+                        if (!answer || !toggle || !question) return;
+                        
+                        const isOpen = !answer.hasAttribute('hidden');
+                        if (isOpen) {
+                            answer.setAttribute('hidden', '');
+                            toggle.textContent = '+';
+                            question.setAttribute('aria-expanded', 'false');
+                        } else {
+                            answer.removeAttribute('hidden');
+                            toggle.textContent = '−';
+                            question.setAttribute('aria-expanded', 'true');
+                        }
+                    };
                     
                     // Add event listeners for bundle section buttons (in Bundle Deals tab)
                     const bundleSelectBtns = productContent.querySelectorAll('.bundle-select-btn');
@@ -5376,10 +5561,17 @@
 
         // Initialize product loading when DOM is ready
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', loadProduct);
+            document.addEventListener('DOMContentLoaded', function() {
+                loadProduct();
+                updateCartCount();
+            });
         } else {
             loadProduct();
+            updateCartCount();
         }
+        
+        // Update cart count periodically
+        setInterval(updateCartCount, 1000);
         
         // Image Modal Functions
         window.openImageModal = function(imageSrc, index) {

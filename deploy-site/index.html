@@ -44,7 +44,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&family=Poppins:wght@400;500;600&family=Inter:wght@400;500;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons - Local files with absolute paths (fixed for mobile compatibility) -->
     <link rel="stylesheet" href="/public/phosphor-icons/Fonts/regular/style.css">
+    <style>
+        /* Ensure Phosphor font loads correctly on all devices */
+        @font-face {
+            font-family: "Phosphor";
+            src: url("/public/phosphor-icons/Fonts/regular/Phosphor.woff2") format("woff2"),
+                 url("/public/phosphor-icons/Fonts/regular/Phosphor.woff") format("woff"),
+                 url("/public/phosphor-icons/Fonts/regular/Phosphor.ttf") format("truetype");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        /* Ensure icons are visible */
+        .ph {
+            font-family: "Phosphor" !important;
+            display: inline-block;
+            line-height: 1;
+        }
+    </style>
     <style>
         :root {
             --bg: #070b18;
@@ -1563,7 +1582,7 @@
     <div class="blue-nav">
         <div class="container">
             <a href="/">Home</a>
-            <a href="/shop">🧪 Shop</a>
+            <a href="/shop"><span class="ph ph-flask"></span> Shop</a>
             <a href="/cart" id="cartLink">Cart</a>
         </div>
     </div>
@@ -2037,7 +2056,7 @@
         <div class="container">
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
                 <div>
-                    <div class="kicker" style="background: rgba(40, 84, 166, 0.1); color: #2854a6; border: 1px solid rgba(40, 84, 166, 0.2);">✨ New Release</div>
+                    <div class="kicker" style="background: rgba(40, 84, 166, 0.1); color: #2854a6; border: 1px solid rgba(40, 84, 166, 0.2);"><span class="ph ph-sparkle"></span> New Release</div>
                     <h2 style="font-size: clamp(1.8rem, 3.5vw, 2.4rem); line-height: 1.2; margin: 12px 0; color: #1a1a2e; font-weight: 800;">
                         Women's Balance — Now Available
                     </h2>
@@ -2106,7 +2125,7 @@
                         Start Free Consultation <span style="font-size: 1.2rem;">→</span>
                     </button>
                     <p style="margin-top: 15px; font-size: 0.9rem; color: white; font-weight: 400;">
-                        <span style="margin-right: 4px;">✨</span> No signup required <span style="margin: 0 8px;">•</span> Instant results <span style="margin: 0 8px;">•</span> 100% free
+                        <span class="ph ph-sparkle" style="margin-right: 4px;"></span> No signup required <span style="margin: 0 8px;">•</span> Instant results <span style="margin: 0 8px;">•</span> 100% free
                     </p>
                 </div>
             </div>
@@ -2138,7 +2157,7 @@
         <span style="color: rgba(255,255,255,0.3); font-size: 0.85rem !important;">|</span>
         <a href="/contact" style="color: white; text-decoration: none; font-weight: 500; font-size: 0.85rem !important; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Contact</a>
         <span style="color: rgba(255,255,255,0.3); font-size: 0.85rem !important;">|</span>
-        <a href="/shop" style="color: white; text-decoration: none; font-weight: 500; font-size: 0.85rem !important; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">🧪 SHOP</a>
+        <a href="/shop" style="color: white; text-decoration: none; font-weight: 500; font-size: 0.85rem !important; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'"><span class="ph ph-flask"></span> SHOP</a>
     </div>
     <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
     <div style="text-align: center; padding: 16px; background: #2854a6;">

@@ -287,6 +287,166 @@ app.get('/public/images/real-factory-images/:filename(*)', (req, res) => {
     }
 });
 
+// Serve Phosphor Icons font files with proper MIME types and CORS headers (for mobile compatibility)
+app.get('/public/phosphor-icons/Fonts/:weight/:filename', (req, res) => {
+    const { weight, filename } = req.params;
+    const filePath = path.join(__dirname, 'deploy-site', 'public', 'phosphor-icons', 'Fonts', weight, filename);
+    
+    if (fs.existsSync(filePath)) {
+        // Set proper MIME types for font files
+        const ext = path.extname(filename).toLowerCase();
+        const mimeTypes = {
+            '.woff2': 'font/woff2',
+            '.woff': 'font/woff',
+            '.ttf': 'font/ttf',
+            '.svg': 'image/svg+xml',
+            '.css': 'text/css'
+        };
+        const contentType = mimeTypes[ext] || 'application/octet-stream';
+        
+        res.setHeader('Content-Type', contentType);
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+        res.sendFile(filePath);
+    } else {
+        res.status(404).send('Font file not found');
+    }
+});
+
+// ============================================
+// ZOHO OAUTH CALLBACK - Handle OAuth redirect
+// Must be BEFORE static middleware
+// ============================================
+app.get('/zoho/callback', async (req, res) => {
+    try {
+        const { code, state, error } = req.query;
+
+        if (error) {
+            console.error('Zoho OAuth error:', error);
+            return res.status(400).send(`
+                <html>
+                    <head><title>Zoho OAuth Error</title></head>
+                    <body style="font-family: Arial; padding: 40px; text-align: center;">
+                        <h1 style="color: #d32f2f;">❌ Authorization Failed</h1>
+                        <p>Error: ${error}</p>
+                        <p><a href="/admin">Return to Admin</a></p>
+                    </body>
+                </html>
+            `);
+        }
+
+        if (!code) {
+            return res.status(400).send(`
+                <html>
+                    <head><title>Zoho OAuth Error</title></head>
+                    <body style="font-family: Arial; padding: 40px; text-align: center;">
+                        <h1 style="color: #d32f2f;">❌ No Authorization Code</h1>
+                        <p>No authorization code received from Zoho.</p>
+                        <p><a href="/admin">Return to Admin</a></p>
+                    </body>
+                </html>
+            `);
+        }
+
+        // Exchange code for tokens
+        const ZOHO_CLIENT_ID = process.env.ZOHO_CLIENT_ID;
+        const ZOHO_CLIENT_SECRET = process.env.ZOHO_CLIENT_SECRET;
+        const ZOHO_REDIRECT_URI = process.env.ZOHO_REDIRECT_URI || `http://localhost:${PORT}/zoho/callback`;
+        const ZOHO_TOKEN_URL = 'https://accounts.zoho.com/oauth/v2/token';
+
+        const tokenResponse = await fetch(ZOHO_TOKEN_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({
+                grant_type: 'authorization_code',
+                client_id: ZOHO_CLIENT_ID,
+                client_secret: ZOHO_CLIENT_SECRET,
+                redirect_uri: ZOHO_REDIRECT_URI,
+                code: code
+            })
+        });
+
+        if (!tokenResponse.ok) {
+            const error = await tokenResponse.text();
+            console.error('Token exchange failed:', error);
+            return res.status(500).send(`
+                <html>
+                    <head><title>Zoho OAuth Error</title></head>
+                    <body style="font-family: Arial; padding: 40px; text-align: center;">
+                        <h1 style="color: #d32f2f;">❌ Token Exchange Failed</h1>
+                        <p>Failed to exchange authorization code for tokens.</p>
+                        <p><a href="/admin">Return to Admin</a></p>
+                    </body>
+                </html>
+            `);
+        }
+
+        const tokenData = await tokenResponse.json();
+        
+        // Update .env file with tokens
+        const envPath = path.join(__dirname, '.env');
+        let envContent = fs.readFileSync(envPath, 'utf8');
+
+        // Update access token
+        if (envContent.includes('ZOHO_CRM_ACCESS_TOKEN=')) {
+            envContent = envContent.replace(
+                /ZOHO_CRM_ACCESS_TOKEN=.*/,
+                `ZOHO_CRM_ACCESS_TOKEN=${tokenData.access_token}`
+            );
+        } else {
+            envContent += `\nZOHO_CRM_ACCESS_TOKEN=${tokenData.access_token}`;
+        }
+
+        // Update refresh token if provided
+        if (tokenData.refresh_token) {
+            if (envContent.includes('ZOHO_REFRESH_TOKEN=')) {
+                envContent = envContent.replace(
+                    /ZOHO_REFRESH_TOKEN=.*/,
+                    `ZOHO_REFRESH_TOKEN=${tokenData.refresh_token}`
+                );
+            } else {
+                envContent += `\nZOHO_REFRESH_TOKEN=${tokenData.refresh_token}`;
+            }
+        }
+
+        fs.writeFileSync(envPath, envContent);
+        console.log('✅ Zoho tokens saved to .env');
+
+        // Show success page
+        res.send(`
+            <html>
+                <head>
+                    <title>Zoho OAuth Success</title>
+                    <meta http-equiv="refresh" content="3;url=/admin">
+                </head>
+                <body style="font-family: Arial; padding: 40px; text-align: center; background: #f5f5f5;">
+                    <div style="background: white; padding: 40px; border-radius: 8px; max-width: 500px; margin: 0 auto; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        <h1 style="color: #4caf50;">✅ Authorization Successful!</h1>
+                        <p>Your Zoho CRM access token has been saved.</p>
+                        <p style="color: #666; font-size: 14px;">Redirecting to admin panel in 3 seconds...</p>
+                        <p><a href="/admin" style="color: #1976d2; text-decoration: none;">Go to Admin Now →</a></p>
+                    </div>
+                </body>
+            </html>
+        `);
+
+    } catch (error) {
+        console.error('Zoho callback error:', error);
+        res.status(500).send(`
+            <html>
+                <head><title>Zoho OAuth Error</title></head>
+                <body style="font-family: Arial; padding: 40px; text-align: center;">
+                    <h1 style="color: #d32f2f;">❌ Error</h1>
+                    <p>${error.message}</p>
+                    <p><a href="/admin">Return to Admin</a></p>
+                </body>
+            </html>
+        `);
+    }
+});
+
 // Serve static files from deploy-site directory (AFTER routes to prevent conflicts)
 // IMPORTANT: This serves from GitHub repo ONLY, not CascadeProjects
 // Cache-busting headers prevent browser from serving stale cached files
