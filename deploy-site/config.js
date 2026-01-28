@@ -5,7 +5,7 @@
 
 const CONFIG = {
     // Set to true for testing, false for production
-    SANDBOX_MODE: true, // Change to false when ready for live payments
+    SANDBOX_MODE: false, // Production mode - real payments enabled
     
     // PayPal Configuration
     PAYPAL: {
