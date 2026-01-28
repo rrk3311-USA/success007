@@ -1,5 +1,5 @@
 {
-  "installCommand": "npm install --no-optional || npm install --ignore-scripts",
+  "installCommand": "npm install",
   "buildCommand": "npm run build:all",
   "outputDirectory": "deploy-site",
   "cleanUrls": false,
