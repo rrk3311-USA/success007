@@ -1,4 +1,23 @@
 <!-- Universal Header - DO NOT EDIT, this is included on all pages -->
+<!-- Phosphor Icons CSS - Site-wide -->
+<link rel="stylesheet" href="/public/phosphor-icons/Fonts/regular/style.css">
+<style>
+    @font-face {
+        font-family: "Phosphor";
+        src: url("/public/phosphor-icons/Fonts/regular/Phosphor.woff2") format("woff2"),
+             url("/public/phosphor-icons/Fonts/regular/Phosphor.woff") format("woff"),
+             url("/public/phosphor-icons/Fonts/regular/Phosphor.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+    }
+    .ph {
+        font-family: "Phosphor" !important;
+        display: inline-block;
+        line-height: 1;
+    }
+</style>
+
 <div class="topbar">
     <div class="container">
         <div class="topbar-inner">
@@ -13,8 +32,8 @@
 <div class="blue-nav">
     <div class="container">
         <a href="/">Home</a>
-        <a href="/shop">🧪 Shop</a>
-        <a href="/cart" id="cartLink" style="font-size: 0.9rem;">Cart</a>
+        <a href="/shop"><span class="ph ph-flask"></span> Shop</a>
+        <a href="/cart" id="cartLink" style="font-size: 0.9rem;"><span class="ph ph-shopping-cart"></span> Cart</a>
     </div>
 </div>
 <div class="header-divider"></div>

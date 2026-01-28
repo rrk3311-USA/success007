@@ -7,8 +7,38 @@
     <title>Admin Dashboard - Success Chemistry</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&family=Inter:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* shadcn/ui Theme Variables */
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 222.2 47.4% 11.2%;
+            --card: 0 0% 100%;
+            --card-foreground: 222.2 47.4% 11.2%;
+            --popover: 0 0% 100%;
+            --popover-foreground: 222.2 47.4% 11.2%;
+            --primary: 221.2 83.2% 53.3%;
+            --primary-foreground: 210 40% 98%;
+            --secondary: 210 40% 96.1%;
+            --secondary-foreground: 222.2 47.4% 11.2%;
+            --muted: 210 40% 96.1%;
+            --muted-foreground: 215.4 16.3% 35%;
+            --accent: 210 40% 96.1%;
+            --accent-foreground: 222.2 47.4% 11.2%;
+            --destructive: 0 84.2% 60.2%;
+            --destructive-foreground: 210 40% 98%;
+            --border: 214.3 31.8% 91.4%;
+            --input: 214.3 31.8% 91.4%;
+            --ring: 221.2 83.2% 53.3%;
+            --radius: 0.5rem;
+            
+            /* Success & Warning */
+            --success: 142.1 76.2% 36.3%;
+            --success-foreground: 355.7 100% 97.3%;
+            --warning: 38 92% 50%;
+            --warning-foreground: 26 83.3% 14.1%;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -16,12 +46,16 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #0a1628 0%, #1a2744 50%, #0f1b2d 100%);
-            color: #F1F5F9;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            background: hsl(var(--background));
+            color: hsl(var(--foreground));
             pointer-events: auto !important;
             user-select: auto !important;
             min-height: 100vh;
+            font-size: 14px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* Login Screen */
@@ -30,81 +64,86 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(221.2 83.2% 45%) 100%);
         }
 
         .login-box {
-            background: rgba(30, 41, 59, 0.9);
-            border: 1px solid rgba(139, 125, 107, 0.3);
-            padding: 40px;
-            border-radius: 0;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            padding: 2rem;
+            border-radius: calc(var(--radius) + 4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             width: 100%;
             max-width: 400px;
         }
 
         .login-box h1 {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            color: #06B6D4;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-size: 1.875rem;
+            margin-bottom: 0.5rem;
+            color: hsl(var(--foreground));
+            font-weight: 600;
         }
 
         .login-box p {
-            color: #94A3B8;
-            margin-bottom: 30px;
+            color: hsl(var(--muted-foreground));
+            margin-bottom: 1.5rem;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #CBD5E1;
-            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: hsl(var(--foreground));
+            font-size: 0.875rem;
         }
 
         .form-group input {
             width: 100%;
-            padding: 12px 16px;
-            background: rgba(51, 65, 85, 0.5);
-            border: 1px solid rgba(139, 125, 107, 0.3);
-            border-radius: 0;
-            font-size: 1rem;
+            padding: 0.5rem 0.75rem;
+            background: hsl(var(--background));
+            border: 1px solid hsl(var(--input));
+            border-radius: var(--radius);
+            font-size: 0.875rem;
             font-family: inherit;
-            color: #F1F5F9;
-            transition: border-color 0.2s;
+            color: hsl(var(--foreground));
+            transition: all 0.2s;
+            height: 2.5rem;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: #06B6D4;
-            background: rgba(51, 65, 85, 0.7);
+            border-color: hsl(var(--ring));
+            box-shadow: 0 0 0 2px hsl(var(--ring) / 0.2);
+        }
+
+        .form-group input:hover {
+            border-color: hsl(var(--input));
         }
 
         .login-btn {
             width: 100%;
-            padding: 13px 32px;
-            background: rgba(6, 182, 212, 0.2);
-            border: 1px solid #06B6D4;
-            color: #06B6D4;
-            border-radius: 0;
-            font-weight: 600;
-            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            background: hsl(var(--primary));
+            border: none;
+            color: hsl(var(--primary-foreground));
+            border-radius: var(--radius);
+            font-weight: 500;
+            font-size: 0.875rem;
             cursor: pointer;
             transition: all 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            height: 2.5rem;
         }
 
         .login-btn:hover {
-            background: rgba(6, 182, 212, 0.3);
-            transform: translateY(-1px);
+            background: hsl(var(--primary) / 0.9);
+        }
+
+        .login-btn:active {
+            background: hsl(var(--primary) / 0.8);
         }
 
         /* Dashboard */
@@ -142,86 +181,191 @@
             position: relative;
         }
 
-        .header {
-            background: rgba(30, 41, 59, 0.9);
-            border-bottom: 1px solid rgba(139, 125, 107, 0.3);
-            padding: 20px 0;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-
-        .header-inner {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
+        /* Sidebar Layout */
+        .dashboard {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            min-height: 100vh;
         }
 
-        .header h1 {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.5rem;
-            color: #06B6D4;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .sidebar {
+            width: 16rem;
+            background: hsl(var(--card));
+            border-right: 1px solid hsl(var(--border));
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 40;
+            transition: width 0.2s;
+        }
+
+        .sidebar.collapsed {
+            width: 4rem;
+        }
+
+        .sidebar-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid hsl(var(--border));
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 4rem;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.125rem;
+            color: hsl(var(--foreground));
+            font-weight: 600;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed .sidebar-header h1 {
+            display: none;
+        }
+
+        .sidebar-toggle {
+            background: transparent;
+            border: none;
+            color: hsl(var(--muted-foreground));
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: var(--radius);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-toggle:hover {
+            background: hsl(var(--accent));
+            color: hsl(var(--accent-foreground));
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0.5rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0.75rem;
+            margin-bottom: 0.25rem;
+            border-radius: var(--radius);
+            color: hsl(var(--muted-foreground));
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            background: hsl(var(--accent));
+            color: hsl(var(--accent-foreground));
+        }
+
+        .nav-item.active {
+            background: hsl(var(--primary) / 0.1);
+            color: hsl(var(--primary));
+        }
+
+        .nav-item-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            margin-right: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .sidebar.collapsed .nav-item-icon {
+            margin-right: 0;
+        }
+
+        .nav-item-text {
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed .nav-item-text {
+            display: none;
+        }
+
+        .sidebar-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid hsl(var(--border));
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 16rem;
+            transition: margin-left 0.2s;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .sidebar.collapsed ~ .main-content {
+            margin-left: 4rem;
+        }
+
+        .header {
+            background: hsl(var(--card));
+            border-bottom: 1px solid hsl(var(--border));
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 30;
+        }
+
+        .header h2 {
+            font-size: 1.125rem;
+            color: hsl(var(--foreground));
+            font-weight: 600;
+            margin: 0;
         }
 
         .logout-btn {
-            padding: 10px 20px;
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid #EF4444;
-            color: #EF4444;
-            border-radius: 0;
-            font-weight: 600;
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid hsl(var(--border));
+            color: hsl(var(--destructive));
+            border-radius: var(--radius);
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 12px;
+            font-size: 0.875rem;
+            height: 2.5rem;
         }
 
         .logout-btn:hover {
-            background: rgba(239, 68, 68, 0.3);
+            background: hsl(var(--destructive) / 0.1);
+            border-color: hsl(var(--destructive));
         }
 
         .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 30px 20px;
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
         }
 
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            border-bottom: 1px solid rgba(139, 125, 107, 0.3);
-            padding-bottom: 10px;
-        }
-
-        .tab-btn {
-            padding: 12px 24px;
-            background: rgba(30, 41, 59, 0.6);
-            border: 1px solid rgba(139, 125, 107, 0.3);
-            border-radius: 0;
-            font-weight: 600;
-            color: #CBD5E1;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .tab-btn:hover {
-            background: rgba(30, 41, 59, 0.8);
-            border-color: rgba(139, 125, 107, 0.5);
-        }
-
-        .tab-btn.active {
-            background: rgba(6, 182, 212, 0.2);
-            border-color: #06B6D4;
-            color: #06B6D4;
+        /* Card component - reusable */
+        .card {
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: calc(var(--radius) + 2px);
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
         }
 
         .tab-content {
@@ -236,78 +380,97 @@
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
         }
 
         .stat-card {
-            background: rgba(51, 65, 85, 0.5);
-            border: 1px solid rgba(139, 125, 107, 0.3);
-            padding: 20px;
-            border-radius: 0;
-            text-align: center;
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            padding: 1.5rem;
+            border-radius: calc(var(--radius) + 2px);
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            transition: all 0.2s;
+        }
+
+        .stat-card:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
         .stat-card h3 {
-            font-size: 12px;
-            color: #94A3B8;
-            font-weight: 600;
+            font-size: 0.75rem;
+            color: hsl(var(--muted-foreground));
+            font-weight: 500;
+            margin-bottom: 0.5rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 8px;
+            letter-spacing: 0.05em;
         }
 
         .stat-card .value {
-            font-size: 32px;
-            font-weight: 700;
-            color: #06B6D4;
-            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            font-weight: 600;
+            color: hsl(var(--foreground));
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
         }
 
         .stat-card .change {
-            font-size: 12px;
-            color: #10B981;
-            margin-top: 8px;
+            font-size: 0.875rem;
+            color: hsl(var(--success));
+            margin-top: 0.5rem;
         }
 
         /* Table */
         .data-table {
-            background: rgba(30, 41, 59, 0.9);
-            border: 1px solid rgba(139, 125, 107, 0.3);
-            border-radius: 0;
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: calc(var(--radius) + 2px);
             overflow: hidden;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
         }
 
         .table-header {
-            padding: 20px 24px;
-            border-bottom: 1px solid rgba(139, 125, 107, 0.3);
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid hsl(var(--border));
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .table-header h2 {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.2rem;
-            color: #06B6D4;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 1.125rem;
+            color: hsl(var(--foreground));
+            font-weight: 600;
+            margin: 0;
         }
 
         .search-box {
-            padding: 8px 16px;
-            background: rgba(51, 65, 85, 0.5);
-            border: 1px solid rgba(139, 125, 107, 0.3);
-            border-radius: 0;
-            font-size: 0.9rem;
-            width: 250px;
-            color: #F1F5F9;
+            padding: 0.5rem 0.75rem;
+            background: hsl(var(--background));
+            border: 1px solid hsl(var(--input));
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+            width: 100%;
+            max-width: 300px;
+            color: hsl(var(--foreground));
+            transition: all 0.2s;
+            height: 2.5rem;
         }
 
         .search-box:focus {
             outline: none;
-            border-color: #06B6D4;
-            background: rgba(51, 65, 85, 0.7);
+            border-color: hsl(var(--ring));
+            box-shadow: 0 0 0 2px hsl(var(--ring) / 0.2);
+        }
+
+        .search-box:hover {
+            border-color: hsl(var(--input));
+        }
+
+        .search-box::placeholder {
+            color: hsl(var(--muted-foreground));
         }
 
         table {
@@ -316,109 +479,236 @@
         }
 
         thead {
-            background: rgba(51, 65, 85, 0.5);
+            background: hsl(var(--muted));
         }
 
         th {
-            padding: 12px 24px;
+            padding: 0.75rem 1rem;
             text-align: left;
-            font-weight: 600;
-            color: #CBD5E1;
-            font-size: 0.85rem;
+            font-weight: 500;
+            color: hsl(var(--foreground));
+            font-size: 0.75rem;
+            border-bottom: 1px solid hsl(var(--border));
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-family: 'Orbitron', monospace;
+            letter-spacing: 0.05em;
         }
 
         td {
-            padding: 16px 24px;
-            border-top: 1px solid rgba(139, 125, 107, 0.2);
-            color: #F1F5F9;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid hsl(var(--border));
+            color: hsl(var(--foreground));
         }
 
         tbody tr:hover {
-            background: rgba(51, 65, 85, 0.3);
+            background: hsl(var(--accent));
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
         }
 
         .badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 0;
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
             font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
+            font-weight: 500;
+            transition: all 0.2s;
+            height: 1.5rem;
+            line-height: 1.5rem;
         }
 
         .badge.pending {
-            background: rgba(239, 68, 68, 0.2);
-            color: #EF4444;
-            border: 1px solid rgba(239, 68, 68, 0.3);
+            background: hsl(var(--destructive) / 0.1);
+            color: hsl(var(--destructive));
+            border: 1px solid hsl(var(--destructive) / 0.2);
         }
 
         .badge.completed {
-            background: rgba(16, 185, 129, 0.2);
-            color: #10B981;
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            background: hsl(var(--success) / 0.1);
+            color: hsl(var(--success));
+            border: 1px solid hsl(var(--success) / 0.2);
         }
 
         .badge.processing {
-            background: rgba(245, 158, 11, 0.2);
-            color: #F59E0B;
-            border: 1px solid rgba(245, 158, 11, 0.3);
+            background: hsl(var(--warning) / 0.1);
+            color: hsl(var(--warning));
+            border: 1px solid hsl(var(--warning) / 0.2);
         }
 
         .action-btn {
-            padding: 6px 12px;
-            background: rgba(6, 182, 212, 0.2);
-            border: 1px solid #06B6D4;
-            color: #06B6D4;
-            border-radius: 0;
-            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 1rem;
+            background: hsl(var(--primary));
+            border: none;
+            color: hsl(var(--primary-foreground));
+            border-radius: var(--radius);
+            font-size: 0.875rem;
             cursor: pointer;
             transition: all 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 600;
+            font-weight: 500;
+            height: 2.5rem;
         }
 
         .action-btn:hover {
-            background: rgba(6, 182, 212, 0.3);
+            background: hsl(var(--primary) / 0.9);
+        }
+
+        .action-btn.btn-success {
+            background: hsl(var(--success));
+            color: hsl(var(--success-foreground));
+        }
+
+        .action-btn.btn-success:hover {
+            background: hsl(var(--success) / 0.9);
         }
 
         .empty-state {
             text-align: center;
-            padding: 60px 20px;
-            color: #94A3B8;
+            padding: 3rem 1.5rem;
+            color: hsl(var(--muted-foreground));
         }
 
         .empty-state svg {
             width: 80px;
             height: 80px;
-            margin-bottom: 20px;
+            margin-bottom: 1rem;
             opacity: 0.3;
+        }
+
+        /* Additional shadcn/ui styles */
+        a {
+            color: hsl(221.2 83.2% 45%);
+            text-decoration: none;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        a:hover {
+            color: hsl(221.2 83.2% 40%);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+        
+        /* Make links in stat cards more visible */
+        .stat-card a {
+            color: hsl(221.2 83.2% 45%);
+            font-weight: 600;
+        }
+        
+        .stat-card a:hover {
+            color: hsl(221.2 83.2% 35%);
+        }
+        
+        /* Links in tables and content areas */
+        .data-table a,
+        .tab-content a {
+            color: hsl(221.2 83.2% 45%);
+            font-weight: 500;
+        }
+        
+        .data-table a:hover,
+        .tab-content a:hover {
+            color: hsl(221.2 83.2% 35%);
+        }
+
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .table-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .search-box {
+                max-width: 100%;
+            }
+
+            .tabs {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .tab-btn {
+                white-space: nowrap;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .sidebar {
+                width: 4rem;
+            }
+
+            .sidebar .sidebar-header h1,
+            .sidebar .nav-item-text {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 4rem;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Dashboard - No Login Required -->
-    <div id="dashboard" class="dashboard active" style="display: block;">
-        <div class="header">
-            <div class="header-inner">
-                <h1>Success Chemistry Admin</h1>
-                <button class="logout-btn" onclick="window.logout ? window.logout() : console.error('logout not found')">Logout</button>
+    <div id="dashboard" class="dashboard active" style="display: flex;">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1>Success Chemistry</h1>
+                <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 12l8-8M4 4l8 8"/>
+                    </svg>
+                </button>
             </div>
-        </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-tab="overview" onclick="event.preventDefault(); switchTab('overview', event);">
+                    <span class="nav-item-icon">📊</span>
+                    <span class="nav-item-text">Overview</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="products" onclick="event.preventDefault(); switchTab('products', event);">
+                    <span class="nav-item-icon ph ph-package"></span>
+                    <span class="nav-item-text">Products</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="sales-channels" onclick="event.preventDefault(); switchTab('sales-channels', event);">
+                    <span class="nav-item-icon ph ph-shopping-cart"></span>
+                    <span class="nav-item-text">Sales Channels</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="analytics" onclick="event.preventDefault(); switchTab('analytics', event);">
+                    <span class="nav-item-icon ph ph-chart-line-up"></span>
+                    <span class="nav-item-text">Analytics</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="links" onclick="event.preventDefault(); switchTab('links', event);">
+                    <span class="nav-item-icon ph ph-link"></span>
+                    <span class="nav-item-text">Links</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="future-upgrades" onclick="event.preventDefault(); switchTab('future-upgrades', event);">
+                    <span class="nav-item-icon ph ph-rocket"></span>
+                    <span class="nav-item-text">Future Upgrades</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="window.logout ? window.logout() : console.error('logout not found')" style="width: 100%;">Logout</button>
+            </div>
+        </aside>
 
-        <div class="container">
-            <!-- Tabs -->
-            <div class="tabs">
-                <button class="tab-btn active" data-tab="overview" type="button">Overview</button>
-                <button class="tab-btn" data-tab="products" type="button">Products</button>
-                <button class="tab-btn" data-tab="sales-channels" type="button">📦 Sales Channels</button>
-                <button class="tab-btn" data-tab="analytics" type="button">Analytics</button>
-                <button class="tab-btn" data-tab="links" type="button">🔗 Links</button>
-                <button class="tab-btn" data-tab="future-upgrades" type="button">🚀 Future Upgrades</button>
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h2 id="pageTitle">Overview</h2>
             </div>
+
+            <div class="container">
 
             <!-- Overview Tab -->
             <div id="overview" class="tab-content active">
@@ -458,17 +748,17 @@
                 <div class="data-table">
                     <div class="table-header">
                         <h2>Sales Channels</h2>
-                        <button onclick="addSalesChannel()" class="action-btn" style="background: rgba(16, 185, 129, 0.2); color: #10B981; border: 1px solid #10B981;">➕ Add Channel</button>
+                        <button onclick="addSalesChannel()" class="action-btn btn-success">➕ Add Channel</button>
                     </div>
                     <div style="padding: 24px;">
                         <table style="width: 100%; border-collapse: collapse;">
                             <thead>
                                 <tr style="border-bottom: 2px solid rgba(139, 125, 107, 0.3);">
-                                    <th style="text-align: left; padding: 16px 24px; color: #06B6D4; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; width: 40px;">Order</th>
-                                    <th style="text-align: left; padding: 16px 24px; color: #06B6D4; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;">Channel Name</th>
-                                    <th style="text-align: left; padding: 16px 24px; color: #06B6D4; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;">Status</th>
-                                    <th style="text-align: left; padding: 16px 24px; color: #06B6D4; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;">URL/Info</th>
-                                    <th style="text-align: left; padding: 16px 24px; color: #06B6D4; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;">Actions</th>
+                                    <th style="text-align: left; padding: 16px 24px; width: 40px;">Order</th>
+                                    <th style="text-align: left; padding: 16px 24px;">Channel Name</th>
+                                    <th style="text-align: left; padding: 16px 24px;">Status</th>
+                                    <th style="text-align: left; padding: 16px 24px;">URL/Info</th>
+                                    <th style="text-align: left; padding: 16px 24px;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="salesChannelsTable">
@@ -486,9 +776,9 @@
                         <h3>Google Analytics</h3>
                         <div class="value" style="font-size: 1.2rem; margin: 10px 0;">📊 Connected</div>
                         <div class="change" style="margin-top: 10px;">
-                            <a href="https://analytics.google.com" target="_blank" style="color: #06B6D4; text-decoration: none;">View Analytics →</a>
+                            <a href="https://analytics.google.com" target="_blank" style="color: hsl(221.2 83.2% 45%); text-decoration: none; font-weight: 600;">View Analytics →</a>
                         </div>
-                        <p style="margin-top: 15px; font-size: 0.85rem; color: #94A3B8;">
+                        <p style="margin-top: 15px; font-size: 0.85rem; color: hsl(var(--muted-foreground));">
                             💡 Reminder: Check Google Analytics and Search Console connection
                         </p>
                     </div>
@@ -496,7 +786,7 @@
                         <h3>Search Console</h3>
                         <div class="value" style="font-size: 1.2rem; margin: 10px 0;">🔍 Connected</div>
                         <div class="change" style="margin-top: 10px;">
-                            <a href="https://search.google.com/search-console" target="_blank" style="color: #06B6D4; text-decoration: none;">View Search Console →</a>
+                            <a href="https://search.google.com/search-console" target="_blank" style="color: hsl(221.2 83.2% 45%); text-decoration: none; font-weight: 600;">View Search Console →</a>
                         </div>
                     </div>
                 </div>
@@ -506,13 +796,13 @@
                     </div>
                     <div style="padding: 24px;">
                         <ul style="list-style: none; padding: 0;">
-                            <li style="padding: 12px; border-bottom: 1px solid #E2E8F0;">
+                            <li style="padding: 12px; border-bottom: 1px solid hsl(var(--border));">
                                 ✅ <strong>Google Analytics:</strong> Verify tracking is working on live site
                             </li>
-                            <li style="padding: 12px; border-bottom: 1px solid #E2E8F0;">
+                            <li style="padding: 12px; border-bottom: 1px solid hsl(var(--border));">
                                 ✅ <strong>Search Console:</strong> Check indexing status and sitemap submission
                             </li>
-                            <li style="padding: 12px; border-bottom: 1px solid #E2E8F0;">
+                            <li style="padding: 12px; border-bottom: 1px solid hsl(var(--border));">
                                 ✅ <strong>Conversion Tracking:</strong> Set up e-commerce tracking for orders
                             </li>
                         </ul>
@@ -528,44 +818,44 @@
                     </div>
                     <div style="padding: 24px;">
                         <div style="margin-bottom: 30px;">
-                            <h3 style="color: #06B6D4; margin-bottom: 15px; font-size: 1.1rem; font-family: 'Orbitron', monospace; text-transform: uppercase; letter-spacing: 1px;">📚 Product Content Downloads</h3>
-                            <div style="background: rgba(51, 65, 85, 0.5); border: 1px solid rgba(139, 125, 107, 0.3); padding: 20px; border-radius: 0; margin-bottom: 20px;">
-                                <h4 style="color: #10B981; margin-bottom: 10px; font-size: 1rem; font-weight: 600;">Download eBook / Product Brochure Feature</h4>
-                                <p style="color: #CBD5E1; margin-bottom: 15px; line-height: 1.6;">
+                            <h3 style="color: hsl(var(--foreground)); margin-bottom: 15px; font-size: 16px; font-weight: 500;">📚 Product Content Downloads</h3>
+                            <div style="background: hsl(var(--card)); border: 1px solid hsl(var(--border)); padding: 20px; border-radius: calc(var(--radius) + 2px); margin-bottom: 20px;">
+                                <h4 style="color: hsl(var(--success)); margin-bottom: 10px; font-size: 14px; font-weight: 500;">Download eBook / Product Brochure Feature</h4>
+                                <p style="color: hsl(var(--foreground)); margin-bottom: 15px; line-height: 1.5715;">
                                     Add downloadable product brochures and eBooks to product listings. Customers can download comprehensive product guides, usage instructions, and detailed specifications.
                                 </p>
                                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 15px;">
-                                    <div style="padding: 12px; background: rgba(6, 182, 212, 0.1); border-left: 3px solid #06B6D4;">
-                                        <div style="font-weight: 600; color: #06B6D4; margin-bottom: 5px; font-size: 0.85rem;">Features</div>
-                                        <ul style="color: #94A3B8; font-size: 0.85rem; margin: 0; padding-left: 20px;">
+                                    <div style="padding: 12px; background: hsl(var(--primary) / 0.1); border-left: 3px solid hsl(var(--primary));">
+                                        <div style="font-weight: 600; color: hsl(221.2 83.2% 45%); margin-bottom: 5px; font-size: 12px;">Features</div>
+                                        <ul style="color: var(--ant-text-secondary); font-size: 12px; margin: 0; padding-left: 20px;">
                                             <li>Email capture for downloads</li>
                                             <li>PDF brochure generation</li>
                                             <li>Product-specific content</li>
                                             <li>Download tracking & analytics</li>
                                         </ul>
                                     </div>
-                                    <div style="padding: 12px; background: rgba(245, 158, 11, 0.1); border-left: 3px solid #F59E0B;">
-                                        <div style="font-weight: 600; color: #F59E0B; margin-bottom: 5px; font-size: 0.85rem;">Status</div>
-                                        <p style="color: #94A3B8; font-size: 0.85rem; margin: 0;">Planned for future release</p>
+                                    <div style="padding: 12px; background: #fffbe6; border-left: 3px solid var(--ant-warning);">
+                                        <div style="font-weight: 500; color: var(--ant-warning); margin-bottom: 5px; font-size: 12px;">Status</div>
+                                        <p style="color: var(--ant-text-secondary); font-size: 12px; margin: 0;">Planned for future release</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
                         <div style="margin-bottom: 30px;">
-                            <h3 style="color: #06B6D4; margin-bottom: 15px; font-size: 1.1rem; font-family: 'Orbitron', monospace; text-transform: uppercase; letter-spacing: 1px;">💡 Additional Planned Features</h3>
+                            <h3 style="color: hsl(var(--foreground)); margin-bottom: 15px; font-size: 16px; font-weight: 500;">💡 Additional Planned Features</h3>
                             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
-                                <div style="background: rgba(51, 65, 85, 0.5); border: 1px solid rgba(139, 125, 107, 0.3); padding: 15px; border-radius: 0;">
-                                    <div style="font-weight: 600; color: #06B6D4; margin-bottom: 8px;">📧 Email Marketing Integration</div>
-                                    <p style="color: #94A3B8; font-size: 0.85rem; margin: 0;">Connect with email marketing platforms for automated campaigns.</p>
+                                <div style="background: hsl(var(--card)); border: 1px solid hsl(var(--border)); padding: 15px; border-radius: calc(var(--radius) + 2px);">
+                                    <div style="font-weight: 500; color: hsl(var(--foreground)); margin-bottom: 8px;">📧 Email Marketing Integration</div>
+                                    <p style="color: var(--ant-text-secondary); font-size: 12px; margin: 0;">Connect with email marketing platforms for automated campaigns.</p>
                                 </div>
-                                <div style="background: rgba(51, 65, 85, 0.5); border: 1px solid rgba(139, 125, 107, 0.3); padding: 15px; border-radius: 0;">
-                                    <div style="font-weight: 600; color: #06B6D4; margin-bottom: 8px;">📊 Advanced Analytics</div>
-                                    <p style="color: #94A3B8; font-size: 0.85rem; margin: 0;">Enhanced reporting and customer behavior insights.</p>
+                                <div style="background: hsl(var(--card)); border: 1px solid hsl(var(--border)); padding: 15px; border-radius: calc(var(--radius) + 2px);">
+                                    <div style="font-weight: 500; color: hsl(var(--foreground)); margin-bottom: 8px;">📊 Advanced Analytics</div>
+                                    <p style="color: var(--ant-text-secondary); font-size: 12px; margin: 0;">Enhanced reporting and customer behavior insights.</p>
                                 </div>
-                                <div style="background: rgba(51, 65, 85, 0.5); border: 1px solid rgba(139, 125, 107, 0.3); padding: 15px; border-radius: 0;">
-                                    <div style="font-weight: 600; color: #06B6D4; margin-bottom: 8px;">🔄 Inventory Management</div>
-                                    <p style="color: #94A3B8; font-size: 0.85rem; margin: 0;">Real-time stock tracking and low inventory alerts.</p>
+                                <div style="background: hsl(var(--card)); border: 1px solid hsl(var(--border)); padding: 15px; border-radius: calc(var(--radius) + 2px);">
+                                    <div style="font-weight: 500; color: hsl(var(--foreground)); margin-bottom: 8px;">🔄 Inventory Management</div>
+                                    <p style="color: var(--ant-text-secondary); font-size: 12px; margin: 0;">Real-time stock tracking and low inventory alerts.</p>
                                 </div>
                             </div>
                         </div>
@@ -578,13 +868,13 @@
                 <div class="data-table">
                     <div class="table-header">
                         <h2>Complete Site Links Reference</h2>
-                        <button onclick="fetchAllLinks()" class="action-btn" style="background: rgba(6, 182, 212, 0.2); color: #06B6D4; border: 1px solid #06B6D4;">🔄 Fetch All URLs</button>
-                        <button onclick="copyAllLinks()" class="action-btn" style="background: #48BB78;">📋 Copy All Links</button>
+                        <button onclick="fetchAllLinks()" class="action-btn">🔄 Fetch All URLs</button>
+                        <button onclick="copyAllLinks()" class="action-btn btn-success">📋 Copy All Links</button>
                     </div>
                     <div id="linksContent" style="padding: 24px;">
-                        <div style="text-align: center; padding: 40px; color: #94A3B8;">
+                        <div style="text-align: center; padding: 40px; color: var(--ant-text-secondary);">
                             <p style="margin-bottom: 20px;">Click "🔄 Fetch All URLs" to load all project links</p>
-                            <button onclick="fetchAllLinks()" class="action-btn" style="background: rgba(6, 182, 212, 0.2); color: #06B6D4; border: 1px solid #06B6D4; padding: 12px 24px;">🔄 Fetch Links</button>
+                            <button onclick="fetchAllLinks()" class="action-btn" style="padding: 12px 24px;">🔄 Fetch Links</button>
                         </div>
                     </div>
                 </div>
@@ -593,97 +883,97 @@
             <!-- Old Links Content (hidden, will be replaced) -->
             <div id="oldLinksContent" style="display: none;">
                         <div style="margin-bottom: 30px;">
-                            <h3 style="color: #06B6D4; margin-bottom: 15px; font-size: 1.1rem; font-family: 'Orbitron', monospace; text-transform: uppercase; letter-spacing: 1px;">🌐 Production URLs (successchemistry.com)</h3>
+                            <h3 style="color: hsl(var(--primary)); margin-bottom: 15px; font-size: 1.1rem; font-family: 'Orbitron', monospace; text-transform: uppercase; letter-spacing: 1px;">🌐 Production URLs (successchemistry.com)</h3>
                             
-                            <h4 style="color: #06B6D4; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem; font-family: 'Orbitron', monospace; text-transform: uppercase; letter-spacing: 1px;">Main Pages</h4>
+                            <h4 style="color: hsl(var(--primary)); margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem; font-family: 'Orbitron', monospace; text-transform: uppercase; letter-spacing: 1px;">Main Pages</h4>
                             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">
                                 <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #3E4C7A;">
-                                    <a href="https://successchemistry.com/" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600;">/</a>
+                                    <a href="https://successchemistry.com/" target="_blank" style="color: hsl(221.2 83.2% 45%); text-decoration: none; font-weight: 600;">/</a>
                                     <span style="color: #94A3B8; font-size: 0.85rem; margin-left: 8px;">Homepage</span>
                                 </div>
                                 <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #3E4C7A;">
-                                    <a href="https://successchemistry.com/shop" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600;">/shop</a>
+                                    <a href="https://successchemistry.com/shop" target="_blank" style="color: hsl(221.2 83.2% 45%); text-decoration: none; font-weight: 600;">/shop</a>
                                     <span style="color: #94A3B8; font-size: 0.85rem; margin-left: 8px;">Shop/Product Catalog</span>
                                 </div>
                                 <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #3E4C7A;">
-                                    <a href="https://successchemistry.com/cart" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600;">/cart</a>
+                                    <a href="https://successchemistry.com/cart" target="_blank" style="color: hsl(221.2 83.2% 45%); text-decoration: none; font-weight: 600;">/cart</a>
                                     <span style="color: #94A3B8; font-size: 0.85rem; margin-left: 8px;">Shopping Cart</span>
                                 </div>
                                 <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #3E4C7A;">
-                                    <a href="https://successchemistry.com/blog" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600;">/blog</a>
+                                    <a href="https://successchemistry.com/blog" target="_blank" style="color: hsl(221.2 83.2% 45%); text-decoration: none; font-weight: 600;">/blog</a>
                                     <span style="color: #94A3B8; font-size: 0.85rem; margin-left: 8px;">Blog/Articles</span>
                                 </div>
                                 <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #3E4C7A;">
-                                    <a href="https://successchemistry.com/contact" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600;">/contact</a>
+                                    <a href="https://successchemistry.com/contact" target="_blank" style="color: hsl(221.2 83.2% 45%); text-decoration: none; font-weight: 600;">/contact</a>
                                     <span style="color: #94A3B8; font-size: 0.85rem; margin-left: 8px;">Contact Page</span>
                                 </div>
                                 <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #3E4C7A;">
-                                    <a href="https://successchemistry.com/subscribe.html" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600;">/subscribe.html</a>
+                                    <a href="https://successchemistry.com/subscribe.html" target="_blank" style="color: hsl(221.2 83.2% 45%); text-decoration: none; font-weight: 600;">/subscribe.html</a>
                                     <span style="color: #94A3B8; font-size: 0.85rem; margin-left: 8px;">Subscription Page</span>
                                 </div>
                                 <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #3E4C7A;">
-                                    <a href="https://successchemistry.com/thank-you.html" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600;">/thank-you.html</a>
+                                    <a href="https://successchemistry.com/thank-you.html" target="_blank" style="color: hsl(221.2 83.2% 45%); text-decoration: none; font-weight: 600;">/thank-you.html</a>
                                     <span style="color: #94A3B8; font-size: 0.85rem; margin-left: 8px;">Thank You Page</span>
                                 </div>
                             </div>
 
-                            <h4 style="color: #06B6D4; font-family: 'Orbitron', monospace; text-transform: uppercase; letter-spacing: 1px; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem;">Policy Pages</h4>
+                            <h4 style="color: hsl(var(--primary)); font-family: 'Orbitron', monospace; text-transform: uppercase; letter-spacing: 1px; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem;">Policy Pages</h4>
                             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">
                                 <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #48BB78;">
-                                    <a href="https://successchemistry.com/terms-of-service.html" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600;">/terms-of-service.html</a>
+                                    <a href="https://successchemistry.com/terms-of-service.html" target="_blank" style="color: hsl(221.2 83.2% 45%); text-decoration: none; font-weight: 600;">/terms-of-service.html</a>
                                     <span style="color: #94A3B8; font-size: 0.85rem; margin-left: 8px;">Terms of Service</span>
                                 </div>
                                 <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #48BB78;">
-                                    <a href="https://successchemistry.com/shipping-returns.html" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600;">/shipping-returns.html</a>
+                                    <a href="https://successchemistry.com/shipping-returns.html" target="_blank" style="color: hsl(221.2 83.2% 45%); text-decoration: none; font-weight: 600;">/shipping-returns.html</a>
                                     <span style="color: #94A3B8; font-size: 0.85rem; margin-left: 8px;">Shipping & Returns</span>
                                 </div>
                                 <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #48BB78;">
-                                    <a href="https://successchemistry.com/payment-policy.html" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600;">/payment-policy.html</a>
+                                    <a href="https://successchemistry.com/payment-policy.html" target="_blank" style="color: hsl(221.2 83.2% 45%); text-decoration: none; font-weight: 600;">/payment-policy.html</a>
                                     <span style="color: #94A3B8; font-size: 0.85rem; margin-left: 8px;">Payment Policy</span>
                                 </div>
                                 <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #48BB78;">
-                                    <a href="https://successchemistry.com/privacy-policy.html" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600;">/privacy-policy.html</a>
+                                    <a href="https://successchemistry.com/privacy-policy.html" target="_blank" style="color: hsl(221.2 83.2% 45%); text-decoration: none; font-weight: 600;">/privacy-policy.html</a>
                                     <span style="color: #94A3B8; font-size: 0.85rem; margin-left: 8px;">Privacy Policy</span>
                                 </div>
                             </div>
 
-                            <h4 style="color: #06B6D4; font-family: 'Orbitron', monospace; text-transform: uppercase; letter-spacing: 1px; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem;">Admin & Dashboard</h4>
+                            <h4 style="color: hsl(var(--primary)); font-family: 'Orbitron', monospace; text-transform: uppercase; letter-spacing: 1px; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem;">Admin & Dashboard</h4>
                             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">
                                 <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #ED8936;">
-                                    <a href="https://successchemistry.com/admin/" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600;">/admin/</a>
+                                    <a href="https://successchemistry.com/admin/" target="_blank" style="color: hsl(221.2 83.2% 45%); text-decoration: none; font-weight: 600;">/admin/</a>
                                     <span style="color: #94A3B8; font-size: 0.85rem; margin-left: 8px;">Admin Dashboard</span>
                                 </div>
                                 <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #ED8936;">
-                                    <a href="https://successchemistry.com/my-account-dashboard.html" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600;">/my-account-dashboard.html</a>
+                                    <a href="https://successchemistry.com/my-account-dashboard.html" target="_blank" style="color: hsl(221.2 83.2% 45%); text-decoration: none; font-weight: 600;">/my-account-dashboard.html</a>
                                     <span style="color: #94A3B8; font-size: 0.85rem; margin-left: 8px;">My Account Dashboard</span>
                                 </div>
                                 <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #ED8936;">
-                                    <a href="https://successchemistry.com/command-center/" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600;">/command-center/</a>
+                                    <a href="https://successchemistry.com/command-center/" target="_blank" style="color: hsl(221.2 83.2% 45%); text-decoration: none; font-weight: 600;">/command-center/</a>
                                     <span style="color: #94A3B8; font-size: 0.85rem; margin-left: 8px;">Command Center</span>
                                 </div>
                             </div>
 
-                            <h4 style="color: #06B6D4; font-family: 'Orbitron', monospace; text-transform: uppercase; letter-spacing: 1px; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem;">Tools & Utilities</h4>
+                            <h4 style="color: hsl(var(--primary)); font-family: 'Orbitron', monospace; text-transform: uppercase; letter-spacing: 1px; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem;">Tools & Utilities</h4>
                             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">
                                 <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #9F7AEA;">
-                                    <a href="https://successchemistry.com/faq/" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600;">/faq/</a>
+                                    <a href="https://successchemistry.com/faq/" target="_blank" style="color: hsl(221.2 83.2% 45%); text-decoration: none; font-weight: 600;">/faq/</a>
                                     <span style="color: #94A3B8; font-size: 0.85rem; margin-left: 8px;">FAQ Page</span>
                                 </div>
                                 <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #9F7AEA;">
-                                    <a href="https://successchemistry.com/feeds/generate-bing-feed.html" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600;">/feeds/generate-bing-feed.html</a>
+                                    <a href="https://successchemistry.com/feeds/generate-bing-feed.html" target="_blank" style="color: hsl(221.2 83.2% 45%); text-decoration: none; font-weight: 600;">/feeds/generate-bing-feed.html</a>
                                     <span style="color: #94A3B8; font-size: 0.85rem; margin-left: 8px;">Bing Feed Generator</span>
                                 </div>
                                 <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #9F7AEA;">
-                                    <a href="https://successchemistry.com/feeds/google-merchant-feed.xml" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600;">/feeds/google-merchant-feed.xml</a>
+                                    <a href="https://successchemistry.com/feeds/google-merchant-feed.xml" target="_blank" style="color: hsl(221.2 83.2% 45%); text-decoration: none; font-weight: 600;">/feeds/google-merchant-feed.xml</a>
                                     <span style="color: #94A3B8; font-size: 0.85rem; margin-left: 8px;">Google Merchant Feed</span>
                                 </div>
                                 <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #9F7AEA;">
-                                    <a href="https://successchemistry.com/feeds/bing-shopping-feed.xml" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600;">/feeds/bing-shopping-feed.xml</a>
+                                    <a href="https://successchemistry.com/feeds/bing-shopping-feed.xml" target="_blank" style="color: hsl(221.2 83.2% 45%); text-decoration: none; font-weight: 600;">/feeds/bing-shopping-feed.xml</a>
                                     <span style="color: #94A3B8; font-size: 0.85rem; margin-left: 8px;">Bing Shopping Feed</span>
                                 </div>
                             </div>
 
-                            <h4 style="color: #06B6D4; font-family: 'Orbitron', monospace; text-transform: uppercase; letter-spacing: 1px; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem;">🏠 Local Development URLs (localhost:8080)</h4>
+                            <h4 style="color: hsl(var(--primary)); font-family: 'Orbitron', monospace; text-transform: uppercase; letter-spacing: 1px; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem;">🏠 Local Development URLs (localhost:8080)</h4>
                             <div style="padding: 15px; background: rgba(51, 65, 85, 0.5); border: 1px solid rgba(139, 125, 107, 0.3); border-radius: 0; margin-bottom: 20px;">
                                 <p style="color: #CBD5E1; margin: 0; font-size: 0.9rem;">
                                     All the same paths as above, but accessed via: <code style="background: rgba(15, 23, 42, 0.8); padding: 2px 6px; border-radius: 0; color: #E8DDD0; font-family: 'Share Tech Mono', monospace;">http://localhost:8080/</code>
@@ -695,6 +985,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     </div>
@@ -749,30 +1040,31 @@
                 if (event.stopPropagation) event.stopPropagation();
             }
             
-            // Remove active from all tabs
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            const tabContents = document.querySelectorAll('.tab-content');
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            tabContents.forEach(content => {
+            // Remove active from all nav items and tab contents
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => {
                 content.classList.remove('active');
                 content.style.display = 'none';
             });
             
-            // Add active to clicked tab button
-            let clickedButton = null;
-            if (event && event.target) {
-                clickedButton = event.target.closest('.tab-btn') || event.target;
-                if (clickedButton) clickedButton.classList.add('active');
+            // Add active to clicked nav item
+            const navItem = document.querySelector(`.nav-item[data-tab="${tabName}"]`);
+            if (navItem) {
+                navItem.classList.add('active');
             }
             
-            // If no button found, find by text
-            if (!clickedButton) {
-                document.querySelectorAll('.tab-btn').forEach(btn => {
-                    if (btn.textContent.toLowerCase().includes(tabName.toLowerCase())) {
-                        btn.classList.add('active');
-                        clickedButton = btn;
-                    }
-                });
+            // Update page title
+            const titles = {
+                'overview': 'Overview',
+                'products': 'Products',
+                'sales-channels': 'Sales Channels',
+                'analytics': 'Analytics',
+                'links': 'Links',
+                'future-upgrades': 'Future Upgrades'
+            };
+            const pageTitle = document.getElementById('pageTitle');
+            if (pageTitle && titles[tabName]) {
+                pageTitle.textContent = titles[tabName];
             }
             
             // Show the tab content
@@ -1198,7 +1490,7 @@
             
             modal.innerHTML = `
                 <div style="background: rgba(30, 41, 59, 0.95); border: 1px solid rgba(139, 125, 107, 0.3); padding: 30px; border-radius: 0; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto;">
-                    <h2 style="margin-bottom: 20px; color: #06B6D4; font-family: 'Orbitron', monospace; text-transform: uppercase; letter-spacing: 1px;">➕ Add Order Manually</h2>
+                    <h2 style="margin-bottom: 20px; color: hsl(var(--primary)); font-family: 'Orbitron', monospace; text-transform: uppercase; letter-spacing: 1px;">➕ Add Order Manually</h2>
                     <p style="color: #94A3B8; margin-bottom: 20px;">Paste your TikTok order details (text or describe from image):</p>
                     <textarea id="orderInput" placeholder="Example: Customer: John Doe, Email: john@example.com, Address: 123 Main St, City, State 12345, Products: SKU123 x2, SKU456 x1, Total: $59.98" style="width: 100%; min-height: 200px; padding: 12px; background: rgba(51, 65, 85, 0.5); border: 1px solid rgba(139, 125, 107, 0.3); border-radius: 0; font-family: inherit; margin-bottom: 20px; color: #F1F5F9;"></textarea>
                     <div style="display: flex; gap: 12px;">
@@ -1606,14 +1898,14 @@
                 
                 // Local Environment
                 if (grouped.local.main.length > 0 || grouped.local.admin.length > 0 || grouped.local.dev.length > 0) {
-                    html += '<h3 style="color: #06B6D4; margin-top: 30px; margin-bottom: 15px; font-size: 1.2rem; font-family: \'Orbitron\', monospace; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid rgba(6, 182, 212, 0.3); padding-bottom: 10px;">🏠 Local Development (localhost:8080)</h3>';
+                    html += '<h3 style="color: hsl(var(--primary)); margin-top: 30px; margin-bottom: 15px; font-size: 1.2rem; font-family: \'Orbitron\', monospace; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid rgba(6, 182, 212, 0.3); padding-bottom: 10px;">🏠 Local Development (localhost:8080)</h3>';
                     
                     if (grouped.local.main.length > 0) {
                         html += '<h4 style="color: #10B981; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem; font-weight: 600;">Main Pages</h4>';
                         html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">';
                         grouped.local.main.forEach(({ url, path }) => {
                             html += `<div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #3E4C7A;">
-                                <a href="${url}" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600; display: block;">${path}</a>
+                                <a href="${url}" target="_blank" style="color: hsl(var(--primary)); text-decoration: none; font-weight: 600; display: block;">${path}</a>
                                 <span style="color: #94A3B8; font-size: 0.75rem;">${url}</span>
                             </div>`;
                         });
@@ -1625,7 +1917,7 @@
                         html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">';
                         grouped.local.admin.forEach(({ url, path }) => {
                             html += `<div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #F59E0B;">
-                                <a href="${url}" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600; display: block;">${path}</a>
+                                <a href="${url}" target="_blank" style="color: hsl(var(--primary)); text-decoration: none; font-weight: 600; display: block;">${path}</a>
                                 <span style="color: #94A3B8; font-size: 0.75rem;">${url}</span>
                             </div>`;
                         });
@@ -1637,7 +1929,7 @@
                         html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">';
                         grouped.local.dev.forEach(({ url, path }) => {
                             html += `<div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #8B5CF6;">
-                                <a href="${url}" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600; display: block;">${path}</a>
+                                <a href="${url}" target="_blank" style="color: hsl(var(--primary)); text-decoration: none; font-weight: 600; display: block;">${path}</a>
                                 <span style="color: #94A3B8; font-size: 0.75rem;">${url}</span>
                             </div>`;
                         });
@@ -1649,7 +1941,7 @@
                         html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">';
                         grouped.local.tools.forEach(({ url, path }) => {
                             html += `<div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #48BB78;">
-                                <a href="${url}" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600; display: block;">${path}</a>
+                                <a href="${url}" target="_blank" style="color: hsl(var(--primary)); text-decoration: none; font-weight: 600; display: block;">${path}</a>
                                 <span style="color: #94A3B8; font-size: 0.75rem;">${url}</span>
                             </div>`;
                         });
@@ -1661,7 +1953,7 @@
                         html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">';
                         grouped.local.api.forEach(({ url }) => {
                             html += `<div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #EC4899;">
-                                <a href="${url}" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600; display: block;">${url}</a>
+                                <a href="${url}" target="_blank" style="color: hsl(var(--primary)); text-decoration: none; font-weight: 600; display: block;">${url}</a>
                             </div>`;
                         });
                         html += '</div>';
@@ -1670,14 +1962,14 @@
                 
                 // Production Environment
                 if (grouped.production.main.length > 0 || grouped.production.admin.length > 0) {
-                    html += '<h3 style="color: #06B6D4; margin-top: 40px; margin-bottom: 15px; font-size: 1.2rem; font-family: \'Orbitron\', monospace; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid rgba(6, 182, 212, 0.3); padding-bottom: 10px;">🌐 Production (successchemistry.com)</h3>';
+                    html += '<h3 style="color: hsl(var(--primary)); margin-top: 40px; margin-bottom: 15px; font-size: 1.2rem; font-family: \'Orbitron\', monospace; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid rgba(6, 182, 212, 0.3); padding-bottom: 10px;">🌐 Production (successchemistry.com)</h3>';
                     
                     if (grouped.production.main.length > 0) {
                         html += '<h4 style="color: #10B981; margin-top: 20px; margin-bottom: 10px; font-size: 0.95rem; font-weight: 600;">Main Pages</h4>';
                         html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">';
                         grouped.production.main.forEach(({ url, path }) => {
                             html += `<div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #3E4C7A;">
-                                <a href="${url}" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600; display: block;">${path}</a>
+                                <a href="${url}" target="_blank" style="color: hsl(var(--primary)); text-decoration: none; font-weight: 600; display: block;">${path}</a>
                                 <span style="color: #94A3B8; font-size: 0.75rem;">${url}</span>
                             </div>`;
                         });
@@ -1689,7 +1981,7 @@
                         html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">';
                         grouped.production.admin.forEach(({ url, path }) => {
                             html += `<div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #F59E0B;">
-                                <a href="${url}" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600; display: block;">${path}</a>
+                                <a href="${url}" target="_blank" style="color: hsl(var(--primary)); text-decoration: none; font-weight: 600; display: block;">${path}</a>
                                 <span style="color: #94A3B8; font-size: 0.75rem;">${url}</span>
                             </div>`;
                         });
@@ -1701,7 +1993,7 @@
                         html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin-bottom: 20px;">';
                         grouped.production.tools.forEach(({ url, path }) => {
                             html += `<div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 0; border-left: 3px solid #48BB78;">
-                                <a href="${url}" target="_blank" style="color: #06B6D4; text-decoration: none; font-weight: 600; display: block;">${path}</a>
+                                <a href="${url}" target="_blank" style="color: hsl(var(--primary)); text-decoration: none; font-weight: 600; display: block;">${path}</a>
                                 <span style="color: #94A3B8; font-size: 0.75rem;">${url}</span>
                             </div>`;
                         });
@@ -1753,8 +2045,8 @@
                 <tr style="border-bottom: 1px solid rgba(139, 125, 107, 0.2);" data-channel-id="${channel.id}">
                     <td style="padding: 16px 24px;">
                         <div style="display: flex; gap: 8px; align-items: center;">
-                            <button onclick="moveChannel(${channel.id}, 'up')" ${index === 0 ? 'disabled' : ''} style="background: rgba(6, 182, 212, 0.2); color: #06B6D4; border: 1px solid #06B6D4; padding: 4px 8px; cursor: pointer; font-size: 12px;" ${index === 0 ? 'opacity: 0.5; cursor: not-allowed;' : ''}>↑</button>
-                            <button onclick="moveChannel(${channel.id}, 'down')" ${index === channels.length - 1 ? 'disabled' : ''} style="background: rgba(6, 182, 212, 0.2); color: #06B6D4; border: 1px solid #06B6D4; padding: 4px 8px; cursor: pointer; font-size: 12px;" ${index === channels.length - 1 ? 'opacity: 0.5; cursor: not-allowed;' : ''}>↓</button>
+                            <button onclick="moveChannel(${channel.id}, 'up')" ${index === 0 ? 'disabled' : ''} style="background: rgba(6, 182, 212, 0.2); color: hsl(var(--primary)); border: 1px solid #06B6D4; padding: 4px 8px; cursor: pointer; font-size: 12px;" ${index === 0 ? 'opacity: 0.5; cursor: not-allowed;' : ''}>↑</button>
+                            <button onclick="moveChannel(${channel.id}, 'down')" ${index === channels.length - 1 ? 'disabled' : ''} style="background: rgba(6, 182, 212, 0.2); color: hsl(var(--primary)); border: 1px solid #06B6D4; padding: 4px 8px; cursor: pointer; font-size: 12px;" ${index === channels.length - 1 ? 'opacity: 0.5; cursor: not-allowed;' : ''}>↓</button>
                         </div>
                     </td>
                     <td style="padding: 16px 24px;">
@@ -1887,6 +2179,20 @@
         // Also run on load as backup
         window.addEventListener('load', function() {
             setupAdmin();
+        });
+
+        // Sidebar toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            
+            if (sidebarToggle && sidebar) {
+                sidebarToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    sidebar.classList.toggle('collapsed');
+                });
+            }
         });
     </script>
 </body>

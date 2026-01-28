@@ -4,12 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart - Success Chemistry</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Phosphor Icons CDN - Works on all devices including Android and Apple -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css">
+    
+    <!-- Google Fonts - Roboto -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     
-    <!-- PayPal SDK with Sandbox Client ID -->
-    <script src="https://www.paypal.com/sdk/js?client-id=ATM3Eoawal0vHl1xqCcuP5TvlPBP-96AHV0xP0tiQ-KlAd_tuSLLQjKMsby8lgbgE7jN5zXPF3HjMUNk&currency=USD&components=buttons,funding-eligibility&enable-funding=venmo,paylater&disable-funding=credit"></script>
+    <!-- PayPal SDK with Production Client ID -->
+    <script src="https://www.paypal.com/sdk/js?client-id=EBAQIbUDDVgB06yvEWREs2cMox8AKElkxFJAqKF71iUj007dv0YzxlKbepduwV7xGEI5FrjK3vakzm0b&currency=USD&components=buttons,funding-eligibility&enable-funding=venmo,paylater&disable-funding=credit"></script>
     
     <!-- WooCommerce Order Integration -->
     <script src="/woocommerce-order-integration.js"></script>
@@ -28,9 +36,100 @@
         }
 
         body {
-            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            color: #333;
-            background: white;
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #0a234e;
+            background: #ffffff;
+            line-height: 1.6;
+        }
+        
+        /* Material UI Styling */
+        .mui-input {
+            width: 100%;
+            padding: 16.5px 14px;
+            border: 1px solid rgba(0, 0, 0, 0.23);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            background: #ffffff;
+        }
+        
+        .mui-input:focus {
+            outline: none;
+            border-color: #1976d2;
+            border-width: 2px;
+            padding: 15.5px 13px;
+        }
+        
+        .mui-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: rgba(0, 0, 0, 0.87);
+            font-size: 0.875rem;
+        }
+        
+        .mui-btn {
+            background: #1976d2;
+            color: #ffffff;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.02857em;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .mui-btn:hover {
+            background: #1565c0;
+        }
+        
+        .mui-btn-secondary {
+            background: transparent;
+            color: #1976d2;
+            border: 1px solid #1976d2;
+        }
+        
+        .mui-btn-secondary:hover {
+            background: rgba(25, 118, 210, 0.04);
+        }
+        
+        .mui-card {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            border-radius: 4px;
+            padding: 24px;
+        }
+        
+        /* Phosphor Icons */
+        .ph {
+            font-family: "Phosphor" !important;
+            speak: never;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1;
+            -webkit-font-feature-settings: "liga";
+            -moz-font-feature-settings: "liga=1";
+            -moz-font-feature-settings: "liga";
+            -ms-font-feature-settings: "liga" 1;
+            font-feature-settings: "liga";
+            -webkit-font-variant-ligatures: discretionary-ligatures;
+            font-variant-ligatures: discretionary-ligatures;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .animate-spin {
+            animation: spin 1s linear infinite;
         }
 
         .container {
@@ -66,11 +165,16 @@
 
         /* Cart */
         .cart-title {
-            font-size: 2.5rem;
-            font-weight: 600;
-            color: #2854a6;
-            margin: 40px 0 20px;
+            font-size: 2rem;
+            font-weight: 500;
+            color: rgba(0, 0, 0, 0.87);
+            margin: 80px 0 30px;
+            padding-top: 30px;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
         }
 
         .cart-layout {
@@ -92,8 +196,13 @@
             gap: 20px;
             padding: 20px;
             background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            border-radius: 4px;
+            transition: box-shadow 0.2s;
+        }
+        
+        .cart-item:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .cart-item img {
@@ -107,15 +216,16 @@
         }
 
         .item-details h3 {
-            font-size: 1.1rem;
+            font-size: 1rem;
+            font-weight: 500;
             margin-bottom: 8px;
-            color: #1f2937;
+            color: rgba(0, 0, 0, 0.87);
         }
 
         .item-price {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #2854a6;
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: #1976d2;
             margin-top: 8px;
         }
 
@@ -126,57 +236,89 @@
             margin-top: 10px;
         }
 
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
         .quantity-controls button {
-            width: 32px;
-            height: 32px;
-            border: 1px solid rgba(40, 84, 167, 1);
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(0, 0, 0, 0.23);
             background: white;
-            border-radius: 6px;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 1.2rem;
-            color: rgba(40, 84, 167, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1976d2;
+            transition: all 0.2s;
         }
 
         .quantity-controls button:hover {
-            background: #f3f4f6;
+            background: rgba(25, 118, 210, 0.04);
+            border-color: #1976d2;
+        }
+        
+        .quantity-controls button:active {
+            background: rgba(25, 118, 210, 0.08);
         }
 
         .quantity-controls input {
             width: 60px;
             text-align: center;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            padding: 6px;
-            background-color: rgba(40, 84, 167, 1);
-            color: #FFD700; /* Gold color */
-            font-weight: 600;
+            border: 1px solid rgba(0, 0, 0, 0.23);
+            border-radius: 4px;
+            padding: 8px;
+            background: #ffffff;
+            color: rgba(0, 0, 0, 0.87);
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+        
+        .quantity-controls input:focus {
+            outline: none;
+            border-color: #1976d2;
+            border-width: 2px;
+            padding: 7px;
         }
 
         .remove-btn {
-            color: #ef4444;
+            color: #d32f2f;
             cursor: pointer;
-            font-size: 0.9rem;
-            margin-top: 10px;
+            font-size: 0.875rem;
+            margin-top: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.2s;
         }
 
         .remove-btn:hover {
-            text-decoration: underline;
+            color: #b71c1c;
         }
 
         /* Order Summary */
         .order-summary {
-            background: #f9fafb;
-            padding: 30px;
-            border-radius: 12px;
+            background: #ffffff;
+            padding: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            border-radius: 4px;
             height: fit-content;
             position: sticky;
             top: 120px;
         }
 
         .order-summary h2 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #1f2937;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 24px;
+            color: rgba(0, 0, 0, 0.87);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .summary-row {
@@ -580,7 +722,7 @@
     font-size: 1.56rem;
     letter-spacing: 0.2px;
     transition: opacity 0.3s;
-    line-height: 54px;
+    line-height: 1.2;
     white-space: nowrap;
     flex-shrink: 0;
     transform: none !important;
@@ -588,6 +730,7 @@
     font-size: 1.56rem !important;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     height: 100%;
 }
 
@@ -601,7 +744,7 @@
     text-decoration: none !important;
     transform: none !important;
     scale: 1 !important;
-    line-height: 54px !important;
+    line-height: 1.2 !important;
 }
 
         /* Prevent layout shift */
@@ -699,6 +842,10 @@
             .blue-nav a {
                 font-size: 1.15rem;
                 line-height: 1.2;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
             }
 
             .account-link {
@@ -785,13 +932,17 @@
         
             .blue-nav a {
                 font-size: 0.9rem !important;
-                line-height: 50px !important;
+                line-height: 1.2 !important;
                 padding: 0 4px;
                 flex-shrink: 1;
                 min-width: 0;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
             }
             
             .blue-nav a span {
@@ -873,13 +1024,17 @@
         
             .blue-nav a {
                 font-size: 0.8rem !important;
-                line-height: 50px !important;
+                line-height: 1.2 !important;
                 padding: 0 3px;
                 flex-shrink: 1;
                 min-width: 0;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
             }
             
             .blue-nav a span {
@@ -945,8 +1100,12 @@
 
             .blue-nav a {
                 font-size: 0.75rem !important;
-                line-height: 50px !important;
+                line-height: 1.2 !important;
                 padding: 0 2px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
             }
             
             .blue-nav a #navCartCount {
@@ -1062,8 +1221,12 @@
 
             .blue-nav a {
                 font-size: 1.15rem !important;
-                line-height: 65px;
+                line-height: 1.2 !important;
                 margin: 0 8px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
             }
 
             .account-link {
@@ -1106,13 +1269,20 @@
 
     <!-- Cart Content -->
     <div class="container">
-        <h1 class="cart-title">Shopping Cart</h1>
+        <h1 class="cart-title">
+            <span class="ph ph-shopping-cart" style="font-size: 2rem; color: #1976d2;"></span>
+            Shopping Cart
+        </h1>
         <!-- Version marker: v2.0 - Rebuilt 2026-01-17 -->
 
-        <div id="empty-cart" class="empty-cart" style="display: none;">
-            <h2>Your cart is empty</h2>
-            <p>Add some amazing supplements to get started!</p>
-            <a href="/shop" class="continue-shopping">Continue Shopping</a>
+        <div id="empty-cart" class="empty-cart" style="display: none; text-align: center; padding: 60px 20px;">
+            <span class="ph ph-shopping-cart" style="font-size: 4rem; color: rgba(0, 0, 0, 0.26); display: block; margin-bottom: 24px;"></span>
+            <h2 style="font-size: 1.5rem; font-weight: 500; color: rgba(0, 0, 0, 0.87); margin-bottom: 12px;">Your cart is empty</h2>
+            <p style="color: rgba(0, 0, 0, 0.6); margin-bottom: 32px;">Add some amazing supplements to get started!</p>
+            <a href="/shop" class="mui-btn" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                <span class="ph ph-storefront"></span>
+                Continue Shopping
+            </a>
         </div>
 
         <div id="cart-content" class="cart-layout">
@@ -1121,7 +1291,10 @@
             </div>
 
             <div class="order-summary">
-                <h2>Order Summary</h2>
+                <h2>
+                    <span class="ph ph-receipt" style="font-size: 1.25rem; color: #1976d2;"></span>
+                    Order Summary
+                </h2>
                 <div class="summary-row">
                     <span>Subtotal</span>
                     <span id="subtotal">$0.00</span>
@@ -1492,11 +1665,18 @@
                                 `<div class="item-price">$${itemPrice.toFixed(2)}</div>`
                             }
                             <div class="quantity-controls">
-                                <button onclick="updateQuantity(${index}, ${item.quantity - 1})">-</button>
-                                <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)">
-                                <button onclick="updateQuantity(${index}, ${item.quantity + 1})">+</button>
+                                <button onclick="updateQuantity(${index}, ${item.quantity - 1})" title="Decrease quantity">
+                                    <span class="ph ph-minus" style="font-size: 16px;"></span>
+                                </button>
+                                <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)" class="mui-input" style="width: 60px; padding: 8px;">
+                                <button onclick="updateQuantity(${index}, ${item.quantity + 1})" title="Increase quantity">
+                                    <span class="ph ph-plus" style="font-size: 16px;"></span>
+                                </button>
                             </div>
-                            <div class="remove-btn" onclick="removeItem(${index})">Remove</div>
+                            <div class="remove-btn" onclick="removeItem(${index})">
+                                <span class="ph ph-trash" style="font-size: 14px;"></span>
+                                Remove
+                            </div>
                         </div>
                         <div style="text-align: right;">
                             <strong>$${itemTotal.toFixed(2)}</strong>
@@ -1896,7 +2076,7 @@
         <span style="color: rgba(255,255,255,0.3); font-size: 0.85rem !important;">|</span>
         <a href="/contact" style="color: white; text-decoration: none; font-weight: 500; font-size: 0.85rem !important; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Contact</a>
         <span style="color: rgba(255,255,255,0.3); font-size: 0.85rem !important;">|</span>
-        <a href="/shop" style="color: white; text-decoration: none; font-weight: 500; font-size: 0.85rem !important; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">🧪 SHOP</a>
+        <a href="/shop" style="color: white; text-decoration: none; font-weight: 500; font-size: 0.85rem !important; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'"><span class="ph ph-flask"></span> SHOP</a>
     </div>
     <div style="width: 100%; height: 3px; background: linear-gradient(90deg, #4fd0ff 0%, #ffd34d 50%, #4fd0ff 100%);"></div>
     <div style="text-align: center; padding: 16px; background: #2854a6;">
