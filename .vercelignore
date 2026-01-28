@@ -9,3 +9,20 @@ deploy-site/life-jet/node_modules/
 deploy-site/life-jet/dist/
 *.log
 non-deploy-experiments/
+2026 SC labels/
+REAL FACTORY images/
+vision-board/
+cursor-theme-hub-net/
+test-*.js
+*.sh
+deploy-to-*.js
+deploy-to-*.sh
+*.md
+!ZOHO_SALESIQ_SETUP.md
+!README.md
+.cursor/
+*.json
+!package.json
+!package-lock.json
+!vercel.json
+!tsconfig.json

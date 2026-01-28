@@ -1,0 +1,1743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Page Styles Comparison</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Flowbite CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Material UI Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Heroicons -->
+    <script src="https://cdn.jsdelivr.net/npm/@heroicons/react@2.0.18/24/outline/index.js" type="module"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Phosphor Icons Web Components -->
+    <script type="module" src="https://unpkg.com/@phosphor-icons/webcomponents@2.1"></script>
+    
+    <!-- Ant Design CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/antd@5.12.8/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ant-design/icons@5.2.6/lib/index.css">
+    
+    <style>
+        /* Style Navigation */
+        .style-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: 2px solid #e5e7eb;
+            z-index: 1000;
+            padding: 1rem;
+        }
+        
+        .style-nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .style-nav-btn {
+            padding: 0.5rem 1.5rem;
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .style-nav-btn:hover {
+            background: #e5e7eb;
+        }
+        
+        .style-nav-btn.active {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+        
+        .style-section {
+            display: none;
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+        
+        .style-section.active {
+            display: block;
+        }
+        
+        /* Style A - Minimal Modern */
+        .style-a {
+            background: #fafafa;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        /* Style B - Soft SaaS */
+        .style-b {
+            background: #f8fafc;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        /* Style C - Enterprise */
+        .style-c {
+            background: #ffffff;
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        /* Style D - Bold Marketing */
+        .style-d {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        /* Style E - Admin Dashboard */
+        .style-e {
+            background: #f0f2f5;
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        /* Style F - Keynote Template */
+        .style-f {
+            background: #0a0a0a;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #ffffff;
+        }
+        
+        /* Style G - Phosphor Icons */
+        .style-g {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        /* Style H - Flowbite Marketing */
+        .style-h {
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        /* Style I - Ant Design */
+        .style-i {
+            background: #f0f2f5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        
+        /* Style J - Flowbite Enhanced */
+        .style-j {
+            background: #f9fafb;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        /* Style K - shadcn/ui Dashboard */
+        .style-k {
+            background: hsl(0 0% 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .shadcn-card {
+            background: hsl(0 0% 100%);
+            border: 1px solid hsl(214.3 31.8% 91.4%);
+            border-radius: calc(0.5rem - 2px);
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        }
+        
+        .shadcn-input {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid hsl(214.3 31.8% 91.4%);
+            border-radius: calc(0.5rem - 2px);
+            font-size: 0.875rem;
+            background: hsl(0 0% 100%);
+            transition: all 0.2s;
+        }
+        
+        .shadcn-input:focus {
+            outline: none;
+            border-color: hsl(221.2 83.2% 53.3%);
+            box-shadow: 0 0 0 2px hsl(221.2 83.2% 53.3% / 0.2);
+        }
+        
+        .shadcn-btn {
+            background: hsl(221.2 83.2% 53.3%);
+            color: hsl(0 0% 100%);
+            padding: 0.5rem 1rem;
+            border-radius: calc(0.5rem - 2px);
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .shadcn-btn:hover {
+            background: hsl(221.2 83.2% 48%);
+        }
+        
+        .antd-card {
+            background: #ffffff;
+            border-radius: 8px;
+            border: 1px solid #f0f0f0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+        }
+        
+        .antd-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d9d9d9;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s;
+            background: #ffffff;
+        }
+        
+        .antd-input:focus {
+            outline: none;
+            border-color: #4096ff;
+            box-shadow: 0 0 0 2px rgba(5, 145, 255, 0.1);
+        }
+        
+        .antd-btn-primary {
+            background: #1677ff;
+            border-color: #1677ff;
+            color: #ffffff;
+            height: 40px;
+            padding: 8px 24px;
+            font-size: 14px;
+            border-radius: 6px;
+            border: 1px solid;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .antd-btn-primary:hover {
+            background: #4096ff;
+            border-color: #4096ff;
+        }
+        
+        .keynote-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+        
+        .keynote-glow {
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3), 0 0 40px rgba(118, 75, 162, 0.2);
+        }
+        
+        .phosphor-icon {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            vertical-align: middle;
+        }
+        
+        .flowbite-gradient {
+            background: linear-gradient(to right, #3b82f6, #8b5cf6, #ec4899);
+        }
+        
+        /* Material UI Input Styles */
+        .mui-input {
+            width: 100%;
+            padding: 16.5px 14px;
+            border: 1px solid rgba(0, 0, 0, 0.23);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        
+        .mui-input:focus {
+            outline: none;
+            border-color: #1976d2;
+            border-width: 2px;
+            padding: 15.5px 13px;
+        }
+        
+        .mui-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: rgba(0, 0, 0, 0.87);
+            font-size: 0.875rem;
+        }
+        
+        /* Ant Design Input Styles */
+        .ant-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d9d9d9;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .ant-input:focus {
+            outline: none;
+            border-color: #4096ff;
+            box-shadow: 0 0 0 2px rgba(5, 145, 255, 0.1);
+        }
+        
+        .ant-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: rgba(0, 0, 0, 0.88);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Style Navigation -->
+    <nav class="style-nav">
+        <div class="style-nav-content">
+            <button class="style-nav-btn active" onclick="showStyle('a', event)">Style A - Minimal Modern</button>
+            <button class="style-nav-btn" onclick="showStyle('b', event)">Style B - Soft SaaS</button>
+            <button class="style-nav-btn" onclick="showStyle('c', event)">Style C - Enterprise</button>
+            <button class="style-nav-btn" onclick="showStyle('d', event)">Style D - Bold Marketing</button>
+            <button class="style-nav-btn" onclick="showStyle('e', event)">Style E - Admin Dashboard</button>
+            <button class="style-nav-btn" onclick="showStyle('f', event)">Style F - Keynote Template</button>
+            <button class="style-nav-btn" onclick="showStyle('g', event)">Style G - Phosphor Icons</button>
+            <button class="style-nav-btn" onclick="showStyle('h', event)">Style H - Flowbite Marketing</button>
+            <button class="style-nav-btn" onclick="showStyle('i', event)">Style I - Ant Design</button>
+            <button class="style-nav-btn" onclick="showStyle('j', event)">Style J - Flowbite Enhanced</button>
+            <button class="style-nav-btn" onclick="showStyle('k', event)">Style K - shadcn/ui</button>
+        </div>
+    </nav>
+
+    <!-- STYLE A: Minimal Modern (DTC / Premium) -->
+    <section id="style-a" class="style-section style-a active">
+        <div class="max-w-6xl mx-auto px-6 py-16">
+            <!-- Page Title -->
+            <div class="text-center mb-16">
+                <h1 class="text-5xl font-light text-gray-900 mb-4 tracking-tight">Contact Us</h1>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Have a question or need assistance? We're here to help you with any inquiries about our products and services.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                <!-- Contact Form -->
+                <div class="bg-white border border-gray-200 rounded-lg p-8 shadow-sm">
+                    <div class="flex items-center gap-2 mb-6">
+                        <i data-lucide="message-square" class="w-5 h-5 text-gray-400"></i>
+                        <h2 class="text-lg font-semibold text-gray-900">Send us a message</h2>
+                    </div>
+                    <form class="space-y-6">
+                        <div>
+                            <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+                                <i data-lucide="user" class="w-4 h-4"></i>
+                                Name
+                            </label>
+                            <input type="text" class="w-full px-4 py-2.5 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors" placeholder="Your full name" />
+                        </div>
+                        
+                        <div>
+                            <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+                                <i data-lucide="mail" class="w-4 h-4"></i>
+                                Email
+                            </label>
+                            <input type="email" class="w-full px-4 py-2.5 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors" placeholder="your.email@example.com" />
+                        </div>
+                        
+                        <div>
+                            <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+                                <i data-lucide="tag" class="w-4 h-4"></i>
+                                Subject
+                            </label>
+                            <select class="w-full px-4 py-2.5 border border-gray-300 rounded-md text-gray-900 bg-white focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors">
+                                <option>General Inquiry</option>
+                                <option>Product Question</option>
+                                <option>Order Support</option>
+                                <option>Technical Support</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+                                <i data-lucide="file-text" class="w-4 h-4"></i>
+                                Message
+                            </label>
+                            <textarea rows="6" class="w-full px-4 py-2.5 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors resize-none" placeholder="Tell us how we can help..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-gray-900 text-white py-3 px-6 rounded-md font-medium hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 flex items-center justify-center gap-2">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Info Card -->
+                <div class="bg-white border border-gray-200 rounded-lg p-8 shadow-sm">
+                    <div class="flex items-center gap-2 mb-6">
+                        <i data-lucide="info" class="w-5 h-5 text-gray-400"></i>
+                        <h2 class="text-lg font-semibold text-gray-900">Contact Information</h2>
+                    </div>
+                    <div class="space-y-8">
+                        <div>
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                                    <i data-lucide="mail" class="w-5 h-5 text-gray-600"></i>
+                                </div>
+                                <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Email</h3>
+                            </div>
+                            <p class="text-gray-600 ml-13">info@successchemistry.com</p>
+                        </div>
+                        
+                        <div>
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                                    <i data-lucide="clock" class="w-5 h-5 text-gray-600"></i>
+                                </div>
+                                <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Support Hours</h3>
+                            </div>
+                            <p class="text-gray-600 ml-13">Monday - Friday: 9:00 AM - 6:00 PM EST<br>Saturday: 10:00 AM - 4:00 PM EST</p>
+                        </div>
+                        
+                        <div>
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                                    <i data-lucide="map-pin" class="w-5 h-5 text-gray-600"></i>
+                                </div>
+                                <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Location</h3>
+                            </div>
+                            <p class="text-gray-600 ml-13">Las Vegas, NV 89113</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STYLE B: Soft SaaS -->
+    <section id="style-b" class="style-section style-b">
+        <div class="max-w-6xl mx-auto px-6 py-16">
+            <!-- Page Title -->
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 rounded-full mb-4">
+                    <i class="fas fa-comments text-blue-600"></i>
+                    <span class="text-sm font-semibold text-blue-600">Let's Talk</span>
+                </div>
+                <h1 class="text-5xl font-bold text-gray-800 mb-4">Contact Us</h1>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Have a question or need assistance? We're here to help you with any inquiries about our products and services.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Contact Form -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-envelope text-white"></i>
+                        </div>
+                        <h2 class="text-xl font-bold text-gray-800">Send us a message</h2>
+                    </div>
+                    <form class="space-y-5">
+                        <div>
+                            <label class="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-user text-blue-500"></i>
+                                Name
+                            </label>
+                            <input type="text" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-100 transition-all" placeholder="Your full name" />
+                        </div>
+                        
+                        <div>
+                            <label class="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-at text-blue-500"></i>
+                                Email
+                            </label>
+                            <input type="email" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-100 transition-all" placeholder="your.email@example.com" />
+                        </div>
+                        
+                        <div>
+                            <label class="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-tag text-blue-500"></i>
+                                Subject
+                            </label>
+                            <select class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-gray-800 bg-white focus:outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-100 transition-all">
+                                <option>General Inquiry</option>
+                                <option>Product Question</option>
+                                <option>Order Support</option>
+                                <option>Technical Support</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-comment-dots text-blue-500"></i>
+                                Message
+                            </label>
+                            <textarea rows="6" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-100 transition-all resize-none" placeholder="Tell us how we can help..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3.5 px-6 rounded-xl font-semibold shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Info Card -->
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 shadow-lg border border-blue-100">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-info-circle text-white"></i>
+                        </div>
+                        <h2 class="text-xl font-bold text-gray-800">Contact Information</h2>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-envelope-open-text text-blue-600 text-lg"></i>
+                                </div>
+                                <h3 class="text-base font-bold text-gray-800">Email</h3>
+                            </div>
+                            <p class="text-gray-600 ml-15 font-medium">info@successchemistry.com</p>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-clock text-blue-600 text-lg"></i>
+                                </div>
+                                <h3 class="text-base font-bold text-gray-800">Support Hours</h3>
+                            </div>
+                            <p class="text-gray-600 ml-15 leading-relaxed">Monday - Friday: 9:00 AM - 6:00 PM EST<br>Saturday: 10:00 AM - 4:00 PM EST</p>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-map-marker-alt text-blue-600 text-lg"></i>
+                                </div>
+                                <h3 class="text-base font-bold text-gray-800">Location</h3>
+                            </div>
+                            <p class="text-gray-600 ml-15 font-medium">Las Vegas, NV 89113</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STYLE C: Enterprise / Corporate -->
+    <section id="style-c" class="style-section style-c">
+        <div class="max-w-6xl mx-auto px-6 py-12">
+            <!-- Page Title -->
+            <div class="mb-12 border-b border-gray-300 pb-6">
+                <h1 class="text-3xl font-bold text-gray-900 mb-3">Contact Us</h1>
+                <p class="text-base text-gray-700 max-w-3xl">Have a question or need assistance? We're here to help you with any inquiries about our products and services.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Contact Form -->
+                <div class="bg-white border border-gray-300 rounded-sm p-8">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-6">Contact Form</h2>
+                    <form class="space-y-5">
+                        <div>
+                            <label class="mui-label">Name <span class="text-red-600">*</span></label>
+                            <input type="text" class="mui-input" placeholder="Enter your full name" required />
+                        </div>
+                        
+                        <div>
+                            <label class="mui-label">Email <span class="text-red-600">*</span></label>
+                            <input type="email" class="mui-input" placeholder="Enter your email address" required />
+                        </div>
+                        
+                        <div>
+                            <label class="mui-label">Subject <span class="text-red-600">*</span></label>
+                            <select class="mui-input" required>
+                                <option value="">Select a subject</option>
+                                <option>General Inquiry</option>
+                                <option>Product Question</option>
+                                <option>Order Support</option>
+                                <option>Technical Support</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="mui-label">Message <span class="text-red-600">*</span></label>
+                            <textarea rows="6" class="mui-input" placeholder="Enter your message" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-[#1976d2] text-white py-3 px-6 rounded-sm font-medium hover:bg-[#1565c0] transition-colors focus:outline-none focus:ring-2 focus:ring-[#1976d2] focus:ring-offset-2 uppercase text-sm tracking-wide">
+                            Submit Inquiry
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Info Card -->
+                <div class="bg-gray-50 border border-gray-300 rounded-sm p-8">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-6">Contact Information</h2>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="material-icons text-gray-700">email</span>
+                                <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Email Address</h3>
+                            </div>
+                            <p class="text-gray-700 ml-9 text-sm">info@successchemistry.com</p>
+                        </div>
+                        
+                        <div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="material-icons text-gray-700">schedule</span>
+                                <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Business Hours</h3>
+                            </div>
+                            <p class="text-gray-700 ml-9 text-sm leading-relaxed">Monday - Friday: 9:00 AM - 6:00 PM EST<br>Saturday: 10:00 AM - 4:00 PM EST</p>
+                        </div>
+                        
+                        <div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="material-icons text-gray-700">location_on</span>
+                                <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Office Location</h3>
+                            </div>
+                            <p class="text-gray-700 ml-9 text-sm">Las Vegas, NV 89113</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STYLE D: Bold Marketing -->
+    <section id="style-d" class="style-section style-d">
+        <div class="max-w-6xl mx-auto px-6 py-20">
+            <!-- Page Title -->
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-3 mb-6">
+                    <i class="fas fa-rocket text-yellow-300 text-3xl animate-pulse"></i>
+                    <span class="text-sm font-black text-yellow-300 uppercase tracking-widest">Ready to Connect?</span>
+                    <i class="fas fa-rocket text-yellow-300 text-3xl animate-pulse"></i>
+                </div>
+                <h1 class="text-7xl font-black text-white mb-6 tracking-tight leading-none">
+                    CONTACT
+                    <span class="text-yellow-300">US</span>
+                </h1>
+                <p class="text-xl text-white/90 max-w-2xl mx-auto font-semibold">Have a question or need assistance? We're here to help you with any inquiries about our products and services.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-10 max-w-5xl mx-auto">
+                <!-- Contact Form -->
+                <div class="bg-white rounded-2xl p-10 shadow-2xl border-4 border-yellow-300">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="w-14 h-14 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
+                            <i class="fas fa-envelope text-white text-xl"></i>
+                        </div>
+                        <h2 class="text-3xl font-black text-gray-900 uppercase tracking-tight">Send Message</h2>
+                    </div>
+                    <form class="space-y-6">
+                        <div>
+                            <label class="flex items-center gap-2 text-sm font-black text-gray-900 mb-3 uppercase tracking-wider">
+                                <i class="fas fa-user-circle text-purple-600 text-lg"></i>
+                                Full Name
+                            </label>
+                            <input type="text" class="w-full px-5 py-4 border-4 border-gray-300 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-purple-600 focus:ring-4 focus:ring-purple-200 transition-all font-bold text-lg" placeholder="Your full name" />
+                        </div>
+                        
+                        <div>
+                            <label class="flex items-center gap-2 text-sm font-black text-gray-900 mb-3 uppercase tracking-wider">
+                                <i class="fas fa-at text-purple-600 text-lg"></i>
+                                Email Address
+                            </label>
+                            <input type="email" class="w-full px-5 py-4 border-4 border-gray-300 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-purple-600 focus:ring-4 focus:ring-purple-200 transition-all font-bold text-lg" placeholder="your.email@example.com" />
+                        </div>
+                        
+                        <div>
+                            <label class="flex items-center gap-2 text-sm font-black text-gray-900 mb-3 uppercase tracking-wider">
+                                <i class="fas fa-tags text-purple-600 text-lg"></i>
+                                Subject
+                            </label>
+                            <select class="w-full px-5 py-4 border-4 border-gray-300 rounded-xl text-gray-900 bg-white focus:outline-none focus:border-purple-600 focus:ring-4 focus:ring-purple-200 transition-all font-bold text-lg">
+                                <option>General Inquiry</option>
+                                <option>Product Question</option>
+                                <option>Order Support</option>
+                                <option>Technical Support</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="flex items-center gap-2 text-sm font-black text-gray-900 mb-3 uppercase tracking-wider">
+                                <i class="fas fa-comment-alt text-purple-600 text-lg"></i>
+                                Message
+                            </label>
+                            <textarea rows="6" class="w-full px-5 py-4 border-4 border-gray-300 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-purple-600 focus:ring-4 focus:ring-purple-200 transition-all resize-none font-bold text-lg" placeholder="Tell us how we can help..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 text-white py-6 px-8 rounded-xl font-black text-xl uppercase tracking-widest shadow-2xl hover:shadow-purple-500/50 transition-all transform hover:scale-105 flex items-center justify-center gap-3 animate-pulse hover:animate-none">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Info Card -->
+                <div class="bg-white/10 backdrop-blur-xl rounded-2xl p-10 border-4 border-white/30 shadow-2xl">
+                    <div class="space-y-8">
+                        <div class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border-2 border-white/30">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-16 h-16 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-xl flex items-center justify-center shadow-lg">
+                                    <i class="fas fa-envelope-open-text text-purple-900 text-2xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-black text-white uppercase tracking-wide">Email</h3>
+                            </div>
+                            <p class="text-yellow-300 text-xl font-black ml-20">info@successchemistry.com</p>
+                        </div>
+                        
+                        <div class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border-2 border-white/30">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-16 h-16 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-xl flex items-center justify-center shadow-lg">
+                                    <i class="fas fa-clock text-purple-900 text-2xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-black text-white uppercase tracking-wide">Support Hours</h3>
+                            </div>
+                            <p class="text-white text-lg font-black leading-relaxed ml-20">Monday - Friday: 9:00 AM - 6:00 PM EST<br>Saturday: 10:00 AM - 4:00 PM EST</p>
+                        </div>
+                        
+                        <div class="bg-white/20 backdrop-blur-sm rounded-xl p-6 border-2 border-white/30">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-16 h-16 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-xl flex items-center justify-center shadow-lg">
+                                    <i class="fas fa-map-marker-alt text-purple-900 text-2xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-black text-white uppercase tracking-wide">Location</h3>
+                            </div>
+                            <p class="text-yellow-300 text-xl font-black ml-20">Las Vegas, NV 89113</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STYLE E: Admin / Dashboard -->
+    <section id="style-e" class="style-section style-e">
+        <div class="max-w-6xl mx-auto px-6 py-10">
+            <!-- Page Title -->
+            <div class="mb-8">
+                <h1 class="text-2xl font-semibold text-gray-900 mb-2">Contact Us</h1>
+                <p class="text-sm text-gray-600">Have a question or need assistance? We're here to help you with any inquiries about our products and services.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                <!-- Contact Form -->
+                <div class="bg-white border border-gray-200 rounded-md p-6 shadow-sm">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-5 pb-3 border-b border-gray-200">Contact Form</h2>
+                    <form class="space-y-4">
+                        <div>
+                            <label class="ant-label">Name <span class="text-red-500">*</span></label>
+                            <input type="text" class="ant-input" placeholder="Enter your full name" required />
+                        </div>
+                        
+                        <div>
+                            <label class="ant-label">Email <span class="text-red-500">*</span></label>
+                            <input type="email" class="ant-input" placeholder="Enter your email address" required />
+                        </div>
+                        
+                        <div>
+                            <label class="ant-label">Subject <span class="text-red-500">*</span></label>
+                            <select class="ant-input" required>
+                                <option value="">Select a subject</option>
+                                <option>General Inquiry</option>
+                                <option>Product Question</option>
+                                <option>Order Support</option>
+                                <option>Technical Support</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="ant-label">Message <span class="text-red-500">*</span></label>
+                            <textarea rows="5" class="ant-input" placeholder="Enter your message" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-[#1677ff] text-white py-2.5 px-4 rounded-md font-medium hover:bg-[#4096ff] transition-colors focus:outline-none focus:ring-2 focus:ring-[#1677ff] focus:ring-offset-2 text-sm">
+                            Submit
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Info Card -->
+                <div class="bg-white border border-gray-200 rounded-md p-6 shadow-sm">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-5 pb-3 border-b border-gray-200">Contact Information</h2>
+                    <div class="space-y-5">
+                        <div>
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="text-gray-600 text-base">📧</span>
+                                <h3 class="text-sm font-semibold text-gray-900">Email</h3>
+                            </div>
+                            <p class="text-gray-600 text-sm ml-6">info@successchemistry.com</p>
+                        </div>
+                        
+                        <div>
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="text-gray-600 text-base">🕐</span>
+                                <h3 class="text-sm font-semibold text-gray-900">Support Hours</h3>
+                            </div>
+                            <p class="text-gray-600 text-sm ml-6 leading-relaxed">Monday - Friday: 9:00 AM - 6:00 PM EST<br>Saturday: 10:00 AM - 4:00 PM EST</p>
+                        </div>
+                        
+                        <div>
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="text-gray-600 text-base">📍</span>
+                                <h3 class="text-sm font-semibold text-gray-900">Location</h3>
+                            </div>
+                            <p class="text-gray-600 text-sm ml-6">Las Vegas, NV 89113</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STYLE F: Keynote Template -->
+    <section id="style-f" class="style-section style-f">
+        <div class="max-w-7xl mx-auto px-6 py-20">
+            <!-- Hero Section -->
+            <div class="text-center mb-20">
+                <div class="inline-block mb-6">
+                    <span class="text-sm font-semibold text-purple-400 uppercase tracking-wider">Get in Touch</span>
+                </div>
+                <h1 class="text-7xl font-black text-white mb-6 tracking-tight leading-none">
+                    Contact
+                    <span class="keynote-gradient bg-clip-text text-transparent">Us</span>
+                </h1>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                    Have a question or need assistance? We're here to help you with any inquiries about our products and services.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                <!-- Contact Form -->
+                <div class="bg-gray-900 border border-gray-800 rounded-2xl p-10 keynote-glow">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="w-12 h-12 rounded-xl keynote-gradient flex items-center justify-center">
+                            <i class="fas fa-paper-plane text-white text-lg"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-white">Send Message</h2>
+                    </div>
+                    <form class="space-y-6">
+                        <div>
+                            <label class="flex items-center gap-2 text-sm font-semibold text-gray-300 mb-3 uppercase tracking-wide">
+                                <i class="fas fa-user text-purple-400"></i>
+                                Full Name
+                            </label>
+                            <input type="text" class="w-full px-5 py-4 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-lg" placeholder="John Doe" />
+                        </div>
+                        
+                        <div>
+                            <label class="flex items-center gap-2 text-sm font-semibold text-gray-300 mb-3 uppercase tracking-wide">
+                                <i class="fas fa-envelope text-purple-400"></i>
+                                Email Address
+                            </label>
+                            <input type="email" class="w-full px-5 py-4 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-lg" placeholder="john@example.com" />
+                        </div>
+                        
+                        <div>
+                            <label class="flex items-center gap-2 text-sm font-semibold text-gray-300 mb-3 uppercase tracking-wide">
+                                <i class="fas fa-tag text-purple-400"></i>
+                                Subject
+                            </label>
+                            <select class="w-full px-5 py-4 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-lg">
+                                <option class="bg-gray-800">General Inquiry</option>
+                                <option class="bg-gray-800">Product Question</option>
+                                <option class="bg-gray-800">Order Support</option>
+                                <option class="bg-gray-800">Technical Support</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="flex items-center gap-2 text-sm font-semibold text-gray-300 mb-3 uppercase tracking-wide">
+                                <i class="fas fa-comment-alt text-purple-400"></i>
+                                Message
+                            </label>
+                            <textarea rows="6" class="w-full px-5 py-4 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all resize-none text-lg" placeholder="Tell us how we can help..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full keynote-gradient text-white py-5 px-8 rounded-xl font-black text-lg uppercase tracking-wider shadow-2xl hover:shadow-purple-500/50 transition-all transform hover:scale-105 flex items-center justify-center gap-3">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Info Card -->
+                <div class="space-y-6">
+                    <!-- Email Card -->
+                    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 hover:border-purple-500/50 transition-all">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-14 h-14 rounded-xl keynote-gradient flex items-center justify-center">
+                                <i class="fas fa-envelope-open text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white uppercase tracking-wide">Email</h3>
+                                <p class="text-sm text-gray-400">Send us an email</p>
+                            </div>
+                        </div>
+                        <p class="text-purple-400 font-semibold text-lg ml-18">info@successchemistry.com</p>
+                    </div>
+                    
+                    <!-- Hours Card -->
+                    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 hover:border-purple-500/50 transition-all">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-14 h-14 rounded-xl keynote-gradient flex items-center justify-center">
+                                <i class="fas fa-clock text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white uppercase tracking-wide">Support Hours</h3>
+                                <p class="text-sm text-gray-400">When we're available</p>
+                            </div>
+                        </div>
+                        <div class="text-gray-300 ml-18 space-y-1">
+                            <p class="font-semibold">Monday - Friday: 9:00 AM - 6:00 PM EST</p>
+                            <p class="font-semibold">Saturday: 10:00 AM - 4:00 PM EST</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Location Card -->
+                    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 hover:border-purple-500/50 transition-all">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-14 h-14 rounded-xl keynote-gradient flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white uppercase tracking-wide">Location</h3>
+                                <p class="text-sm text-gray-400">Our office</p>
+                            </div>
+                        </div>
+                        <p class="text-purple-400 font-semibold text-lg ml-18">Las Vegas, NV 89113</p>
+                    </div>
+                    
+                    <!-- Social Links -->
+                    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8">
+                        <h3 class="text-lg font-bold text-white uppercase tracking-wide mb-4">Connect With Us</h3>
+                        <div class="flex gap-4">
+                            <a href="#" class="w-12 h-12 rounded-xl bg-gray-800 border border-gray-700 flex items-center justify-center hover:border-purple-500 hover:bg-purple-500/10 transition-all">
+                                <i class="fab fa-twitter text-gray-400 hover:text-purple-400"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 rounded-xl bg-gray-800 border border-gray-700 flex items-center justify-center hover:border-purple-500 hover:bg-purple-500/10 transition-all">
+                                <i class="fab fa-linkedin text-gray-400 hover:text-purple-400"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 rounded-xl bg-gray-800 border border-gray-700 flex items-center justify-center hover:border-purple-500 hover:bg-purple-500/10 transition-all">
+                                <i class="fab fa-facebook text-gray-400 hover:text-purple-400"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 rounded-xl bg-gray-800 border border-gray-700 flex items-center justify-center hover:border-purple-500 hover:bg-purple-500/10 transition-all">
+                                <i class="fab fa-instagram text-gray-400 hover:text-purple-400"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STYLE G: Phosphor Icons -->
+    <section id="style-g" class="style-section style-g">
+        <div class="max-w-6xl mx-auto px-6 py-20">
+            <!-- Page Title -->
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full mb-6 shadow-lg">
+                    <ph-chat-circle weight="fill" class="text-indigo-600" style="width: 20px; height: 20px; display: inline-block;"></ph-chat-circle>
+                    <span class="text-sm font-bold text-indigo-600">Get in Touch</span>
+                </div>
+                <h1 class="text-6xl font-extrabold text-gray-900 mb-6 tracking-tight">
+                    Contact <span class="text-indigo-600">Us</span>
+                </h1>
+                <p class="text-xl text-gray-700 max-w-2xl mx-auto font-medium">
+                    Have a question or need assistance? We're here to help you with any inquiries about our products and services.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-10 max-w-5xl mx-auto">
+                <!-- Contact Form -->
+                <div class="bg-white rounded-3xl p-10 shadow-2xl border border-gray-100">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
+                            <ph-paper-plane-tilt weight="fill" class="text-white" style="width: 24px; height: 24px; display: inline-block;"></ph-paper-plane-tilt>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-900">Send us a message</h2>
+                    </div>
+                    <form class="space-y-6">
+                        <div>
+                            <label class="flex items-center gap-3 text-sm font-bold text-gray-700 mb-3">
+                                <ph-user weight="bold" class="text-indigo-600" style="width: 20px; height: 20px; display: inline-block;"></ph-user>
+                                Full Name
+                            </label>
+                            <div class="relative">
+                                <div class="absolute left-4 top-1/2 transform -translate-y-1/2">
+                                    <ph-user-circle weight="regular" class="text-gray-400" style="width: 20px; height: 20px; display: inline-block;"></ph-user-circle>
+                                </div>
+                                <input type="text" class="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all font-medium" placeholder="Your full name" />
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="flex items-center gap-3 text-sm font-bold text-gray-700 mb-3">
+                                <ph-envelope weight="bold" class="text-indigo-600" style="width: 20px; height: 20px; display: inline-block;"></ph-envelope>
+                                Email Address
+                            </label>
+                            <div class="relative">
+                                <div class="absolute left-4 top-1/2 transform -translate-y-1/2">
+                                    <ph-envelope-simple weight="regular" class="text-gray-400" style="width: 20px; height: 20px; display: inline-block;"></ph-envelope-simple>
+                                </div>
+                                <input type="email" class="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all font-medium" placeholder="your.email@example.com" />
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="flex items-center gap-3 text-sm font-bold text-gray-700 mb-3">
+                                <ph-tag weight="bold" class="text-indigo-600" style="width: 20px; height: 20px; display: inline-block;"></ph-tag>
+                                Subject
+                            </label>
+                            <div class="relative">
+                                <div class="absolute left-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                                    <ph-list-bullets weight="regular" class="text-gray-400" style="width: 20px; height: 20px; display: inline-block;"></ph-list-bullets>
+                                </div>
+                                <select class="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl text-gray-900 bg-white focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all font-medium appearance-none">
+                                    <option>General Inquiry</option>
+                                    <option>Product Question</option>
+                                    <option>Order Support</option>
+                                    <option>Technical Support</option>
+                                </select>
+                                <div class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                                    <ph-caret-down weight="bold" class="text-gray-400" style="width: 16px; height: 16px; display: inline-block;"></ph-caret-down>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="flex items-center gap-3 text-sm font-bold text-gray-700 mb-3">
+                                <ph-chat-text weight="bold" class="text-indigo-600" style="width: 20px; height: 20px; display: inline-block;"></ph-chat-text>
+                                Message
+                            </label>
+                            <div class="relative">
+                                <textarea rows="6" class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all resize-none font-medium" placeholder="Tell us how we can help..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 px-8 rounded-xl font-bold shadow-lg hover:shadow-xl hover:from-indigo-700 hover:to-purple-700 transition-all transform hover:scale-105 flex items-center justify-center gap-3">
+                            <ph-paper-plane-tilt weight="fill" class="text-white" style="width: 20px; height: 20px; display: inline-block;"></ph-paper-plane-tilt>
+                            Send Message
+                            <ph-arrow-right weight="bold" class="text-white" style="width: 18px; height: 18px; display: inline-block;"></ph-arrow-right>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Info Card -->
+                <div class="space-y-6">
+                    <!-- Email Card -->
+                    <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all hover:border-indigo-300">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-2xl flex items-center justify-center">
+                                <ph-envelope-open weight="fill" class="text-indigo-600" style="width: 32px; height: 32px; display: inline-block;"></ph-envelope-open>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900">Email</h3>
+                                <p class="text-sm text-gray-500">Send us an email</p>
+                            </div>
+                        </div>
+                        <p class="text-indigo-600 font-semibold text-lg ml-20">info@successchemistry.com</p>
+                    </div>
+                    
+                    <!-- Hours Card -->
+                    <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all hover:border-indigo-300">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-2xl flex items-center justify-center">
+                                <ph-clock weight="fill" class="text-indigo-600" style="width: 32px; height: 32px; display: inline-block;"></ph-clock>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900">Support Hours</h3>
+                                <p class="text-sm text-gray-500">When we're available</p>
+                            </div>
+                        </div>
+                        <div class="text-gray-700 ml-20 space-y-1">
+                            <p class="font-semibold">Monday - Friday: 9:00 AM - 6:00 PM EST</p>
+                            <p class="font-semibold">Saturday: 10:00 AM - 4:00 PM EST</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Location Card -->
+                    <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all hover:border-indigo-300">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-2xl flex items-center justify-center">
+                                <ph-map-pin weight="fill" class="text-indigo-600" style="width: 32px; height: 32px; display: inline-block;"></ph-map-pin>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900">Location</h3>
+                                <p class="text-sm text-gray-500">Our office</p>
+                            </div>
+                        </div>
+                        <p class="text-indigo-600 font-semibold text-lg ml-20">Las Vegas, NV 89113</p>
+                    </div>
+                    
+                    <!-- Social Links -->
+                    <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-3xl p-8 border border-indigo-100">
+                        <div class="flex items-center gap-3 mb-6">
+                            <ph-share-network weight="bold" class="text-indigo-600" style="width: 24px; height: 24px; display: inline-block;"></ph-share-network>
+                            <h3 class="text-lg font-bold text-gray-900">Connect With Us</h3>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="#" class="w-14 h-14 rounded-xl bg-white border-2 border-gray-200 flex items-center justify-center hover:border-indigo-500 hover:bg-indigo-50 transition-all group">
+                                <ph-twitter-logo weight="fill" class="text-gray-600 group-hover:text-indigo-600" style="width: 24px; height: 24px; display: inline-block;"></ph-twitter-logo>
+                            </a>
+                            <a href="#" class="w-14 h-14 rounded-xl bg-white border-2 border-gray-200 flex items-center justify-center hover:border-indigo-500 hover:bg-indigo-50 transition-all group">
+                                <ph-linkedin-logo weight="fill" class="text-gray-600 group-hover:text-indigo-600" style="width: 24px; height: 24px; display: inline-block;"></ph-linkedin-logo>
+                            </a>
+                            <a href="#" class="w-14 h-14 rounded-xl bg-white border-2 border-gray-200 flex items-center justify-center hover:border-indigo-500 hover:bg-indigo-50 transition-all group">
+                                <ph-facebook-logo weight="fill" class="text-gray-600 group-hover:text-indigo-600" style="width: 24px; height: 24px; display: inline-block;"></ph-facebook-logo>
+                            </a>
+                            <a href="#" class="w-14 h-14 rounded-xl bg-white border-2 border-gray-200 flex items-center justify-center hover:border-indigo-500 hover:bg-indigo-50 transition-all group">
+                                <ph-instagram-logo weight="fill" class="text-gray-600 group-hover:text-indigo-600" style="width: 24px; height: 24px; display: inline-block;"></ph-instagram-logo>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STYLE H: Flowbite Marketing -->
+    <section id="style-h" class="style-section style-h">
+        <!-- Hero Section -->
+        <section class="bg-white">
+            <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-16 lg:px-6">
+                <div class="max-w-screen-sm mx-auto text-center">
+                    <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">
+                        Get in touch with our team
+                    </h1>
+                    <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48">
+                        Have a question or need assistance? We're here to help you with any inquiries about our products and services.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="bg-gray-50">
+            <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-16 lg:px-6">
+                <div class="max-w-screen-md mx-auto">
+                    <div class="grid gap-8 mb-6 lg:mb-16 md:grid-cols-2">
+                        <!-- Contact Form Card -->
+                        <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                            <h2 class="mb-4 text-2xl font-bold text-gray-900">Send us a message</h2>
+                            <form class="space-y-6">
+                                <div>
+                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Your Name</label>
+                                    <input type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3" placeholder="John Doe" required>
+                                </div>
+                                <div>
+                                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Your Email</label>
+                                    <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3" placeholder="name@company.com" required>
+                                </div>
+                                <div>
+                                    <label for="subject" class="block mb-2 text-sm font-medium text-gray-900">Subject</label>
+                                    <select id="subject" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3">
+                                        <option>General Inquiry</option>
+                                        <option>Product Question</option>
+                                        <option>Order Support</option>
+                                        <option>Technical Support</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Your Message</label>
+                                    <textarea id="message" rows="6" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Tell us how we can help..."></textarea>
+                                </div>
+                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-3 text-center w-full">
+                                    Send message
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Contact Info Cards -->
+                        <div class="space-y-6">
+                            <!-- Email Card -->
+                            <div class="bg-white rounded-lg shadow-lg p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="flex-shrink-0">
+                                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">Email</h3>
+                                        <p class="text-gray-500 text-sm">Send us an email</p>
+                                    </div>
+                                </div>
+                                <p class="text-blue-600 font-medium">info@successchemistry.com</p>
+                            </div>
+
+                            <!-- Hours Card -->
+                            <div class="bg-white rounded-lg shadow-lg p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="flex-shrink-0">
+                                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">Support Hours</h3>
+                                        <p class="text-gray-500 text-sm">When we're available</p>
+                                    </div>
+                                </div>
+                                <div class="text-gray-700 space-y-1">
+                                    <p class="font-medium">Monday - Friday: 9:00 AM - 6:00 PM EST</p>
+                                    <p class="font-medium">Saturday: 10:00 AM - 4:00 PM EST</p>
+                                </div>
+                            </div>
+
+                            <!-- Location Card -->
+                            <div class="bg-white rounded-lg shadow-lg p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="flex-shrink-0">
+                                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h3 class="text-lg font-semibold text-gray-900">Location</h3>
+                                        <p class="text-gray-500 text-sm">Our office</p>
+                                    </div>
+                                </div>
+                                <p class="text-blue-600 font-medium">Las Vegas, NV 89113</p>
+                            </div>
+
+                            <!-- Social Links -->
+                            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg shadow-lg p-6 border border-blue-100">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4">Follow us</h3>
+                                <div class="flex space-x-4">
+                                    <a href="#" class="text-gray-500 hover:text-blue-600 transition-colors">
+                                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+                                        </svg>
+                                    </a>
+                                    <a href="#" class="text-gray-500 hover:text-blue-600 transition-colors">
+                                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path>
+                                        </svg>
+                                    </a>
+                                    <a href="#" class="text-gray-500 hover:text-blue-600 transition-colors">
+                                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path>
+                                        </svg>
+                                    </a>
+                                    <a href="#" class="text-gray-500 hover:text-blue-600 transition-colors">
+                                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- STYLE I: Ant Design -->
+    <section id="style-i" class="style-section style-i">
+        <div class="max-w-7xl mx-auto px-6 py-16">
+            <!-- Page Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-semibold text-gray-900 mb-4" style="font-weight: 600; letter-spacing: -0.02em;">
+                    Contact Us
+                </h1>
+                <p class="text-base text-gray-600 max-w-2xl mx-auto" style="line-height: 1.75;">
+                    Have a question or need assistance? We're here to help you with any inquiries about our products and services.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-6 max-w-6xl mx-auto">
+                <!-- Contact Form Card -->
+                <div class="antd-card p-8">
+                    <div class="mb-6">
+                        <h2 class="text-lg font-semibold text-gray-900 mb-1" style="font-weight: 600;">Contact Form</h2>
+                        <p class="text-sm text-gray-500">Fill out the form below and we'll get back to you</p>
+                    </div>
+                    <form class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-900 mb-2">
+                                Name <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7 7C8.933 7 10.5 5.433 10.5 3.5C10.5 1.567 8.933 0 7 0C5.067 0 3.5 1.567 3.5 3.5C3.5 5.433 5.067 7 7 7Z" fill="currentColor"/>
+                                        <path d="M7 8.75C4.378 8.75 2.25 10.878 2.25 13.5H11.75C11.75 10.878 9.622 8.75 7 8.75Z" fill="currentColor"/>
+                                    </svg>
+                                </span>
+                                <input type="text" class="antd-input pl-10" placeholder="Enter your full name" required />
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-900 mb-2">
+                                Email <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12.25 2.625H1.75C1.28587 2.625 0.840752 2.80937 0.512563 3.13756C0.184374 3.46575 0 3.91087 0 4.375V9.625C0 10.0891 0.184374 10.5342 0.512563 10.8624C0.840752 11.1906 1.28587 11.375 1.75 11.375H12.25C12.7141 11.375 13.1592 11.1906 13.4874 10.8624C13.8156 10.5342 14 10.0891 14 9.625V4.375C14 3.91087 13.8156 3.46575 13.4874 3.13756C13.1592 2.80937 12.7141 2.625 12.25 2.625ZM12.25 4.375V5.25L7 8.3125L1.75 5.25V4.375H12.25Z" fill="currentColor"/>
+                                    </svg>
+                                </span>
+                                <input type="email" class="antd-input pl-10" placeholder="Enter your email address" required />
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-900 mb-2">
+                                Subject <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 z-10">
+                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1.75 0C1.28587 0 0.840752 0.184374 0.512563 0.512563C0.184374 0.840752 0 1.28587 0 1.75V12.25C0 12.7141 0.184374 13.1592 0.512563 13.4874C0.840752 13.8156 1.28587 14 1.75 14H12.25C12.7141 14 13.1592 13.8156 13.4874 13.4874C13.8156 13.1592 14 12.7141 14 12.25V1.75C14 1.28587 13.8156 0.840752 13.4874 0.512563C13.1592 0.184374 12.7141 0 12.25 0H1.75ZM1.75 1.75H12.25V12.25H1.75V1.75Z" fill="currentColor"/>
+                                        <path d="M3.5 3.5H10.5V4.375H3.5V3.5ZM3.5 5.25H10.5V6.125H3.5V5.25ZM3.5 7H7V7.875H3.5V7Z" fill="currentColor"/>
+                                    </svg>
+                                </span>
+                                <select class="antd-input pl-10 appearance-none" required>
+                                    <option value="">Select a subject</option>
+                                    <option>General Inquiry</option>
+                                    <option>Product Question</option>
+                                    <option>Order Support</option>
+                                    <option>Technical Support</option>
+                                </select>
+                                <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none">
+                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6 9L1 4H11L6 9Z" fill="currentColor"/>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-900 mb-2">
+                                Message <span class="text-red-500">*</span>
+                            </label>
+                            <textarea rows="5" class="antd-input resize-none" placeholder="Enter your message" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="antd-btn-primary w-full">
+                            Submit
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Information Cards -->
+                <div class="space-y-6">
+                    <!-- Email Card -->
+                    <div class="antd-card p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-blue-600">
+                                    <path d="M2.5 5.83333L10 10.8333L17.5 5.83333M2.5 5.83333C2.5 4.91286 3.16286 4.16667 4 4.16667H16C16.8371 4.16667 17.5 4.91286 17.5 5.83333V14.1667C17.5 15.0871 16.8371 15.8333 16 15.8333H4C3.16286 15.8333 2.5 15.0871 2.5 14.1667V5.83333Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-base font-semibold text-gray-900 mb-1" style="font-weight: 600;">Email</h3>
+                                <p class="text-sm text-gray-500 mb-2">Send us an email</p>
+                                <p class="text-base text-blue-600 font-medium">info@successchemistry.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Support Hours Card -->
+                    <div class="antd-card p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-blue-600">
+                                    <path d="M10 18.3333C14.6024 18.3333 18.3333 14.6024 18.3333 10C18.3333 5.39763 14.6024 1.66667 10 1.66667C5.39763 1.66667 1.66667 5.39763 1.66667 10C1.66667 14.6024 5.39763 18.3333 10 18.3333Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M10 5V10L13.3333 11.6667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-base font-semibold text-gray-900 mb-1" style="font-weight: 600;">Support Hours</h3>
+                                <p class="text-sm text-gray-500 mb-2">When we're available</p>
+                                <div class="text-sm text-gray-700 space-y-1">
+                                    <p class="font-medium">Monday - Friday: 9:00 AM - 6:00 PM EST</p>
+                                    <p class="font-medium">Saturday: 10:00 AM - 4:00 PM EST</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Location Card -->
+                    <div class="antd-card p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-blue-600">
+                                    <path d="M17.5 8.33333C17.5 14.1667 10 19.1667 10 19.1667C10 19.1667 2.5 14.1667 2.5 8.33333C2.5 6.34421 3.29018 4.43655 4.6967 3.03004C6.10322 1.62352 8.01088 0.833336 10 0.833336C11.9891 0.833336 13.8968 1.62352 15.3033 3.03004C16.7098 4.43655 17.5 6.34421 17.5 8.33333Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M10 10.8333C11.3807 10.8333 12.5 9.71405 12.5 8.33333C12.5 6.95262 11.3807 5.83333 10 5.83333C8.61929 5.83333 7.5 6.95262 7.5 8.33333C7.5 9.71405 8.61929 10.8333 10 10.8333Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-base font-semibold text-gray-900 mb-1" style="font-weight: 600;">Location</h3>
+                                <p class="text-sm text-gray-500 mb-2">Our office</p>
+                                <p class="text-base text-blue-600 font-medium">Las Vegas, NV 89113</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Design Values Card -->
+                    <div class="antd-card p-6 bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-100">
+                        <h3 class="text-base font-semibold text-gray-900 mb-4" style="font-weight: 600;">Design Values</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="text-center p-3 bg-white rounded-md">
+                                <div class="text-blue-600 font-semibold text-sm mb-1">Natural</div>
+                                <div class="text-xs text-gray-500">Intuitive</div>
+                            </div>
+                            <div class="text-center p-3 bg-white rounded-md">
+                                <div class="text-blue-600 font-semibold text-sm mb-1">Certain</div>
+                                <div class="text-xs text-gray-500">Reliable</div>
+                            </div>
+                            <div class="text-center p-3 bg-white rounded-md">
+                                <div class="text-blue-600 font-semibold text-sm mb-1">Meaningful</div>
+                                <div class="text-xs text-gray-500">Purposeful</div>
+                            </div>
+                            <div class="text-center p-3 bg-white rounded-md">
+                                <div class="text-blue-600 font-semibold text-sm mb-1">Growing</div>
+                                <div class="text-xs text-gray-500">Evolving</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STYLE J: Flowbite Enhanced -->
+    <section id="style-j" class="style-section style-j">
+        <div class="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+            <!-- Hero Section -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl md:text-6xl mb-4">
+                    Get in touch
+                </h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Have a question or need assistance? We're here to help you with any inquiries about our products and services.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Contact Form -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-lg shadow-lg p-8 border border-gray-200">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Send us a message</h2>
+                        <form class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="name-j" class="block mb-2 text-sm font-medium text-gray-900">Your Name</label>
+                                    <input type="text" id="name-j" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3" placeholder="John Doe" required>
+                                </div>
+                                <div>
+                                    <label for="email-j" class="block mb-2 text-sm font-medium text-gray-900">Your Email</label>
+                                    <input type="email" id="email-j" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3" placeholder="name@company.com" required>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="subject-j" class="block mb-2 text-sm font-medium text-gray-900">Subject</label>
+                                <select id="subject-j" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3">
+                                    <option>General Inquiry</option>
+                                    <option>Product Question</option>
+                                    <option>Order Support</option>
+                                    <option>Technical Support</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="message-j" class="block mb-2 text-sm font-medium text-gray-900">Your Message</label>
+                                <textarea id="message-j" rows="6" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Tell us how we can help..."></textarea>
+                            </div>
+                            <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-3 text-center transition-all">
+                                Send message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Contact Info Sidebar -->
+                <div class="space-y-6">
+                    <!-- Email Card -->
+                    <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                        <div class="flex items-center mb-4">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-blue-100">
+                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-gray-900">Email</h3>
+                                <p class="text-sm text-gray-500">Send us an email</p>
+                            </div>
+                        </div>
+                        <a href="mailto:info@successchemistry.com" class="text-blue-600 hover:text-blue-800 font-medium">info@successchemistry.com</a>
+                    </div>
+
+                    <!-- Hours Card -->
+                    <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                        <div class="flex items-center mb-4">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-blue-100">
+                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-gray-900">Support Hours</h3>
+                                <p class="text-sm text-gray-500">When we're available</p>
+                            </div>
+                        </div>
+                        <div class="text-sm text-gray-700 space-y-1">
+                            <p class="font-medium">Monday - Friday: 9:00 AM - 6:00 PM EST</p>
+                            <p class="font-medium">Saturday: 10:00 AM - 4:00 PM EST</p>
+                        </div>
+                    </div>
+
+                    <!-- Location Card -->
+                    <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                        <div class="flex items-center mb-4">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-blue-100">
+                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-gray-900">Location</h3>
+                                <p class="text-sm text-gray-500">Our office</p>
+                            </div>
+                        </div>
+                        <p class="text-blue-600 font-medium">Las Vegas, NV 89113</p>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg shadow-lg p-6 border border-blue-100">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Follow us</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-gray-500 hover:text-blue-600 transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+                                </svg>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-blue-600 transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path>
+                                </svg>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-blue-600 transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STYLE K: shadcn/ui Dashboard -->
+    <section id="style-k" class="style-section style-k">
+        <div class="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold tracking-tight text-gray-900 mb-2">Contact Us</h1>
+                <p class="text-sm text-gray-600">
+                    Have a question or need assistance? We're here to help you with any inquiries about our products and services.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-6">
+                <!-- Contact Form -->
+                <div class="lg:col-span-2">
+                    <div class="shadcn-card p-6">
+                        <div class="mb-6">
+                            <h2 class="text-lg font-semibold text-gray-900 mb-1">Contact Form</h2>
+                            <p class="text-sm text-gray-500">Fill out the form below and we'll get back to you</p>
+                        </div>
+                        <form class="space-y-4">
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-900 mb-2">
+                                        Name <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="text" class="shadcn-input" placeholder="Your full name" required />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-900 mb-2">
+                                        Email <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="email" class="shadcn-input" placeholder="your.email@example.com" required />
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-900 mb-2">
+                                    Subject <span class="text-red-500">*</span>
+                                </label>
+                                <select class="shadcn-input" required>
+                                    <option value="">Select a subject</option>
+                                    <option>General Inquiry</option>
+                                    <option>Product Question</option>
+                                    <option>Order Support</option>
+                                    <option>Technical Support</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-900 mb-2">
+                                    Message <span class="text-red-500">*</span>
+                                </label>
+                                <textarea rows="5" class="shadcn-input resize-none" placeholder="Tell us how we can help..." required></textarea>
+                            </div>
+                            <button type="submit" class="shadcn-btn w-full">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Contact Info Sidebar -->
+                <div class="space-y-4">
+                    <!-- Email Card -->
+                    <div class="shadcn-card p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <div class="w-10 h-10 rounded-md bg-blue-50 flex items-center justify-center">
+                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-blue-600">
+                                        <path d="M2.25 4.5L9 9.75L15.75 4.5M2.25 4.5C2.25 3.67157 2.92157 3 3.75 3H14.25C15.0784 3 15.75 3.67157 15.75 4.5V13.5C15.75 14.3284 15.0784 15 14.25 15H3.75C2.92157 15 2.25 14.3284 2.25 13.5V4.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h3 class="text-sm font-semibold text-gray-900 mb-1">Email</h3>
+                                <p class="text-xs text-gray-500 mb-2">Send us an email</p>
+                                <a href="mailto:info@successchemistry.com" class="text-sm text-blue-600 hover:text-blue-800 font-medium break-all">info@successchemistry.com</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hours Card -->
+                    <div class="shadcn-card p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <div class="w-10 h-10 rounded-md bg-blue-50 flex items-center justify-center">
+                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-blue-600">
+                                        <path d="M9 16.5C13.1421 16.5 16.5 13.1421 16.5 9C16.5 4.85786 13.1421 1.5 9 1.5C4.85786 1.5 1.5 4.85786 1.5 9C1.5 13.1421 4.85786 16.5 9 16.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M9 4.5V9L12 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h3 class="text-sm font-semibold text-gray-900 mb-1">Support Hours</h3>
+                                <p class="text-xs text-gray-500 mb-2">When we're available</p>
+                                <div class="text-xs text-gray-700 space-y-1">
+                                    <p class="font-medium">Mon-Fri: 9:00 AM - 6:00 PM EST</p>
+                                    <p class="font-medium">Sat: 10:00 AM - 4:00 PM EST</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Location Card -->
+                    <div class="shadcn-card p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0">
+                                <div class="w-10 h-10 rounded-md bg-blue-50 flex items-center justify-center">
+                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-blue-600">
+                                        <path d="M15.75 7.5C15.75 12.75 9 16.5 9 16.5C9 16.5 2.25 12.75 2.25 7.5C2.25 5.51088 3.04018 3.60322 4.4467 2.1967C5.85322 0.790176 7.76088 0 9.75 0C11.7391 0 13.6468 0.790176 15.0533 2.1967C16.4598 3.60322 17.25 5.51088 17.25 7.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M9.75 9.75C10.5784 9.75 11.25 9.07843 11.25 8.25C11.25 7.42157 10.5784 6.75 9.75 6.75C8.92157 6.75 8.25 7.42157 8.25 8.25C8.25 9.07843 8.92157 9.75 9.75 9.75Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h3 class="text-sm font-semibold text-gray-900 mb-1">Location</h3>
+                                <p class="text-xs text-gray-500 mb-2">Our office</p>
+                                <p class="text-sm text-blue-600 font-medium">Las Vegas, NV 89113</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Card -->
+                    <div class="shadcn-card p-6 bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-100">
+                        <h3 class="text-sm font-semibold text-gray-900 mb-4">Quick Stats</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="text-center p-3 bg-white rounded-md">
+                                <div class="text-2xl font-bold text-blue-600 mb-1">24/7</div>
+                                <div class="text-xs text-gray-600">Support</div>
+                            </div>
+                            <div class="text-center p-3 bg-white rounded-md">
+                                <div class="text-2xl font-bold text-blue-600 mb-1">&lt;24h</div>
+                                <div class="text-xs text-gray-600">Response</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function showStyle(style, event) {
+            // Hide all sections
+            document.querySelectorAll('.style-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.style-nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById('style-' + style).classList.add('active');
+            
+            // Add active class to clicked button
+            if (event && event.target) {
+                event.target.classList.add('active');
+            } else {
+                // Fallback: find button by text content
+                document.querySelectorAll('.style-nav-btn').forEach(btn => {
+                    if (btn.textContent.includes('Style ' + style.toUpperCase())) {
+                        btn.classList.add('active');
+                    }
+                });
+            }
+            
+            // Initialize Lucide icons for all styles
+            setTimeout(() => {
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            }, 100);
+        }
+        
+        // Initialize Lucide icons on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+    </script>
+    
+    <!-- Flowbite JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+</body>
+</html>

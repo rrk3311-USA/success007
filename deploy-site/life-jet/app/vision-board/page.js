@@ -65,17 +65,17 @@ export default function VisionBoardPage() {
   }
 
   const tabs = [
-    { id: 'command', label: 'Command', icon: '🛡' },
-    { id: 'health', label: 'Health', icon: '❤' },
-    { id: 'income', label: '$ Income', icon: '💰' },
-    { id: 'achievements', label: 'Achievements', icon: '🏆' },
-    { id: 'skills', label: 'Skills', icon: '🧠' },
-    { id: 'romance', label: 'Romance', icon: '💕' },
-    { id: 'customers', label: 'Customers', icon: '👥' },
-    { id: 'infographics', label: 'Infographics', icon: '📄' },
-    { id: 'loyalty', label: 'Loyalty', icon: '✉' },
-    { id: 'terminal', label: 'Terminal', icon: '〉' },
-    { id: 'walmart', label: 'Walmart', icon: '🛒' },
+    { id: 'command', label: 'Command', icon: 'shield-check' },
+    { id: 'health', label: 'Health', icon: 'heart' },
+    { id: 'income', label: '$ Income', icon: 'currency-dollar' },
+    { id: 'achievements', label: 'Achievements', icon: 'trophy' },
+    { id: 'skills', label: 'Skills', icon: 'brain' },
+    { id: 'romance', label: 'Romance', icon: 'heart-straight' },
+    { id: 'customers', label: 'Customers', icon: 'users' },
+    { id: 'infographics', label: 'Infographics', icon: 'file-text' },
+    { id: 'loyalty', label: 'Loyalty', icon: 'envelope-simple' },
+    { id: 'terminal', label: 'Terminal', icon: 'terminal' },
+    { id: 'walmart', label: 'Walmart', icon: 'shopping-cart' },
   ]
 
   return (
@@ -91,8 +91,8 @@ export default function VisionBoardPage() {
         <div className="container mx-auto px-4 md:px-6 py-3">
           <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-0 lg:justify-between">
             <div className="flex items-center gap-3 md:gap-4">
-              <div className="relative flex-shrink-0 w-10 h-10 rounded bg-gradient-to-br from-emerald-500 to-cyan-500 flex items-center justify-center text-white text-lg font-bold">
-                🛡
+              <div className="relative flex-shrink-0 w-10 h-10 rounded bg-gradient-to-br from-emerald-500 to-cyan-500 flex items-center justify-center text-white text-lg">
+                <span className="ph ph-shield-check" style={{ fontSize: '1.5rem' }} aria-hidden />
                 <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse" />
               </div>
               <div>
@@ -125,14 +125,14 @@ export default function VisionBoardPage() {
 
             <div className="flex items-center gap-2 md:gap-4 flex-wrap">
               <div className="flex items-center gap-2 px-3 py-2 bg-slate-800/50 rounded border border-cyan-900/50">
-                <span className="text-amber-400">☀</span>
+                <span className="ph ph-sun text-amber-400 text-lg" aria-hidden />
                 <span className="text-amber-400 font-mono text-xs md:text-sm">72°F</span>
               </div>
               <div className="flex items-center gap-2 px-3 py-2 bg-red-950/50 rounded border border-red-900/50">
                 <span className="text-red-400 font-bold text-xs md:text-sm">B+</span>
               </div>
               <div className="flex items-center gap-2 px-3 py-2 bg-slate-800/50 rounded border border-emerald-900/50">
-                <span className="text-cyan-400">🕐</span>
+                <span className="ph ph-clock text-cyan-400 text-lg" aria-hidden />
                 <span className="text-cyan-400 font-mono text-xs md:text-sm">
                   {time ? time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) : '--:--'}
                 </span>
@@ -155,7 +155,7 @@ export default function VisionBoardPage() {
                   : 'text-gray-400 hover:text-cyan-400 hover:bg-slate-800/50'
               }`}
             >
-              <span>{tab.icon}</span>
+              <span className={`ph ph-${tab.icon}`} style={{ fontSize: '1.125rem' }} aria-hidden />
               {tab.label}
             </button>
           ))}

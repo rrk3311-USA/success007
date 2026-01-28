@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Flowbite | Success Chemistry</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Flowbite CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+    
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f9fafb;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                <a href="/" class="text-xl font-bold text-gray-900">Success Chemistry</a>
+                <nav class="flex items-center gap-6">
+                    <a href="/shop" class="text-sm font-medium text-gray-700 hover:text-gray-900">Shop</a>
+                    <a href="/cart" id="cartLink" class="text-sm font-medium text-gray-700 hover:text-gray-900">Cart (<span id="cartCount">0</span>)</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <!-- Page Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl mb-4">Shop Supplements</h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Premium quality vitamins and health supplements for your wellness journey</p>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="mb-8">
+            <div class="flex flex-wrap gap-3 justify-center mb-6">
+                <button class="category-btn active px-5 py-2.5 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 transition-all" data-category="all">
+                    All Products
+                </button>
+                <button class="category-btn px-5 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-blue-300 transition-all" data-category="bestsellers">
+                    Best Sellers
+                </button>
+                <button class="category-btn px-5 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-blue-300 transition-all" data-category="mens">
+                    Men's Health
+                </button>
+                <button class="category-btn px-5 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-blue-300 transition-all" data-category="womens">
+                    Women's Health
+                </button>
+                <button class="category-btn px-5 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-blue-300 transition-all" data-category="eye">
+                    Eye Health
+                </button>
+            </div>
+        </div>
+
+        <!-- Search and Sort -->
+        <div class="mb-8 bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block mb-2 text-sm font-medium text-gray-900">Search Products</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                        <input type="text" id="searchInput" placeholder="Search products..." 
+                               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-3">
+                    </div>
+                </div>
+                <div>
+                    <label class="block mb-2 text-sm font-medium text-gray-900">Sort By</label>
+                    <select id="sortSelect" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3">
+                        <option value="sales">Best Sellers</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="name">Name: A to Z</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div id="productsContainer" class="mb-8">
+            <div class="text-center py-20 text-gray-600">Loading products...</div>
+        </div>
+
+        <!-- Pagination -->
+        <div id="paginationContainer" class="flex justify-center items-center gap-2" style="display: none;"></div>
+    </main>
+
+    <!-- Load scripts -->
+    <script src="/public/cart-utils.js"></script>
+    <script src="/products-data.js?v=29"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    
+    <script>
+        let allProducts = [];
+        let filteredProducts = [];
+        let currentPage = 1;
+        const productsPerPage = 20;
+        let currentCategory = 'all';
+        let currentSort = 'sales';
+        let searchQuery = '';
+
+        function init() {
+            renderProducts();
+            setupEventListeners();
+            updateCartCount();
+            
+            if (typeof window.getAllProducts === 'function') {
+                loadProducts();
+            } else {
+                const checkInterval = setInterval(() => {
+                    if (typeof window.getAllProducts === 'function') {
+                        clearInterval(checkInterval);
+                        loadProducts();
+                    }
+                }, 100);
+                setTimeout(() => clearInterval(checkInterval), 10000);
+            }
+        }
+
+        function loadProducts() {
+            if (typeof window.getAllProducts !== 'function') return;
+            
+            const products = window.getAllProducts();
+            allProducts = products.map(p => ({
+                sku: p.sku,
+                title: p.name,
+                price: p.price || 0,
+                image: (p.images && p.images[0]) || '/images/placeholder.png',
+                categories: p.category || '',
+                description: p.description || p.short_description || ''
+            })).filter(p => {
+                const hiddenSKUs = ['21884-502', '20647-507-3', '10786-807-2', '10786-807-3'];
+                return p && p.sku && !hiddenSKUs.includes(p.sku);
+            });
+            
+            filterProducts();
+        }
+
+        function filterProducts() {
+            filteredProducts = [...allProducts];
+            
+            if (currentCategory !== 'all') {
+                filteredProducts = filteredProducts.filter(p => {
+                    const categories = (p.categories || '').toLowerCase();
+                    if (currentCategory === 'bestsellers') return p.bestseller || p.featured;
+                    return categories.includes(currentCategory);
+                });
+            }
+            
+            if (searchQuery) {
+                const query = searchQuery.toLowerCase();
+                filteredProducts = filteredProducts.filter(p => {
+                    return (p.title || '').toLowerCase().includes(query) ||
+                           (p.description || '').toLowerCase().includes(query) ||
+                           (p.sku || '').toLowerCase().includes(query);
+                });
+            }
+            
+            sortProducts();
+            renderProducts();
+            renderPagination();
+        }
+
+        function sortProducts() {
+            switch(currentSort) {
+                case 'price-low': filteredProducts.sort((a, b) => a.price - b.price); break;
+                case 'price-high': filteredProducts.sort((a, b) => b.price - a.price); break;
+                case 'name': filteredProducts.sort((a, b) => a.title.localeCompare(b.title)); break;
+            }
+        }
+
+        function renderProducts() {
+            const container = document.getElementById('productsContainer');
+            
+            if (filteredProducts.length === 0) {
+                container.innerHTML = '<div class="text-center py-20 text-gray-600">No products found</div>';
+                return;
+            }
+            
+            const start = (currentPage - 1) * productsPerPage;
+            const end = start + productsPerPage;
+            const pageProducts = filteredProducts.slice(start, end);
+            
+            container.innerHTML = `
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    ${pageProducts.map(p => `
+                        <div class="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow cursor-pointer"
+                             onclick="window.location.href='/product/${p.sku}'">
+                            <div class="aspect-square bg-gray-50 flex items-center justify-center p-4">
+                                <img src="${p.image}" alt="${p.title}" 
+                                     class="max-w-full max-h-full object-contain hover:scale-105 transition-transform"
+                                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22280%22%3E%3Crect fill=%22%23f9fafb%22 width=%22280%22 height=%22280%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23666%22%3ENo Image%3C/text%3E%3C/svg%3E'">
+                            </div>
+                            <div class="p-5">
+                                <h3 class="text-base font-semibold text-gray-900 mb-2 line-clamp-2 min-h-[3rem]">${p.title}</h3>
+                                <div class="text-2xl font-bold text-blue-700 mb-4">$${p.price.toFixed(2)}</div>
+                                <button onclick="event.stopPropagation(); addToCart('${p.sku}')" 
+                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full transition-all">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function renderPagination() {
+            const container = document.getElementById('paginationContainer');
+            const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+            
+            if (totalPages <= 1) {
+                container.style.display = 'none';
+                return;
+            }
+            
+            container.style.display = 'flex';
+            container.innerHTML = `
+                <button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}
+                        class="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Previous
+                </button>
+                ${Array.from({length: totalPages}, (_, i) => i + 1).map(page => `
+                    <button onclick="changePage(${page})" 
+                            class="px-4 py-2 text-sm font-medium ${page === currentPage ? 'text-white bg-blue-700' : 'text-gray-500 bg-white border border-gray-300'} hover:bg-gray-100 hover:text-gray-700 ${page === currentPage ? 'hover:bg-blue-800' : ''}">
+                        ${page}
+                    </button>
+                `).join('')}
+                <button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}
+                        class="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Next
+                </button>
+            `;
+        }
+
+        function setupEventListeners() {
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.category-btn').forEach(b => {
+                        b.classList.remove('active', 'text-white', 'bg-blue-700');
+                        b.classList.add('text-gray-700', 'bg-white', 'border', 'border-gray-300');
+                    });
+                    this.classList.add('active', 'text-white', 'bg-blue-700');
+                    this.classList.remove('text-gray-700', 'bg-white', 'border', 'border-gray-300');
+                    currentCategory = this.dataset.category;
+                    currentPage = 1;
+                    filterProducts();
+                });
+            });
+            
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                searchQuery = e.target.value;
+                currentPage = 1;
+                filterProducts();
+            });
+            
+            document.getElementById('sortSelect').addEventListener('change', (e) => {
+                currentSort = e.target.value;
+                sortProducts();
+                renderProducts();
+            });
+        }
+
+        function changePage(page) {
+            const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderProducts();
+            renderPagination();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function addToCart(sku) {
+            if (typeof addItemToCart === 'function') {
+                addItemToCart(sku, 1);
+                updateCartCount();
+            }
+        }
+
+        function updateCartCount() {
+            if (typeof getCartItemCount === 'function') {
+                const count = getCartItemCount();
+                document.getElementById('cartCount').textContent = count;
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    </script>
+</body>
+</html>

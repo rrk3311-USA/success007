@@ -24,7 +24,7 @@ function DailyOps({ todos, onToggleTodo }) {
         borderBottom: '1px solid var(--border-emerald)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <span style={{ fontSize: '20px' }}>🎯</span>
+          <span className="ph ph-target" style={{ fontSize: '20px' }} aria-hidden />
           <h2 style={{
             fontFamily: 'var(--font-display)',
             fontSize: '16px',
@@ -84,7 +84,7 @@ function DailyOps({ todos, onToggleTodo }) {
             fontSize: '16px'
           }}
         >
-          +
+          <span className="ph ph-plus" aria-hidden />
         </button>
       </div>
 

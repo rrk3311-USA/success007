@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚗️</text></svg>">
+    <title>SUCCESS</title>
+    <!-- Bootstrap 5.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Phosphor Icons (beaker logo) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/fill/style.css">
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* SUCCESS Admin – Bootstrap 5 foundation + SCSS-style variables */
+        :root {
+            --sc-primary: #14b8a6;
+            --sc-primary-rgb: 20, 184, 166;
+            --sc-dark: #0f172a;
+            --sc-card: #1e293b;
+            --sc-border: #334155;
+            --sc-muted: #94a3b8;
+            /* Product card theme (SCSS-style variables) */
+            --sc-product-card-radius: 0.75rem;
+            --sc-product-price: #22c55e;
+            --sc-product-btn-start: #6366f1;
+            --sc-product-btn-end: #4f46e5;
+            --sc-product-badge: #f97316;
+            --sc-product-frost-bg: rgba(255, 255, 255, 0.12);
+            --sc-product-frost-blur: 12px;
+            --sc-product-image-bg: rgba(255, 255, 255, 0.95);
+            --sc-product-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            --sc-product-spacing: 1rem;
+        }
+        body { background: var(--sc-dark); color: #f1f5f9; min-height: 100vh; }
+        /* Products tab: subtle page background so frost shows through */
+        #products .products-page-wrap { min-height: 400px; background: linear-gradient(135deg, var(--sc-dark) 0%, #1e293b 40%, #0f172a 100%); padding: var(--sc-product-spacing); border-radius: var(--sc-product-card-radius); }
+        .sidebar {
+            width: 260px;
+            min-height: 100vh;
+            background: var(--sc-card);
+            border-right: 1px solid var(--sc-border);
+        }
+        .sidebar .nav-link {
+            color: var(--sc-muted);
+            border-radius: 0.375rem;
+            padding: 0.6rem 1rem;
+        }
+        .sidebar .nav-link:hover { color: var(--sc-primary); background: rgba(var(--sc-primary-rgb), 0.1); }
+        .sidebar .nav-link.active { color: var(--sc-primary); background: rgba(var(--sc-primary-rgb), 0.15); font-weight: 600; }
+        .sidebar .logo {
+            font-weight: 700;
+            color: var(--sc-primary);
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--sc-border);
+        }
+        .sidebar .logo .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .sidebar .logo .logo-sub {
+            font-size: 0.7em;
+            font-weight: 600;
+            color: var(--sc-muted);
+        }
+        .tab-content { display: none !important; }
+        .tab-content.active { display: block !important; }
+        .card { background: var(--sc-card); border: 1px solid var(--sc-border); }
+        .card-header { border-bottom: 1px solid var(--sc-border); background: rgba(0,0,0,0.2); }
+        .table { color: inherit; }
+        .table thead th { border-color: var(--sc-border); color: var(--sc-muted); font-size: 0.75rem; text-transform: uppercase; }
+        .table td, .table th { border-color: var(--sc-border); padding: 0.75rem 1rem; }
+        .form-control, .form-select { background: rgba(51,65,85,0.5); border-color: var(--sc-border); color: #f1f5f9; }
+        .form-control:focus, .form-select:focus { background: rgba(51,65,85,0.7); border-color: var(--sc-primary); color: #f1f5f9; }
+        .btn-success { background: var(--sc-primary); border-color: var(--sc-primary); }
+        .btn-success:hover { background: #0d9488; border-color: #0d9488; }
+        .badge { font-weight: 500; }
+        .min-height-pm { min-height: 280px; }
+        .pm-card { padding: 8px 12px; margin-bottom: 6px; background: var(--sc-card); border: 1px solid var(--sc-border); border-radius: 6px; cursor: grab; }
+        .pm-card:active { cursor: grabbing; }
+        .sortable-ghost { opacity: 0.4; }
+
+        /* Product cards – Bootstrap 5 + Flexbox + frosted lower section */
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border-radius: var(--sc-product-card-radius);
+            overflow: hidden;
+            box-shadow: var(--sc-product-shadow);
+            border: none;
+            background: transparent;
+        }
+        .product-card__image-wrap {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            padding: var(--sc-product-spacing);
+            background: var(--sc-product-image-bg);
+        }
+        .product-card__image-wrap img {
+            max-height: 180px;
+            width: auto;
+            object-fit: contain;
+        }
+        .product-card__frost {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: var(--sc-product-spacing);
+            background: var(--sc-product-frost-bg);
+            -webkit-backdrop-filter: blur(var(--sc-product-frost-blur));
+            backdrop-filter: blur(var(--sc-product-frost-blur));
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .product-card__title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #f1f5f9;
+            margin: 0;
+            line-height: 1.35;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .product-card__price {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--sc-product-price);
+        }
+        .product-card__meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .product-card__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1e293b;
+            background: transparent;
+        }
+        .product-card__badge i { color: var(--sc-product-badge); }
+        .product-card__btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0.6rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            color: #fff;
+            border: none;
+            border-radius: 9999px;
+            background: linear-gradient(90deg, var(--sc-product-btn-start), var(--sc-product-btn-end));
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.35);
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .product-card__btn:hover { color: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(99, 102, 241, 0.45); }
+    </style>
+</head>
+<body class="d-flex">
+    <!-- Sidebar -->
+    <aside class="sidebar flex-shrink-0" id="sidebar">
+        <div class="logo d-flex align-items-center gap-2">
+            <i class="ph-fill ph-flask text-primary" style="font-size:1.5rem;"></i>
+            <span class="logo-text"><span>SUCCESS</span><span class="logo-sub">CHEMISTRY</span></span>
+        </div>
+        <nav class="nav flex-column p-2 gap-1">
+            <a href="#" class="nav-link active" data-tab="overview" onclick="return switchTab('overview', event);"><i class="fa-solid fa-chart-line me-2"></i>Admin</a>
+            <a href="#" class="nav-link" data-tab="analytics" onclick="return switchTab('analytics', event);"><i class="fa-solid fa-chart-bar me-2"></i>Analytics</a>
+            <a href="#" class="nav-link" data-tab="products" onclick="return switchTab('products', event);"><i class="fa-solid fa-box me-2"></i>Products</a>
+            <a href="#" class="nav-link" data-tab="sales-channels" onclick="return switchTab('sales-channels', event);"><i class="fa-solid fa-cart-shopping me-2"></i>Sales Channels</a>
+            <a href="#" class="nav-link" data-tab="woo-orders" onclick="return switchTab('woo-orders', event);"><i class="fa-solid fa-store me-2"></i>Woo Orders</a>
+            <a href="#" class="nav-link" data-tab="project-management" onclick="return switchTab('project-management', event);"><i class="fa-solid fa-list-check me-2"></i>Project Management</a>
+            <a href="#" class="nav-link" data-tab="links" onclick="return switchTab('links', event);"><i class="fa-solid fa-link me-2"></i>Links</a>
+            <a href="#" class="nav-link" data-tab="ai" onclick="return switchTab('ai', event);"><i class="fa-solid fa-wand-magic-sparkles me-2"></i>AI</a>
+            <a href="#" class="nav-link" data-tab="future-upgrades" onclick="return switchTab('future-upgrades', event);"><i class="fa-solid fa-rocket me-2"></i>Future Upgrades</a>
+        </nav>
+        <div class="mt-auto p-2 border-top border-secondary">
+            <a href="http://localhost:5174/vision-board" target="_blank" class="btn btn-outline-primary w-100 mb-2" title="Open Vision Board">Vision Board</a>
+            <button class="btn btn-outline-secondary w-100" onclick="logout()">Logout</button>
+            <a href="/admin/" class="d-block text-center small text-muted mt-2">Original admin</a>
+        </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="flex-grow-1 d-flex flex-column min-vh-100">
+        <header class="border-bottom border-secondary py-3 px-4 d-flex justify-content-between align-items-center">
+            <h1 class="h5 mb-0" id="pageTitle">Admin</h1>
+            <div class="d-flex align-items-center gap-3">
+                <span class="text-success fw-bold" id="headerRevenue">$0.00</span>
+            </div>
+        </header>
+        <div class="container-fluid py-4">
+
+            <!-- Overview -->
+            <div id="overview" class="tab-content active">
+                <div class="row g-3 mb-4">
+                    <div class="col-sm-6 col-xl-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="text-primary mb-2"><i class="fa-solid fa-dollar-sign"></i></div>
+                                <h6 class="text-muted text-uppercase small">Revenue</h6>
+                                <div class="fs-4 fw-bold text-primary" id="totalRevenue">$0</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="text-primary mb-2"><i class="fa-solid fa-users"></i></div>
+                                <h6 class="text-muted text-uppercase small">Customers</h6>
+                                <div class="fs-4 fw-bold text-primary" id="totalCustomers">0</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="text-primary mb-2"><i class="fa-solid fa-store"></i></div>
+                                <h6 class="text-muted text-uppercase small">Sales</h6>
+                                <div class="fs-4 fw-bold text-primary" id="totalSales">$0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Recent Orders</div>
+                    <div class="card-body p-0" id="ordersTable">
+                        <div class="p-4 text-muted text-center">Loading…</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products -->
+            <div id="products" class="tab-content">
+                <div class="card mb-3">
+                    <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <span>All Products</span>
+                        <input type="text" id="searchProductsInput" class="form-control form-control-sm" style="max-width: 220px;" placeholder="Search..." onkeyup="typeof searchProducts==='function'&&searchProducts(this.value)">
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="products-page-wrap">
+                            <div id="productsTable" class="row g-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sales Channels -->
+            <div id="sales-channels" class="tab-content">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>Sales Channels</span>
+                        <button class="btn btn-success btn-sm" onclick="addSalesChannel()">Add Channel</button>
+                    </div>
+                    <div class="card-body p-0">
+                        <table class="table table-hover mb-0">
+                            <thead><tr><th>Order</th><th>Name</th><th>Status</th><th>URL</th><th></th></tr></thead>
+                            <tbody id="salesChannelsTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WooCommerce Orders -->
+            <div id="woo-orders" class="tab-content">
+                <div class="card mb-3">
+                    <div class="card-header">WooCommerce API</div>
+                    <div class="card-body">
+                        <p class="text-muted small">Credentials from .env or save below. Run <code>schema/woo-mysql.sql</code> for MySQL.</p>
+                        <div class="row g-2 mb-2">
+                            <div class="col-md-6"><label class="form-label small">Site URL</label><input type="text" id="wooSiteUrl" class="form-control form-control-sm" placeholder="https://yoursite.com"></div>
+                            <div class="col-md-3"><label class="form-label small">Consumer Key</label><input type="text" id="wooConsumerKey" class="form-control form-control-sm" placeholder="ck_..."></div>
+                            <div class="col-md-3"><label class="form-label small">Consumer Secret</label><input type="password" id="wooConsumerSecret" class="form-control form-control-sm" placeholder="cs_..."></div>
+                        </div>
+                        <button class="btn btn-success btn-sm me-2" onclick="saveWooConfig()">Save config</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="loadWooConfig()">Reload</button>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <button class="btn btn-success" id="wooSyncBtn" onclick="syncWooOrders()">Fetch orders from WooCommerce</button>
+                        <div id="wooOrdersMessage" class="small mt-2"></div>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header">WooCommerce orders</div>
+                    <div class="card-body p-0">
+                        <table class="table table-hover mb-0">
+                            <thead><tr><th>#</th><th>Customer</th><th>Date</th><th>Total</th><th>Status</th></tr></thead>
+                            <tbody id="wooOrdersTable"><tr><td colspan="5" class="text-center text-muted py-4">Load config and click Fetch orders.</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>WooCommerce customers</span>
+                        <button class="btn btn-success btn-sm" id="wooSyncCustomersBtn" onclick="syncWooCustomers()">Fetch customers</button>
+                    </div>
+                    <div class="card-body p-0">
+                        <div id="wooCustomersMessage" class="small px-3 py-2 text-muted"></div>
+                        <table class="table table-hover mb-0">
+                            <thead><tr><th>Name</th><th>Email</th><th>Orders</th><th>Total spent</th></tr></thead>
+                            <tbody id="wooCustomersTable"><tr><td colspan="4" class="text-center text-muted py-4">Click &quot;Fetch customers&quot; to load from WooCommerce.</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Management (SortableJS Kanban) -->
+            <div id="project-management" class="tab-content">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <p class="text-muted small mb-2">Kanban board powered by <a href="https://github.com/SortableJS/Sortable" target="_blank" rel="noopener">SortableJS</a> (MIT). Drag cards between columns. Data saved in browser.</p>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <input type="text" id="pmTaskTitle" class="form-control form-control-sm" placeholder="New task title" style="max-width:240px">
+                            <button class="btn btn-success btn-sm" onclick="pmAddTask()">Add task</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-secondary bg-opacity-25">To Do</div>
+                            <div class="card-body py-2 min-height-pm" id="pm-col-todo"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-warning bg-opacity-25">In Progress</div>
+                            <div class="card-body py-2 min-height-pm" id="pm-col-progress"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-success bg-opacity-25">Done</div>
+                            <div class="card-body py-2 min-height-pm" id="pm-col-done"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics -->
+            <div id="analytics" class="tab-content">
+                <div class="card"><div class="card-body">Analytics – connect Google Analytics or other tools.</div></div>
+            </div>
+
+            <!-- AI -->
+            <div id="ai" class="tab-content">
+                <div class="card mb-3">
+                    <div class="card-header d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles text-primary"></i>
+                        <span>AI Assistant</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted small mb-3">Ask for summaries, copy ideas, or task suggestions. Connect your API key in settings to enable.</p>
+                        <div class="mb-3">
+                            <label class="form-label small">Prompt</label>
+                            <textarea id="aiPromptInput" class="form-control" rows="3" placeholder="e.g. Summarize last 10 orders for a quick report…"></textarea>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2 align-items-center">
+                            <button type="button" class="btn btn-success" id="aiAskBtn" onclick="aiAsk()">
+                                <i class="fa-solid fa-paper-plane me-1"></i>Ask
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="document.getElementById('aiPromptInput').value=''; document.getElementById('aiResult').innerHTML=''; document.getElementById('aiResult').classList.add('d-none');">Clear</button>
+                            <span class="small text-muted" id="aiStatus"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3 d-none" id="aiResultCard">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>Response</span>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="aiCopyResult()"><i class="fa-solid fa-copy"></i> Copy</button>
+                    </div>
+                    <div class="card-body">
+                        <div id="aiResult" class="small text-break"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Quick actions</div>
+                    <div class="card-body">
+                        <div class="d-flex flex-wrap gap-2">
+                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="aiSetPrompt('Summarize my last 20 orders in one paragraph.')">Summarize orders</button>
+                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="aiSetPrompt('Suggest 3 short task titles for today based on my Kanban.')">Task ideas</button>
+                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="aiSetPrompt('Write a two-sentence product highlight for our best seller.')">Product highlight</button>
+                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="aiSetPrompt('Draft a brief weekly sales summary template.')">Sales summary template</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Links -->
+            <div id="links" class="tab-content">
+                <div class="card"><div class="card-body" id="linksContent">Links – load from API or static list.</div></div>
+            </div>
+
+            <!-- Future Upgrades / Built with -->
+            <div id="future-upgrades" class="tab-content">
+                <div class="card mb-3">
+                    <div class="card-header">Built with</div>
+                    <div class="card-body">
+                        <p class="mb-2 fw-semibold text-primary">Bootstrap 5.3.7 + Laravel 12 + Vite</p>
+                        <p class="text-muted small mb-0">SUCCESS Admin foundation stack.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Features &amp; capabilities</div>
+                    <div class="card-body">
+                        <ul class="list-unstyled row g-2 mb-0">
+                            <li class="col-md-6 d-flex align-items-center gap-2"><i class="fa-solid fa-check text-success"></i> Modular ES6 component-based JavaScript</li>
+                            <li class="col-md-6 d-flex align-items-center gap-2"><i class="fa-solid fa-check text-success"></i> Built-in POS system UI</li>
+                            <li class="col-md-6 d-flex align-items-center gap-2"><i class="fa-solid fa-check text-success"></i> Built-in RTL system</li>
+                            <li class="col-md-6 d-flex align-items-center gap-2"><i class="fa-solid fa-check text-success"></i> jQuery demo and startup version</li>
+                            <li class="col-md-6 d-flex align-items-center gap-2"><i class="fa-solid fa-check text-success"></i> Super clean design</li>
+                            <li class="col-md-6 d-flex align-items-center gap-2"><i class="fa-solid fa-check text-success"></i> FontAwesome icons with 2,000+ icons</li>
+                            <li class="col-md-6 d-flex align-items-center gap-2"><i class="fa-solid fa-check text-success"></i> Extended Bootstrap 5 UI components</li>
+                            <li class="col-md-6 d-flex align-items-center gap-2"><i class="fa-solid fa-check text-success"></i> Vite 7.0 build process with livereload + SCSS support</li>
+                            <li class="col-md-6 d-flex align-items-center gap-2"><i class="fa-solid fa-check text-success"></i> SCSS variable control</li>
+                            <li class="col-md-6 d-flex align-items-center gap-2"><i class="fa-solid fa-check text-success"></i> 30+ styled plugins</li>
+                            <li class="col-md-6 d-flex align-items-center gap-2"><i class="fa-solid fa-check text-success"></i> 30+ unique pages</li>
+                            <li class="col-md-6 d-flex align-items-center gap-2"><i class="fa-solid fa-check text-success"></i> Unlimited widget combination</li>
+                            <li class="col-md-6 d-flex align-items-center gap-2"><i class="fa-solid fa-check text-success"></i> HTML5 Flexbox support</li>
+                            <li class="col-md-6 d-flex align-items-center gap-2"><i class="fa-solid fa-check text-success"></i> Well documented</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <footer class="border-top border-secondary py-2 px-4 mt-auto">
+            <p class="small text-muted mb-0">Built with Bootstrap 5.3.7 + Laravel 12 + Vite · Modular ES6 · FontAwesome 2,000+ icons · SCSS · Well documented</p>
+        </footer>
+    </main>
+
+    <script src="/products-data.js"></script>
+    <script src="/woocommerce-order-integration.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+    <script>
+        const ADMIN_API_BASE = 'http://localhost:3001';
+        function logout() { location.reload(); }
+        function switchTab(tabName, event) {
+            if (event) { event.preventDefault(); event.stopPropagation(); }
+            document.querySelectorAll('.sidebar .nav-link').forEach(l => l.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => { c.classList.remove('active'); c.style.display = 'none'; });
+            const navItem = document.querySelector('.sidebar .nav-link[data-tab="' + tabName + '"]');
+            if (navItem) navItem.classList.add('active');
+            const titles = { overview:'Admin', products:'Products', 'sales-channels':'Sales Channels', 'woo-orders':'WooCommerce Orders', 'project-management':'Project Management', analytics:'Analytics', links:'Links', ai:'AI', 'future-upgrades':'Future Upgrades' };
+            const pt = document.getElementById('pageTitle'); if (pt && titles[tabName]) pt.textContent = titles[tabName];
+            const tc = document.getElementById(tabName); if (tc) { tc.classList.add('active'); tc.style.display = 'block'; }
+            if (tabName === 'woo-orders') { loadWooConfig(); loadWooOrders(); loadWooCustomers(); }
+            if (tabName === 'project-management') { pmLoadBoard(); pmInitSortable(); }
+            if (tabName === 'products' && typeof loadProducts === 'function') loadProducts();
+            if (tabName === 'sales-channels' && typeof loadSalesChannels === 'function') loadSalesChannels();
+            if (tabName === 'overview' && typeof loadDashboardData === 'function') loadDashboardData();
+            if (tabName === 'ai') { document.getElementById('aiResultCard').classList.add('d-none'); document.getElementById('aiStatus').textContent = ''; }
+            return false;
+        }
+        async function loadWooConfig() {
+            try {
+                const res = await fetch(ADMIN_API_BASE + '/api/woo/config');
+                if (!res.ok) return;
+                const c = await res.json();
+                var u = document.getElementById('wooSiteUrl'); var k = document.getElementById('wooConsumerKey'); var s = document.getElementById('wooConsumerSecret');
+                if (u) u.value = c.site_url || ''; if (k) k.value = c.consumer_key || ''; if (s) s.value = c.consumer_secret || '';
+            } catch (e) {}
+        }
+        async function saveWooConfig() {
+            var site_url = document.getElementById('wooSiteUrl')?.value?.trim() || '';
+            var consumer_key = document.getElementById('wooConsumerKey')?.value?.trim() || '';
+            var consumer_secret = document.getElementById('wooConsumerSecret')?.value?.trim() || '';
+            try {
+                const res = await fetch(ADMIN_API_BASE + '/api/woo/config', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ site_url, consumer_key, consumer_secret }) });
+                if (res.ok) { document.getElementById('wooOrdersMessage').textContent = 'Saved.'; document.getElementById('wooOrdersMessage').className = 'small mt-2 text-success'; }
+                else { var d = await res.json().catch(() => ({})); alert(d.error || 'Save failed'); }
+            } catch (e) { alert(e.message); }
+        }
+        async function loadWooOrders() {
+            var tbody = document.getElementById('wooOrdersTable');
+            if (!tbody) return;
+            try {
+                const res = await fetch(ADMIN_API_BASE + '/api/woo/orders?limit=200');
+                var data = await res.json().catch(function(){ return { orders: [], total: 0 }; });
+                var orders = data.orders || [];
+                if (orders.length === 0) { tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted py-4">No orders. Save API config and click Fetch orders.</td></tr>'; return; }
+                tbody.innerHTML = orders.map(function(o) {
+                    var date = o.created_at_woo ? new Date(o.created_at_woo).toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' }) : '—';
+                    return '<tr><td>' + (o.number || o.woo_order_id) + '</td><td>' + ((o.customer_name||'').trim() || o.customer_email || '—') + '</td><td>' + date + '</td><td>' + (o.currency||'$') + ' ' + parseFloat(o.total||0).toFixed(2) + '</td><td><span class="badge bg-secondary">' + (o.status||'—') + '</span></td></tr>';
+                }).join('');
+            } catch (e) { tbody.innerHTML = '<tr><td colspan="5" class="text-center text-danger py-4">Cannot load. Run: npm run admin</td></tr>'; }
+        }
+        async function syncWooOrders() {
+            var btn = document.getElementById('wooSyncBtn'); var msg = document.getElementById('wooOrdersMessage');
+            if (btn) { btn.disabled = true; btn.textContent = 'Fetching…'; }
+            if (msg) { msg.textContent = 'Fetching…'; msg.className = 'small mt-2 text-muted'; }
+            try {
+                var res = await fetch(ADMIN_API_BASE + '/api/woo/sync', { method: 'POST' });
+                var data = await res.json().catch(function(){ return {}; });
+                if (res.ok) { msg.textContent = 'Synced ' + (data.synced||0) + ' orders (total ' + (data.total||0) + ')'; msg.className = 'small mt-2 text-success'; loadWooOrders(); }
+                else { msg.textContent = data.error || 'Sync failed'; msg.className = 'small mt-2 text-danger'; alert(data.error || 'Sync failed'); }
+            } catch (e) { msg.textContent = e.message; msg.className = 'small mt-2 text-danger'; alert(e.message); }
+            if (btn) { btn.disabled = false; btn.textContent = 'Fetch orders from WooCommerce'; }
+        }
+        async function loadWooCustomers() {
+            var tbody = document.getElementById('wooCustomersTable');
+            if (!tbody) return;
+            try {
+                var res = await fetch(ADMIN_API_BASE + '/api/woo/customers?limit=200');
+                var data = await res.json().catch(function(){ return { customers: [], total: 0 }; });
+                var list = data.customers || [];
+                if (list.length === 0) { tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted py-4">Click &quot;Fetch customers&quot; to load from WooCommerce.</td></tr>'; return; }
+                tbody.innerHTML = list.map(function(c){ var name = ((c.first_name||'')+' '+(c.last_name||'')).trim() || c.username || '—'; return '<tr><td>'+name+'</td><td>'+c.email+'</td><td>'+c.orders_count+'</td><td>'+c.total_spent+'</td></tr>'; }).join('');
+            } catch (e) { tbody.innerHTML = '<tr><td colspan="4" class="text-center text-danger py-4">Could not load customers.</td></tr>'; }
+        }
+        async function syncWooCustomers() {
+            var btn = document.getElementById('wooSyncCustomersBtn'); var msg = document.getElementById('wooCustomersMessage');
+            if (btn) { btn.disabled = true; btn.textContent = 'Fetching…'; }
+            if (msg) { msg.textContent = 'Fetching customers…'; }
+            try {
+                var res = await fetch(ADMIN_API_BASE + '/api/woo/sync-customers', { method: 'POST' });
+                var data = await res.json().catch(function(){ return {}; });
+                if (res.ok) { if (msg) msg.textContent = 'Loaded '+data.total+' customers.'; loadWooCustomers(); }
+                else { if (msg) msg.textContent = data.error || 'Failed'; }
+            } catch (e) { if (msg) msg.textContent = e.message; }
+            if (btn) { btn.disabled = false; btn.textContent = 'Fetch customers'; }
+        }
+        window.loadWooCustomers = loadWooCustomers; window.syncWooCustomers = syncWooCustomers;
+
+        var PM_STORAGE_KEY = 'successAdminPM';
+        var pmSortables = [];
+        function pmAddTask() {
+            var input = document.getElementById('pmTaskTitle');
+            var title = (input && input.value) ? input.value.trim() : '';
+            if (!title) return;
+            var board = pmLoadBoardFromStorage();
+            board.todo.push({ id: Date.now().toString(), title: title });
+            pmSaveBoardToStorage(board);
+            pmLoadBoard();
+            if (input) input.value = '';
+        }
+        function pmLoadBoardFromStorage() {
+            try {
+                var raw = localStorage.getItem(PM_STORAGE_KEY);
+                if (raw) { var o = JSON.parse(raw); return { todo: o.todo || [], progress: o.progress || [], done: o.done || [] }; }
+            } catch (e) {}
+            return { todo: [], progress: [], done: [] };
+        }
+        function pmSaveBoardToStorage(board) {
+            localStorage.setItem(PM_STORAGE_KEY, JSON.stringify(board));
+        }
+        function pmRenderColumn(colKey) {
+            var board = pmLoadBoardFromStorage();
+            var list = board[colKey] || [];
+            var html = list.map(function(t){ return '<div class="pm-card" data-id="'+t.id+'">'+t.title+'</div>'; }).join('');
+            var el = document.getElementById('pm-col-'+colKey);
+            if (el) { el.innerHTML = html; }
+        }
+        function pmLoadBoard() {
+            pmRenderColumn('todo');
+            pmRenderColumn('progress');
+            pmRenderColumn('done');
+        }
+        function pmCollectBoardFromDOM() {
+            var b = { todo: [], progress: [], done: [] };
+            ['todo','progress','done'].forEach(function(colKey){
+                var el = document.getElementById('pm-col-'+colKey);
+                if (!el) return;
+                var cards = el.querySelectorAll('.pm-card');
+                for (var i = 0; i < cards.length; i++) {
+                    var c = cards[i];
+                    b[colKey].push({ id: c.getAttribute('data-id') || ('id-'+i), title: c.textContent.trim() });
+                }
+            });
+            return b;
+        }
+        function pmInitSortable() {
+            if (window.pmSortables && window.pmSortables.length) { window.pmSortables.forEach(function(s){ if (s && s.destroy) s.destroy(); }); window.pmSortables = []; }
+            pmLoadBoard();
+            ['todo','progress','done'].forEach(function(colKey){
+                var el = document.getElementById('pm-col-'+colKey);
+                if (!el || !window.Sortable) return;
+                var s = window.Sortable.create(el, {
+                    group: 'pm',
+                    animation: 150,
+                    ghostClass: 'sortable-ghost',
+                    onEnd: function(){ pmSaveBoardToStorage(pmCollectBoardFromDOM()); }
+                });
+                window.pmSortables = window.pmSortables || [];
+                window.pmSortables.push(s);
+            });
+        }
+        window.pmAddTask = pmAddTask; window.pmLoadBoard = pmLoadBoard; window.pmInitSortable = pmInitSortable;
+
+        window.loadWooConfig = loadWooConfig; window.saveWooConfig = saveWooConfig; window.loadWooOrders = loadWooOrders; window.syncWooOrders = syncWooOrders;
+        function loadSalesChannels() {
+            var ch = JSON.parse(localStorage.getItem('salesChannels') || '[]');
+            if (ch.length === 0) { ch = [ { id:1, name:'Amazon', status:'Active', url:'https://sellercentral.amazon.com', order:1 }, { id:2, name:'eBay', status:'Active', url:'https://www.ebay.com/sellercenter', order:2 }, { id:3, name:'WooCommerce', status:'Active', url:'', order:3 } ]; localStorage.setItem('salesChannels', JSON.stringify(ch)); }
+            ch.sort(function(a,b){ return (a.order||0) - (b.order||0); });
+            var el = document.getElementById('salesChannelsTable'); if (!el) return;
+            el.innerHTML = ch.map(function(c,i){ return '<tr><td><button class="btn btn-sm btn-outline-secondary" onclick="moveChannel('+c.id+',\'up\')" '+(i===0?'disabled':'')+'>↑</button> <button class="btn btn-sm btn-outline-secondary" onclick="moveChannel('+c.id+',\'down\')" '+(i===ch.length-1?'disabled':'')+'>↓</button></td><td><input class="form-control form-control-sm" value="'+c.name+'" onchange="updateChannel('+c.id+',\'name\',this.value)" style="max-width:180px"></td><td><select class="form-select form-select-sm" onchange="updateChannel('+c.id+',\'status\',this.value)" style="max-width:120px"><option value="Active"'+(c.status==='Active'?' selected':'')+'>Active</option><option value="Inactive"'+(c.status==='Inactive'?' selected':'')+'>Inactive</option></select></td><td><input class="form-control form-control-sm" value="'+(c.url||'')+'" onchange="updateChannel('+c.id+',\'url\',this.value)" placeholder="URL" style="max-width:220px"></td><td><button class="btn btn-sm btn-outline-danger" onclick="deleteChannel('+c.id+')">Delete</button></td></tr>'; }).join('');
+        }
+        function addSalesChannel() { var ch = JSON.parse(localStorage.getItem('salesChannels') || '[]'); var id = Math.max.apply(null, ch.map(function(c){ return c.id||0; }).concat([0])) + 1; ch.push({ id:id, name:'New Channel', status:'Pending', url:'', order: ch.length+1 }); localStorage.setItem('salesChannels', JSON.stringify(ch)); loadSalesChannels(); }
+        function updateChannel(id, field, value) { var ch = JSON.parse(localStorage.getItem('salesChannels') || '[]'); var c = ch.find(function(x){ return x.id === id; }); if (c) { c[field] = value; localStorage.setItem('salesChannels', JSON.stringify(ch)); } }
+        function deleteChannel(id) { if (!confirm('Delete?')) return; var ch = JSON.parse(localStorage.getItem('salesChannels') || '[]').filter(function(c){ return c.id !== id; }); localStorage.setItem('salesChannels', JSON.stringify(ch)); loadSalesChannels(); }
+        function moveChannel(id, dir) { var ch = JSON.parse(localStorage.getItem('salesChannels') || '[]'); ch.sort(function(a,b){ return (a.order||0)-(b.order||0); }); var i = ch.findIndex(function(c){ return c.id === id; }); if (i<0) return; if (dir==='up'&&i>0) { var o=ch[i].order; ch[i].order=ch[i-1].order; ch[i-1].order=o; } else if (dir==='down'&&i<ch.length-1) { var o=ch[i].order; ch[i].order=ch[i+1].order; ch[i+1].order=o; } localStorage.setItem('salesChannels', JSON.stringify(ch)); loadSalesChannels(); }
+        window.loadSalesChannels = loadSalesChannels; window.addSalesChannel = addSalesChannel; window.updateChannel = updateChannel; window.deleteChannel = deleteChannel; window.moveChannel = moveChannel;
+        function loadProducts() {
+            var el = document.getElementById('productsTable');
+            if (!el) return;
+            var products = typeof getAllProducts === 'function' ? getAllProducts() : [];
+            var q = (document.getElementById('searchProductsInput') && document.getElementById('searchProductsInput').value || '').toLowerCase().trim();
+            if (q) { products = products.filter(function(p){ var n = (p.name||'').toLowerCase(); var s = (p.sku||'').toLowerCase(); var c = (p.category||'').toLowerCase(); return n.indexOf(q) !== -1 || s.indexOf(q) !== -1 || c.indexOf(q) !== -1; }); }
+            if (products.length === 0) { el.innerHTML = '<div class="col-12 p-4 text-muted text-center">No products.</div>'; return; }
+            el.innerHTML = products.slice(0, 48).map(function(p) {
+                var img = (p.images && p.images[0]) ? p.images[0] : '';
+                var bestSeller = (p.category || '').toLowerCase().indexOf('best seller') !== -1;
+                var price = typeof p.price === 'number' ? p.price.toFixed(2) : (p.price || '0.00');
+                var title = (p.name || '').substring(0, 80) + ((p.name || '').length > 80 ? '…' : '');
+                return '<div class="col-sm-6 col-md-4 col-lg-3"><article class="product-card h-100">' +
+                    '<div class="product-card__image-wrap">' +
+                    (img ? '<img src="' + img + '" alt="" loading="lazy" onerror="this.style.display=\'none\'">' : '<span class="text-muted small">No image</span>') +
+                    '</div>' +
+                    '<div class="product-card__frost">' +
+                    '<h3 class="product-card__title">' + title.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</h3>' +
+                    '<div class="product-card__price">$' + price + '</div>' +
+                    (bestSeller ? '<div class="product-card__meta"><span class="product-card__badge"><i class="fa-solid fa-fire"></i> Best seller</span></div>' : '') +
+                    '<button type="button" class="product-card__btn" onclick="addToCart(\'' + (p.sku || '').replace(/'/g, "\\'") + '\')">Add to Cart</button>' +
+                    '</div></article></div>';
+            }).join('');
+        }
+        function addToCart(sku) { if (typeof console !== 'undefined') console.log('Add to cart:', sku); }
+        function searchProducts(v) { loadProducts(); }
+        function loadDashboardData() {
+            var ordersData = JSON.parse(localStorage.getItem('successChemistryOrders') || '[]');
+            fetch(ADMIN_API_BASE + '/api/orders?limit=1000').then(function(r){ return r.ok ? r.json() : null; }).then(function(d){ if (d && d.orders && d.orders.length) ordersData = d.orders.map(function(o){ return { id: o.order_number||o.id, orderId: o.order_number||o.id, customerName: o.customer_name, customerEmail: o.customer_email, date: o.created_at, total: o.total, status: o.status||'completed', items: o.items||[] }; }); }).catch(function(){});
+            var rev = 0; ordersData.forEach(function(o){ rev += parseFloat(o.total||0); });
+            var revEl = document.getElementById('headerRevenue'); if (revEl) revEl.textContent = '$' + rev.toFixed(2);
+            var totalRev = document.getElementById('totalRevenue'); if (totalRev) totalRev.textContent = '$' + rev.toFixed(2);
+            var totalCust = document.getElementById('totalCustomers'); if (totalCust) totalCust.textContent = new Set(ordersData.map(function(o){ return o.customerEmail; }).filter(Boolean)).size;
+            var totalSales = document.getElementById('totalSales'); if (totalSales) totalSales.textContent = '$' + rev.toFixed(2);
+            var table = document.getElementById('ordersTable'); if (!table) return;
+            if (ordersData.length === 0) { table.innerHTML = '<div class="p-4 text-muted text-center">No orders.</div>'; return; }
+            table.innerHTML = '<table class="table table-hover mb-0"><thead><tr><th>Order</th><th>Customer</th><th>Date</th><th>Total</th><th>Status</th></tr></thead><tbody>' + ordersData.slice(0,20).map(function(o){ var d = o.date ? new Date(o.date).toLocaleDateString() : '—'; return '<tr><td>'+(o.orderId||o.id)+'</td><td>'+(o.customerName||o.customerEmail||'—')+'</td><td>'+d+'</td><td>$'+parseFloat(o.total||0).toFixed(2)+'</td><td><span class="badge bg-secondary">'+(o.status||'')+'</span></td></tr>'; }).join('') + '</tbody></table>';
+        }
+        window.loadProducts = loadProducts; window.loadDashboardData = loadDashboardData;
+
+        function aiSetPrompt(text) {
+            var el = document.getElementById('aiPromptInput');
+            if (el) { el.value = text; el.focus(); }
+        }
+        function aiCopyResult() {
+            var el = document.getElementById('aiResult');
+            if (!el || !el.textContent) return;
+            navigator.clipboard.writeText(el.textContent).then(function(){ document.getElementById('aiStatus').textContent = 'Copied.'; setTimeout(function(){ document.getElementById('aiStatus').textContent = ''; }, 2000); }).catch(function(){});
+        }
+        async function aiAsk() {
+            var input = document.getElementById('aiPromptInput');
+            var prompt = (input && input.value) ? input.value.trim() : '';
+            if (!prompt) return;
+            var btn = document.getElementById('aiAskBtn');
+            var status = document.getElementById('aiStatus');
+            var resultEl = document.getElementById('aiResult');
+            var card = document.getElementById('aiResultCard');
+            if (btn) { btn.disabled = true; }
+            if (status) status.textContent = 'Thinking…';
+            if (card) card.classList.add('d-none');
+            try {
+                var res = await fetch(ADMIN_API_BASE + '/api/ai/ask', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: prompt })
+                });
+                var data = await res.json().catch(function(){ return {}; });
+                if (res.ok && data.text) {
+                    if (resultEl) { resultEl.textContent = data.text; }
+                    if (card) card.classList.remove('d-none');
+                    if (status) status.textContent = '';
+                } else {
+                    if (resultEl) { resultEl.textContent = data.error || 'No AI endpoint configured. Add /api/ai/ask to your admin API to enable.'; }
+                    if (card) card.classList.remove('d-none');
+                    if (status) status.textContent = '';
+                }
+            } catch (e) {
+                if (resultEl) resultEl.textContent = 'Error: ' + e.message + '. Ensure admin API is running and /api/ai/ask is implemented.';
+                if (card) card.classList.remove('d-none');
+                if (status) status.textContent = '';
+            }
+            if (btn) btn.disabled = false;
+        }
+        window.aiSetPrompt = aiSetPrompt; window.aiCopyResult = aiCopyResult; window.aiAsk = aiAsk;
+
+        document.addEventListener('DOMContentLoaded', function(){ loadWooConfig(); loadDashboardData(); });
+    </script>
+</body>
+</html>

@@ -34,7 +34,7 @@ function VisionMatrix({ photos, onPhotosChange, fullWidth = false }) {
         borderBottom: '1px solid var(--border-emerald)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <span style={{ fontSize: '20px' }}>👁️</span>
+          <span className="ph ph-eye" style={{ fontSize: '20px' }} aria-hidden />
           <h2 style={{
             fontFamily: 'var(--font-display)',
             fontSize: '18px',
@@ -69,7 +69,7 @@ function VisionMatrix({ photos, onPhotosChange, fullWidth = false }) {
             e.target.style.boxShadow = 'none';
           }}
         >
-          + ADD TARGET
+          <span className="ph ph-plus" style={{ marginRight: '6px' }} aria-hidden /> ADD TARGET
         </button>
       </div>
 

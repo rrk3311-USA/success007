@@ -95,15 +95,15 @@ password = credentials.get('HOSTINGER_PASS', 'your_password')
 remote_path = credentials.get('HOSTINGER_REMOTE_PATH', '/public_html')
 source_dir = os.path.abspath('$SOURCE_DIR')
 
-# Write lftp script
+# Write lftp script - quote the username,password to handle special characters
 with open('$LFTP_SCRIPT', 'w') as f:
-    f.write('set ftp:ssl-allow no\\n')
-    f.write('set ftp:passive-mode yes\\n')
-    f.write(f'open -u {user},{password} {host}\\n')
-    f.write(f'cd {remote_path}\\n')
-    f.write(f'lcd {source_dir}\\n')
-    f.write('mirror --reverse --delete --verbose --exclude-glob .git* --exclude-glob .DS_Store --exclude-glob .vercel* --exclude-glob .netlify* --exclude-glob node_modules\\n')
-    f.write('bye\\n')
+    f.write('set ftp:ssl-allow no\n')
+    f.write('set ftp:passive-mode yes\n')
+    f.write(f'open -u "{user},{password}" {host}\n')
+    f.write(f'cd {remote_path}\n')
+    f.write(f'lcd {source_dir}\n')
+    f.write('mirror --reverse --delete --verbose --exclude-glob .git* --exclude-glob .DS_Store --exclude-glob .vercel* --exclude-glob .netlify* --exclude-glob node_modules\n')
+    f.write('bye\n')
 PYEOF
     
     lftp -f "$LFTP_SCRIPT"

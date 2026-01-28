@@ -5,10 +5,100 @@
 
 // Load from .env if available
 import dotenv from 'dotenv';
+import { readFileSync, writeFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
 dotenv.config();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const ZOHO_CRM_API_URL = process.env.ZOHO_CRM_API_URL || 'https://www.zohoapis.com/crm/v2';
-const ZOHO_CRM_ACCESS_TOKEN = process.env.ZOHO_CRM_ACCESS_TOKEN || '';
+let ZOHO_CRM_ACCESS_TOKEN = process.env.ZOHO_CRM_ACCESS_TOKEN || '';
+const ZOHO_REFRESH_TOKEN = process.env.ZOHO_REFRESH_TOKEN || '';
+const ZOHO_CLIENT_ID = process.env.ZOHO_CLIENT_ID || '';
+const ZOHO_CLIENT_SECRET = process.env.ZOHO_CLIENT_SECRET || '';
+const ZOHO_TOKEN_URL = 'https://accounts.zoho.com/oauth/v2/token';
+
+/**
+ * Refresh access token if expired
+ */
+async function refreshTokenIfNeeded() {
+    if (!ZOHO_REFRESH_TOKEN || !ZOHO_CLIENT_ID || !ZOHO_CLIENT_SECRET) {
+        return false;
+    }
+
+    try {
+        const response = await fetch(ZOHO_TOKEN_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({
+                grant_type: 'refresh_token',
+                client_id: ZOHO_CLIENT_ID,
+                client_secret: ZOHO_CLIENT_SECRET,
+                refresh_token: ZOHO_REFRESH_TOKEN
+            })
+        });
+
+        if (response.ok) {
+            const tokenData = await response.json();
+            ZOHO_CRM_ACCESS_TOKEN = tokenData.access_token;
+            
+            // Update .env file
+            const envPath = join(__dirname, '.env');
+            let envContent = readFileSync(envPath, 'utf8');
+            envContent = envContent.replace(
+                /ZOHO_CRM_ACCESS_TOKEN=.*/,
+                `ZOHO_CRM_ACCESS_TOKEN=${tokenData.access_token}`
+            );
+            writeFileSync(envPath, envContent);
+            
+            console.log('✅ Zoho access token refreshed');
+            return true;
+        }
+    } catch (error) {
+        console.error('Error refreshing Zoho token:', error);
+    }
+    
+    return false;
+}
+
+/**
+ * Make API request with automatic token refresh on 401
+ */
+async function zohoApiRequest(url, options = {}) {
+    let response = await fetch(url, {
+        ...options,
+        headers: {
+            'Authorization': `Zoho-oauthtoken ${ZOHO_CRM_ACCESS_TOKEN}`,
+            'Content-Type': 'application/json',
+            ...options.headers
+        }
+    });
+
+    // If unauthorized, try refreshing token
+    if (response.status === 401 && ZOHO_REFRESH_TOKEN) {
+        console.log('🔄 Access token expired, refreshing...');
+        const refreshed = await refreshTokenIfNeeded();
+        
+        if (refreshed) {
+            // Retry request with new token
+            response = await fetch(url, {
+                ...options,
+                headers: {
+                    'Authorization': `Zoho-oauthtoken ${ZOHO_CRM_ACCESS_TOKEN}`,
+                    'Content-Type': 'application/json',
+                    ...options.headers
+                }
+            });
+        }
+    }
+
+    return response;
+}
 
 /**
  * Create a lead in Zoho CRM
@@ -20,12 +110,8 @@ async function createZohoLead(leadData) {
             return null;
         }
 
-        const response = await fetch(`${ZOHO_CRM_API_URL}/Leads`, {
+        const response = await zohoApiRequest(`${ZOHO_CRM_API_URL}/Leads`, {
             method: 'POST',
-            headers: {
-                'Authorization': `Zoho-oauthtoken ${ZOHO_CRM_ACCESS_TOKEN}`,
-                'Content-Type': 'application/json'
-            },
             body: JSON.stringify({
                 data: [{
                     First_Name: leadData.firstName || leadData.name?.split(' ')[0] || 'Lead',
@@ -66,19 +152,22 @@ async function findZohoLeadByEmail(email) {
             return null;
         }
 
-        const response = await fetch(`${ZOHO_CRM_API_URL}/Leads/search?criteria=(Email:equals:${encodeURIComponent(email)})`, {
-            headers: {
-                'Authorization': `Zoho-oauthtoken ${ZOHO_CRM_ACCESS_TOKEN}`,
-                'Content-Type': 'application/json'
-            }
-        });
+        const response = await zohoApiRequest(`${ZOHO_CRM_API_URL}/Leads/search?criteria=(Email:equals:${encodeURIComponent(email)})`);
 
         if (!response.ok) {
             return null;
         }
 
-        const data = await response.json();
-        return data.data?.[0] || null;
+        const text = await response.text();
+        if (!text) return null;
+        
+        try {
+            const data = JSON.parse(text);
+            return data.data?.[0] || null;
+        } catch (e) {
+            // Empty response or invalid JSON
+            return null;
+        }
     } catch (error) {
         console.error('Error finding Zoho lead:', error);
         return null;
@@ -94,12 +183,8 @@ async function updateZohoLead(leadId, updateData) {
             return null;
         }
 
-        const response = await fetch(`${ZOHO_CRM_API_URL}/Leads/${leadId}`, {
+        const response = await zohoApiRequest(`${ZOHO_CRM_API_URL}/Leads/${leadId}`, {
             method: 'PUT',
-            headers: {
-                'Authorization': `Zoho-oauthtoken ${ZOHO_CRM_ACCESS_TOKEN}`,
-                'Content-Type': 'application/json'
-            },
             body: JSON.stringify({
                 data: [updateData]
             })

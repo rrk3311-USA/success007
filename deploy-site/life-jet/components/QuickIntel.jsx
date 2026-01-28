@@ -12,7 +12,7 @@ function QuickIntel({ deals, projects, visionPhotos }) {
         paddingBottom: '12px',
         borderBottom: '1px solid var(--border-clay)'
       }}>
-        <span style={{ fontSize: '18px' }}>📊</span>
+        <span className="ph ph-chart-bar" style={{ fontSize: '18px' }} aria-hidden />
         <h2 style={{
           fontFamily: 'var(--font-display)',
           fontSize: '14px',

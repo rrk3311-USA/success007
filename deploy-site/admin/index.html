@@ -4,39 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚗️</text></svg>">
-    <title>Admin Dashboard - Success Chemistry</title>
+    <title>SUCCESS</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons (fill weight) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/fill/style.css">
     <style>
-        /* shadcn/ui Theme Variables */
+        /* SUCCESS Admin Dark Theme Variables */
         :root {
-            --background: 0 0% 100%;
-            --foreground: 222.2 47.4% 11.2%;
-            --card: 0 0% 100%;
-            --card-foreground: 222.2 47.4% 11.2%;
-            --popover: 0 0% 100%;
-            --popover-foreground: 222.2 47.4% 11.2%;
-            --primary: 221.2 83.2% 53.3%;
-            --primary-foreground: 210 40% 98%;
-            --secondary: 210 40% 96.1%;
-            --secondary-foreground: 222.2 47.4% 11.2%;
-            --muted: 210 40% 96.1%;
-            --muted-foreground: 215.4 16.3% 35%;
-            --accent: 210 40% 96.1%;
-            --accent-foreground: 222.2 47.4% 11.2%;
+            --background: 200 25% 12%;
+            --foreground: 0 0% 98%;
+            --card: 200 25% 15%;
+            --card-foreground: 0 0% 98%;
+            --popover: 200 25% 15%;
+            --popover-foreground: 0 0% 98%;
+            --primary: 160 100% 50%;
+            --primary-foreground: 200 25% 12%;
+            --secondary: 200 25% 20%;
+            --secondary-foreground: 0 0% 98%;
+            --muted: 200 25% 20%;
+            --muted-foreground: 0 0% 70%;
+            --accent: 160 100% 45%;
+            --accent-foreground: 0 0% 98%;
             --destructive: 0 84.2% 60.2%;
-            --destructive-foreground: 210 40% 98%;
-            --border: 214.3 31.8% 91.4%;
-            --input: 214.3 31.8% 91.4%;
-            --ring: 221.2 83.2% 53.3%;
+            --destructive-foreground: 0 0% 98%;
+            --border: 200 25% 25%;
+            --input: 200 25% 20%;
+            --ring: 160 100% 50%;
             --radius: 0.5rem;
             
-            /* Success & Warning */
-            --success: 142.1 76.2% 36.3%;
-            --success-foreground: 355.7 100% 97.3%;
-            --warning: 38 92% 50%;
-            --warning-foreground: 26 83.3% 14.1%;
+            /* Success & Warning - Green/Teal theme */
+            --success: 160 100% 50%;
+            --success-foreground: 200 25% 12%;
+            --warning: 45 100% 60%;
+            --warning-foreground: 200 25% 12%;
         }
 
         * {
@@ -56,6 +58,34 @@
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* SUCCESS Admin Logo Style */
+        .quantum-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: hsl(var(--primary));
+        }
+        .quantum-logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .quantum-logo-text .sub {
+            font-size: 0.7em;
+            font-weight: 600;
+            color: hsl(var(--muted-foreground));
+        }
+        
+        .quantum-logo-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: hsl(var(--primary));
         }
 
         /* Login Screen */
@@ -189,7 +219,7 @@
 
         .sidebar {
             width: 16rem;
-            background: hsl(var(--card));
+            background: hsl(200 25% 10%);
             border-right: 1px solid hsl(var(--border));
             display: flex;
             flex-direction: column;
@@ -271,8 +301,9 @@
         }
 
         .nav-item.active {
-            background: hsl(var(--primary) / 0.1);
+            background: hsl(var(--primary) / 0.15);
             color: hsl(var(--primary));
+            border-left: 3px solid hsl(var(--primary));
         }
 
         .nav-item-icon {
@@ -283,6 +314,11 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+        }
+        
+        .nav-item-icon.ph-fill {
+            font-size: 1.25rem;
+            color: inherit;
         }
 
         .sidebar.collapsed .nav-item-icon {
@@ -295,6 +331,10 @@
         }
 
         .sidebar.collapsed .nav-item-text {
+            display: none;
+        }
+        
+        .sidebar.collapsed .quantum-logo .nav-item-text {
             display: none;
         }
 
@@ -326,6 +366,101 @@
             position: sticky;
             top: 0;
             z-index: 30;
+            gap: 2rem;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex: 1;
+        }
+        
+        .header-center {
+            flex: 1;
+            max-width: 500px;
+        }
+        
+        .header-search {
+            width: 100%;
+            padding: 0.625rem 1rem;
+            background: hsl(var(--input));
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+            color: hsl(var(--foreground));
+            transition: all 0.2s;
+        }
+        
+        .header-search:focus {
+            outline: none;
+            border-color: hsl(var(--primary));
+            box-shadow: 0 0 0 2px hsl(var(--primary) / 0.2);
+        }
+        
+        .header-search::placeholder {
+            color: hsl(var(--muted-foreground));
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .header-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+            color: hsl(var(--muted-foreground));
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .header-icon.ph-fill {
+            font-size: 1.25rem;
+            color: inherit;
+        }
+        
+        .header-icon:hover {
+            background: hsl(var(--muted));
+            color: hsl(var(--foreground));
+        }
+        
+        .header-user {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .header-user:hover {
+            background: hsl(var(--muted));
+        }
+        
+        .header-user-avatar {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background: hsl(var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: hsl(var(--primary-foreground));
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .header-revenue {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: hsl(var(--primary));
         }
 
         .header h2 {
@@ -346,10 +481,11 @@
             transition: all 0.2s;
             font-size: 0.875rem;
             height: 2.5rem;
+            width: 100%;
         }
 
         .logout-btn:hover {
-            background: hsl(var(--destructive) / 0.1);
+            background: hsl(var(--destructive) / 0.15);
             border-color: hsl(var(--destructive));
         }
 
@@ -389,12 +525,25 @@
             border: 1px solid hsl(var(--border));
             padding: 1.5rem;
             border-radius: calc(var(--radius) + 2px);
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
             transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, hsl(var(--primary)), hsl(160 100% 40%));
         }
 
         .stat-card:hover {
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
         }
 
         .stat-card h3 {
@@ -408,8 +557,8 @@
 
         .stat-card .value {
             font-size: 2rem;
-            font-weight: 600;
-            color: hsl(var(--foreground));
+            font-weight: 700;
+            color: hsl(var(--primary));
             margin-bottom: 0.5rem;
             line-height: 1.2;
         }
@@ -418,6 +567,24 @@
             font-size: 0.875rem;
             color: hsl(var(--success));
             margin-top: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .stat-card-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+            background: hsl(var(--primary) / 0.1);
+            color: hsl(var(--primary));
+            margin-bottom: 1rem;
+        }
+        
+        .stat-card-icon.ph-fill {
+            font-size: 1.5rem;
+            color: inherit;
         }
 
         /* Table */
@@ -426,7 +593,7 @@
             border: 1px solid hsl(var(--border));
             border-radius: calc(var(--radius) + 2px);
             overflow: hidden;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         .table-header {
@@ -479,7 +646,7 @@
         }
 
         thead {
-            background: hsl(var(--muted));
+            background: hsl(200 25% 18%);
         }
 
         th {
@@ -500,7 +667,7 @@
         }
 
         tbody tr:hover {
-            background: hsl(var(--accent));
+            background: hsl(var(--muted));
         }
 
         tbody tr:last-child td {
@@ -520,21 +687,21 @@
         }
 
         .badge.pending {
-            background: hsl(var(--destructive) / 0.1);
+            background: hsl(var(--destructive) / 0.2);
             color: hsl(var(--destructive));
-            border: 1px solid hsl(var(--destructive) / 0.2);
+            border: 1px solid hsl(var(--destructive) / 0.4);
         }
 
         .badge.completed {
-            background: hsl(var(--success) / 0.1);
+            background: hsl(var(--success) / 0.2);
             color: hsl(var(--success));
-            border: 1px solid hsl(var(--success) / 0.2);
+            border: 1px solid hsl(var(--success) / 0.4);
         }
 
         .badge.processing {
-            background: hsl(var(--warning) / 0.1);
+            background: hsl(var(--warning) / 0.2);
             color: hsl(var(--warning));
-            border: 1px solid hsl(var(--warning) / 0.2);
+            border: 1px solid hsl(var(--warning) / 0.4);
         }
 
         .action-btn {
@@ -549,12 +716,15 @@
             font-size: 0.875rem;
             cursor: pointer;
             transition: all 0.2s;
-            font-weight: 500;
+            font-weight: 600;
             height: 2.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .action-btn:hover {
-            background: hsl(var(--primary) / 0.9);
+            background: hsl(160 100% 45%);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transform: translateY(-1px);
         }
 
         .action-btn.btn-success {
@@ -664,7 +834,10 @@
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <h1>Success Chemistry</h1>
+                <div class="quantum-logo">
+                    <div class="quantum-logo-icon"><i class="ph-fill ph-flask"></i></div>
+                    <span class="quantum-logo-text nav-item-text">SUCCESS<span class="sub">CHEMISTRY</span></span>
+                </div>
                 <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M4 12l8-8M4 4l8 8"/>
@@ -672,61 +845,143 @@
                 </button>
             </div>
             <nav class="sidebar-nav">
+                <div style="padding: 0.5rem 0.75rem; font-size: 0.75rem; color: hsl(var(--muted-foreground)); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; margin-top: 0.5rem;">APP INTERFACE</div>
                 <a href="#" class="nav-item active" data-tab="overview" onclick="event.preventDefault(); switchTab('overview', event);">
-                    <span class="nav-item-icon">📊</span>
-                    <span class="nav-item-text">Overview</span>
-                </a>
-                <a href="#" class="nav-item" data-tab="products" onclick="event.preventDefault(); switchTab('products', event);">
-                    <span class="nav-item-icon ph ph-package"></span>
-                    <span class="nav-item-text">Products</span>
-                </a>
-                <a href="#" class="nav-item" data-tab="sales-channels" onclick="event.preventDefault(); switchTab('sales-channels', event);">
-                    <span class="nav-item-icon ph ph-shopping-cart"></span>
-                    <span class="nav-item-text">Sales Channels</span>
+                    <span class="nav-item-icon ph-fill ph-chart-line-up"></span>
+                    <span class="nav-item-text">ADMIN</span>
                 </a>
                 <a href="#" class="nav-item" data-tab="analytics" onclick="event.preventDefault(); switchTab('analytics', event);">
-                    <span class="nav-item-icon ph ph-chart-line-up"></span>
-                    <span class="nav-item-text">Analytics</span>
+                    <span class="nav-item-icon ph-fill ph-chart-bar"></span>
+                    <span class="nav-item-text">ANALYTICS</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="products" onclick="event.preventDefault(); switchTab('products', event);">
+                    <span class="nav-item-icon ph-fill ph-package"></span>
+                    <span class="nav-item-text">PRODUCTS</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="sales-channels" onclick="event.preventDefault(); switchTab('sales-channels', event);">
+                    <span class="nav-item-icon ph-fill ph-shopping-cart"></span>
+                    <span class="nav-item-text">SALES CHANNELS</span>
+                </a>
+                <div style="padding: 0.5rem 0.75rem; font-size: 0.75rem; color: hsl(var(--muted-foreground)); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; margin-top: 1rem;">UXUI COMPONENTS</div>
+                <a href="#" class="nav-item" data-tab="woo-orders" onclick="event.preventDefault(); switchTab('woo-orders', event);">
+                    <span class="nav-item-icon ph-fill ph-storefront"></span>
+                    <span class="nav-item-text">WOO ORDERS</span>
                 </a>
                 <a href="#" class="nav-item" data-tab="links" onclick="event.preventDefault(); switchTab('links', event);">
-                    <span class="nav-item-icon ph ph-link"></span>
-                    <span class="nav-item-text">Links</span>
+                    <span class="nav-item-icon ph-fill ph-link"></span>
+                    <span class="nav-item-text">LINKS</span>
                 </a>
                 <a href="#" class="nav-item" data-tab="future-upgrades" onclick="event.preventDefault(); switchTab('future-upgrades', event);">
-                    <span class="nav-item-icon ph ph-rocket"></span>
-                    <span class="nav-item-text">Future Upgrades</span>
+                    <span class="nav-item-icon ph-fill ph-rocket"></span>
+                    <span class="nav-item-text">FUTURE UPGRADES</span>
                 </a>
             </nav>
             <div class="sidebar-footer">
+                <a href="http://localhost:5174/vision-board" target="_blank" class="sidebar-vision-toggle" style="display: block; width: 100%; padding: 10px 16px; margin-bottom: 8px; background: hsl(var(--primary) / 0.15); color: hsl(var(--primary)); border: 1px solid hsl(var(--primary) / 0.4); border-radius: 0; text-align: center; font-size: 0.875rem; font-weight: 600; text-decoration: none; cursor: pointer;">Vision Board</a>
                 <button class="logout-btn" onclick="window.logout ? window.logout() : console.error('logout not found')" style="width: 100%;">Logout</button>
+                <a href="/admin/index-bootstrap.html" style="display: block; margin-top: 8px; font-size: 0.75rem; color: hsl(var(--muted-foreground)); text-align: center;">Bootstrap 5 version</a>
             </div>
         </aside>
 
         <!-- Main Content -->
         <div class="main-content">
             <div class="header">
-                <h2 id="pageTitle">Overview</h2>
+                <div class="header-left">
+                    <h2 id="pageTitle" style="margin: 0;">ADMIN</h2>
+                </div>
+                <div class="header-center">
+                    <input type="text" class="header-search" placeholder="Search something..." />
+                </div>
+                <div class="header-right">
+                    <div class="header-revenue" id="headerRevenue">$0.00</div>
+                    <div class="header-icon ph-fill ph-envelope"></div>
+                    <div class="header-icon ph-fill ph-bell"></div>
+                    <div class="header-icon ph-fill ph-gear"></div>
+                    <div class="header-user">
+                        <div class="header-user-avatar">U</div>
+                        <span style="font-size: 0.875rem; color: hsl(var(--foreground));">USERNAME@GMAIL.COM</span>
+                    </div>
+                </div>
             </div>
 
             <div class="container">
 
             <!-- Overview Tab -->
             <div id="overview" class="tab-content active">
-                <div class="stats-grid">
+                <!-- Business Metrics -->
+                <div class="stats-grid" style="margin-bottom: 1.5rem;">
                     <div class="stat-card">
-                        <h3>Total Revenue</h3>
+                        <div class="stat-card-icon ph-fill ph-currency-dollar"></div>
+                        <h3>REVENUE</h3>
                         <div class="value" id="totalRevenue">$0</div>
                         <div class="change">+12.5% from last month</div>
                     </div>
                     <div class="stat-card">
-                        <h3>Products</h3>
-                        <div class="value" id="totalProducts">0</div>
-                        <div class="change">Active products</div>
+                        <div class="stat-card-icon ph-fill ph-users"></div>
+                        <h3>CUSTOMERS</h3>
+                        <div class="value" id="totalCustomers">0</div>
+                        <div class="change">Active customers</div>
                     </div>
                     <div class="stat-card">
-                        <h3>Sales Channels</h3>
-                        <div class="value" id="totalChannels">3</div>
-                        <div class="change">Active channels</div>
+                        <div class="stat-card-icon ph-fill ph-hand-pointing"></div>
+                        <h3>VISITS</h3>
+                        <div class="value" id="totalVisits">0</div>
+                        <div class="change">Total visits</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon ph-fill ph-money"></div>
+                        <h3>PROFIT</h3>
+                        <div class="value" id="totalProfit">$0</div>
+                        <div class="change">Net profit</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon ph-fill ph-rocket-launch"></div>
+                        <h3>LAUNCHES</h3>
+                        <div class="value" id="totalLaunches">0</div>
+                        <div class="change">Campaigns</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon ph-fill ph-storefront"></div>
+                        <h3>SALES</h3>
+                        <div class="value" id="totalSales">$0</div>
+                        <div class="change">Total sales</div>
+                    </div>
+                </div>
+                
+                <!-- Additional Dashboard Widgets -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div class="stat-card">
+                        <h3 style="margin-bottom: 1rem;">SALES PERFORMANCE</h3>
+                        <div id="salesPerformance" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <!-- Sales performance will be loaded here -->
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <h3 style="margin-bottom: 1rem;">TOP PRODUCTS</h3>
+                        <div id="topProducts" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <!-- Top products will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-card" style="margin-bottom: 1.5rem;">
+                    <h3 style="margin-bottom: 1rem;">OPERATIONAL OVERVIEW</h3>
+                    <p style="color: hsl(var(--muted-foreground)); margin-bottom: 1rem;">
+                        Increased weekly production rate by 5%, reflecting improved operational performance.
+                    </p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                        <div>
+                            <div style="font-size: 0.75rem; color: hsl(var(--muted-foreground)); margin-bottom: 0.25rem;">CURRENT</div>
+                            <div style="font-size: 1.5rem; font-weight: 700; color: hsl(var(--primary));">1,000 UNITS</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.75rem; color: hsl(var(--muted-foreground)); margin-bottom: 0.25rem;">TARGET</div>
+                            <div style="font-size: 1.5rem; font-weight: 700; color: hsl(var(--foreground));">1,200 UNITS</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.75rem; color: hsl(var(--muted-foreground)); margin-bottom: 0.25rem;">RATE</div>
+                            <div style="font-size: 1.5rem; font-weight: 700; color: hsl(var(--success));">200 UNITS/W</div>
+                        </div>
                     </div>
                 </div>
 
@@ -769,22 +1024,82 @@
                 </div>
             </div>
 
+            <!-- WooCommerce API & Orders Tab -->
+            <div id="woo-orders" class="tab-content">
+                <div class="stat-card" style="margin-bottom: 1.5rem;">
+                    <h3 style="margin-bottom: 1rem;">WooCommerce API (MySQL)</h3>
+                    <p style="color: hsl(var(--muted-foreground)); margin-bottom: 1rem;">Store your WooCommerce API credentials in the database. Run the schema first: <code>mysql -u user -p database &lt; schema/woo-mysql.sql</code></p>
+                    <div style="display: grid; gap: 1rem; max-width: 600px;">
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem; font-size: 0.875rem;">Site URL</label>
+                            <input type="text" id="wooSiteUrl" placeholder="https://yoursite.com" style="width: 100%; padding: 10px 12px; background: rgba(51, 65, 85, 0.5); border: 1px solid rgba(139, 125, 107, 0.3); color: #F1F5F9; border-radius: 0;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem; font-size: 0.875rem;">Consumer Key (ck_...)</label>
+                            <input type="text" id="wooConsumerKey" placeholder="ck_..." style="width: 100%; padding: 10px 12px; background: rgba(51, 65, 85, 0.5); border: 1px solid rgba(139, 125, 107, 0.3); color: #F1F5F9; border-radius: 0;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem; font-size: 0.875rem;">Consumer Secret (cs_...)</label>
+                            <input type="password" id="wooConsumerSecret" placeholder="cs_..." style="width: 100%; padding: 10px 12px; background: rgba(51, 65, 85, 0.5); border: 1px solid rgba(139, 125, 107, 0.3); color: #F1F5F9; border-radius: 0;">
+                        </div>
+                        <div style="display: flex; gap: 12px;">
+                            <button type="button" onclick="saveWooConfig()" class="action-btn btn-success">Save API config</button>
+                            <button type="button" onclick="loadWooConfig()" class="action-btn" style="background: rgba(100, 116, 139, 0.3); color: #94A3B8;">Reload</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card" style="margin-bottom: 1.5rem;">
+                    <h3 style="margin-bottom: 1rem;">WooCommerce Orders</h3>
+                    <p style="color: hsl(var(--muted-foreground)); margin-bottom: 1rem;">Fetch orders from WooCommerce and store them in MySQL so you can see them here.</p>
+                    <button type="button" onclick="syncWooOrders()" class="action-btn btn-success" id="wooSyncBtn">Fetch orders from WooCommerce</button>
+                    <div id="wooOrdersMessage" style="margin-top: 0.75rem; font-size: 0.875rem;"></div>
+                </div>
+                <div class="data-table">
+                    <div class="table-header">
+                        <h2>WooCommerce orders (from database)</h2>
+                    </div>
+                    <div style="padding: 24px; overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 2px solid rgba(139, 125, 107, 0.3);">
+                                    <th style="text-align: left; padding: 16px 24px;">#</th>
+                                    <th style="text-align: left; padding: 16px 24px;">Customer</th>
+                                    <th style="text-align: left; padding: 16px 24px;">Date</th>
+                                    <th style="text-align: left; padding: 16px 24px;">Total</th>
+                                    <th style="text-align: left; padding: 16px 24px;">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="wooOrdersTable">
+                                <tr><td colspan="5" style="padding: 24px; text-align: center; color: #94A3B8;">Load config and click &quot;Fetch orders&quot; or open this tab to load saved orders.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
             <!-- Analytics Tab -->
             <div id="analytics" class="tab-content">
                 <div class="stats-grid">
                     <div class="stat-card">
                         <h3>Google Analytics</h3>
-                        <div class="value" style="font-size: 1.2rem; margin: 10px 0;">📊 Connected</div>
+                        <div class="value" style="font-size: 1.2rem; margin: 10px 0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="ph-fill ph-chart-line-up" style="font-size: 1.25rem; color: hsl(var(--success));"></i>
+                            Connected
+                        </div>
                         <div class="change" style="margin-top: 10px;">
                             <a href="https://analytics.google.com" target="_blank" style="color: hsl(221.2 83.2% 45%); text-decoration: none; font-weight: 600;">View Analytics →</a>
                         </div>
-                        <p style="margin-top: 15px; font-size: 0.85rem; color: hsl(var(--muted-foreground));">
-                            💡 Reminder: Check Google Analytics and Search Console connection
+                        <p style="margin-top: 15px; font-size: 0.85rem; color: hsl(var(--muted-foreground)); display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="ph-fill ph-lightbulb" style="font-size: 1rem;"></i>
+                            Reminder: Check Google Analytics and Search Console connection
                         </p>
                     </div>
                     <div class="stat-card">
                         <h3>Search Console</h3>
-                        <div class="value" style="font-size: 1.2rem; margin: 10px 0;">🔍 Connected</div>
+                        <div class="value" style="font-size: 1.2rem; margin: 10px 0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="ph-fill ph-magnifying-glass" style="font-size: 1.25rem; color: hsl(var(--success));"></i>
+                            Connected
+                        </div>
                         <div class="change" style="margin-top: 10px;">
                             <a href="https://search.google.com/search-console" target="_blank" style="color: hsl(221.2 83.2% 45%); text-decoration: none; font-weight: 600;">View Search Console →</a>
                         </div>
@@ -818,7 +1133,10 @@
                     </div>
                     <div style="padding: 24px;">
                         <div style="margin-bottom: 30px;">
-                            <h3 style="color: hsl(var(--foreground)); margin-bottom: 15px; font-size: 16px; font-weight: 500;">📚 Product Content Downloads</h3>
+                            <h3 style="color: hsl(var(--foreground)); margin-bottom: 15px; font-size: 16px; font-weight: 500; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="ph-fill ph-books" style="font-size: 1.25rem; color: hsl(var(--primary));"></i>
+                                Product Content Downloads
+                            </h3>
                             <div style="background: hsl(var(--card)); border: 1px solid hsl(var(--border)); padding: 20px; border-radius: calc(var(--radius) + 2px); margin-bottom: 20px;">
                                 <h4 style="color: hsl(var(--success)); margin-bottom: 10px; font-size: 14px; font-weight: 500;">Download eBook / Product Brochure Feature</h4>
                                 <p style="color: hsl(var(--foreground)); margin-bottom: 15px; line-height: 1.5715;">
@@ -843,18 +1161,18 @@
                         </div>
                         
                         <div style="margin-bottom: 30px;">
-                            <h3 style="color: hsl(var(--foreground)); margin-bottom: 15px; font-size: 16px; font-weight: 500;">💡 Additional Planned Features</h3>
+                            <h3 style="color: hsl(var(--foreground)); margin-bottom: 15px; font-size: 16px; font-weight: 500; display: flex; align-items: center; gap: 0.5rem;"><i class="ph-fill ph-lightbulb" style="font-size: 1.25rem; color: hsl(var(--primary));"></i> Additional Planned Features</h3>
                             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
                                 <div style="background: hsl(var(--card)); border: 1px solid hsl(var(--border)); padding: 15px; border-radius: calc(var(--radius) + 2px);">
-                                    <div style="font-weight: 500; color: hsl(var(--foreground)); margin-bottom: 8px;">📧 Email Marketing Integration</div>
+                                    <div style="font-weight: 500; color: hsl(var(--foreground)); margin-bottom: 8px; display: flex; align-items: center; gap: 0.5rem;"><i class="ph-fill ph-envelope" style="font-size: 1rem;"></i> Email Marketing Integration</div>
                                     <p style="color: var(--ant-text-secondary); font-size: 12px; margin: 0;">Connect with email marketing platforms for automated campaigns.</p>
                                 </div>
                                 <div style="background: hsl(var(--card)); border: 1px solid hsl(var(--border)); padding: 15px; border-radius: calc(var(--radius) + 2px);">
-                                    <div style="font-weight: 500; color: hsl(var(--foreground)); margin-bottom: 8px;">📊 Advanced Analytics</div>
+                                    <div style="font-weight: 500; color: hsl(var(--foreground)); margin-bottom: 8px; display: flex; align-items: center; gap: 0.5rem;"><i class="ph-fill ph-chart-line-up" style="font-size: 1rem;"></i> Advanced Analytics</div>
                                     <p style="color: var(--ant-text-secondary); font-size: 12px; margin: 0;">Enhanced reporting and customer behavior insights.</p>
                                 </div>
                                 <div style="background: hsl(var(--card)); border: 1px solid hsl(var(--border)); padding: 15px; border-radius: calc(var(--radius) + 2px);">
-                                    <div style="font-weight: 500; color: hsl(var(--foreground)); margin-bottom: 8px;">🔄 Inventory Management</div>
+                                    <div style="font-weight: 500; color: hsl(var(--foreground)); margin-bottom: 8px; display: flex; align-items: center; gap: 0.5rem;"><i class="ph-fill ph-arrows-clockwise" style="font-size: 1rem;"></i> Inventory Management</div>
                                     <p style="color: var(--ant-text-secondary); font-size: 12px; margin: 0;">Real-time stock tracking and low inventory alerts.</p>
                                 </div>
                             </div>
@@ -939,13 +1257,13 @@
                 <div class="data-table">
                     <div class="table-header">
                         <h2>Complete Site Links Reference</h2>
-                        <button onclick="fetchAllLinks()" class="action-btn">🔄 Fetch All URLs</button>
-                        <button onclick="copyAllLinks()" class="action-btn btn-success">📋 Copy All Links</button>
+                        <button onclick="fetchAllLinks()" class="action-btn"><i class="ph-fill ph-arrows-clockwise" style="font-size: 1rem; margin-right: 0.5rem;"></i> Fetch All URLs</button>
+                        <button onclick="copyAllLinks()" class="action-btn btn-success"><i class="ph-fill ph-clipboard-text" style="font-size: 1rem; margin-right: 0.5rem;"></i> Copy All Links</button>
                     </div>
                     <div id="linksContent" style="padding: 24px;">
                         <div style="text-align: center; padding: 40px; color: var(--ant-text-secondary);">
-                            <p style="margin-bottom: 20px;">Click "🔄 Fetch All URLs" to load all project links</p>
-                            <button onclick="fetchAllLinks()" class="action-btn" style="padding: 12px 24px;">🔄 Fetch Links</button>
+                            <p style="margin-bottom: 20px;">Click "Fetch All URLs" to load all project links</p>
+                            <button onclick="fetchAllLinks()" class="action-btn" style="padding: 12px 24px;"><i class="ph-fill ph-arrows-clockwise" style="font-size: 1rem; margin-right: 0.5rem;"></i> Fetch Links</button>
                         </div>
                     </div>
                 </div>
@@ -1124,11 +1442,18 @@
                 navItem.classList.add('active');
             }
             
+            // Load tab-specific data
+            if (tabName === 'woo-orders') {
+                loadWooConfig();
+                loadWooOrders();
+            }
+
             // Update page title
             const titles = {
-                'overview': 'Overview',
+                'overview': 'Admin',
                 'products': 'Products',
                 'sales-channels': 'Sales Channels',
+                'woo-orders': 'WooCommerce Orders',
                 'analytics': 'Analytics',
                 'links': 'Links',
                 'future-upgrades': 'Future Upgrades'
@@ -1382,14 +1707,129 @@
 
         function updateStats() {
             const products = getAllProducts ? getAllProducts() : [];
-            document.getElementById('totalProducts').textContent = products.length;
+            const totalProducts = products.length;
             
-            // Load sales channels count
-            const channels = JSON.parse(localStorage.getItem('salesChannels') || '[]');
-            const channelsCount = document.getElementById('totalChannels');
-            if (channelsCount) {
-                channelsCount.textContent = channels.length || 3;
+            // Calculate revenue from orders
+            let totalRevenue = 0;
+            let totalProfit = 0;
+            let totalCustomers = new Set();
+            let totalSales = 0;
+            
+            ordersData.forEach(order => {
+                const orderTotal = parseFloat(order.total || 0);
+                totalRevenue += orderTotal;
+                totalSales += orderTotal;
+                // Estimate profit as 40% of revenue
+                totalProfit += orderTotal * 0.4;
+                if (order.customerEmail) {
+                    totalCustomers.add(order.customerEmail);
+                }
+            });
+            
+            // Update header revenue
+            const headerRevenue = document.getElementById('headerRevenue');
+            if (headerRevenue) {
+                headerRevenue.textContent = '$' + totalRevenue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             }
+            
+            // Update stat cards
+            const revenueEl = document.getElementById('totalRevenue');
+            if (revenueEl) {
+                revenueEl.textContent = '$' + (totalRevenue / 1000000).toFixed(1) + 'm';
+            }
+            
+            const customersEl = document.getElementById('totalCustomers');
+            if (customersEl) {
+                customersEl.textContent = totalCustomers.size + 'k';
+            }
+            
+            const visitsEl = document.getElementById('totalVisits');
+            if (visitsEl) {
+                // Mock visits data - could be replaced with analytics
+                visitsEl.textContent = '1.3m';
+            }
+            
+            const profitEl = document.getElementById('totalProfit');
+            if (profitEl) {
+                profitEl.textContent = '$' + (totalProfit / 1000000).toFixed(1) + 'm';
+            }
+            
+            const launchesEl = document.getElementById('totalLaunches');
+            if (launchesEl) {
+                launchesEl.textContent = '4';
+            }
+            
+            const salesEl = document.getElementById('totalSales');
+            if (salesEl) {
+                salesEl.textContent = '$' + (totalSales / 1000000).toFixed(1) + 'm';
+            }
+            
+            // Update sales performance widget
+            updateSalesPerformance();
+            
+            // Update top products widget
+            updateTopProducts(products);
+        }
+        
+        function updateSalesPerformance() {
+            const salesPerformanceEl = document.getElementById('salesPerformance');
+            if (!salesPerformanceEl) return;
+            
+            // Mock sales performance data by region
+            const regions = [
+                { name: 'NORTH AMERICA REGION', sales: 700000, rank: 1 },
+                { name: 'EUROPE REGION', sales: 850000, rank: 2 },
+                { name: 'ASIA-PACIFIC REGION', sales: 600000, rank: 3 },
+                { name: 'SOUTH AMERICA REGION', sales: 900000, rank: 4 },
+                { name: 'AFRICA REGION', sales: 400000, rank: 5 }
+            ];
+            
+            const maxSales = Math.max(...regions.map(r => r.sales));
+            
+            salesPerformanceEl.innerHTML = regions.map(region => {
+                const percentage = (region.sales / maxSales) * 100;
+                return `
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div style="font-weight: 600; color: hsl(var(--foreground)); min-width: 2rem;">${region.rank}</div>
+                        <div style="flex: 1;">
+                            <div style="font-size: 0.875rem; color: hsl(var(--foreground)); margin-bottom: 0.25rem;">${region.name}</div>
+                            <div style="width: 100%; height: 8px; background: hsl(var(--muted)); border-radius: 4px; overflow: hidden;">
+                                <div style="width: ${percentage}%; height: 100%; background: linear-gradient(90deg, hsl(var(--primary)), hsl(160 100% 40%)); transition: width 0.3s;"></div>
+                            </div>
+                        </div>
+                        <div style="font-weight: 700; color: hsl(var(--primary));">$${(region.sales / 1000).toFixed(0)}k</div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function updateTopProducts(products) {
+            const topProductsEl = document.getElementById('topProducts');
+            if (!topProductsEl) return;
+            
+            // Phosphor icon names for different product types
+            const iconNames = ['device-mobile', 'camera', 'laptop', 'watch', 'game-controller', 'speaker-high'];
+            
+            // Get top products by sales (mock data - could use actual order data)
+            const topProducts = products.slice(0, 6).map((product, index) => ({
+                name: product.name,
+                price: parseFloat(product.price || 0),
+                sold: Math.floor(Math.random() * 200) + 50,
+                iconName: iconNames[index] || 'package'
+            }));
+            
+            topProductsEl.innerHTML = topProducts.map(product => {
+                return `
+                    <div style="display: flex; align-items: center; gap: 1rem; padding: 0.75rem; background: hsl(var(--muted) / 0.3); border-radius: var(--radius);">
+                        <i class="ph-fill ph-${product.iconName}" style="font-size: 1.5rem; color: hsl(var(--primary));"></i>
+                        <div style="flex: 1;">
+                            <div style="font-weight: 600; color: hsl(var(--foreground)); font-size: 0.875rem;">${product.name}</div>
+                            <div style="font-size: 0.75rem; color: hsl(var(--muted-foreground));">$${product.price.toFixed(2)}</div>
+                        </div>
+                        <div style="font-weight: 700; color: hsl(var(--primary));">{${product.sold} SOLD}</div>
+                    </div>
+                `;
+            }).join('');
         }
 
         function viewOrder(orderId) {
@@ -1522,6 +1962,109 @@
                 row.style.display = text.includes(searchTerm) ? '' : 'none';
             });
         }
+
+        const ADMIN_API_BASE = 'http://localhost:3001';
+
+        async function loadWooConfig() {
+            try {
+                const res = await fetch(`${ADMIN_API_BASE}/api/woo/config`);
+                if (!res.ok) return;
+                const c = await res.json();
+                const siteUrl = document.getElementById('wooSiteUrl');
+                const consumerKey = document.getElementById('wooConsumerKey');
+                const consumerSecret = document.getElementById('wooConsumerSecret');
+                if (siteUrl) siteUrl.value = c.site_url || '';
+                if (consumerKey) consumerKey.value = c.consumer_key || '';
+                if (consumerSecret) consumerSecret.value = c.consumer_secret || '';
+            } catch (e) {
+                console.warn('Woo config load failed:', e.message);
+            }
+        }
+
+        async function saveWooConfig() {
+            const site_url = document.getElementById('wooSiteUrl')?.value?.trim() || '';
+            const consumer_key = document.getElementById('wooConsumerKey')?.value?.trim() || '';
+            const consumer_secret = document.getElementById('wooConsumerSecret')?.value?.trim() || '';
+            try {
+                const res = await fetch(`${ADMIN_API_BASE}/api/woo/config`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ site_url, consumer_key, consumer_secret })
+                });
+                if (res.ok) {
+                    const msg = document.getElementById('wooOrdersMessage');
+                    if (msg) { msg.textContent = 'API config saved.'; msg.style.color = 'hsl(var(--success))'; }
+                } else {
+                    const err = await res.json().catch(() => ({}));
+                    alert('Save failed: ' + (err.error || res.status));
+                }
+            } catch (e) {
+                alert('Save failed: ' + e.message);
+            }
+        }
+
+        async function loadWooOrders() {
+            const tbody = document.getElementById('wooOrdersTable');
+            if (!tbody) return;
+            try {
+                const res = await fetch(`${ADMIN_API_BASE}/api/woo/orders?limit=200`);
+                const data = await res.json().catch(() => ({ orders: [], total: 0 }));
+                const orders = data.orders || [];
+                if (orders.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" style="padding: 24px; text-align: center; color: #94A3B8;">No WooCommerce orders in database. Save API config and click &quot;Fetch orders from WooCommerce&quot;.</td></tr>';
+                    return;
+                }
+                tbody.innerHTML = orders.map(o => {
+                    const date = o.created_at_woo ? new Date(o.created_at_woo).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '—';
+                    return `<tr style="border-bottom: 1px solid rgba(139, 125, 107, 0.2);">
+                        <td style="padding: 16px 24px;">${o.number || o.woo_order_id}</td>
+                        <td style="padding: 16px 24px;">${(o.customer_name || '').trim() || o.customer_email || '—'}</td>
+                        <td style="padding: 16px 24px;">${date}</td>
+                        <td style="padding: 16px 24px;">${o.currency || '$'} ${parseFloat(o.total || 0).toFixed(2)}</td>
+                        <td style="padding: 16px 24px;"><span class="badge ${(o.status || '').toLowerCase()}">${(o.status || '—').charAt(0).toUpperCase() + (o.status || '').slice(1)}</span></td>
+                    </tr>`;
+                }).join('');
+            } catch (e) {
+                tbody.innerHTML = '<tr><td colspan="5" style="padding: 24px; text-align: center; color: #F87171;">Could not load orders. Is the admin API running? (npm run admin)</td></tr>';
+            }
+        }
+
+        async function syncWooOrders() {
+            const btn = document.getElementById('wooSyncBtn');
+            const msg = document.getElementById('wooOrdersMessage');
+            if (btn) { btn.disabled = true; btn.textContent = 'Fetching…'; }
+            if (msg) { msg.textContent = 'Fetching orders from WooCommerce...'; msg.style.color = '#94A3B8'; }
+            try {
+                const res = await fetch(`${ADMIN_API_BASE}/api/woo/sync`, { method: 'POST' });
+                const data = await res.json().catch(() => ({}));
+                if (res.ok) {
+                    if (msg) {
+                        const message = data.message ? `${data.message} ` : '';
+                        msg.textContent = `${message}Synced ${data.synced ?? 0} orders (${data.total ?? 0} total from WooCommerce).`;
+                        msg.style.color = 'hsl(var(--success))';
+                    }
+                    await loadWooOrders();
+                } else {
+                    const errorMsg = data.error || 'Sync failed';
+                    if (msg) { 
+                        msg.innerHTML = `<span style="color: #F87171;">❌ ${errorMsg}</span><br><small style="color: #94A3B8;">Check that your WooCommerce site is accessible and API credentials are correct.</small>`;
+                    }
+                    alert('Sync failed: ' + errorMsg);
+                }
+            } catch (e) {
+                const errorMsg = 'Error: ' + e.message;
+                if (msg) { 
+                    msg.innerHTML = `<span style="color: #F87171;">❌ ${errorMsg}</span><br><small style="color: #94A3B8;">Make sure the admin API server is running: npm run admin</small>`;
+                }
+                alert('Sync failed: ' + e.message);
+            }
+            if (btn) { btn.disabled = false; btn.textContent = 'Fetch orders from WooCommerce'; }
+        }
+
+        window.loadWooConfig = loadWooConfig;
+        window.saveWooConfig = saveWooConfig;
+        window.loadWooOrders = loadWooOrders;
+        window.syncWooOrders = syncWooOrders;
 
         // Configure WooCommerce API
         function configureWooCommerceAPI() {
@@ -2080,7 +2623,7 @@
             } catch (error) {
                 linksContent.innerHTML = `<div style="text-align: center; padding: 40px; color: #EF4444;">
                     <p>Error fetching links: ${error.message}</p>
-                    <button onclick="fetchAllLinks()" class="action-btn" style="margin-top: 20px;">🔄 Retry</button>
+                    <button onclick="fetchAllLinks()" class="action-btn" style="margin-top: 20px;"><i class="ph-fill ph-arrows-clockwise" style="font-size: 1rem; margin-right: 0.5rem;"></i> Retry</button>
                 </div>`;
             }
         }

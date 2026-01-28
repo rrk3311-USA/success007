@@ -12,7 +12,7 @@ function ActiveOperations({ projects, onToggleMilestone, fullWidth = false }) {
         paddingBottom: '16px',
         borderBottom: '1px solid var(--border-emerald)'
       }}>
-        <span style={{ fontSize: '20px' }}>⚡</span>
+        <span className="ph ph-lightning" style={{ fontSize: '20px' }} aria-hidden />
         <h2 style={{
           fontFamily: 'var(--font-display)',
           fontSize: '18px',
@@ -28,7 +28,7 @@ function ActiveOperations({ projects, onToggleMilestone, fullWidth = false }) {
           <div key={project.id} className="operation-card">
             <div className="operation-header">
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ fontSize: '16px' }}>⚡</span>
+                <span className="ph ph-lightning" style={{ fontSize: '16px' }} aria-hidden />
                 <span className="operation-name">{project.name}</span>
               </div>
               <span className="operation-progress">{project.progress}% COMPLETE</span>

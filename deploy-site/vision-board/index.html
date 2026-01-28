@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision Board - Success Chemistry</title>
+    
+    <!-- Phosphor Icons CDN - Works on all devices including Android and Apple -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css">
+    
+    <!-- Google Fonts - Roboto (Material UI standard) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #1976d2;
+            --primary-dark: #1565c0;
+            --primary-light: #42a5f5;
+            --secondary: #9c27b0;
+            --secondary-dark: #7b1fa2;
+            --error: #d32f2f;
+            --warning: #ed6c02;
+            --info: #0288d1;
+            --success: #2e7d32;
+            --text-primary: rgba(0, 0, 0, 0.87);
+            --text-secondary: rgba(0, 0, 0, 0.6);
+            --text-disabled: rgba(0, 0, 0, 0.38);
+            --divider: rgba(0, 0, 0, 0.12);
+            --background: #fafafa;
+            --surface: #ffffff;
+            --elevation-1: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+            --elevation-2: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+            --elevation-4: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+            --elevation-8: 0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        /* Phosphor Icons Base */
+        .ph {
+            font-family: "Phosphor" !important;
+            speak: never;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1;
+            letter-spacing: 0;
+            -webkit-font-feature-settings: "liga";
+            -moz-font-feature-settings: "liga=1";
+            -moz-font-feature-settings: "liga";
+            -ms-font-feature-settings: "liga" 1;
+            font-feature-settings: "liga";
+            -webkit-font-variant-ligatures: discretionary-ligatures;
+            font-variant-ligatures: discretionary-ligatures;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Material UI Components */
+        .mui-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px 16px;
+        }
+
+        .mui-paper {
+            background: var(--surface);
+            border-radius: 4px;
+            box-shadow: var(--elevation-1);
+            padding: 24px;
+            margin-bottom: 24px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .mui-paper:hover {
+            box-shadow: var(--elevation-4);
+        }
+
+        .mui-paper-elevated {
+            box-shadow: var(--elevation-8);
+        }
+
+        .mui-typography-h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: -0.01562em;
+            margin-bottom: 16px;
+        }
+
+        .mui-typography-h2 {
+            font-size: 2rem;
+            font-weight: 500;
+            line-height: 1.2;
+            letter-spacing: -0.00833em;
+            margin-bottom: 16px;
+        }
+
+        .mui-typography-h3 {
+            font-size: 1.75rem;
+            font-weight: 500;
+            line-height: 1.2;
+            letter-spacing: 0;
+            margin-bottom: 12px;
+        }
+
+        .mui-typography-h4 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            line-height: 1.2;
+            letter-spacing: 0.00735em;
+            margin-bottom: 12px;
+        }
+
+        .mui-typography-body1 {
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            letter-spacing: 0.00938em;
+        }
+
+        .mui-typography-body2 {
+            font-size: 0.875rem;
+            font-weight: 400;
+            line-height: 1.43;
+            letter-spacing: 0.01071em;
+        }
+
+        .mui-button {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.02857em;
+            cursor: pointer;
+            transition: background-color 0.2s, box-shadow 0.2s;
+            box-shadow: var(--elevation-2);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mui-button:hover {
+            background-color: var(--primary-dark);
+            box-shadow: var(--elevation-4);
+        }
+
+        .mui-button:active {
+            box-shadow: var(--elevation-1);
+        }
+
+        .mui-button-outlined {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            box-shadow: none;
+        }
+
+        .mui-button-outlined:hover {
+            background-color: rgba(25, 118, 210, 0.04);
+            box-shadow: none;
+        }
+
+        .mui-button-text {
+            background-color: transparent;
+            color: var(--primary);
+            box-shadow: none;
+            padding: 8px 16px;
+        }
+
+        .mui-button-text:hover {
+            background-color: rgba(25, 118, 210, 0.04);
+        }
+
+        .mui-textfield {
+            width: 100%;
+            margin-bottom: 16px;
+        }
+
+        .mui-textfield-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .mui-textfield-input {
+            width: 100%;
+            padding: 16.5px 14px;
+            border: 1px solid var(--divider);
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: var(--surface);
+            color: var(--text-primary);
+            transition: border-color 0.2s;
+        }
+
+        .mui-textfield-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            border-width: 2px;
+            padding: 15.5px 13px;
+        }
+
+        .mui-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .mui-chip {
+            display: inline-flex;
+            align-items: center;
+            height: 32px;
+            padding: 0 12px;
+            border-radius: 16px;
+            background-color: rgba(0, 0, 0, 0.08);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            gap: 6px;
+        }
+
+        .mui-chip-primary {
+            background-color: rgba(25, 118, 210, 0.12);
+            color: var(--primary);
+        }
+
+        .mui-chip-success {
+            background-color: rgba(46, 125, 50, 0.12);
+            color: var(--success);
+        }
+
+        .mui-divider {
+            height: 1px;
+            background-color: var(--divider);
+            margin: 16px 0;
+        }
+
+        .mui-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .mui-grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .mui-grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .mui-grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        /* Vision Board Specific Styles */
+        .vision-header {
+            text-align: center;
+            margin-bottom: 48px;
+            padding: 48px 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: 4px;
+            box-shadow: var(--elevation-8);
+        }
+
+        .vision-header .ph {
+            font-size: 4rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .vision-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vision-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--divider);
+        }
+
+        .vision-card-header .ph {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .vision-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .vision-item:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+        }
+
+        .vision-item.completed {
+            opacity: 0.6;
+        }
+
+        .vision-item.completed .vision-item-text {
+            text-decoration: line-through;
+            color: var(--text-disabled);
+        }
+
+        .vision-item-text {
+            flex: 1;
+            font-size: 0.9375rem;
+        }
+
+        .vision-item-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vision-item-actions .ph {
+            font-size: 1.125rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.2s;
+        }
+
+        .vision-item-actions .ph:hover {
+            color: var(--primary);
+        }
+
+        .add-goal-form {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .add-goal-form .mui-textfield {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 24px;
+            background: var(--surface);
+            border-radius: 4px;
+            box-shadow: var(--elevation-1);
+        }
+
+        .stat-card .ph {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: rgba(0, 0, 0, 0.08);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 16px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .icon-button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .icon-button:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+            color: var(--primary);
+        }
+
+        .icon-button .ph {
+            font-size: 1.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .mui-container {
+                padding: 16px 12px;
+            }
+
+            .vision-header {
+                padding: 32px 16px;
+            }
+
+            .vision-header .ph {
+                font-size: 3rem;
+            }
+
+            .mui-typography-h1 {
+                font-size: 2rem;
+            }
+
+            .mui-grid-2,
+            .mui-grid-3,
+            .mui-grid-4 {
+                grid-template-columns: 1fr;
+            }
+
+            .add-goal-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mui-container">
+        <!-- Header -->
+        <div class="vision-header">
+            <span class="ph ph-target"></span>
+            <h1 class="mui-typography-h1" style="color: white; margin-bottom: 8px;">Vision Board</h1>
+            <p class="mui-typography-body1" style="color: rgba(255, 255, 255, 0.9);">Your personal roadmap to success</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px; align-items: center;">
+                <a href="alternative.html" style="display: inline-flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.95); font-size: 0.9375rem; text-decoration: none; font-weight: 500;">
+                    <span class="ph ph-layout-dashboard"></span> Try dashboard view
+                </a>
+                <a href="http://localhost:8080/admin/" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.95); font-size: 0.9375rem; text-decoration: none; font-weight: 500;">
+                    <span class="ph ph-flask"></span> Admin
+                </a>
+            </div>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="ph ph-check-circle"></span>
+                <div class="stat-value" id="completedCount">0</div>
+                <div class="stat-label">Completed Goals</div>
+            </div>
+            <div class="stat-card">
+                <span class="ph ph-clock"></span>
+                <div class="stat-value" id="inProgressCount">0</div>
+                <div class="stat-label">In Progress</div>
+            </div>
+            <div class="stat-card">
+                <span class="ph ph-star"></span>
+                <div class="stat-value" id="totalCount">0</div>
+                <div class="stat-label">Total Goals</div>
+            </div>
+            <div class="stat-card">
+                <span class="ph ph-trend-up"></span>
+                <div class="stat-value" id="progressPercent">0%</div>
+                <div class="stat-label">Progress</div>
+            </div>
+        </div>
+
+        <!-- Vision Cards Grid -->
+        <div class="mui-grid mui-grid-2">
+            <!-- Business Goals -->
+            <div class="mui-paper vision-card">
+                <div class="vision-card-header">
+                    <span class="ph ph-briefcase"></span>
+                    <h3 class="mui-typography-h4">Business Goals</h3>
+                </div>
+                <div id="businessGoals">
+                    <div class="vision-item">
+                        <input type="checkbox" class="mui-checkbox" id="goal1" onchange="toggleGoal('goal1')">
+                        <span class="vision-item-text">Reach $100K monthly revenue</span>
+                        <div class="vision-item-actions">
+                            <span class="ph ph-pencil" onclick="editGoal('goal1')"></span>
+                            <span class="ph ph-trash" onclick="deleteGoal('goal1')"></span>
+                        </div>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" class="mui-checkbox" id="goal2" onchange="toggleGoal('goal2')">
+                        <span class="vision-item-text">Launch 10 new products this year</span>
+                        <div class="vision-item-actions">
+                            <span class="ph ph-pencil" onclick="editGoal('goal2')"></span>
+                            <span class="ph ph-trash" onclick="deleteGoal('goal2')"></span>
+                        </div>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" class="mui-checkbox" id="goal3" onchange="toggleGoal('goal3')">
+                        <span class="vision-item-text">Build 50K+ email subscribers</span>
+                        <div class="vision-item-actions">
+                            <span class="ph ph-pencil" onclick="editGoal('goal3')"></span>
+                            <span class="ph ph-trash" onclick="deleteGoal('goal3')"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="add-goal-form">
+                    <div class="mui-textfield">
+                        <input type="text" class="mui-textfield-input" id="newBusinessGoal" placeholder="Add new business goal...">
+                    </div>
+                    <button class="mui-button" onclick="addGoal('business')">
+                        <span class="ph ph-plus"></span>
+                        Add
+                    </button>
+                </div>
+            </div>
+
+            <!-- Design Vision -->
+            <div class="mui-paper vision-card">
+                <div class="vision-card-header">
+                    <span class="ph ph-paint-brush"></span>
+                    <h3 class="mui-typography-h4">Design Vision</h3>
+                </div>
+                <div id="designGoals">
+                    <div class="vision-item">
+                        <input type="checkbox" class="mui-checkbox" id="design1" onchange="toggleGoal('design1')">
+                        <span class="vision-item-text">Implement Material UI design system</span>
+                        <div class="vision-item-actions">
+                            <span class="ph ph-pencil" onclick="editGoal('design1')"></span>
+                            <span class="ph ph-trash" onclick="deleteGoal('design1')"></span>
+                        </div>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" class="mui-checkbox" id="design2" onchange="toggleGoal('design2')">
+                        <span class="vision-item-text">Create consistent brand identity</span>
+                        <div class="vision-item-actions">
+                            <span class="ph ph-pencil" onclick="editGoal('design2')"></span>
+                            <span class="ph ph-trash" onclick="deleteGoal('design2')"></span>
+                        </div>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" class="mui-checkbox" id="design3" onchange="toggleGoal('design3')">
+                        <span class="vision-item-text">Optimize mobile experience</span>
+                        <div class="vision-item-actions">
+                            <span class="ph ph-pencil" onclick="editGoal('design3')"></span>
+                            <span class="ph ph-trash" onclick="deleteGoal('design3')"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="add-goal-form">
+                    <div class="mui-textfield">
+                        <input type="text" class="mui-textfield-input" id="newDesignGoal" placeholder="Add new design goal...">
+                    </div>
+                    <button class="mui-button" onclick="addGoal('design')">
+                        <span class="ph ph-plus"></span>
+                        Add
+                    </button>
+                </div>
+            </div>
+
+            <!-- Marketing Goals -->
+            <div class="mui-paper vision-card">
+                <div class="vision-card-header">
+                    <span class="ph ph-megaphone"></span>
+                    <h3 class="mui-typography-h4">Marketing Goals</h3>
+                </div>
+                <div id="marketingGoals">
+                    <div class="vision-item">
+                        <input type="checkbox" class="mui-checkbox" id="marketing1" onchange="toggleGoal('marketing1')">
+                        <span class="vision-item-text">Increase social media engagement by 200%</span>
+                        <div class="vision-item-actions">
+                            <span class="ph ph-pencil" onclick="editGoal('marketing1')"></span>
+                            <span class="ph ph-trash" onclick="deleteGoal('marketing1')"></span>
+                        </div>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" class="mui-checkbox" id="marketing2" onchange="toggleGoal('marketing2')">
+                        <span class="vision-item-text">Launch email marketing campaign</span>
+                        <div class="vision-item-actions">
+                            <span class="ph ph-pencil" onclick="editGoal('marketing2')"></span>
+                            <span class="ph ph-trash" onclick="deleteGoal('marketing2')"></span>
+                        </div>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" class="mui-checkbox" id="marketing3" onchange="toggleGoal('marketing3')">
+                        <span class="vision-item-text">Reach 1M monthly website visitors</span>
+                        <div class="vision-item-actions">
+                            <span class="ph ph-pencil" onclick="editGoal('marketing3')"></span>
+                            <span class="ph ph-trash" onclick="deleteGoal('marketing3')"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="add-goal-form">
+                    <div class="mui-textfield">
+                        <input type="text" class="mui-textfield-input" id="newMarketingGoal" placeholder="Add new marketing goal...">
+                    </div>
+                    <button class="mui-button" onclick="addGoal('marketing')">
+                        <span class="ph ph-plus"></span>
+                        Add
+                    </button>
+                </div>
+            </div>
+
+            <!-- Personal Development -->
+            <div class="mui-paper vision-card">
+                <div class="vision-card-header">
+                    <span class="ph ph-graduation-cap"></span>
+                    <h3 class="mui-typography-h4">Personal Development</h3>
+                </div>
+                <div id="personalGoals">
+                    <div class="vision-item">
+                        <input type="checkbox" class="mui-checkbox" id="personal1" onchange="toggleGoal('personal1')">
+                        <span class="vision-item-text">Complete online course on leadership</span>
+                        <div class="vision-item-actions">
+                            <span class="ph ph-pencil" onclick="editGoal('personal1')"></span>
+                            <span class="ph ph-trash" onclick="deleteGoal('personal1')"></span>
+                        </div>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" class="mui-checkbox" id="personal2" onchange="toggleGoal('personal2')">
+                        <span class="vision-item-text">Read 24 books this year</span>
+                        <div class="vision-item-actions">
+                            <span class="ph ph-pencil" onclick="editGoal('personal2')"></span>
+                            <span class="ph ph-trash" onclick="deleteGoal('personal2')"></span>
+                        </div>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" class="mui-checkbox" id="personal3" onchange="toggleGoal('personal3')">
+                        <span class="vision-item-text">Attend 3 industry conferences</span>
+                        <div class="vision-item-actions">
+                            <span class="ph ph-pencil" onclick="editGoal('personal3')"></span>
+                            <span class="ph ph-trash" onclick="deleteGoal('personal3')"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="add-goal-form">
+                    <div class="mui-textfield">
+                        <input type="text" class="mui-textfield-input" id="newPersonalGoal" placeholder="Add new personal goal...">
+                    </div>
+                    <button class="mui-button" onclick="addGoal('personal')">
+                        <span class="ph ph-plus"></span>
+                        Add
+                    </button>
+                </div>
+            </div>
+
+            <!-- Health & Wellness -->
+            <div class="mui-paper vision-card">
+                <div class="vision-card-header">
+                    <span class="ph ph-heart"></span>
+                    <h3 class="mui-typography-h4">Health & Wellness</h3>
+                </div>
+                <div id="healthGoals">
+                    <div class="vision-item">
+                        <input type="checkbox" class="mui-checkbox" id="health1" onchange="toggleGoal('health1')">
+                        <span class="vision-item-text">Exercise 5 days per week</span>
+                        <div class="vision-item-actions">
+                            <span class="ph ph-pencil" onclick="editGoal('health1')"></span>
+                            <span class="ph ph-trash" onclick="deleteGoal('health1')"></span>
+                        </div>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" class="mui-checkbox" id="health2" onchange="toggleGoal('health2')">
+                        <span class="vision-item-text">Meditate daily for 20 minutes</span>
+                        <div class="vision-item-actions">
+                            <span class="ph ph-pencil" onclick="editGoal('health2')"></span>
+                            <span class="ph ph-trash" onclick="deleteGoal('health2')"></span>
+                        </div>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" class="mui-checkbox" id="health3" onchange="toggleGoal('health3')">
+                        <span class="vision-item-text">Get 8 hours of sleep nightly</span>
+                        <div class="vision-item-actions">
+                            <span class="ph ph-pencil" onclick="editGoal('health3')"></span>
+                            <span class="ph ph-trash" onclick="deleteGoal('health3')"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="add-goal-form">
+                    <div class="mui-textfield">
+                        <input type="text" class="mui-textfield-input" id="newHealthGoal" placeholder="Add new health goal...">
+                    </div>
+                    <button class="mui-button" onclick="addGoal('health')">
+                        <span class="ph ph-plus"></span>
+                        Add
+                    </button>
+                </div>
+            </div>
+
+            <!-- Financial Goals -->
+            <div class="mui-paper vision-card">
+                <div class="vision-card-header">
+                    <span class="ph ph-currency-dollar"></span>
+                    <h3 class="mui-typography-h4">Financial Goals</h3>
+                </div>
+                <div id="financialGoals">
+                    <div class="vision-item">
+                        <input type="checkbox" class="mui-checkbox" id="financial1" onchange="toggleGoal('financial1')">
+                        <span class="vision-item-text">Save $50K for emergency fund</span>
+                        <div class="vision-item-actions">
+                            <span class="ph ph-pencil" onclick="editGoal('financial1')"></span>
+                            <span class="ph ph-trash" onclick="deleteGoal('financial1')"></span>
+                        </div>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" class="mui-checkbox" id="financial2" onchange="toggleGoal('financial2')">
+                        <span class="vision-item-text">Invest 20% of income monthly</span>
+                        <div class="vision-item-actions">
+                            <span class="ph ph-pencil" onclick="editGoal('financial2')"></span>
+                            <span class="ph ph-trash" onclick="deleteGoal('financial2')"></span>
+                        </div>
+                    </div>
+                    <div class="vision-item">
+                        <input type="checkbox" class="mui-checkbox" id="financial3" onchange="toggleGoal('financial3')">
+                        <span class="vision-item-text">Pay off credit card debt</span>
+                        <div class="vision-item-actions">
+                            <span class="ph ph-pencil" onclick="editGoal('financial3')"></span>
+                            <span class="ph ph-trash" onclick="deleteGoal('financial3')"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="add-goal-form">
+                    <div class="mui-textfield">
+                        <input type="text" class="mui-textfield-input" id="newFinancialGoal" placeholder="Add new financial goal...">
+                    </div>
+                    <button class="mui-button" onclick="addGoal('financial')">
+                        <span class="ph ph-plus"></span>
+                        Add
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load saved goals from localStorage
+        function loadGoals() {
+            const saved = localStorage.getItem('visionBoardGoals');
+            if (saved) {
+                const goals = JSON.parse(saved);
+                Object.keys(goals).forEach(id => {
+                    const checkbox = document.getElementById(id);
+                    if (checkbox) {
+                        checkbox.checked = goals[id];
+                        if (goals[id]) {
+                            checkbox.closest('.vision-item').classList.add('completed');
+                        }
+                    }
+                });
+            }
+            updateStats();
+        }
+
+        // Save goals to localStorage
+        function saveGoals() {
+            const checkboxes = document.querySelectorAll('.vision-item input[type="checkbox"]');
+            const goals = {};
+            checkboxes.forEach(cb => {
+                goals[cb.id] = cb.checked;
+            });
+            localStorage.setItem('visionBoardGoals', JSON.stringify(goals));
+            updateStats();
+        }
+
+        // Toggle goal completion
+        function toggleGoal(id) {
+            const checkbox = document.getElementById(id);
+            const item = checkbox.closest('.vision-item');
+            if (checkbox.checked) {
+                item.classList.add('completed');
+            } else {
+                item.classList.remove('completed');
+            }
+            saveGoals();
+        }
+
+        // Add new goal
+        function addGoal(category) {
+            const inputId = `new${category.charAt(0).toUpperCase() + category.slice(1)}Goal`;
+            const input = document.getElementById(inputId);
+            const text = input.value.trim();
+            
+            if (!text) return;
+            
+            const containerId = `${category}Goals`;
+            const container = document.getElementById(containerId);
+            
+            const newId = `${category}${Date.now()}`;
+            const newItem = document.createElement('div');
+            newItem.className = 'vision-item';
+            newItem.innerHTML = `
+                <input type="checkbox" class="mui-checkbox" id="${newId}" onchange="toggleGoal('${newId}')">
+                <span class="vision-item-text">${text}</span>
+                <div class="vision-item-actions">
+                    <span class="ph ph-pencil" onclick="editGoal('${newId}')"></span>
+                    <span class="ph ph-trash" onclick="deleteGoal('${newId}')"></span>
+                </div>
+            `;
+            
+            container.appendChild(newItem);
+            input.value = '';
+            saveGoals();
+        }
+
+        // Edit goal
+        function editGoal(id) {
+            const item = document.querySelector(`#${id}`).closest('.vision-item');
+            const textSpan = item.querySelector('.vision-item-text');
+            const currentText = textSpan.textContent;
+            const newText = prompt('Edit goal:', currentText);
+            
+            if (newText && newText.trim()) {
+                textSpan.textContent = newText.trim();
+                saveGoals();
+            }
+        }
+
+        // Delete goal
+        function deleteGoal(id) {
+            if (confirm('Are you sure you want to delete this goal?')) {
+                const item = document.querySelector(`#${id}`).closest('.vision-item');
+                item.remove();
+                saveGoals();
+            }
+        }
+
+        // Update statistics
+        function updateStats() {
+            const checkboxes = document.querySelectorAll('.vision-item input[type="checkbox"]');
+            const total = checkboxes.length;
+            const completed = Array.from(checkboxes).filter(cb => cb.checked).length;
+            const inProgress = total - completed;
+            const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
+            
+            document.getElementById('completedCount').textContent = completed;
+            document.getElementById('inProgressCount').textContent = inProgress;
+            document.getElementById('totalCount').textContent = total;
+            document.getElementById('progressPercent').textContent = progress + '%';
+        }
+
+        // Allow Enter key to add goals
+        document.querySelectorAll('.mui-textfield-input').forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const category = this.id.replace('new', '').replace('Goal', '').toLowerCase();
+                    addGoal(category);
+                }
+            });
+        });
+
+        // Initialize on page load
+        loadGoals();
+    </script>
+</body>
+</html>

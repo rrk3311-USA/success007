@@ -1,0 +1,46 @@
+/* Phosphor Icons - built-in subset for Vision Board (paths for Next.js public/) */
+@font-face {
+  font-family: "Phosphor";
+  src:
+    url("/phosphor-icons/Fonts/regular/Phosphor.woff2") format("woff2"),
+    url("/phosphor-icons/Fonts/regular/Phosphor.woff") format("woff"),
+    url("/phosphor-icons/Fonts/regular/Phosphor.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.ph {
+  font-family: "Phosphor" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  letter-spacing: 0;
+  -webkit-font-feature-settings: "liga";
+  font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ph.ph-brain:before { content: "\e74e"; }
+.ph.ph-chart-bar:before { content: "\e150"; }
+.ph.ph-clock:before { content: "\e19a"; }
+.ph.ph-currency-dollar:before { content: "\e550"; }
+.ph.ph-envelope-simple:before { content: "\e218"; }
+.ph.ph-eye:before { content: "\e220"; }
+.ph.ph-file-text:before { content: "\e23a"; }
+.ph.ph-heart:before { content: "\e2a8"; }
+.ph.ph-heart-straight:before { content: "\e2aa"; }
+.ph.ph-lightning:before { content: "\e2de"; }
+.ph.ph-list-checks:before { content: "\eadc"; }
+.ph.ph-plus:before { content: "\e3d4"; }
+.ph.ph-shield-check:before { content: "\e40c"; }
+.ph.ph-shopping-cart:before { content: "\e41e"; }
+.ph.ph-sun:before { content: "\e472"; }
+.ph.ph-target:before { content: "\e47c"; }
+.ph.ph-terminal:before { content: "\e47e"; }
+.ph.ph-trophy:before { content: "\e67e"; }
+.ph.ph-users:before { content: "\e4d6"; }

@@ -542,36 +542,36 @@ async function loadSalesChannels() {
     if (!tableBody) return;
 
     tableBody.innerHTML = channels.map(channel => `
-        <tr style="border-bottom: 1px solid rgba(139, 125, 107, 0.2);">
-            <td style="padding: 16px 24px;">
+        <tr style="border-bottom: 1px solid hsl(var(--border));">
+            <td style="padding: 16px;">
                 <div style="display: flex; align-items: center; gap: 12px;">
                     <span style="font-size: 1.5rem;">${channel.icon}</span>
                     <div>
-                        <div style="font-weight: 600; color: #F1F5F9; margin-bottom: 4px;">${channel.name}</div>
-                        <div style="font-size: 0.85rem; color: #94A3B8;">${channel.dashboardUrl}</div>
+                        <div style="font-weight: 500; color: hsl(var(--foreground)); margin-bottom: 4px;">${channel.name}</div>
+                        <div style="font-size: 12px; color: hsl(var(--muted-foreground));">${channel.dashboardUrl}</div>
                     </div>
                 </div>
             </td>
-            <td style="padding: 16px 24px;">
-                <span class="badge" style="background: rgba(${channel.status === 'active' ? '16, 185, 129' : '245, 158, 11'}, 0.2); color: ${channel.statusColor}; border: 1px solid rgba(${channel.status === 'active' ? '16, 185, 129' : '245, 158, 11'}, 0.3);">
+            <td style="padding: 16px;">
+                <span class="badge ${channel.status === 'active' ? 'completed' : 'processing'}">
                     ${channel.statusText}
                 </span>
-                <div style="font-size: 0.75rem; color: #94A3B8; margin-top: 4px;">${channel.apiStatus}</div>
+                <div style="font-size: 12px; color: hsl(var(--muted-foreground)); margin-top: 4px;">${channel.apiStatus}</div>
             </td>
-            <td style="padding: 16px 24px; color: #CBD5E1;">
+            <td style="padding: 16px; color: hsl(var(--foreground));">
                 <div style="margin-bottom: 4px;">${channel.config}</div>
-                <div style="font-size: 0.75rem; color: #94A3B8;">Last sync: ${channel.lastSync}</div>
+                <div style="font-size: 12px; color: hsl(var(--muted-foreground));">Last sync: ${channel.lastSync}</div>
             </td>
-            <td style="padding: 16px 24px; color: #CBD5E1;">
+            <td style="padding: 16px; color: hsl(var(--foreground));">
                 ${channel.listings}
             </td>
-            <td style="padding: 16px 24px;">
+            <td style="padding: 16px;">
                 <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                     ${channel.actions.map(action => {
                         if (action.url) {
-                            return `<a href="${action.url}" target="_blank" style="padding: 6px 12px; background: rgba(6, 182, 212, 0.2); border: 1px solid #06B6D4; color: #06B6D4; text-decoration: none; border-radius: 0; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.2s;" onmouseover="this.style.background='rgba(6, 182, 212, 0.3)'" onmouseout="this.style.background='rgba(6, 182, 212, 0.2)'">${action.icon} ${action.label}</a>`;
+                            return `<a href="${action.url}" target="_blank" class="action-btn" style="padding: 0.5rem 1rem; height: 2.5rem; font-size: 0.875rem; font-weight: 500;">${action.icon} ${action.label}</a>`;
                         } else if (action.action) {
-                            return `<button onclick="${action.action}()" style="padding: 6px 12px; background: rgba(6, 182, 212, 0.2); border: 1px solid #06B6D4; color: #06B6D4; border-radius: 0; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(6, 182, 212, 0.3)'" onmouseout="this.style.background='rgba(6, 182, 212, 0.2)'">${action.icon} ${action.label}</button>`;
+                            return `<button onclick="${action.action}()" class="action-btn" style="padding: 0.5rem 1rem; height: 2.5rem; font-size: 0.875rem; font-weight: 500;">${action.icon} ${action.label}</button>`;
                         }
                     }).join('')}
                 </div>
@@ -584,7 +584,7 @@ function refreshSalesChannels() {
     loadSalesChannels();
     // Show notification
     const notification = document.createElement('div');
-    notification.style.cssText = 'position: fixed; top: 20px; right: 20px; padding: 16px 24px; background: rgba(16, 185, 129, 0.2); border: 1px solid #10B981; color: #10B981; border-radius: 0; z-index: 10000; font-weight: 600;';
+    notification.style.cssText = 'position: fixed; top: 20px; right: 20px; padding: 16px 24px; background: hsl(var(--success) / 0.1); border: 1px solid hsl(var(--success) / 0.2); color: hsl(var(--success)); border-radius: calc(var(--radius) + 4px); z-index: 10000; font-weight: 500; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);';
     notification.textContent = '✅ Sales channels refreshed';
     document.body.appendChild(notification);
     setTimeout(() => notification.remove(), 3000);
