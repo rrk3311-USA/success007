@@ -13,6 +13,7 @@
     "life-jet": "cd deploy-site/life-jet && npm run dev",
     "life-jet:build": "cd deploy-site/life-jet && npm run build",
     "build:all": "cd deploy-site/life-jet && npm install && npm run build && cd ../.. && echo '✅ All builds complete'",
+    "build:workflow": "cd workflow-builder && npm install && npm run build && cd .. && mkdir -p deploy-site/workflow-builder && cp -r workflow-builder/dist/* deploy-site/workflow-builder/",
     "test:telegram": "node test-telegram.js",
     "test:zia": "node test-zia-api.js",
     "test:purchase": "node test-purchase-flow.js",

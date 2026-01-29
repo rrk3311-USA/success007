@@ -1,0 +1,6 @@
+# Crypto momentum trading bot – Bybit perpetuals, CoinGecko gainers, MACD/RSI
+ccxt>=4.0.0
+pycoingecko>=3.1.0
+pandas>=2.0.0
+apscheduler>=3.10.0
+python-dotenv>=1.0.0
