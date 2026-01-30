@@ -4450,6 +4450,22 @@
                 window.productImages = product.images || [];
                 window.currentImageIndex = 0;
                 
+                // Product video section (when product.video is set)
+                let videoHTML = '';
+                if (product.video) {
+                    const safeName = (product.name || 'Product').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+                    videoHTML = `
+                        <section class="product-video-section" style="padding: 40px 0; background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(248, 250, 255, 0.5) 100%); width: 100%;">
+                            <div style="width: 100%; max-width: 720px; margin: 0 auto; padding: 0 20px;">
+                                <h3 style="text-align: center; font-size: 1rem; margin-bottom: 24px; color: #1a1a2e; font-weight: 400; letter-spacing: 2px; text-transform: uppercase;">Learn More</h3>
+                                <div style="position: relative; width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.12);">
+                                    <video src="${product.video}" controls playsinline preload="metadata" title="${safeName}" style="display: block; width: 100%; height: auto; vertical-align: middle;">Your browser does not support the video tag.</video>
+                                </div>
+                            </div>
+                        </section>
+                    `;
+                }
+                
                 // Suggested products (You May Also Like)
                 const allProducts = typeof window.getAllProducts === 'function' ? window.getAllProducts() : [];
                 const suggestedProducts = (allProducts || []).filter(p => p.sku !== product.sku).slice(0, 3);
@@ -4703,7 +4719,8 @@
                     </section>
                     
                     ${imageGalleryHTML}
-                    
+                    ${videoHTML}
+
                     <!-- Choose Your Bundle (repeat) - above Subscribe & Save -->
                     <section class="choose-bundle-repeat-section" style="padding: 32px 0;">
                         <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">

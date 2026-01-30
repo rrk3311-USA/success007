@@ -1024,6 +1024,7 @@ const PRODUCTS_DATA = {
             "/images/products/10788-302-1/03.jpg",
             "/images/products/10788-302-1/04.jpg"
         ],
+        "video": "/public/videos/colon-detox-1080p.mp4",
         "stock": 100000,
         "upc": "",
         "gtin": "783325395067",
