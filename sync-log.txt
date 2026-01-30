@@ -1,0 +1,44 @@
+🚀 Starting Zoho CRM Sync...
+
+Options:
+   Sync Contacts: ✅
+   Sync Orders: ✅
+
+============================================================
+📇 SYNCING CONTACTS
+============================================================
+📥 Fetching customers from WooCommerce...
+❌ Error fetching customers page 1: fetch failed
+✅ Fetched 0 total customers from WooCommerce
+
+
+✅ Contacts sync complete!
+
+============================================================
+🛒 SYNCING ORDERS
+============================================================
+📥 Fetching orders from WooCommerce...
+❌ Error fetching orders page 1: fetch failed
+✅ Fetched 0 total orders from WooCommerce
+
+
+✅ Orders sync complete!
+
+============================================================
+📊 SYNC SUMMARY
+============================================================
+
+📇 Contacts:
+   Total: 0
+   ✅ Synced: 0
+   ⏭️  Skipped: 0
+   ❌ Errors: 0
+
+🛒 Orders:
+   Total: 0
+   ✅ Synced: 0
+   ⏭️  Skipped: 0
+   ❌ Errors: 0
+
+✅ Sync complete!
+

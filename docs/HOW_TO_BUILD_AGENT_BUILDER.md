@@ -199,7 +199,7 @@ OpenAI Agent Builder is a **visual canvas** for composing multi-step agent workf
 
 ### 6.4 Use n8n itself as the base
 
-If you don’t need to build from scratch: **use n8n** (self‑hosted or n8n cloud). Add **OpenAI / Agent** nodes (or HTTP nodes calling your LLM API) to get “Agent Builder–like” flows inside n8n. Your crypto momentum bot’s [NODE_OVERVIEW.md](../crypto-momentum-bot/NODE_OVERVIEW.md) is already described in n8n terms (Schedule, IF, HTTP, Code, Loop).
+If you don’t need to build from scratch: **use n8n** (self‑hosted or n8n cloud). Add **OpenAI / Agent** nodes (or HTTP nodes calling your LLM API) to get “Agent Builder–like” flows inside n8n. Your crypto momentum bot’s [NODE_OVERVIEW.md](../trading-bot-concept/crypto-momentum-bot/NODE_OVERVIEW.md) is already described in n8n terms (Schedule, IF, HTTP, Code, Loop).
 
 ---
 

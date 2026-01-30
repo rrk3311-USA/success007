@@ -1,6 +1,6 @@
 {
   "installCommand": "npm install",
-  "buildCommand": "npm run build:all",
+  "buildCommand": "npm run build",
   "outputDirectory": "deploy-site",
   "cleanUrls": false,
   "trailingSlash": false,
@@ -16,14 +16,6 @@
     {
       "source": "/life-jet",
       "destination": "/life-jet/dist/index.html"
-    },
-    {
-      "source": "/workflow-builder",
-      "destination": "/workflow-builder/index.html"
-    },
-    {
-      "source": "/workflow-builder/*",
-      "destination": "/workflow-builder/index.html"
     }
   ],
   "headers": [

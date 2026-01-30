@@ -13,6 +13,7 @@ non-deploy-experiments/
 REAL FACTORY images/
 vision-board/
 cursor-theme-hub-net/
+trading-bot-concept/
 test-*.js
 *.sh
 deploy-to-*.js

@@ -1,0 +1,99 @@
+/* ============================================
+   RESUME HERO - Personal / branding header
+   Use with resume-hero.html below universal header
+   ============================================ */
+
+.resume-hero {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  padding: 2.5rem 1rem 3rem;
+  overflow: hidden;
+}
+
+.resume-hero__container {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+@media (min-width: 768px) {
+  .resume-hero {
+    padding: 3.5rem 1.5rem 4rem;
+  }
+  .resume-hero__container {
+    max-width: 800px;
+    padding: 0 24px;
+  }
+}
+
+.resume-hero__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #2854a6;
+  margin: 0 0 0.75rem 0;
+}
+
+.resume-hero__headline {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #0f172a;
+  margin: 0 0 1rem 0;
+}
+
+@media (min-width: 768px) {
+  .resume-hero__headline {
+    font-size: 1.875rem;
+  }
+}
+
+.resume-hero__tagline {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #475569;
+  margin: 0 0 1.25rem 0;
+}
+
+.resume-hero__meta {
+  font-size: 0.9375rem;
+  color: #334155;
+  margin-bottom: 1rem;
+}
+
+.resume-hero__role {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.resume-hero__sep {
+  margin: 0 0.5rem;
+  color: #94a3b8;
+}
+
+.resume-hero__skills {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #64748b;
+  margin: 0;
+}
+
+.resume-hero__accent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #667eea 100%);
+  background-size: 200% 100%;
+  animation: resumeHeroGradient 3s linear infinite;
+}
+
+@keyframes resumeHeroGradient {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
