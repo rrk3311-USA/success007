@@ -2,9 +2,7 @@
 const nextConfig = {
   images: {
     unoptimized: true,
-    remotePatterns: [
-      { protocol: "https", hostname: "successchemistry.com", pathname: "/**" },
-    ],
+    // Local build only – product images served from /images/products/ in this app
   },
 };
 

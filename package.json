@@ -19,7 +19,8 @@
     "test:purchase": "node test-purchase-flow.js",
     "sclera:i18n": "node deploy-site/sclera/generate-full-i18n-pages.js",
     "mercor:pdf": "node deploy-site/generate-mercor-pdf.js",
-    "admin": "node admin-api-server.js"
+    "admin": "node admin-api-server.js",
+    "medusa-sample": "node deploy-site/medusa-admin-sample-server.js"
   },
   "dependencies": {
     "@paypal/agent-toolkit": "^1.8.0",

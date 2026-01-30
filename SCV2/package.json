@@ -7,7 +7,8 @@
     "dev": "next dev -p 8000",
     "build": "next build",
     "start": "next start -p 8000",
-    "lint": "next lint"
+    "lint": "next lint",
+    "admin:sample": "node scripts/admin-sample-server.js"
   },
   "dependencies": {
     "@medusajs/js-sdk": "^2.8.0",

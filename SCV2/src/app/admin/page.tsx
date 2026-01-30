@@ -25,6 +25,24 @@ export default function AdminPage() {
       <p className="mt-4 text-sm text-gray-500">
         URL: <code className="bg-gray-100 px-1 rounded">{adminUrl}</code>
       </p>
+      <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+        <p className="text-sm font-medium text-amber-900 mb-1">
+          This site can&apos;t be reached?
+        </p>
+        <p className="text-sm text-amber-800 mb-2">
+          Nothing is running on port 7001. In a <strong>separate terminal</strong>, from the <strong>SCV2</strong> folder run:
+        </p>
+        <code className="block text-sm bg-white px-2 py-1 rounded border border-amber-200">
+          npm run admin:sample
+        </code>
+        <p className="mt-2 text-sm text-amber-800">
+          Leave that terminal open, then open{" "}
+          <a href="http://localhost:7001" target="_blank" rel="noopener noreferrer" className="underline font-medium">
+            http://localhost:7001
+          </a>
+          . That runs a placeholder page so the link works without a full Medusa backend.
+        </p>
+      </div>
       <p className="mt-4 text-sm text-gray-600">
         When your Medusa backend is running, Admin is usually on port{" "}
         <code>7001</code>. Configure PayPal and other payment providers in

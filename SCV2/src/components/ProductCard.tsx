@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { SC } from "@/lib/constants";
+import { getProductImagePath } from "@/lib/image-paths";
 import { cn } from "@/lib/utils";
 
 export type ProductCardProps = {
@@ -31,7 +32,7 @@ export function ProductCard({
     <>
       <div className="aspect-square bg-gradient-to-br from-sky-50 to-white relative overflow-hidden rounded-t-xl">
         <Image
-          src={image}
+          src={getProductImagePath(image, "card-hero")}
           alt={name}
           width={400}
           height={400}

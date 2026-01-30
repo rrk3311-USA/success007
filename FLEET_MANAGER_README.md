@@ -316,6 +316,7 @@ For questions or issues:
 - [ ] Customer segmentation AI
 - [ ] Voice of customer analysis
 - [ ] Competitor price monitoring API
+- [ ] **Agentic-managed CDP** — Unified customer data layer for Observe/Act; see [CDP_AGENTIC_MANAGED.md](./CDP_AGENTIC_MANAGED.md)
 
 ---
 

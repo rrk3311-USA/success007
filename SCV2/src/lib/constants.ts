@@ -18,4 +18,9 @@ export const ROUTES = {
   blogSample: "/blog-sample",
   blogIngredients: "/blog/ingredients-we-use",
   product: (slug: string) => `/product/${slug}`,
+  termsOfService: "/terms-of-service",
+  shippingReturns: "/shipping-returns",
+  paymentPolicy: "/payment-policy",
+  privacyPolicy: "/privacy-policy",
+  contact: "/contact",
 } as const;
