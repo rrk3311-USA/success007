@@ -22,3 +22,6 @@ deploy-site/public/images/SC backgrounds/
 deploy-site/public/images/GMP proccess images/
 .cursor/debug.log
 .cursor/debug.log
+
+# Personal secrets – never deploy, never commit
+secrets-personal/

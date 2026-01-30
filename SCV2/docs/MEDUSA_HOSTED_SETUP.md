@@ -2,6 +2,28 @@
 
 Use this when you want orders in the cloud, Admin from any device, and SCV2 talking to a real backend (not local).
 
+**Install size (local):** A full Medusa backend (`create-medusa-app` + `npm install`) is **large**—often **500 MB–1 GB+** for `node_modules`. The backend pulls in Postgres/TypeORM, Redis, Bull queues, Admin (React), and many plugins, so the first download can take several minutes. Normal.
+
+**Backend inside SCV2:** You can keep the Medusa backend in this repo under `SCV2/medusa-backend`. To create it there and start it:
+
+1. From your machine, go to the SCV2 folder:
+   ```bash
+   cd ~/Documents/GitHub/success007/SCV2
+   ```
+2. Create the backend (run locally; the CLI will create a new subfolder):
+   ```bash
+   npx create-medusa-app@latest
+   ```
+   When it asks for the **project name** or **directory**, enter: **`medusa-backend`**. It will create `SCV2/medusa-backend` and install there.
+3. After it finishes, start the backend:
+   ```bash
+   cd medusa-backend
+   npm run dev
+   ```
+4. Open Admin: **http://localhost:9000/app**
+
+---
+
 You need **three** things:
 
 1. **PostgreSQL** (Supabase free tier)
@@ -13,6 +35,8 @@ Then point **SCV2** at the deployed backend.
 ---
 
 ## 1. Supabase (Postgres)
+
+**Project ref (this repo):** `ncwubhefvxmojxseryjo`. Cursor MCP config: see [SUPABASE_MCP.md](./SUPABASE_MCP.md).
 
 1. Go to [supabase.com](https://supabase.com) → Sign in → **New project**.
 2. Pick org, name (e.g. `medusa-scv2`), database password (save it), region → **Create**.

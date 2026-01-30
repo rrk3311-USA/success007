@@ -1,0 +1,44 @@
+{
+  "description": "Data only: 3 main products from success project (deploy-site/products-data.js). Use for seeding Medusa. Images synced to SCV2/public/images/products/<sku>/.",
+  "products": [
+    {
+      "sku": "52274-401",
+      "name": "Success Chemistry Women's Balance – Female Libido & Arousal Support Supplement with L-Arginine, Maca, Ashwagandha, Ginseng & Zinc – 60 Capsules",
+      "price": 28,
+      "category": "Women's Health",
+      "short_description": "Premium female libido enhancement supplement with clinically-studied ingredients including L-Arginine, Maca Root, Ashwagandha, and Korean Ginseng. Supports natural arousal, energy levels, and hormonal balance for women.",
+      "description": "Rediscover Balance, Confidence & Connection. Women's Balance by Success Chemistry is thoughtfully crafted to support feminine wellness from the inside out. Modern life, stress, and hormonal changes can affect energy, mood, and responsiveness. This formula is designed to help support the body's natural balance so you can feel more in tune with yourself. Advanced Botanical & Nutrient Support: This unique blend combines time-honored botanicals with modern nutritional science. Ingredients such as Maca root, Ashwagandha, Ginseng, and Damiana have been traditionally used to support vitality and female wellness. L-Arginine supports healthy blood flow, while essential vitamins and minerals help support energy metabolism and overall health. Designed for Daily Use: Women's Balance is intended for consistent daily use as part of a healthy lifestyle. With 30 servings per bottle, it fits seamlessly into your routine to support long-term wellness goals. Clean, Thoughtful Formulation: Vegetarian capsules, Non-GMO ingredients, Manufactured in the USA, Quality tested for purity and potency. Feel supported, balanced, and confident — naturally. *These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+      "suggested_use": "As a dietary supplement take two (2) veggie capsules once a day after a meal with an 8oz. glass of water or as directed by your healthcare professional.",
+      "supplement_facts": "Serving Size: 2 Capsules. Servings Per Container: 30. Vitamin A (as Beta-Carotene) - 2500 IU, Thiamin (Vitamin B1) - 2mg, Niacin (Vitamin B3) - 20mg, Vitamin B6 - 5mg, Vitamin B12 - 25mcg, Pantothenic Acid (Vitamin B5) - 10mg, Zinc - 15mg, L-Arginine - 500mg, BioPerine® Black Pepper Extract - 5mg, Proprietary Botanical Blend - 600mg. Other Ingredients: Rice Flour, Hypromellose (Vegetable Capsule), Magnesium Stearate (Vegetable), Silicon Dioxide.",
+      "ingredients": "Vitamin A (as Beta-Carotene), Thiamin, Niacin, Vitamin B6, Vitamin B12, Pantothenic Acid, Zinc, L-Arginine, BioPerine® Black Pepper Extract, Proprietary Botanical Blend. Other: Rice Flour, Hypromellose (Vegetable Capsule), Magnesium Stearate (Vegetable), Silicon Dioxide.",
+      "images": ["/images/products/52274-401/01.png", "/images/products/52274-401/02.png", "/images/products/52274-401/03.png", "/images/products/52274-401/04.png", "/images/products/52274-401/05.png", "/images/products/52274-401/06.png", "/images/products/52274-401/07.png", "/images/products/52274-401/08.png", "/images/products/52274-401/09.png", "/images/products/52274-401/10.png"],
+      "gtin": "783325397399"
+    },
+    {
+      "sku": "14179-504-2",
+      "name": "Success Chemistry® Prostate Renew - 2 pack! - Natural Prostate Supplement for Men with Saw Palmetto & Quercetin - 60 Veggie Capsules",
+      "price": 37.99,
+      "category": "Bundle Deals",
+      "short_description": "Advanced prostate health formula with Saw Palmetto, Quercetin, and essential nutrients. Clinically-proven ingredients support healthy urinary flow, reduce frequent nighttime trips, and promote optimal prostate function for men over 40.",
+      "description": "Discover Success Chemistry® Prostate Renew – a premium prostate support supplement for men designed to promote healthy prostate function, improve urinary flow, reduce frequent nighttime bathroom trips, and support overall men's urinary health naturally. This advanced natural prostate health formula features a powerful blend of traditional herbs like saw palmetto, quercetin, juniper, uva ursi, pumpkin seed oil, and burdock root for gentle, effective daily support.",
+      "suggested_use": "As a dietary supplement take two (2) veggie capsules once a day after a meal with an 8oz. glass of water or as directed by your healthcare professional.",
+      "supplement_facts": "Serving Size: 2 Capsules. Servings Per Container: 30. Saw Palmetto Extract - 320mg, Quercetin - 250mg, Pumpkin Seed Oil - 200mg, Juniper Berry Extract - 150mg, Uva Ursi Extract - 100mg, Burdock Root - 100mg, Beta-Sitosterol - 50mg, Zinc - 15mg, Vitamin D3 - 1000 IU, Vitamin B6 - 10mg. Other Ingredients: Rice Flour, Hypromellose (Vegetable Capsule), Magnesium Stearate (Vegetable), Silicon Dioxide.",
+      "ingredients": "Saw Palmetto Extract, Quercetin, Pumpkin Seed Oil, Juniper Berry Extract, Uva Ursi Extract, Burdock Root, Beta-Sitosterol, Zinc, Vitamin D3, Vitamin B6, Rice Flour, Hypromellose (Vegetable Capsule), Magnesium Stearate (Vegetable), Silicon Dioxide.",
+      "images": ["/images/products/14179-504-2/01.png", "/images/products/14179-504-2/02.jpg", "/images/products/14179-504-2/03.jpg", "/images/products/14179-504-2/04.jpg", "/images/products/14179-504-2/05.jpg", "/images/products/14179-504-2/06.png"],
+      "gtin": "783325397405"
+    },
+    {
+      "sku": "10786-807-2",
+      "name": "Lutein Supplement for Eye Health Vision Support with Zeaxanthin 2 Pack 120 Capsules Total",
+      "price": 37.99,
+      "category": "Best Sellers",
+      "short_description": "Premium eye health formula with 20mg Lutein and Zeaxanthin. Protects against blue light damage, supports macular health, and promotes clear vision. Essential nutrients for digital age eye protection.",
+      "description": "This 2-pack of Lutein and Zeaxanthin supplements provides a 4-month supply with 120 capsules total, designed to support your long-term eye health and vision. Each serving is packed with natural antioxidants that help protect against blue light and promote macular health. This formula works to reduce eye strain and fatigue from screen time and digital devices, while nourishing your eyes for improved clarity and visual comfort. Made in the USA in a GMP-certified facility, these gluten-free and non-GMO capsules offer a clean way to support vibrant vision.",
+      "suggested_use": "As a dietary supplement, take one (1) capsule once a day after a meal with an 8oz. glass of water or as directed by your healthcare professional.",
+      "supplement_facts": "Serving Size: 1 Capsule. Servings Per Container: 120. Lutein (from Lutein 5%) - 20mg, Zeaxanthin (from Zeaxanthin 5%) - 2mg, Vitamin C - 100mg, Vitamin E - 30 IU, Zinc - 15mg, Copper - 1mg. Other Ingredients: Rice Flour, Hypromellose (Vegetable Capsule), Magnesium Stearate (Vegetable), Silicon Dioxide.",
+      "ingredients": "Lutein, Zeaxanthin, Vitamin C, Vitamin E, Zinc, Copper, Rice Flour, Hypromellose (Vegetable Capsule), Magnesium Stearate (Vegetable), Silicon Dioxide.",
+      "images": ["/images/products/10786-807-2/01.png", "/images/products/10786-807-2/02.png", "/images/products/10786-807-2/03.jpg", "/images/products/10786-807-2/04.jpg", "/images/products/10786-807-2/05.png", "/images/products/10786-807-2/06.jpg", "/images/products/10786-807-2/07.jpeg", "/images/products/10786-807-2/08.png"],
+      "gtin": "783325396675"
+    }
+  ]
+}

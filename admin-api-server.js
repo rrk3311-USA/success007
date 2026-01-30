@@ -468,6 +468,77 @@ app.post('/api/woo/sync-customers', checkAuth, async (req, res) => {
     res.json({ synced: wooCustomersMemory.length, total: wooCustomersMemory.length });
 });
 
+// --- PayPal REST API (create order + capture for Smart Buttons) ---
+const PAYPAL_MODE = (process.env.PAYPAL_MODE || 'live').toLowerCase();
+const PAYPAL_BASE = PAYPAL_MODE === 'sandbox' ? 'https://api-m.sandbox.paypal.com' : 'https://api-m.paypal.com';
+const PAYPAL_CLIENT_ID = PAYPAL_MODE === 'sandbox' ? process.env.PAYPAL_SANDBOX_CLIENT_ID : process.env.PAYPAL_PRODUCTION_CLIENT_ID;
+const PAYPAL_CLIENT_SECRET = PAYPAL_MODE === 'sandbox' ? process.env.PAYPAL_SANDBOX_CLIENT_SECRET : process.env.PAYPAL_PRODUCTION_CLIENT_SECRET;
+
+async function getPayPalAccessToken() {
+    const auth = Buffer.from(`${PAYPAL_CLIENT_ID}:${PAYPAL_CLIENT_SECRET}`).toString('base64');
+    const res = await fetch(`${PAYPAL_BASE}/v1/oauth2/token`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded', Authorization: `Basic ${auth}` },
+        body: 'grant_type=client_credentials'
+    });
+    if (!res.ok) {
+        const text = await res.text();
+        throw new Error(`PayPal auth failed: ${res.status} ${text}`);
+    }
+    const json = await res.json();
+    return json.access_token;
+}
+
+app.post('/api/paypal/orders', async (req, res) => {
+    try {
+        if (!PAYPAL_CLIENT_ID || !PAYPAL_CLIENT_SECRET) {
+            return res.status(500).json({ error: 'PayPal not configured. Set PAYPAL_PRODUCTION_CLIENT_ID and PAYPAL_PRODUCTION_CLIENT_SECRET in .env' });
+        }
+        const token = await getPayPalAccessToken();
+        const body = req.body || {};
+        const payload = body.purchase_units ? { intent: body.intent || 'CAPTURE', purchase_units: body.purchase_units } : {
+            intent: 'CAPTURE',
+            purchase_units: [{ amount: { currency_code: body.currency_code || 'USD', value: String(body.amount || '0.00') } }]
+        };
+        const orderRes = await fetch(`${PAYPAL_BASE}/v2/checkout/orders`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+            body: JSON.stringify(payload)
+        });
+        const orderJson = await orderRes.json();
+        if (!orderRes.ok) {
+            return res.status(orderRes.status).json({ success: false, error: orderJson.message || orderJson.details?.[0]?.description || 'PayPal error' });
+        }
+        res.json({ success: true, order: { id: orderJson.id } });
+    } catch (e) {
+        console.error('PayPal create order error:', e.message);
+        res.status(500).json({ success: false, error: e.message || 'Failed to create PayPal order' });
+    }
+});
+
+app.post('/api/paypal/orders/:orderID/pay', async (req, res) => {
+    try {
+        if (!PAYPAL_CLIENT_ID || !PAYPAL_CLIENT_SECRET) {
+            return res.status(500).json({ error: 'PayPal not configured' });
+        }
+        const token = await getPayPalAccessToken();
+        const { orderID } = req.params;
+        const captureRes = await fetch(`${PAYPAL_BASE}/v2/checkout/orders/${orderID}/capture`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+            body: JSON.stringify({})
+        });
+        const captureJson = await captureRes.json();
+        if (!captureRes.ok) {
+            return res.status(captureRes.status).json({ success: false, error: captureJson.message || captureJson.details?.[0]?.description || 'PayPal capture failed' });
+        }
+        res.json({ success: true, order: captureJson });
+    } catch (e) {
+        console.error('PayPal capture error:', e.message);
+        res.status(500).json({ error: e.message || 'Failed to capture PayPal order' });
+    }
+});
+
 // Health check
 app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
@@ -495,6 +566,11 @@ app.listen(PORT, '127.0.0.1', () => {
         console.log(`   Set DATABASE_URL or MYSQL_* env vars to enable persistence`);
     }
     
+    if (PAYPAL_CLIENT_ID && PAYPAL_CLIENT_SECRET) {
+        console.log(`\n💳 PayPal: ${PAYPAL_MODE} mode – /api/paypal/orders ready`);
+    } else {
+        console.log(`\n⚠️  PayPal: Set PAYPAL_PRODUCTION_CLIENT_ID and PAYPAL_PRODUCTION_CLIENT_SECRET in .env for checkout`);
+    }
     console.log(`\n🔐 Demo Login Credentials:`);
     console.log(`   Email: admin@successchemistry.com (or any email)`);
     console.log(`   Password: admin123 (or any password)`);
