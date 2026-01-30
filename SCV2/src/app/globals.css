@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --sc-blue: #2854a6;
+    --sc-blue-dark: #1e3a8a;
+    --gradient-strip: linear-gradient(
+      90deg,
+      #667eea 0%,
+      #764ba2 25%,
+      #f093fb 50%,
+      #4facfe 75%,
+      #667eea 100%
+    );
+  }
+  body {
+    @apply antialiased text-gray-900;
+    font-family: var(--font-medusa), ui-sans-serif, system-ui, sans-serif;
+  }
+}
+
+/* Header/footer styles removed – use minimal placeholders; rebuild as needed. */
