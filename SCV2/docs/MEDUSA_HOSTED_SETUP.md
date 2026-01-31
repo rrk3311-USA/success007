@@ -2,25 +2,81 @@
 
 Use this when you want orders in the cloud, Admin from any device, and SCV2 talking to a real backend (not local).
 
+---
+
+## What to do next to have Admin work online (checklist)
+
+1. **Deploy the Medusa backend** (Railway or Render)  
+   - Repo: this repo (`success007`).  
+   - **Root directory:** `deploy-site/medusa-backend`.  
+   - Set env vars (see “Using your existing Supabase + Upstash” below and “3. Medusa backend”):  
+     `DATABASE_URL`, `REDIS_URL`, `COOKIE_SECRET`, `JWT_SECRET`, `STORE_CORS`, `ADMIN_CORS`, `AUTH_CORS`, `MEDUSA_WORKER_MODE=server`.  
+   - After deploy you get a URL like `https://your-app.up.railway.app`.
+
+2. **Open Admin in the browser**  
+   - Go to `https://your-app.up.railway.app/app` (or your Render URL + `/app`).  
+   - If the backend asks for a user, create one (see “4. Create admin user” below).
+
+3. **Get the publishable key**  
+   - In Admin: **Settings → Sales Channels** → open your channel → copy **Publishable Key** (`pk_...`).
+
+4. **Point SCV2 (Vercel) at the backend**  
+   - In Vercel → your SCV2 project → **Settings → Environment Variables** add:  
+     - `NEXT_PUBLIC_MEDUSA_BACKEND_URL` = `https://your-app.up.railway.app`  
+     - `NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY` = `pk_...`  
+   - Redeploy SCV2. Your storefront will use the live API; the Admin link on the site can point to the same backend URL.
+
+Details for each step are in the sections below.
+
+---
+
+## Finish setup in Railway (click-by-click)
+
+1. **Railway dashboard** → Your project (e.g. the one with SCV2).
+2. **New** (or **+ New**) → **GitHub Repo** (or **Empty Service** then connect repo).
+3. Choose repo: **rrk3311-USA/success007**.
+4. **Settings** (or **Configure**) for the new service:
+   - **Root Directory:** set to `deploy-site/medusa-backend` (so this service runs the backend, not the Next.js app).
+   - **Build:** leave default (`npm install && npm run build`).
+   - **Start:** leave default (`npm run start` or `medusa start`).
+5. **Variables** → Add:
+   - `DATABASE_URL` = your Supabase Postgres URI  
+   - `REDIS_URL` = your Upstash Redis URL  
+   - `COOKIE_SECRET` = run `openssl rand -hex 32` and paste  
+   - `JWT_SECRET` = run `openssl rand -hex 32` again and paste  
+   - `MEDUSA_WORKER_MODE` = `server`  
+   - `STORE_CORS` = `https://scv2-success-chemistry.vercel.app`  
+   - After first deploy, set `ADMIN_CORS` and `AUTH_CORS` to your backend URL (e.g. `https://your-svc.up.railway.app`).
+6. **Deploy** (or push to trigger deploy). Copy the generated URL (e.g. `https://xxx.up.railway.app`).
+7. Admin: open **`https://xxx.up.railway.app/app`** in the browser.
+
+---
+
+## Using your existing Supabase + Upstash credentials
+
+You already have Supabase (Postgres) and Upstash (Redis). The Medusa backend uses the same credentials via two env vars:
+
+| Medusa backend env var | Use your existing |
+|------------------------|--------------------|
+| `DATABASE_URL`         | Supabase **Postgres connection URI** — see “DATABASE_URL for Render” below. **Use Session pooler (port 6543), not Direct (5432).** Direct is not IPv4-compatible and will timeout on Render. |
+| `REDIS_URL`            | Upstash **Redis URL** (e.g. `rediss://default:xxx@xxx.upstash.io:6379`) |
+
+- **Local:** Put these in `deploy-site/medusa-backend/.env` (create from `deploy-site/medusa-backend/.env.template` and fill `DATABASE_URL`, `REDIS_URL`).
+- **Production (Railway/Render):** Set the same `DATABASE_URL` and `REDIS_URL` in the service’s environment variables.
+
 **Install size (local):** A full Medusa backend (`create-medusa-app` + `npm install`) is **large**—often **500 MB–1 GB+** for `node_modules`. The backend pulls in Postgres/TypeORM, Redis, Bull queues, Admin (React), and many plugins, so the first download can take several minutes. Normal.
 
-**Backend inside SCV2:** You can keep the Medusa backend in this repo under `SCV2/medusa-backend`. To create it there and start it:
+**Backend in this repo:** `deploy-site/medusa-backend`. To run locally:
 
-1. From your machine, go to the SCV2 folder:
-   ```bash
-   cd ~/Documents/GitHub/success007/SCV2
-   ```
-2. Create the backend (run locally; the CLI will create a new subfolder):
-   ```bash
-   npx create-medusa-app@latest
-   ```
-   When it asks for the **project name** or **directory**, enter: **`medusa-backend`**. It will create `SCV2/medusa-backend` and install there.
-3. After it finishes, start the backend:
-   ```bash
-   cd medusa-backend
-   npm run dev
-   ```
-4. Open Admin: **http://localhost:9000/app**
+```bash
+cd deploy-site/medusa-backend
+cp .env.template .env
+# Edit .env: set DATABASE_URL (Supabase) and REDIS_URL (Upstash) from repo root .env
+npm install
+npm run dev
+```
+
+Admin locally: **http://localhost:9000/app**
 
 ---
 
@@ -38,10 +94,31 @@ Then point **SCV2** at the deployed backend.
 
 **Project ref (this repo):** `ncwubhefvxmojxseryjo`. Cursor MCP config: see [SUPABASE_MCP.md](./SUPABASE_MCP.md).
 
+### DATABASE_URL for Render (required: Session pooler, IPv4)
+
+Render is IPv4-only. Supabase’s **Direct connection** (port 5432) is **not IPv4 compatible** and will cause `Pg connection failed` / `KnexTimeoutError`. You must use the **Session pooler** (or Transaction pooler) URI.
+
+1. Supabase → your project → **Settings** → **Database**.
+2. In **Connection string** (or “Connect to your project”):
+   - **Method:** choose **Session pooler** (or **Transaction pooler**), **not** “Direct connection”.
+   - **Type:** URI.
+3. Copy the URI. It should look like:
+   ```text
+   postgresql://postgres.ncwubhefvxmojxseryjo:[YOUR-PASSWORD]@aws-0-[region].pooler.supabase.com:6543/postgres
+   ```
+   - Port must be **6543** (pooler), not 5432.
+   - Host must be **`*.pooler.supabase.com`**, not `db.*.supabase.co`.
+4. Replace `[YOUR-PASSWORD]` with your real DB password (no brackets). If the password has special characters (`+`, `?`, `@`, `#`, `/`, etc.), URL-encode them (e.g. `+` → `%2B`, `@` → `%40`).
+5. Set that full string as **`DATABASE_URL`** in Render (no quotes, no spaces). Redeploy.
+
+If you still get timeouts, in Supabase check **Settings → Database** for any “Restrict connections” or IP allowlist and ensure the pooler is enabled.
+
+---
+
 1. Go to [supabase.com](https://supabase.com) → Sign in → **New project**.
 2. Pick org, name (e.g. `medusa-scv2`), database password (save it), region → **Create**.
 3. In the project: **Settings** → **Database**.
-4. Copy the **Connection string** → **URI**. It looks like:
+4. Copy the **Connection string** → **URI** (use **Session pooler** as above). It looks like:
    ```text
    postgresql://postgres.[ref]:[YOUR-PASSWORD]@aws-0-[region].pooler.supabase.com:6543/postgres
    ```
@@ -68,10 +145,11 @@ You need a **Medusa v2** backend repo. Two paths:
 
 ### Option A: Railway (simplest)
 
+**Note:** Railway **free plan** has a **5-minute build timeout**. Medusa backend often exceeds that (large `npm ci` + build). Use **Railway Pro** ($5/mo, 60 min timeout) or deploy to **Render** (Option B) instead.
+
 1. Go to [railway.app](https://railway.app) → Sign in (e.g. GitHub).
-2. **New Project** → **Deploy from GitHub repo**.
-3. Use Medusa’s template or a repo from [create-medusa-app](https://docs.medusajs.com/create-medusa-app):
-   - Or: **“Deploy medusajs”** template if available (adds Postgres + Redis on Railway).
+2. **New Project** → **Deploy from GitHub repo** → select this repo (`success007`).
+3. Set **Root Directory** to `deploy-site/medusa-backend` (so Railway builds and runs that folder).
 4. In the deployed service, set **Environment Variables**:
    - `DATABASE_URL` = Supabase URI from step 1
    - `REDIS_URL` = Upstash (or Redis) URL from step 2
@@ -90,7 +168,7 @@ You need a **Medusa v2** backend repo. Two paths:
 ### Option B: Render
 
 1. [render.com](https://render.com) → Sign in → **New** → **Web Service**.
-2. Connect your GitHub and select (or create) a Medusa backend repo.
+2. Connect GitHub and select this repo (`success007`). Set **Root Directory** to `deploy-site/medusa-backend`.
 3. **Environment**:
    - `DATABASE_URL` = Supabase URI
    - `REDIS_URL` = Upstash/Redis URL

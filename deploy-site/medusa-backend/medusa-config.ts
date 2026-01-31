@@ -12,22 +12,17 @@ module.exports = defineConfig({
       authCors: process.env.AUTH_CORS!,
       jwtSecret: process.env.JWT_SECRET || "supersecret",
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
+      port: parseInt(process.env.PORT || "9000", 10),
+      host: process.env.HOST || "0.0.0.0",
     }
   },
   modules: [
     {
       resolve: "@medusajs/medusa/payment",
       options: {
-        providers: [
-          {
-            resolve: "@medusajs/medusa/payment-stripe",
-            id: "stripe",
-            options: {
-              apiKey: process.env.STRIPE_API_KEY,
-              webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
-            },
-          },
-        ],
+        // PayPal only: Medusa v2 has no official PayPal provider yet. Using built-in system
+        // provider (manual/COD) until you add a custom PayPal provider. No Stripe.
+        providers: [],
       },
     },
     {
