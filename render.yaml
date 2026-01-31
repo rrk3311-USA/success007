@@ -5,9 +5,8 @@ services:
     runtime: node
     plan: free
     rootDir: deploy-site/medusa-backend
-    # Migrations in build (pre-deploy not supported on free tier)
-    buildCommand: npm install && npm run build && npx medusa db:migrate && cd .medusa/server && npm install
-    # Uses package.json "start" which does: cd .medusa/server && npm start (deps installed in build)
+    # Copy .medusa/server to _server so Render includes it in deploy (.medusa can be excluded by platform)
+    buildCommand: npm install && npm run build && npx medusa db:migrate && cp -r .medusa/server ./_server && cd _server && npm install
     startCommand: npm run start
     envVars:
       - key: DATABASE_URL
