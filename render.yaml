@@ -1,13 +1,13 @@
 services:
   # Medusa backend (API + Admin) – fill DATABASE_URL, REDIS_URL, ADMIN_CORS, AUTH_CORS in Render Dashboard
+  # Uses Docker so .medusa/server (built in image) exists at runtime; native build does not persist it on Render.
   - type: web
     name: medusa-backend
-    runtime: node
+    runtime: docker
     plan: free
     rootDir: deploy-site/medusa-backend
-    # Copy .medusa/server to _server so Render includes it in deploy (.medusa can be excluded by platform)
-    buildCommand: npm install && npm run build && npx medusa db:migrate && cp -r .medusa/server ./_server && cd _server && npm install
-    startCommand: npm run start
+    dockerfilePath: deploy-site/medusa-backend/Dockerfile
+    dockerContext: deploy-site/medusa-backend
     envVars:
       - key: DATABASE_URL
         sync: false
