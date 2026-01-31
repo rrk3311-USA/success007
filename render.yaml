@@ -7,8 +7,8 @@ services:
     rootDir: deploy-site/medusa-backend
     buildCommand: npm install && npm run build && cd .medusa/server && npm install
     preDeployCommand: npx medusa db:migrate
-    # Medusa expects start from .medusa/server (admin build lives there)
-    startCommand: cd .medusa/server && npm install && npm start
+    # Uses package.json "start" which does: cd .medusa/server && npm start (deps installed in build)
+    startCommand: npm run start
     envVars:
       - key: DATABASE_URL
         sync: false
