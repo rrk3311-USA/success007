@@ -1,4 +1,31 @@
 services:
+  # Medusa backend (API + Admin) – fill DATABASE_URL, REDIS_URL, ADMIN_CORS, AUTH_CORS in Render Dashboard
+  # Uses Docker so .medusa/server (built in image) exists at runtime; native build does not persist it on Render.
+  - type: web
+    name: medusa-backend
+    runtime: docker
+    plan: free
+    rootDir: deploy-site/medusa-backend
+    dockerfilePath: deploy-site/medusa-backend/Dockerfile
+    dockerContext: deploy-site/medusa-backend
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: COOKIE_SECRET
+        generateValue: true
+      - key: JWT_SECRET
+        generateValue: true
+      - key: MEDUSA_WORKER_MODE
+        value: server
+      - key: STORE_CORS
+        value: https://scv2-success-chemistry.vercel.app
+      - key: ADMIN_CORS
+        sync: false
+      - key: AUTH_CORS
+        sync: false
+
   # Static site (deploy-site). Build only life-jet to avoid root npm install (optionalDependencies can fail on Render).
   - type: web
     name: containersuccess007
