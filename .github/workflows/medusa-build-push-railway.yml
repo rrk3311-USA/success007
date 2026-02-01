@@ -1,0 +1,52 @@
+# Build Medusa backend Docker image in GitHub Actions (avoids Railway 5-min build timeout),
+# push to GHCR, then trigger Railway to redeploy from that image.
+#
+# One-time setup:
+# 1. Railway: switch heartfelt-cooperation to "Deploy from image" → ghcr.io/<your-github-username>/success007/medusa-backend:latest
+# 2. Make GHCR package public (or add GHCR credentials in Railway)
+# 3. Add GitHub repo secrets: RAILWAY_TOKEN, RAILWAY_PROJECT_ID, RAILWAY_SERVICE_ID (see docs/RAILWAY_IMAGE_DEPLOY.md)
+
+name: Build Medusa image and deploy to Railway
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'deploy-site/medusa-backend/**'
+      - '.github/workflows/medusa-build-push-railway.yml'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Medusa image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./deploy-site/medusa-backend
+          file: ./deploy-site/medusa-backend/Dockerfile
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}/medusa-backend:latest
+
+      - name: Trigger Railway redeploy
+        if: success()
+        continue-on-error: true
+        run: |
+          npx -y @railway/cli redeploy -y --service ${{ secrets.RAILWAY_SERVICE_ID }}
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
