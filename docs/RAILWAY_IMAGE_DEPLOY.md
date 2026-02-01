@@ -58,6 +58,7 @@ On the **heartfelt-cooperation** service, set the same env vars as before (Railw
 - `ADMIN_CORS`, `AUTH_CORS`, `STORE_CORS`
 - `COOKIE_SECRET`, `JWT_SECRET`
 - `MEDUSA_WORKER_MODE` = `server`
+- `HOST` = `0.0.0.0` (so the server listens on all interfaces; otherwise Railway shows “Application failed to respond”. Railway sets `PORT` automatically.)
 
 ## Flow after setup
 
@@ -67,3 +68,30 @@ On the **heartfelt-cooperation** service, set the same env vars as before (Railw
 4. Railway pulls `ghcr.io/.../medusa-backend:latest` and runs it.
 
 No build runs on Railway, so the 5-minute build timeout no longer applies.
+
+---
+
+## How the Admin Works (Now and in the Future)
+
+The Medusa **backend on Railway serves both the API and the Admin dashboard**. There is no separate admin deploy.
+
+1. **URL:** Your backend is at `https://heartfelt-cooperation-production-40a2.up.railway.app`. Open the **admin** at:
+   - **`https://heartfelt-cooperation-production-40a2.up.railway.app/app`**
+
+2. **Login:** Use an admin user created via seed (`medusa exec ./src/scripts/seed.ts`) or via Medusa’s invite flow. Credentials are stored in your Supabase DB; the backend (on Railway) handles auth with `JWT_SECRET` and `COOKIE_SECRET`.
+
+3. **CORS:** Set `ADMIN_CORS` on Railway to the **exact origin(s)** the admin UI is loaded from. For this backend:
+   - `ADMIN_CORS=https://heartfelt-cooperation-production-40a2.up.railway.app`
+   - (No trailing slash.) Add more origins (e.g. a custom domain) comma-separated if you use them.
+
+4. **Future:** No change to this flow. Same backend image keeps serving `/app` (admin UI) and `/admin` (admin API). Deploys work as today: push → Actions build image → Railway pulls and runs it → admin stays at `https://heartfelt-cooperation-production-40a2.up.railway.app/app`.
+
+---
+
+## “Application failed to respond”
+
+If Railway shows this:
+
+1. **Port / host:** The app must listen on Railway’s `PORT` and on `0.0.0.0`. The Dockerfile sets `HOST=0.0.0.0` in the start command; Railway sets `PORT`. In Railway, add `HOST=0.0.0.0` as an env var if you’re still on an older image.
+2. **Deploy logs:** In Railway → your service → **Deployments** → open the latest deploy → **View Logs**. Look for crashes after “Server is ready” (e.g. missing `DATABASE_URL` or `REDIS_URL`, migration errors, or uncaught exceptions).
+3. **Startup time:** If migrations or first connect are slow, the health check can time out. After the fix, trigger a **Redeploy** and check logs again.

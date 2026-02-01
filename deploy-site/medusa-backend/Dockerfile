@@ -23,5 +23,7 @@ RUN cd .medusa/server && npm ci --omit=dev
 
 EXPOSE 9000
 
-# Migrations need DATABASE_URL at runtime; then start from built server
-CMD ["sh", "-c", "npx medusa db:migrate && cd .medusa/server && npm start"]
+# Migrations need DATABASE_URL at runtime; then start from built server.
+# Railway sets PORT; Medusa reads it. HOST=0.0.0.0 so the server is reachable (default localhost would cause "Application failed to respond").
+# Echo markers so deploy logs show where startup fails (migrations vs server start).
+CMD ["sh", "-c", "echo '[MEDUSA] Starting migrations' && npx medusa db:migrate && echo '[MEDUSA] Migrations done, starting server (PORT='$PORT')' && cd .medusa/server && HOST=0.0.0.0 npm start"]
